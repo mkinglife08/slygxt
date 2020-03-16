@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>婴儿室记录</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/PerinataPaper.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="medrecord">
+        <p class="word">婴儿室记录</p>
+        <div class="rigBtn">
+             <a class="layui-btn">新增入室经过</a>
+             <a class="layui-btn">保存</a>
+             <a class="layui-btn">删除</a>
+             <a class="layui-btn">打印</a>
+        </div>
+ 	</div>
+	<div class="perinatal">
+		<div class="perinatalCont">
+			<div class="babyRecord clearfix borderBot">
+				<div class="fir fl">
+					<div class="layui-form-item">
+					    <label class="layui-form-label">母亲姓名</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+				</div>
+				<div class="fir fl">
+					<div class="layui-form-item">
+					    <label class="layui-form-label">婴儿性别</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+				</div>
+				<div class="fir fl">
+					<div class="layui-form-item">
+					    <label class="layui-form-label">体重</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+				</div>
+				<div class="fir fl">
+					<div class="layui-form-item">
+					    <label class="layui-form-label">出生评分</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+				</div>
+			</div>
+			<p class="tiyan borderBot">出入室体验录：</p>
+			<div class="maternal clearfix borderBot">
+				<p class="maternalLe fl">
+					<span>第<input type="text" class="tire">胎</span>
+					<span>第<input type="text" class="tire">产</span>
+					<span><input type="text" class="tire">周龄</span>
+				</p>
+				<p class="maternalRi fl">
+					<span>分娩方式</span><input type="text" class="delivery"> 
+				</p>
+			</div>
+			<div class="amniotic">
+				<div class="layui-form clearfix">
+					<p class="wate fl">羊水：</p>
+					<div class="rigAll fl">
+						<div class="layui-form-item clearfix">
+						    <div class="fl">
+						      <input type="checkbox" name="" title="清" lay-skin="primary">
+						    </div>
+						    <p class="amnHour fl">破膜<input type="text" class="unit">小时</p>
+						    <div class="fl">
+								 <input type="checkbox" name="" title="浑浊" lay-skin="primary">
+						      <input type="radio" name="sex" value="Ⅰ" title="Ⅰ">Ⅰ
+						      <input type="radio" name="sex" value="Ⅱ" title="Ⅱ">Ⅱ
+						      <input type="radio" name="sex" value="Ⅲ" title="Ⅲ">Ⅲ
+						     <input type="checkbox" name="" title="发臭" lay-skin="primary">
+						    </div>
+						    <p class="amnMone fl">
+						    	<span>过多<input type="text" class="unit">毫升</span>
+						     	<span>过少<input type="text" class="unit">毫升</span>
+						 	</p>
+						</div>
+					</div>
+					
+				</div> 
+			</div>
+			<ul class="detailList">
+				<li>
+					<span>一般情况：</span>
+					<span class="symptoms">面色 呻吟 气促 口唇青紫 口吐白沫 鼻扇 哭声</span>
+				</li>
+				<li>
+					<span>头面部：<span class="symptoms">面色 呻吟 气促 口唇青紫</span></span>
+					<span>先锋头：<span class="symptoms">20cm</span></span>
+					<span>头血肿：<span class="symptoms">20cm</span></span>
+					<span>颅骨缝 前卤：<span class="symptoms">20cm</span></span>
+				</li>
+				<li>
+					<span>五官：<span class="symptoms">正常</span></span>
+					<span>唇裂：<span class="symptoms">正常</span></span>
+					<span>腭裂：<span class="symptoms">正常</span></span>
+					<span>胸廓：<span class="symptoms">正常</span></span>
+				</li>
+				<li>
+					<span>心肺听诊：<span class="symptoms">正常</span></span>
+				</li>
+				<li>
+					<span>腹：<span class="symptoms">正常</span></span>
+					<span>脐带：<span class="symptoms">正常</span></span>
+					<span>异常情况：<span class="symptoms">正常</span></span>
+				</li>
+				<li>
+					<span>肛门 生殖器：<span class="symptoms">正常</span></span>
+					<span>四肢关节：<span class="symptoms">正常</span></span>
+					<span>活动：<span class="symptoms">正常</span></span>
+					<span>肌张力：<span class="symptoms">正常</span></span>
+				</li>
+				<li class="optic clearfix">
+					<div class="opticNerve fl">视神经：<span class="symptoms"></span></div>
+					<div class="opticList fl">
+						<div class="layui-form">
+							<div class="fl">
+								<span>张口反射：</span>
+								<input type="radio" name="sex" value="存在" title="存在">存在
+						   		<input type="radio" name="sex" value="无" title="无">无
+							</div>
+							<div class="fl">
+								<span>扩髋反射：</span>
+								<input type="radio" name="sex" value="存在" title="存在">存在
+						   		<input type="radio" name="sex" value="无" title="无">无
+							</div>
+							<div class="fl">
+								<span>拥抱反射：</span>
+								<input type="radio" name="sex" value="存在" title="存在">存在
+						   		<input type="radio" name="sex" value="无" title="无">无
+							</div>
+							<div class="fl">
+								<span>举颈试验：</span>
+								<input type="radio" name="sex" value="存在" title="存在">存在
+						   		<input type="radio" name="sex" value="无" title="无">无
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<span>新生儿状况：<span class="symptoms">正常</span></span>
+				</li>
+				<li>
+					<span>其他：<span class="symptoms">正常</span></span>
+				</li>
+				<li class="clearfix">
+					<div class="check fl">
+						<div class="layui-form-item">
+						    <label class="layui-form-label">初步印象：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+						    </div>
+						</div>
+						<div class="layui-form-item">
+						    <label class="layui-form-label">签名：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="" required  lay-verify="required"  autocomplete="off" class="layui-input">
+						    </div>
+						</div>
+					</div>
+					<div class="check fl">
+						<div class="layui-form-item">
+						    <label class="layui-form-label">检查日期：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="" id="test" lay-verify="required"  autocomplete="off" class="layui-input">
+						    </div>
+						</div>
+						<div class="clearfix">
+						    <p class="whitName fl">审签者签名：</p>
+							<input type="text" name="" id="test" lay-verify="required"  autocomplete="off" class="layui-input fl" disabled="disabled" style="width: 42%;">
+						    <a class="layui-btn">审签</a><a class="layui-btn">取消审签</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="period">
+				<table id="periodTable" lay-filter="test"></table>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+	 layui.use(['form','laydate','table'], function(){
+  		var form = layui.form;
+  		var laydate = layui.laydate;
+  		var table = layui.table;
+  		 laydate.render({
+		    elem: '#test'
+		    ,type: 'datetime'
+		  });
+  		table.render({ //table 表格
+		    elem: '#periodTable'
+		    ,cols: [[
+		      {field:'username', title: '时间',align:'center'}
+		      ,{field:'sex', title: '婴儿入室经过记录',align:'center'}
+		      ,{field:'sign', title: '签名',align:'center'}
+		      ,{field:'experience', title: '操作',align:'center'}
+		    ]]
+		 });
+  	});
+
+</script>
+</html>

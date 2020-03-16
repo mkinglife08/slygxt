@@ -1,0 +1,268 @@
+[2020-02-27 14:05:51.148]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[98.127毫秒]
+
+[2020-02-27 14:05:51.587]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[6.8201毫秒]
+
+[2020-02-27 14:05:51.664]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[12.5918毫秒]
+
+[2020-02-27 14:05:52.099]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.352毫秒]
+
+[2020-02-27 14:05:52.146]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=1,FunLevel=1,[2.7558毫秒]
+
+[2020-02-27 14:06:36.336]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[2.0547毫秒]
+
+[2020-02-27 14:06:36.805]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.7561毫秒]
+
+[2020-02-27 14:06:36.859]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[9.1898毫秒]
+
+[2020-02-27 14:06:37.281]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.7713毫秒]
+
+[2020-02-27 14:06:37.341]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=1,FunLevel=1,[2.3934毫秒]
+
+[2020-02-27 14:06:37.401]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:06:37,USERID0=1,[21.317毫秒]
+
+[2020-02-27 14:07:55.555]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.5608毫秒]
+
+[2020-02-27 14:07:55.634]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:07:55,USERID0=1,[3.0996毫秒]
+
+[2020-02-27 14:07:55.648]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=1,FunLevel=1,[2.379毫秒]
+
+[2020-02-27 14:07:57.853]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.1586毫秒]
+
+[2020-02-27 14:07:57.972]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[4.4647毫秒]
+
+[2020-02-27 14:07:58.021]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:07:58,USERID0=1,[2.4107毫秒]
+
+[2020-02-27 14:08:11.086]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.7241毫秒]
+
+[2020-02-27 14:08:11.155]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=1,FunLevel=1,[1.5171毫秒]
+
+[2020-02-27 14:08:11.187]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:08:11,USERID0=1,[2.1772毫秒]
+
+[2020-02-27 14:14:52.184]count:sql:select count(0) from (
+    select a.*,b.dictname as jobName ,c.dictname as JobLevelName,decode(a.ISCANCE,'0','正常','1','作废') IsCanceName
+    from GI_UserInfo a
+    left join GI_CODEDICT b on a.job=b.dictcode and b.parentid=409
+    left join GI_CODEDICT c on a.job=c.dictcode and c.parentid=430
+     where 1=1  and a.OrganId=:OrganId)t,param:OrganId=1001,,page:sql:select * from(select field.*,ROWNUM RN from(
+    select a.*,b.dictname as jobName ,c.dictname as JobLevelName,decode(a.ISCANCE,'0','正常','1','作废') IsCanceName
+    from GI_UserInfo a
+    left join GI_CODEDICT b on a.job=b.dictcode and b.parentid=409
+    left join GI_CODEDICT c on a.job=c.dictcode and c.parentid=430
+     where 1=1  and a.OrganId=:OrganId) field where rownum<=18) where rn>=1,param:OrganId=1001,[49.7256毫秒]
+
+[2020-02-27 14:15:54.010]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[4.085毫秒]
+
+[2020-02-27 14:15:54.050]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=1,FunLevel=1,[2.1642毫秒]
+
+[2020-02-27 14:15:54.086]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:15:54,USERID0=1,[3.4064毫秒]
+
+[2020-02-27 14:15:56.659]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.4484毫秒]
+
+[2020-02-27 14:15:56.721]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[3.0033毫秒]
+
+[2020-02-27 14:15:56.806]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:15:56,USERID0=1,[2.4856毫秒]
+
+[2020-02-27 14:21:27.216]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[90.5594毫秒]
+
+[2020-02-27 14:21:27.562]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[7.0152毫秒]
+
+[2020-02-27 14:21:27.642]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[13.2581毫秒]
+
+[2020-02-27 14:21:28.054]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.1356毫秒]
+
+[2020-02-27 14:21:28.103]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[1.8689毫秒]
+
+[2020-02-27 14:21:28.159]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:21:28,USERID0=1,[20.14毫秒]
+
+[2020-02-27 14:27:15.460]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[118.2246毫秒]
+
+[2020-02-27 14:27:15.966]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[11.0535毫秒]
+
+[2020-02-27 14:27:16.049]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[14.7837毫秒]
+
+[2020-02-27 14:27:16.419]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.6944毫秒]
+
+[2020-02-27 14:27:16.454]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[1.5638毫秒]
+
+[2020-02-27 14:27:16.519]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:27:16,USERID0=1,[23.9441毫秒]
+
+[2020-02-27 14:36:33.098]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[94.2213毫秒]
+
+[2020-02-27 14:36:33.526]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[14.027毫秒]
+
+[2020-02-27 14:36:33.614]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[15.0774毫秒]
+
+[2020-02-27 14:36:34.018]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.4058毫秒]
+
+[2020-02-27 14:39:20.099]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[86.3773毫秒]
+
+[2020-02-27 14:39:20.503]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[14.3905毫秒]
+
+[2020-02-27 14:39:20.587]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[12.0666毫秒]
+
+[2020-02-27 14:39:21.037]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.7985毫秒]
+
+[2020-02-27 14:39:21.069]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[1.5127毫秒]
+
+[2020-02-27 14:39:21.133]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:39:21,USERID0=1,[21.856毫秒]
+
+[2020-02-27 14:49:19.217]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[90.114毫秒]
+
+[2020-02-27 14:49:19.583]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[10.2173毫秒]
+
+[2020-02-27 14:49:19.690]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[11.0525毫秒]
+
+[2020-02-27 14:49:20.124]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.3047毫秒]
+
+[2020-02-27 14:49:20.161]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[1.7848毫秒]
+
+[2020-02-27 14:49:20.218]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/27 14:49:20,USERID0=1,[18.2794毫秒]
+

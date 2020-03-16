@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+	
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">无证无卡孕产妇登记</p>
+	        <div class="rigBtn">
+	            <a class="layui-btn">保存</a>
+	            <a class="layui-btn layui-btn-disabled">修改</a>
+	            <a class="layui-btn layui-btn-disabled">删除</a>
+	            <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+		<div class="nurContent">
+			<div class="coner">
+				<h3 class="conTitle">无证无卡孕产妇登记</h3>
+				<table class="tableList pregnant">
+					<tr>
+						<td>日期</td>
+                        <td><input type="text" id="date"></td>
+						<td>孕次</td>
+                        <td><input type="text"></td>
+						<td>首次生育时间</td>
+                        <td><input type="text"></td>
+						<td>婴儿性别</td>
+                        <td><input type="text"></td>
+					</tr>
+					<tr>
+						<td>男方姓名</td>
+						<td colspan="7"  class="lefts"><input type="text"></td>
+					</tr>
+					<tr>
+						<td>身份证号码</td>
+						<td colspan="7"  class="lefts"><input type="text"></td>
+					</tr>
+					<tr>
+						<td>女方姓名</td>
+						<td colspan="7"  class="lefts"><input type="text"></td>
+					</tr>
+					<tr>
+						<td>身份证号码</td>
+						<td colspan="7"  class="lefts"><input type="text"></td>
+					</tr>
+					<tr>
+						<td>户籍地址</td>
+						<td colspan="7"  class="lefts"><input type="text" ></td>
+					</tr>
+					<tr>
+						<td>现住址</td>
+						<td colspan="7"  class="lefts"><input type="text"></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+ 	laydate.render({ 
+	  elem: '#date',
+	});
+	
+	
+ });
+</script>
+</html>

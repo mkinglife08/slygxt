@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "出院记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<style>
+ .addTable{
+        margin:6px;
+        width:98%;
+        padding-bottom:30%;
+    }
+  .rightAnw{
+      margin-left:-15px;
+      width:50%;
+  }
+  .rightAnw .lineP{ width:78%;border:1px solid #ccc;height:20px;border-radius:3px;padding-left:5px;}
+  .layui-textarea {
+    min-height: 100px;
+    height: auto;
+    padding: 3px 3px;
+    resize: vertical;
+    border-left:none;
+}
+  .tdTable p{ line-height:30px;}
+  .tdTable input{ width:37%;}
+  .recordAllLeft{ width:30%}
+</style>
+<div class="medrecord">
+    <p class="word">出院记录</p>
+    <div class="rigBtn">
+        <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        <a class="layui-btn">查看打印医生版</a>
+    </div>
+</div>
+<form class="layui-form" action="">
+    <div class="addTable" >
+        <div class="recordAll clearfix" style="line-height:32px;margin:15px 0;">
+            <div class="recordAllLeft fl" >
+                <lable class="spWord">住院时间</lable>
+                <div class="fl rightAnw">
+                    @*<p  ></p>*@
+                    <input type="text" data-id="EntryTime" class="lineP" readonly/>
+                    <input type="hidden" name="OuthospitalRecordId" id="OuthospitalRecordId" data-id="OuthospitalRecordId" />
+                </div>
+            </div>
+            <div class="recordAllLeft fl" >
+                <div class="layui-form-item">
+                    <span class="spWord">出院时间</span>
+                    <div class="layui-input-block">
+                        <input type="text" lay-verify="required" id="DischargeTime" class="layui-input" name="DischargeTime" data-id="DischargeTime">
+                    </div>
+                </div>
+            </div>
+            <div class="recordAllLeft fl" >
+                <label class="spWord">住院天数</label>
+                <div class="fl rightAnw">
+                    <input type="text" id="zyts" class="lineP" readonly/>
+                </div>
+            </div>
+        </div>
+       
+        <table class="tdTable">
+            <tr>
+                <td>入院诊断</td>
+                <td colspan="3"><div class="enterHostAble fl" id="DiagnosisTable2" lay-filter="DiagnosisTable2"></div></td>
+            </tr>
+            <tr>
+                <td >
+                    <p>出院诊断</p>
+                    <p><a class="layui-btn" onclick="AddNewDiagnosis(3)">添加出院诊断</a></p>
+                </td>
+                <td colspan="3"><div class="outHostAble fl" id="PatientDiagnosisTable" lay-filter="PatientDiagnosisTable"></div></td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="outHostword">入院情况</p>
+                    <p><a class="layui-btn">生命体征导入</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" name="HospitalizedCase" id="HospitalizedCase"></textarea>
+                    <script type="text/javascript">
+                    UE.getEditor('HospitalizedCase', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>治疗经过</p>
+                    <p><a class="layui-btn">检验报告</a></p>
+                    <p><a class="layui-btn">检查报告</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="HospitalCourse"></textarea>
+                    <script type="text/javascript">
+                    UE.getEditor('HospitalCourse', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="outHostword">出院情况</p>
+                    <p><a class="layui-btn">检验报告</a></p>
+                    <p><a class="layui-btn">检查报告</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="DischargeStatus"></textarea>
+                    <script type="text/javascript">
+                    UE.getEditor('DischargeStatus', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="outHostword">注意事项</p>
+                    <p><a class="layui-btn">出院带药导入</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="DischargeMedication"></textarea>
+                    <script type="text/javascript">
+                    UE.getEditor('DischargeMedication', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>医生签名</td>
+                <td><input type="text" lay-verify="required" id="Creator" data-id="Creator" class="layui-input writeInput" disabled></td>
+                <td>记录日期</td>
+                <td>
+                    <input type="text" lay-verify="required" id="UpdateTime" data-id="UpdateTime" value="" class="layui-input writeInput" disabled>
+                </td>
+            </tr>
+        </table>
+</div>
+
+</form>
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+    }
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            data.data.EntryTime = data.data.EntryTime.ToString("yyyy-MM-dd");
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            $("#zyts").html(DateDiff(data.data.EntryTime));
+        }
+    })
+    EWinsBase.json("api/Doctor/OuthospitalRecord/GetInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#HospitalizedCase").val( HTMLDecode(data.data["HospitalizedCase"]));
+                $("#HospitalCourse").val(   HTMLDecode(data.data["HospitalCourse"]));
+                $("#DischargeStatus").val(  HTMLDecode(data.data["DischargeStatus"]));
+                $("#DischargeMedication").val(HTMLDecode(data.data["DischargeMedication"]));
+            }
+            else {
+                $("#Creator").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+                $("#UpdateTime").val(CurentTime());
+            }
+        }
+    })
+    layui.use(['table', 'layedit', 'laydate', 'element', "form"], function () {
+        var table = layui.table,
+  		layedit = layui.layedit,
+  		$ = layui.jquery,
+  		laydate = layui.laydate,
+  		form = layui.form;
+        laydate.render({
+            elem: '#UpdateTime'
+	    	, type: 'datetime'
+        });
+        laydate.render({
+            elem: '#DischargeTime'
+	    	, type: 'datetime'
+        });
+        //入院诊断 2
+        table.render({
+            elem: '#DiagnosisTable2'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=2"
+            , page: false //开启分页
+            , cols: [[ //表头
+            { field: 'DiagnosisId', title: '序号', align: "center" }
+            , { field: 'DiagnosisFlag', title: '主', align: "center" }
+            , { field: 'DiagnosisName', title: '诊断名称,复制诊断', align: "center" }
+            , { field: 'DiagnosisTime', title: '诊断时间', align: "center", templet: "#DiagnosisTime1" }
+            , { field: 'RecordUserName', title: '书写医生', align: "center" }
+            ]]
+        })
+        //出院诊断 3
+        table.render({
+            elem: '#PatientDiagnosisTable'
+               , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=3"
+            //, cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                  { field: 'DiagnosisId', title: '序号', align: 'center' }
+                  , { field: 'DiagnosisName', title: '诊断', align: 'center' }
+                  , { field: 'AdmissionIllness', title: '入院情况', align: 'center' }
+                  , { field: 'ICDCode', title: 'ICD10', align: 'center'}
+                ]]
+        });
+
+        form.on('submit(sub)', function (data) {
+            data.field["OuthospitalRecordId"] = $("#OuthospitalRecordId").val();
+            data.field["DischargeTime"] = $("#DischargeTime").val();
+            data.field["InpatientId"] = GetQueryString("InpatientId");
+            data.field["HospitalizedCase"] = HTMLEncode($("#HospitalizedCase").val());
+            data.field["HospitalCourse"] = HTMLEncode($("#HospitalCourse").val());
+            data.field["DischargeStatus"] = HTMLEncode($("#DischargeStatus").val());
+            data.field["DischargeMedication"] = HTMLEncode($("#DischargeMedication").val());
+            EWinsBase.json("api/Doctor/OuthospitalRecord/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            })
+            return false;
+        });
+    })
+    function DateDiff(sDate) {    //sDate1和sDate2是xxxx-xx-xx格式
+        var sdate = new Date(sDate.replace(/-/g, "/"));
+        var now = new Date();
+        var days = now.getTime() - sdate.getTime();
+        var day = parseInt(days / (1000 * 60 * 60 * 24));
+        return day;
+    }
+
+    function refreshTable() {
+        layui.table.reload("PatientDiagnosisTable", {
+            where: { InpatientId: NewGetQueryString("InpatientId"), token: EWinsBase.Token, DiagnosisType: 3 }//这里传参  向后台
+                , method: 'post'
+        });
+    }
+    function AddNewDiagnosis(DiagnosisType) {
+        ShowWin('新增诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + "&DiagnosisType=" + DiagnosisType, 800, 600)
+    }
+</script>

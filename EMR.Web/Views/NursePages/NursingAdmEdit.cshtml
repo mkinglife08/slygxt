@@ -1,0 +1,649 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+      <p class="word">护理入院评估单</p>
+      <div class="rigBtn">
+          <a class="layui-btn">查看/打印</a>
+      </div>
+	 	</div>
+	  <div class="nurContent">
+	    	<p class="figure">基本信息</p>
+	    	<table class="tableList laborTa left layui-form">
+			    <tr>
+          	<td>姓名</td>
+          	<td>马默默</td>
+          	<td>性别</td>
+          	<td>女</td>
+          	<td>床号</td>
+          	<td>NIC06</td>
+          	<td>病案号</td>
+          	<td>00104090</td>
+          </tr> 
+          <tr>
+          	<td>年龄</td>
+          	<td>63岁</td>
+          	<td>科室</td>
+          	<td>脑外重症室</td>
+          	<td>入科时间</td>
+          	<td><input type="text"></td>
+          	<td>籍贯</td>
+          	<td>杭州</td>
+          </tr> 
+          <tr>
+	         	<td>入院诊断</td>
+	         	<td colspan="9">中医：</td>
+	        </tr> 
+	        <tr>
+	         	<td>入院方式</td>
+	         	<td colspan="9">
+	         		<input type="radio" name="demo" title="步行">步行
+	         		<input type="radio" name="demo" title="扶行">扶行
+	         		<input type="radio" name="demo" title="轮椅">轮椅
+	         		<input type="radio" name="demo" title="平车">平车
+	         		<input type="radio" name="demo" title="担架">担架
+	         		<input type="radio" name="demo" title="背入">背入
+	         		<input type="radio" name="demo" title="抱入">抱入
+	         	</td>
+	        </tr> 
+	        <tr>
+          	<td>患者电话</td>
+          	<td colspan="3">188888888</td>
+          	<td>地址</td>
+          	<td colspan="3">杭州</td>
+          </tr> 
+          <tr>
+          	<td>压疮评分</td>
+          	<td colspan="2">分 <a style="">查看</a></td>
+          	<td>跌倒/坠床评</td>
+          	<td >
+          		分 
+          		<a class="view">查看</a>
+          		<a class="view">坠床跌倒告知书</a>
+          	</td>
+          	<td>ADL评分 </td>
+          	<td colspan="2">分 <a class="view">查看</a></td>
+          </tr> 
+          <tr>
+	        	<td>过敏史</td>
+	        	<td colspan="9">
+								<input type="radio" name="demo" title="未发现">未发现
+	         			<input type="radio" name="demo" title="有">有
+	         			<div class="sisplayList">
+									<div>
+										<input type="checkbox" name="" title="药物过敏" lay-skin="primary">
+										过敏药物名称<input type="text">过敏反应<input type="text">
+									</div>
+									<div>
+										<input type="checkbox" name="" title="食物过敏" lay-skin="primary">
+										食物名称<input type="text">
+									</div>
+									<div>
+										<input type="checkbox" name="" title="过敏体质" lay-skin="primary">
+									</div>
+									<div>
+										<input type="checkbox" name="" title="其他" lay-skin="primary">
+										<input type="text">
+									</div>
+	         			</div>
+	        	</td>
+	        </tr>
+	        <tr>
+          	<td>既往史</td>
+          	<td colspan="9">
+								<input type="checkbox" name="" title="无" lay-skin="primary">
+								<input type="checkbox" name="" title="高血压" lay-skin="primary">
+								<input type="checkbox" name="" title="糖尿病" lay-skin="primary">
+								<input type="checkbox" name="" title="冠心病" lay-skin="primary">
+								<input type="checkbox" name="" title="前列腺增生" lay-skin="primary">
+								<input type="checkbox" name="" title="其他" lay-skin="primary">
+								<input type="text">
+          	</td>
+          </tr>
+          <tr>
+          	<td>曾做过手术</td>
+          	<td colspan="3">
+								<input type="radio" name="demo" title="无" >无
+								<input type="radio" name="demo" title="有" >有
+								<input type="text">
+          	</td>
+          	<td>家族史</td>
+          	<td colspan="3">
+								<input type="radio" name="demo" title="无" >无
+								<input type="radio" name="demo" title="有" >有
+								<input type="text">
+          	</td>
+          </tr> 
+          <tr>
+          	<td>既往疼痛体验</td>
+          	<td colspan="9">
+								<input type="radio" name="demo" title="无" >无
+								<input type="radio" name="demo" title="有" >有
+								<span class="none">
+										(部位<input type="text">性质<input type="text">持续时间<input type="text">间隔时间<input type="text">)
+										<input type="checkbox" name="" title="痛经" lay-skin="primary">
+								</span>
+          	</td>
+          </tr>
+          <tr>
+          	<td>既往止痛用药史</td>
+          	<td colspan="9">
+								<input type="radio" name="demo" title="无" >无
+								<input type="radio" name="demo" title="有" >有
+								<span class="none">
+										(药品名称<input type="text">用法<input type="text">)
+										<input type="checkbox" name="" title="痛经" lay-skin="primary">
+								</span>
+          	</td>
+          </tr>                                               
+	    	</table>
+	    	<p class="figure">中医四诊</p>
+	    	<table class="tableList laborTable left layui-form">
+					<tr>
+						<td>生命体征</td>
+						<td colspan="9">
+								<span>T: <input type="text" class="sort">℃</span>
+								<span>P: <input type="text" class="sort">次/分</span>
+								<span>R: <input type="text" class="sort">次/分</span>
+								<span>BP: <input type="text" class="sort">/<input type="text" class="sort">mmHh</span>
+								<span>体重: 
+									<input type="text" class="sort">
+									<!-- <select name="" id="">
+										<option value="">平车</option>
+									</select> -->
+								</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left;">（一）望诊</td>
+					</tr>
+					<tr>
+						<td>1、神 志</td>
+						<td colspan="9">
+								<input type="checkbox" name="" title="有神" lay-skin="primary">
+								<input type="checkbox" name="" title="倦怠" lay-skin="primary">
+								<input type="checkbox" name="" title="时清时昧" lay-skin="primary">
+								<input type="checkbox" name="" title="烦躁" lay-skin="primary">
+								<input type="checkbox" name="" title="嗜睡" lay-skin="primary">
+								<input type="checkbox" name="" title="谵妄" lay-skin="primary">
+								<input type="checkbox" name="" title="昏迷" lay-skin="primary">
+								(<input type="radio" name="demo" title="深" >深
+								<input type="radio" name="demo" title="浅" >浅)
+								<input type="checkbox" name="" title="其他" lay-skin="primary">
+								<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>2、形 态 </td>
+						<td colspan="9">
+								<input type="radio" name="demo" title="自如" >自如
+								<input type="radio" name="demo" title="肢体瘫痪">肢体瘫痪
+								<input type="radio" name="demo" title="障碍">障碍
+								<input type="radio" name="demo" title="医疗疾病限制" >医疗疾病限制
+								<input type="radio" name="demo" title="蹒跚">蹒跚
+								<input type="radio" name="demo" title="其他">其他
+								<span class="none">
+									（<input type="checkbox" name="" title="左上" lay-skin="primary">
+									<input type="checkbox" name="" title="坐下" lay-skin="primary">
+									<input type="checkbox" name="" title="右上" lay-skin="primary">
+									<input type="checkbox" name="" title="右下" lay-skin="primary">）
+								</span>
+								<span class="none">
+									（<input type="radio" name="demo" title="步履蹒跚">步履蹒跚
+									<input type="radio" name="demo" title="不得平卧">不得平卧）
+								</span>
+								<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>3、面 色 </td>
+						<td colspan="9">
+							<input type="radio" name="demo" title="如常" >如常
+							<input type="radio" name="demo" title="红润" >红润
+							<input type="radio" name="demo" title="两颧潮红" >两颧潮红
+							<input type="radio" name="demo" title="苍白" >苍白
+							<input type="radio" name="demo" title="萎黄" >萎黄
+							<input type="radio" name="demo" title="晦暗" >晦暗
+							<input type="radio" name="demo" title="无光泽" >无光泽
+							<input type="radio" name="demo" title="其他">其他
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>4、皮 肤 </td>
+						<td colspan="9">
+								<div>
+									<span>色泽：</span>
+									<input type="checkbox" name="" title="正常" lay-skin="primary">
+									<input type="checkbox" name="" title="红润" lay-skin="primary">
+									<input type="checkbox" name="" title="苍白" lay-skin="primary">
+									<input type="checkbox" name="" title="潮红" lay-skin="primary">
+									<input type="checkbox" name="" title="干燥" lay-skin="primary">
+									<input type="checkbox" name="" title="紫绀" lay-skin="primary">
+									<input type="checkbox" name="" title="黄染" lay-skin="primary">
+									<input type="checkbox" name="" title="红斑" lay-skin="primary">
+									<input type="checkbox" name="" title="皮疹" lay-skin="primary">
+									<input type="checkbox" name="" title="出血点" lay-skin="primary">
+									<input type="checkbox" name="" title="痛疖" lay-skin="primary">
+									<input type="checkbox" name="" title="其他" lay-skin="primary">
+									<span class="none"><input type="text"></span>
+								</div>
+								<div>
+									<span>水肿：</span>
+									<input type="radio" name="demo" title="无" >无
+									<input type="radio" name="demo" title="有" >有
+									<span class="none">（部位<input type="text">程度<input type="text">）</span>
+								</div>
+								<div>
+									<span>压疮：</span>
+									<input type="radio" name="demo" title="无" >无
+									<input type="radio" name="demo" title="有" >有
+								</div>
+								<div>
+									<span>创口：</span>
+									<input type="radio" name="demo" title="无" >无
+									<input type="radio" name="demo" title="有" >有
+									<span class="none">
+										(<input type="checkbox" name="" title="红" lay-skin="primary">
+										<input type="checkbox" name="" title="肿" lay-skin="primary">
+										<input type="checkbox" name="" title="清洁干燥" lay-skin="primary">
+										<input type="checkbox" name="" title="渗出" lay-skin="primary">
+										部位及范围<input type="text">
+										)
+									</span>
+								</div>
+						</td>
+					</tr>
+					<tr>
+						<td>5、舌 象 </td>
+						<td>
+								<div>
+									<span>(1)舌质：</span>
+									<input type="checkbox" name="" title="淡红" lay-skin="primary">
+									<input type="checkbox" name="" title="淡" lay-skin="primary">
+									<input type="checkbox" name="" title="淡白" lay-skin="primary">
+									<input type="checkbox" name="" title="红" lay-skin="primary">
+									<input type="checkbox" name="" title="绛" lay-skin="primary">
+									<input type="checkbox" name="" title="紫暗" lay-skin="primary">
+									<input type="checkbox" name="" title="暗红" lay-skin="primary">
+									<input type="checkbox" name="" title="其他" lay-skin="primary">
+									<span class="none"><input type="text"></span>
+								</div>
+								<div>
+									<span>(1)舌苔：</span>
+									<input type="checkbox" name="" title="薄白" lay-skin="primary">
+									<input type="checkbox" name="" title="淡黄" lay-skin="primary">
+									<input type="checkbox" name="" title="黄厚" lay-skin="primary">
+									<input type="checkbox" name="" title="滑" lay-skin="primary">
+									<input type="checkbox" name="" title="燥" lay-skin="primary">
+									<input type="checkbox" name="" title="燥裂" lay-skin="primary">
+									<input type="checkbox" name="" title="腐" lay-skin="primary">
+									<input type="checkbox" name="" title="腻" lay-skin="primary">
+									<input type="checkbox" name="" title="薄" lay-skin="primary">
+									<input type="checkbox" name="" title="黄" lay-skin="primary">
+									<input type="checkbox" name="" title="淡" lay-skin="primary">
+									<input type="checkbox" name="" title="白" lay-skin="primary">
+									<input type="checkbox" name="" title="其他" lay-skin="primary">
+									<span class="none"><input type="text"></span>
+								</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left;">（二）闻诊</td>
+					</tr>
+					<tr>
+						<td>1、语 言</td>
+						<td>
+							<input type="radio" name="demo" title="清楚" >清楚
+							<input type="radio" name="demo" title="声音低微" >声音低微
+							<input type="radio" name="demo" title="失语" >失语
+							<input type="radio" name="demo" title="呻吟" >呻吟
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>2、呼 吸</td>
+						<td>
+							<input type="radio" name="demo" title="如常" >如常
+							<input type="radio" name="demo" title="气促" >气促
+							<input type="radio" name="demo" title="呼吸缓慢" >呼吸缓慢
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>3、咳 嗽</td>
+						<td>
+							<input type="radio" name="demo" title="无" >无
+							<input type="radio" name="demo" title="有" >有
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none">
+								<input type="radio" name="demo" title="无痰" >无痰
+								<input type="radio" name="demo" title="有痰" >有痰
+								<span class="none">
+									色：（<input type="radio" name="demo" title="白" >白
+											<input type="radio" name="demo" title="黄" >黄
+											<input type="radio" name="demo" title="红" >红
+											<input type="radio" name="demo" title="铁锈色" >铁锈色）
+									量：（<input type="radio" name="demo" title="多" >多
+											<input type="radio" name="demo" title="中" >中
+											<input type="radio" name="demo" title="少" >少）
+									质：（<input type="radio" name="demo" title="清稀" >清稀
+											<input type="radio" name="demo" title="粘稠" >粘稠）
+							</span>
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>4、气味 </td>
+						<td>
+							<input type="radio" name="demo" title="无异味" >无异味
+							<input type="radio" name="demo" title="酸臭" >酸臭
+							<input type="radio" name="demo" title="腐臭" >腐臭
+							<input type="radio" name="demo" title="臭味" >臭味
+							<input type="radio" name="demo" title="腥臭" >腥臭
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left;">（三）问诊</td>
+					</tr>
+					<tr>
+						<td>1、嗜 好 </td>
+						<td>
+							<input type="checkbox" name="" title="无特殊" lay-skin="primary">
+							<input type="checkbox" name="" title="吸烟" lay-skin="primary">
+							<input type="checkbox" name="" title="饮酒" lay-skin="primary">
+							<input type="checkbox" name="" title="酸" lay-skin="primary">
+							<input type="checkbox" name="" title="甜" lay-skin="primary">
+							<input type="checkbox" name="" title="辣" lay-skin="primary">
+							<input type="checkbox" name="" title="废甘" lay-skin="primary">
+							<input type="checkbox" name="" title="其他" lay-skin="primary">
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>2、饮 食</td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="纳呆" >纳呆
+							<input type="radio" name="demo" title="多食易饥" >多食易饥
+							<input type="radio" name="demo" title="饥不择食" >饥不择食
+							<input type="radio" name="demo" title="鼻饲" >鼻饲
+							<input type="radio" name="demo" title="恶心呕吐" >恶心呕吐
+							<input type="radio" name="demo" title="禁食" >禁食
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>3、口 渴</td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="口不渴" >口不渴
+							<input type="radio" name="demo" title="口渴欲引" >口渴欲引
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>4、睡 眠 </td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="难寝" >难寝
+							<input type="radio" name="demo" title="易醒" >易醒
+							<input type="radio" name="demo" title="彻夜不眠" >彻夜不眠
+							<input type="radio" name="demo" title="易醒" >易醒
+							<input type="radio" name="demo" title="彻夜不眠" >彻夜不眠
+							<input type="radio" name="demo" title="多梦" >多梦
+							<input type="radio" name="demo" title="早醒" >早醒
+							<input type="radio" name="demo" title="辅助用药" >辅助用药
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>5、大 便  </td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="便秘" >便秘
+							<input type="radio" name="demo" title="干结" >干结
+							<input type="radio" name="demo" title="便溏" >便溏
+							<input type="radio" name="demo" title="完谷不化" >完谷不化
+							<input type="radio" name="demo" title="便血" >便血
+							<input type="radio" name="demo" title="里急后重" >里急后重
+							<input type="radio" name="demo" title="失禁" >失禁
+							<input type="radio" name="demo" title="造瘘口" >造瘘口
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>6、小 便 </td>
+						<td>
+							<input type="checkbox" name="" title="正常" lay-skin="primary">
+							<input type="checkbox" name="" title="频数" lay-skin="primary">
+							<input type="checkbox" name="" title="癃闭" lay-skin="primary">
+							<input type="checkbox" name="" title="尿少" lay-skin="primary">
+							<input type="checkbox" name="" title="失禁" lay-skin="primary">
+							<input type="checkbox" name="" title="留置导尿" lay-skin="primary">
+							<input type="checkbox" name="" title="造瘘" lay-skin="primary">
+							<input type="checkbox" name="" title="血尿" lay-skin="primary">
+							<input type="checkbox" name="" title="浑浊" lay-skin="primary">
+							<input type="checkbox" name="" title="其他" lay-skin="primary">
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>7、听 力 </td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="下降" >下降
+							<input type="radio" name="demo" title="耳聋" >耳聋
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>8、视 力 </td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="下降" >下降
+							<input type="radio" name="demo" title="失明" >失明
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left;">（四）切诊</td>
+					</tr>
+					<tr>
+						<td>1、脉 象 </td>
+						<td>
+							<input type="checkbox" name="" title="和缓有力" lay-skin="primary">
+							<input type="checkbox" name="" title="缓" lay-skin="primary">
+							<input type="checkbox" name="" title="数" lay-skin="primary">
+							<input type="checkbox" name="" title="弦" lay-skin="primary">
+							<input type="checkbox" name="" title="滑" lay-skin="primary">
+							<input type="checkbox" name="" title="涩" lay-skin="primary">
+							<input type="checkbox" name="" title="细" lay-skin="primary">
+							<input type="checkbox" name="" title="弱" lay-skin="primary">
+							<input type="checkbox" name="" title="结" lay-skin="primary">
+							<input type="checkbox" name="" title="代" lay-skin="primary">
+							<input type="checkbox" name="" title="浮" lay-skin="primary">
+							<input type="checkbox" name="" title="沉" lay-skin="primary">
+							<input type="checkbox" name="" title="其他" lay-skin="primary">
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>2、脘 腹 </td>
+						<td>
+							<input type="radio" name="demo" title="正常" >正常
+							<input type="radio" name="demo" title="胀满" >胀满
+							<input type="radio" name="demo" title="腹痛喜按" >腹痛喜按
+							<input type="radio" name="demo" title="腹痛拒按" >腹痛拒按
+							<input type="radio" name="demo" title="其他" >其他
+							<span class="none"><input type="text"></span>
+						</td>
+					</tr>
+    		</table>
+	    	<p class="figure">社会评估</p>
+	    	<table class="tableList laborTable layui-form left">
+					<tr>
+						<td>民族</td>
+						<td>汉族</td>
+						<td>职业</td>
+						<td>退休人员</td>
+						<td>文化程度</td>
+						<td>小学</td>
+						<td>婚姻状况</td>
+						<td>已婚</td>
+					</tr>
+					<tr>
+						<td>子  女</td>
+						<td><input type="text" class="others">男<input type="text" class="others">女</td>
+						<td>宗教信仰</td>
+						<td colspan="2">无</td>
+						<td>费用类别</td>
+						<td colspan="2">杭州医保</td>
+					</tr>
+					<tr>
+						<td>吸烟</td>
+						<td>
+							<input type="radio" name="demo" title="不吸" >不吸
+							<input type="radio" name="demo" title="吸" >吸
+							<span class="none">
+								（每日<input type="text" class="others">支 已吸<input type="text" class="others">年）
+							</span>
+							<input type="radio" name="demo" title="已戒" >已戒
+							<span class="none">
+								（<input type="text" class="others">年）
+							</span>
+						</td>
+						<td>饮酒</td>
+						<td colspan="5">
+							<input type="radio" name="demo" title="不饮" >不饮
+							<input type="radio" name="demo" title="偶饮" >偶饮
+							<input type="radio" name="demo" title="大量" >大量
+							<span class="none">
+								（每日<input type="text" class="others">两<input type="text" class="others">酒）
+							</span>
+							<input type="radio" name="demo" title="已戒" >已戒
+							<span class="none">
+								（<input type="text" class="others">年）
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>吸毒</td>
+						<td>
+							<input type="radio" name="demo" title="不吸" >不吸
+							<input type="radio" name="demo" title="吸" >吸
+							<span class="none">
+								（已吸<input type="text" class="others">年）
+							</span>
+							<span class="none">
+								（<input type="text" class="others">年）
+							</span>
+						</td>
+						<td>社会支持</td>
+						<td colspan="5">
+							<input type="radio" name="demo" title="良好" >良好
+							<input type="radio" name="demo" title="一般" >一般
+							<input type="radio" name="demo" title="不足" >不足
+							<input type="radio" name="demo" title="无法评估" >无法评估
+						</td>
+					</tr>
+					<tr>
+						<td>联系人</td>
+						<td>默默</td>
+						<td>联系人电话</td>
+						<td colspan="2">1800000</td>
+						<td>与患者关系</td>
+						<td colspan="2">子</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left;">出院计划</td>
+					</tr>
+					<tr>
+						<td>出院计划</td>
+						<td colspan="9">
+							<input type="radio" name="demo" title="无" >无
+							<input type="radio" name="demo" title="其他" >其他
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>出院后去处</td>
+						<td colspan="9">
+							<input type="radio" name="demo" title="回家" >回家
+							<input type="radio" name="demo" title="养老院" >养老院
+							<input type="radio" name="demo" title="其他" >其他
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>出院后照料者</td>
+						<td colspan="9">
+							<input type="radio" name="demo" title="家属" >家属
+							<input type="radio" name="demo" title="亲戚" >亲戚
+							<input type="radio" name="demo" title="其他" >其他
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>交通工具</td>
+						<td colspan="9">
+							<input type="radio" name="demo" title="步行" >步行
+							<input type="radio" name="demo" title="汽车" >汽车
+							<input type="radio" name="demo" title="火车" >火车
+							<input type="radio" name="demo" title="飞机" >飞机
+							<input type="radio" name="demo" title="轮船" >轮船
+							<input type="radio" name="demo" title="其他" >其他
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="9" style="text-align: left">资料来源</td>
+					</tr>
+					<tr>
+						<td>资料来源</td>
+						<td colspan="9">
+							<input type="checkbox" name="" title="本人" lay-skin="primary">
+							<input type="checkbox" name="" title="家属" lay-skin="primary">
+							<input type="checkbox" name="" title="其他" lay-skin="primary">
+							<input type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>护士签名</td>
+						<td><input type="text"></td>
+						<td>审签</td>
+						<td><input type="text"></td>
+						<td>责任组长/护士长审签</td>
+						<td colspan="3"><input type="text"><a class="layui-btn">签名</a></td>
+					</tr>
+					<tr>
+						<td>评估时间</td>
+						<td colspan="9"><input type="text"></td>
+					</tr>
+	    	</table>
+	    </div>
+	</div>
+</body>
+<script>
+layui.use('form',function(){
+	var form = layui.form;
+ });
+</script>
+</html>

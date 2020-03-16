@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+	        <p class="word">手术情况</p>
+	        <div class="rigBtn">
+	             <a class="layui-btn search">查询</a>
+	             <a class="layui-btn search">导出到Excel</a>
+	        </div>
+	 	</div>
+		<div class="qualityHeader layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md2">
+                    <div>
+                        <span>科室：</span>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">血液</option>
+                            <option value="">外科</option>
+                        </select>
+                    </div>
+                    <div class="marginTop"><span>主刀医师：</span><input type="text"></div>
+                </div>
+                <div class="layui-col-md3">
+                    <div>
+                        <span>手术日期：</span>
+                        <input type="text" id="start1">-<input type='text' id="stop1">
+                    </div>
+                    <div class="marginTop"><span>手术名称：</span><input type="text"></div>
+                </div>
+                <div class="layui-col-md2">
+                    <div><span>住院号：</span><input type="text"></div>
+                    <div class="marginTop">
+                        <span>麻醉方式：</span>
+                        <select name="" id="">
+                            <option value="">全麻</option>
+                            <option value="">颈丛</option>
+                            <option value="">半麻</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-col-md2">
+                    <div><span>姓名：</span><input type="text"></div>
+                    <div class="marginTop">
+                        <span>急诊：</span>
+                        <select name="" id="">
+                            <option value="">是</option>
+                            <option value="">否</option>
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-col-md2">
+                    <div>
+                        <span>手术类别：</span>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                    <div class="marginTop">
+                        <span>急诊：</span>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<table class="qualityTable">
+			<thead>
+				<tr>
+					<td rowspan="2">序号</td>
+					<td rowspan="2">科室</td>
+					<td rowspan="2">住院号</td>
+					<td rowspan="2">病人姓名</td>
+					<td rowspan="2">手术时间</td>
+					<td rowspan="2">手术名称</td>
+					<td rowspan="2">主刀医师</td>
+					<td rowspan="2">Ⅰ助</td>
+					<td rowspan="2">Ⅱ助</td>
+					<td rowspan="2">Ⅲ助</td>
+					<td rowspan="2">麻醉医生</td>
+					<td rowspan="2">急诊</td>
+					<td colspan="3">切口类别</td>
+					<td colspan="6">手术类别</td>
+					<td rowspan="2">腹腔镜</td>
+					<td rowspan="2">剖宫产</td>
+					<td rowspan="2">关节镜</td>
+					<td rowspan="2">电切镜</td>
+					<td rowspan="2">输尿管镜</td>
+				</tr>
+				<tr>
+					<td>Ⅰ</td>
+					<td>Ⅱ</td>
+					<td>Ⅲ</td>
+					<td>1</td>
+					<td>2</td>
+					<td>3</td>
+					<td>4</td>
+					<td>特类</td>
+					<td>治疗/检查</td>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start1'
+		});
+		laydate.render({
+	  		elem:'#stop1'
+		});
+	});
+	$('.search').click(function(){
+		$('.qualityTable').show();
+	})
+</script>
+</html>
+	

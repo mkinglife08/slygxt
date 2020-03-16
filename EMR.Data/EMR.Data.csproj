@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DF8C9E0D-5515-43A9-8765-F54501D92639}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EMR.Data</RootNamespace>
+    <AssemblyName>EMR.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomAttribute\CacheType.cs" />
+    <Compile Include="CustomAttribute\ClientAction.cs" />
+    <Compile Include="CustomAttribute\Filter.cs" />
+    <Compile Include="CustomAttribute\PropertyType.cs" />
+    <Compile Include="DataExtend.cs" />
+    <Compile Include="Domain\Admin\GI_UserSYS.cs" />
+    <Compile Include="Domain\Admin\V_FunInfo.cs" />
+    <Compile Include="Domain\Admin\GI_CodeDict.cs" />
+    <Compile Include="Domain\Admin\GI_FunInfo.cs" />
+    <Compile Include="Domain\Admin\GI_Role.cs" />
+    <Compile Include="Domain\Admin\GI_SYSAPPINFO.cs" />
+    <Compile Include="Domain\Admin\GI_UserInfo.cs" />
+    <Compile Include="Domain\Admin\V_USERSYS.cs" />
+    <Compile Include="Domain\Doctor\CD_MedicalRecordAccessRecord.cs" />
+    <Compile Include="Domain\Doctor\CD_Transfer.cs" />
+    <Compile Include="Domain\Doctor\V_FormEmr.cs" />
+    <Compile Include="Domain\ExternalInterface\API_ExamineReport.cs" />
+    <Compile Include="Domain\Doctor\CD_HospitalPhysicalRxam.cs" />
+    <Compile Include="Domain\Doctor\CD_HospitalRecord.cs" />
+    <Compile Include="Domain\ExternalInterface\API_Payment.cs" />
+    <Compile Include="Domain\Doctor\CD_ProgressNote.cs" />
+    <Compile Include="Domain\Doctor\CD_MedicalRecordHomePage.cs" />
+    <Compile Include="Domain\Doctor\CD_OperationRecord.cs" />
+    <Compile Include="Domain\Doctor\CD_PatientDiagnosis.cs" />
+    <Compile Include="Domain\Doctor\CD_Inpatient.cs" />
+    <Compile Include="Domain\Infection\BUS_INFECTIONEXAMINE.cs" />
+    <Compile Include="Domain\Infection\BUS_INFECTIONEXAMINE_BLOOD.cs" />
+    <Compile Include="Domain\Infection\BUS_YGDCFKD_SOURCE.cs" />
+    <Compile Include="Domain\Infection\HandHygieneDczs.cs" />
+    <Compile Include="Domain\Infection\HandHygieneGroupAnalysis.cs" />
+    <Compile Include="Domain\Infection\HandHygieneOpModel.cs" />
+    <Compile Include="Domain\Models.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\NopEntityTypeConfiguration.cs" />
+    <Compile Include="Domain\Nurse\CN_TemperatureChart.cs" />
+    <Compile Include="Domain\PagingEntity.cs" />
+    <Compile Include="Domain\PdmReader.cs" />
+    <Compile Include="Domain\Public\AI_DeptInfo.cs" />
+    <Compile Include="Domain\Public\AI_DoctorGroup.cs" />
+    <Compile Include="Domain\Public\CD_Consultation.cs" />
+    <Compile Include="Domain\Public\V_FormEmrTemplate.cs" />
+    <Compile Include="Domain\Public\V_StructuredTemplate.cs" />
+    <Compile Include="Domain\TreeEntityForLayui.cs" />
+    <Compile Include="Domain\WebApi_Result_Value.cs" />
+    <Compile Include="EfRepository.cs" />
+    <Compile Include="EMRObjectContext.cs" />
+    <Compile Include="EntityOperate.cs" />
+    <Compile Include="SqlDataProvider.cs" />
+    <Compile Include="OracleDataProvider.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="IDbContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EMR.Core\EMR.Core.csproj">
+      <Project>{bb4fcb6f-f437-44c7-92ab-251fade1e4a5}</Project>
+      <Name>EMR.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Domain\Models.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Models.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

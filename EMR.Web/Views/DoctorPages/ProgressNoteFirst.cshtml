@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "首次病程记录 ";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<style>
+.progre{
+    width:500px;
+    border:1px solid #ccc;
+    line-height:50px;
+    text-align:center;
+    margin:100px auto;
+}
+.progre a{
+    display:block;
+    font-size:18px;
+    border-bottom:1px solid #ccc;
+}
+.progre a:hover{
+    background:#EAEFF5;
+    color:#3F88CF;
+}
+
+</style>
+
+<div class="progre">
+    <a href="~/page/DoctorPages/ProgressNoteWestern">西医首次病程记录</a>
+    <a href="~/page/DoctorPages/ProgressNoteChina">中医首次病程记录</a>
+</div>
+
+<script>
+    EWinsBase.json("api/Doctor/ProgressNote/GetAll", {
+        data: { "InpatientId": parent.GetQueryString("InpatientId"),"ProgressTypeId": 50,"limit":10 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (!EWinsBase.isNullOrEmpty(data.data)) {
+                var curData = data.data[0];
+                if (curData) {
+                    var RecordContent = curData.RecordContent;
+                    if (RecordContent.indexOf('中医鉴别诊断') > 0)
+                        location.href = EWinsBase.__curHostAddress + 'page/DoctorPages/ProgressNoteChina?FromUrl=' + GetQueryString("FromUrl");
+                    else
+                        location.href = EWinsBase.__curHostAddress + 'page/DoctorPages/ProgressNoteWestern?FromUrl=' + GetQueryString("FromUrl");
+                }
+            }
+        }
+    })
+</script>

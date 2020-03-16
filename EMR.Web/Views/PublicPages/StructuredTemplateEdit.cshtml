@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "StructuredTemplateEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<form class="layui-form" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">父级</label>
+                <div class="layui-input-inline">
+                    <select name="ParentTempId" id="ParentTempId" class="deletSele" lay-verify="SelectRequired" placeholder="父级"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="TemplateName" data-id="TemplateName" lay-verify="required" lay-maxlength="30" placeholder="请输入模板名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">模板类型</label>
+                <div class="layui-input-inline">
+                    <select name="TemplateType" id="TemplateType" class="deletSele" lay-verify="SelectRequired" placeholder="请选择模板类型"></select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">共享类型</label>
+                <div class="layui-input-inline">
+                    <select name="ShareType" id="ShareType" class="deletSele" lay-verify="SelectRequired" placeholder="请选择共享类型"></select>
+                </div>
+                @*<label class="layui-form-label">共享范围</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ShareRange" data-id="ShareRange" lay-verify="required" lay-maxlength="30" placeholder="请输入共享范围" autocomplete="off"
+                           class="layui-input">
+                </div>*@
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否末级判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsCategory" value="0" title="不是末级" checked="">不是末级
+                    <input type="radio" name="IsCategory" value="1" title="末级">末级
+                </div>
+                <label class="layui-form-label">是否作废判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="Del" value="0" title="正常" checked="">正常
+                    <input type="radio" name="Del" value="1" title="作废">作废
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板数据</label>
+                <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                    <textarea name="TemplateData"  id="TemplateData" data-id="TemplateData" style="width:550px;" placeholder="请输入模板数据" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板内容</label>
+                <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                    <textarea name="TemplateContent"  id="TemplateContent" data-id="TemplateContent" style="width:550px;"  placeholder="请输入模板内容" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont icon-saves" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganSelect();
+    //父级
+    CreateSelectStructuredTemplate($("#ParentTempId"),"1");
+    //初始化模板类型下拉框
+    CreateSelectOptionFromCodeDict($("#TemplateType"), "TemplateType");
+    //初始化共享类型下拉框
+    CreateSelectOptionFromCodeDict($("#ShareType"), "ShareType");
+
+    var TemplateId = GetQueryString("TemplateId");
+    if (TemplateId != "") {
+        EWinsBase.json("api/Public/StructuredTemplate/GetInfoById", {
+            data: { "TemplateId": TemplateId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+                $("#ParentTempId").val(data.data["ParentTempId"]).trigger('change');
+                $("input:radio[name='Del'][value='" + data.data["Del"] + "']").attr("checked", 'checked');
+                $("input:radio[name='IsCategory'][value='" + data.data["IsCategory"] + "']").attr("checked", 'checked');
+
+                //绑定富文本框的内容需要反转义
+                $("#TemplateData").val(HTMLDecode(data.data["TemplateData"]));//反转义模板数据
+                $("#TemplateContent").val(HTMLDecode(data.data["TemplateContent"]));//反转义模板内容
+
+                //绑定职务
+                if (data.data["TemplateType"] != null) {
+                    //绑定职务初始值
+                    $("#TemplateType").append("<option value=" + data.data["TemplateType"] + ">" + data.data["TemplateTypeName"] + "</option>");
+                    $("#TemplateType").val(data.data["TemplateType"]).trigger('change');
+                }
+                //绑定职务级别
+                if (data.data["ShareType"] != null) {
+                    //绑定职务级别初始值
+                    $("#ShareType").append("<option value=" + data.data["ShareType"] + ">" + data.data["ShareTypeName"] + "</option>");
+                    $("#ShareType").val(data.data["ShareType"]).trigger('change');
+                }
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+    else {
+        var ParentTempId = GetQueryString("ParentTempId");
+
+    }
+
+    layui.use(['form', 'layedit'], function () {
+        var layedit = layui.layedit;
+        var TemplateDataIndex=layedit.build('TemplateData'); //模板数据
+        var TemplateContentIndex=layedit.build('TemplateContent'); //模板内容
+
+
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit;
+        form.on('submit(sub)', function (data) {
+            data.field["TemplateId"] = GetQueryString("TemplateId");
+            data.field["ShareRange"] = getMultiSelectText("ShareType");//共享范围，取共享类型的中文名称
+            //富文本框的内容需要转义标签才能提交
+            data.field["TemplateData"] = HTMLEncode(layedit.getContent(TemplateDataIndex));
+            data.field["TemplateContent"] = HTMLEncode(layedit.getContent(TemplateContentIndex));
+
+            EWinsBase.json("api/Public/StructuredTemplate/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            setTimeout(function () {
+                                var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                                var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                                wind.refreshTable();//刷新表格
+                                wind.refreshNode();//刷新树
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                            }, 900);
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+
+            return false;
+        });
+    })
+</script>
+
+

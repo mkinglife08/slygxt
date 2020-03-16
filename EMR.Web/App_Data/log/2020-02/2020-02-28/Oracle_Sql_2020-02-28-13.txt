@@ -1,0 +1,136 @@
+[2020-02-28 13:34:09.429]sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where  lower(a.USERCODE)= :USERCODE0 and rownum <=1,param:USERCODE0=admin,[117.5218毫秒]
+
+[2020-02-28 13:34:10.015]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[8.8681毫秒]
+
+[2020-02-28 13:34:10.108]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,FunLevel=1,[14.6554毫秒]
+
+[2020-02-28 13:34:10.563]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[1.6024毫秒]
+
+[2020-02-28 13:34:10.604]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=6,FunLevel=1,[6.4261毫秒]
+
+[2020-02-28 13:34:10.653]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/28 13:34:10,USERID0=1,[17.8736毫秒]
+
+[2020-02-28 13:34:28.998]count:sql:select count(0) from (
+    select i.inpatientid,i.bednumber,i.healthcard,i.EntryTime,i.LeaveTime,i.Name,i.CurrentDeptID,i.conversiondept,d1.DEPTNAME currentdeptname,t.ConversionDept LastConversionDept
+    from CD_Inpatient i
+    Left join AI_DeptInfo d1 on d1.DEPTID=i.CurrentDeptID
+    Left join (SELECT t1.*,ROW_NUMBER() OVER(PARTITION BY inpatientid ORDER BY CONVERSIONTIME DESC) rn FROM CD_Transfer t1) t on t.inpatientid = i.inpatientid
+    
+    order by i.EntryTime desc
+  )t,param:,page:sql:select * from(select field.*,ROWNUM RN from(
+    select i.inpatientid,i.bednumber,i.healthcard,i.EntryTime,i.LeaveTime,i.Name,i.CurrentDeptID,i.conversiondept,d1.DEPTNAME currentdeptname,t.ConversionDept LastConversionDept
+    from CD_Inpatient i
+    Left join AI_DeptInfo d1 on d1.DEPTID=i.CurrentDeptID
+    Left join (SELECT t1.*,ROW_NUMBER() OVER(PARTITION BY inpatientid ORDER BY CONVERSIONTIME DESC) rn FROM CD_Transfer t1) t on t.inpatientid = i.inpatientid
+    
+    order by i.EntryTime desc
+  ) field where rownum<=18) where rn>=1,param:[46.8713毫秒]
+
+[2020-02-28 13:34:50.377]count:sql:select count(0) from (
+    select dept.deptname,i.name,i.inpatientid,i.healthcard
+    ,NVL2(hr.hospitalrecordid,'√','×') hashospitalrecord
+    ,NVL2(pn.progressnoteid,'√','×') hasprogressnotefirst
+    ,NVL2(f.formemrid,'√','×') hasconsent
+    ,NVL2(mrh.homepageid,'√','×') hashomepage
+    ,NVL2(ohr.outhospitalrecordid,'√','×') hasouthospitalrecord
+    from CD_INPATIENT i
+    left join AI_DEPTINFO dept on i.currentdeptid=dept.deptid
+    left join CD_HospitalRecord hr on hr.inpatientid=i.inpatientid
+    left join CD_ProgressNote pn on pn.inpatientid=i.inpatientid and pn.progresstypeid='50'
+    left join (select max(fe.formemrid) formemrid,fe.inpatientid from CD_FormEmr fe left join CD_FormEmrTemplate fet on fe.formid=fet.templateid where fet.templatetype='10'  group by fe.inpatientid ) f on f.inpatientid=i.inpatientid
+    left join CD_MedicalRecordHomePage mrh on mrh.inpatientid=i.inpatientid
+    left join CD_OuthospitalRecord ohr on ohr.inpatientid=i.inpatientid
+     where 1=1  and i.leavetime > to_date('2013-02-01 00:00:00','yyyy-mm-dd hh24:mi:ss') and i.leavetime < to_date('2020-02-28 23:59:59','yyyy-mm-dd hh24:mi:ss')
+    order by i.LeaveTime desc
+  )t,param:,page:sql:select * from(select field.*,ROWNUM RN from(
+    select dept.deptname,i.name,i.inpatientid,i.healthcard
+    ,NVL2(hr.hospitalrecordid,'√','×') hashospitalrecord
+    ,NVL2(pn.progressnoteid,'√','×') hasprogressnotefirst
+    ,NVL2(f.formemrid,'√','×') hasconsent
+    ,NVL2(mrh.homepageid,'√','×') hashomepage
+    ,NVL2(ohr.outhospitalrecordid,'√','×') hasouthospitalrecord
+    from CD_INPATIENT i
+    left join AI_DEPTINFO dept on i.currentdeptid=dept.deptid
+    left join CD_HospitalRecord hr on hr.inpatientid=i.inpatientid
+    left join CD_ProgressNote pn on pn.inpatientid=i.inpatientid and pn.progresstypeid='50'
+    left join (select max(fe.formemrid) formemrid,fe.inpatientid from CD_FormEmr fe left join CD_FormEmrTemplate fet on fe.formid=fet.templateid where fet.templatetype='10'  group by fe.inpatientid ) f on f.inpatientid=i.inpatientid
+    left join CD_MedicalRecordHomePage mrh on mrh.inpatientid=i.inpatientid
+    left join CD_OuthospitalRecord ohr on ohr.inpatientid=i.inpatientid
+     where 1=1  and i.leavetime > to_date('2013-02-01 00:00:00','yyyy-mm-dd hh24:mi:ss') and i.leavetime < to_date('2020-02-28 23:59:59','yyyy-mm-dd hh24:mi:ss')
+    order by i.LeaveTime desc
+  ) field where rownum<=18) where rn>=1,param:[67.237毫秒]
+
+[2020-02-28 13:35:26.274]count:sql:select count(0) from (
+    select i.inpatientid,i.bednumber,i.healthcard,i.EntryTime,i.LeaveTime,i.Name,i.CurrentDeptID,i.conversiondept,d1.DEPTNAME currentdeptname,t.ConversionDept LastConversionDept
+    from CD_Inpatient i
+    Left join AI_DeptInfo d1 on d1.DEPTID=i.CurrentDeptID
+    Left join (SELECT t1.*,ROW_NUMBER() OVER(PARTITION BY inpatientid ORDER BY CONVERSIONTIME DESC) rn FROM CD_Transfer t1) t on t.inpatientid = i.inpatientid
+    
+    order by i.EntryTime desc
+  )t,param:,page:sql:select * from(select field.*,ROWNUM RN from(
+    select i.inpatientid,i.bednumber,i.healthcard,i.EntryTime,i.LeaveTime,i.Name,i.CurrentDeptID,i.conversiondept,d1.DEPTNAME currentdeptname,t.ConversionDept LastConversionDept
+    from CD_Inpatient i
+    Left join AI_DeptInfo d1 on d1.DEPTID=i.CurrentDeptID
+    Left join (SELECT t1.*,ROW_NUMBER() OVER(PARTITION BY inpatientid ORDER BY CONVERSIONTIME DESC) rn FROM CD_Transfer t1) t on t.inpatientid = i.inpatientid
+    
+    order by i.EntryTime desc
+  ) field where rownum<=18) where rn>=1,param:[2.6893毫秒]
+
+[2020-02-28 13:42:39.246]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[3.7763毫秒]
+
+[2020-02-28 13:42:39.422]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=6,FunLevel=1,[3.6921毫秒]
+
+[2020-02-28 13:42:39.613]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/28 13:42:39,USERID0=1,[3.845毫秒]
+
+[2020-02-28 13:42:42.190]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.2295毫秒]
+
+[2020-02-28 13:42:42.363]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[3.4721毫秒]
+
+[2020-02-28 13:42:42.409]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/28 13:42:42,USERID0=1,[2.68毫秒]
+
+[2020-02-28 13:59:18.210]sql:
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+     where 1=1  and a.userid=:UserId
+    order by b.displaysort ,a.sysid
+  ,param:UserId=1,[2.1726毫秒]
+
+[2020-02-28 13:59:18.304]sql:
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+     and exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId)) and a.sysid=:SysId and a.funlevel=:FunLevel
+    order by a.displaysort,a.funid
+  ,param:UserId=1,SysId=25,FunLevel=1,[3.2814毫秒]
+
+[2020-02-28 13:59:18.410]sql:update GI_USERINFO set ORGANID=:ORGANID, INPATIENTID=:INPATIENTID, MODIFYTIME=:MODIFYTIME where USERID=:USERID0 ,param:ORGANID=1001,INPATIENTID=1,MODIFYTIME=2020/2/28 13:59:18,USERID0=1,[2.6817毫秒]
+

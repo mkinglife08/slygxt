@@ -1,0 +1,1041 @@
+﻿
+@{
+    ViewBag.Title = "InfectionExamineDetail";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+
+@{
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    /*body {
+            padding: 0 100px;
+        }*/
+
+    .demo {
+        width: 100%; /* 600px;*/
+        margin: 40px auto;
+        font-family: 'trebuchet MS', 'Lucida sans', Arial;
+        font-size: 14px;
+        color: #444;
+    }
+
+    table {
+        *border-collapse: collapse; /* IE7 and lower */
+        border-spacing: 0;
+        width: 100%;
+    }
+    /*========bordered table========*/
+    .bordered {
+        border: solid #ccc 1px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0 1px 1px #ccc;
+        -moz-box-shadow: 0 1px 1px #ccc;
+        box-shadow: 0 1px 1px #ccc;
+    }
+
+        .bordered tr {
+            -o-transition: all 0.1s ease-in-out;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            -ms-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+        }
+
+            .bordered .highlight,
+            .bordered tr:hover {
+                background: #fbf8e9;
+            }
+
+        .bordered td,
+        .bordered th {
+            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .bordered th {
+            background-color: #dce9f9;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+            background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+            background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            border-top: none;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        }
+
+            .bordered td:first-child,
+            .bordered th:first-child {
+                border-left: none;
+            }
+
+            .bordered th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .bordered th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .bordered tr:last-child td:first-child {
+            -moz-border-radius: 0 0 0 6px;
+            -webkit-border-radius: 0 0 0 6px;
+            border-radius: 0 0 0 6px;
+        }
+
+        .bordered tr:last-child td:last-child {
+            -moz-border-radius: 0 0 6px 0;
+            -webkit-border-radius: 0 0 6px 0;
+            border-radius: 0 0 6px 0;
+        }
+    /*----------------------*/
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    }
+
+    .zebra th {
+        text-align: left;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+    }
+
+        .zebra th:first-child {
+            -moz-border-radius: 6px 0 0 0;
+            -webkit-border-radius: 6px 0 0 0;
+            border-radius: 6px 0 0 0;
+        }
+
+        .zebra th:last-child {
+            -moz-border-radius: 0 6px 0 0;
+            -webkit-border-radius: 0 6px 0 0;
+            border-radius: 0 6px 0 0;
+        }
+
+    .zebra tfoot td {
+        border-bottom: 0;
+        border-top: 1px solid #fff;
+        background-color: #f1f1f1;
+    }
+
+        .zebra tfoot td:first-child {
+            -moz-border-radius: 0 0 0 6px;
+            -webkit-border-radius: 0 0 0 6px;
+            border-radius: 0 0 0 6px;
+        }
+
+        .zebra tfoot td:last-child {
+            -moz-border-radius: 0 0 6px 0;
+            -webkit-border-radius: 0 0 6px 0;
+            border-radius: 0 0 6px 0;
+        }
+</style> 
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group" method="post">
+    <div id="action_subm">
+        <div class="submEdit">
+
+            <input type="hidden" id="EXID" name="EXID" data-id="EXID" /> 
+
+                <table id="tb_GrblPart1" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                    <tr>
+                        <td colspan="5" style="text-align:center;font-weight:bold;font-size:28px;">（疑似）医院感染病例个案调查表</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.1一般情况 </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-left:40px;">
+                            A.1.1 患者姓名：<input type="text" name="HZXM" data-id="HZXM" lay-maxlength="20" placeholder="请输入患者姓名" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            家长姓名（若是儿童，请填写）： <input type="text" name="JZXM" data-id="JZXM" lay-maxlength="20" placeholder="请输入家长姓名" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                        <td>A.1.2 患者ID：<input type="text" name="HZID" data-id="HZID" lay-maxlength="20" placeholder="请输入患者ID" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td>
+                            A.1.3 性别： <input type="radio" data-id='XB' name='XB' value="男" title="男" lay-filter="rdo" formType='radio' markid='XB'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            男
+                            <input type="radio" data-id='XB' name='XB' value="女" title="女" lay-filter="rdo" formType='radio' markid='XB'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            女
+                        </td>
+                        <td>A.1.4 年龄：<input type="text" name="NL" data-id="NL" lay-maxlength="20" placeholder="请输入年龄" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />岁（月） </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.2发现/报告情况 </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">A.2.1 发病序号：<input type="text" name="FBXH" data-id="FBXH" lay-maxlength="20" placeholder="请输入发病序号" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td style="text-align:right;">
+                            A.2.2 发生感染时所在科室：
+                        </td>
+                        <td>
+                            <select name="SZKSID" id="SZKSID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                        </td>
+                        <td style="text-align:right;">
+                            A.2.3 曾住过科室:
+                        </td>
+                        <td>
+                            <select name="CZKSID" id="CZKSID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">
+                            A.2.4 发病日期: <input type="text" name="FBRQ" data-id="FBRQ" id="FBRQ" @*lay-verify="date"*@ placeholder="请选择发病时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                        <td>
+                            A.2.5 发现时间: <input type="text" name="FXRQ" data-id="FXRQ" id="FXRQ" @*lay-verify="date"*@ placeholder="请选择发现时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td> 
+                        <td colspan="3">A.2.6 感染诊断部位：<input type="text" name="GRZDBW" data-id="GRZDBW" lay-maxlength="20" placeholder="请输入感染诊断部位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                    </tr> 
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.3发病与就诊经过</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-left:40px;">
+                            A.3.1 入院日期:
+                            <input type="text" name="RYRQ" data-id="RYRQ" id="RYRQ" @*lay-verify="date"*@ placeholder="请选择入院日期" autocomplete="off" class="layui-input"  style="width:200px;display:inline;" />
+                        </td>
+                        <td colspan="2">A.3.2 可能的感染原因：<input type="text" name="KNGRYY" data-id="KNGRYY" lay-maxlength="20" placeholder="请输入可能的感染原因" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /> </td>
+                        <td>A.3.3 原发疾病：<input type="text" name="YFJB" data-id="YFJB" lay-maxlength="20" placeholder="请输入原发疾病" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.4临床表现</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">A.4.1 临床症状:<input type="text" name="LCZZ" data-id="LCZZ" lay-maxlength="20" placeholder="请输入临床症状" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td>A.4.2 临床体征:<input type="text" name="LCTZ" data-id="LCTZ" lay-maxlength="20" placeholder="请输入临床体征" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td colspan="3">A.4.3 微生物送检结果及日期：<input type="text" name="WSWJG" data-id="WSWJG" lay-maxlength="20" placeholder="请输入微生物送检结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                                             <input type="text" name="WSWRQ" data-id="WSWRQ" id="WSWRQ" @*lay-verify="date"*@ placeholder="请选择日期" autocomplete="off" class="layui-input" style="width:200px;display:inline;"/></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.5 高危因素及暴露情况</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="padding-left:40px;">
+                            A.5.1 病室环境：
+                            <input type="radio" data-id='BSHJ' name='BSHJ' value="I类" title="I类" lay-filter="rdo" formType='radio' markid='BSHJ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            I类
+                            <input type="radio" data-id='BSHJ' name='BSHJ' value="II类" title="II类" lay-filter="rdo" formType='radio' markid='BSHJ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            II类
+                            <input type="radio" data-id='BSHJ' name='BSHJ' value="III类" title="III类" lay-filter="rdo" formType='radio' markid='BSHJ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            III类 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="padding-left:40px;">
+                            A.5.2 医护情况：
+                            主管护士<input type="text" name="ZGHS" data-id="ZGHS" lay-maxlength="20" placeholder="请输入主管护士" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            日常护士<input type="text" name="RCHS" data-id="RCHS" lay-maxlength="20" placeholder="请输入日常护士" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            主管医生<input type="text" name="ZGYS" data-id="ZGYS" lay-maxlength="20" placeholder="请输入主管医生" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            每次接触患者前后洗手或使用快速手消毒剂:
+                            <input type="radio" data-id='KSXD' name='KSXD' value="是" title="是" lay-filter="rdo" formType='radio' markid='KSXD'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是
+                            <input type="radio" data-id='KSXD' name='KSXD' value="否" title="否" lay-filter="rdo" formType='radio' markid='KSXD'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否
+                            医务人员出勤情况 <input type="text" name="YWCQ" data-id="YWCQ" lay-maxlength="20" placeholder="请输入医务人员出勤情况" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding-left:40px;">
+                            A.5.3 周围患者是否有类似临床症状、体征
+                            <input type="radio" data-id='ZWHZTZ' name='ZWHZTZ' value="是" title="是" lay-filter="rdo" formType='radio' markid='ZWHZTZ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是
+                            <input type="radio" data-id='ZWHZTZ' name='ZWHZTZ' value="否" title="否" lay-filter="rdo" formType='radio' markid='ZWHZTZ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否
+                        </td>
+                        <td colspan="2">
+                            A.5.4 患者接触的相关医疗器械：<input type="text" name="XGYLQX" data-id="XGYLQX" lay-maxlength="20" placeholder="请输入相关医疗器械" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            使用前后
+                            <input type="radio" data-id='XGYLQXSY' name='XGYLQXSY' value="消毒" title="消毒" lay-filter="rdo" formType='radio' markid='XGYLQXSY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            消毒
+                            <input type="radio" data-id='XGYLQXSY' name='XGYLQXSY' value="灭菌" title="灭菌" lay-filter="rdo" formType='radio' markid='XGYLQXSY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            灭菌
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="padding-left:40px;">A.5.5 近期环境抽查结果：
+                        空气：<input type="text" name="CCJGKQ" data-id="CCJGKQ" lay-maxlength="20" placeholder="请输入空气抽查结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        物表：<input type="text" name="CCJGWB" data-id="CCJGWB" lay-maxlength="20" placeholder="请输入物表抽查结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        工作人员手：<input type="text" name="CCJGSB" data-id="CCJGSB" lay-maxlength="20" placeholder="请输入工作人员手抽查结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding-left:40px;">A.5.6 有无可疑的使用中消毒液：
+                        <input type="text" name="KYXDY" data-id="KYXDY" lay-maxlength="20" placeholder="请输入消毒液名称" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /> 
+                        批号：<input type="text" name="KYXDYPH" data-id="KYXDYPH" lay-maxlength="20" placeholder="请输入批号" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td colspan="2">A.5.7 有无可疑的静脉注射液体：<input type="text" name="KYZSY" data-id="KYZSY" lay-maxlength="20" placeholder="请输入可疑静脉注射液" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        批号：<input type="text" name="KYZSYPH" data-id="KYZSYPH" lay-maxlength="20" placeholder="请输入可疑静脉注射液批号" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="padding-left:40px;">
+                            A.5.8 本组共有患者
+                            <input type="text" name="BZHZSL" data-id="BZHZSL" lay-maxlength="20" placeholder="请输入患者总数" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />
+
+                            例，本患者为第
+                            <input type="text" name="BZHZXL" data-id="BZHZXL" lay-maxlength="20" placeholder="请输入患者序号" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />
+                            例，  患者感染源可能来自：
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="患者自身" title="患者自身" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            患者自身
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="其他患者" title="其他患者" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            其他患者
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="医务人员" title="医务人员" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            医务人员
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="医疗器械" title="医疗器械" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            医疗器械
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="医院环境" title="医院环境" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            医院环境
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="食物" title="食物" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            食物
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="药物" title="药物" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            药物
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="探视者" title="探视者" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            探视者
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="陪护者" title="陪护者" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            陪护者
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="感染源不明" title="感染源不明" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            感染源不明
+                            <input type="radio" data-id='BZHZGRY' name='BZHZGRY' value="其他" title="其他" lay-filter="rdo" formType='radio' markid='BZHZGRY'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            其他 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="font-weight:bold;">A.5.9 患者易感因素的调查见表A.1。</td>
+                    </tr>
+
+                </table>
+             
+                <table id="tb_Ygrys" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered" style="margin-top:20px;">
+                    <tr>
+                        <td colspan="3" style="font-size:20px;font-weight:bold;text-align:center;">表A.1   患者易感因素</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">手术名称：<input type="text" name="SSMC" data-id="SSMC" lay-maxlength="20" placeholder="请输入手术名称" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td>
+                            急诊：
+                            <input type="radio" data-id='JZ' name='JZ' value="是" title="是" lay-filter="rdo" formType='radio' markid='JZ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是
+                            <input type="radio" data-id='JZ' name='JZ' value="否" title="否" lay-filter="rdo" formType='radio' markid='JZ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">手术日期：
+                            <input type="text" name="SSRQ" data-id="SSRQ" id="SSRQ" @*lay-verify="date"*@ placeholder="请选择手术日期" autocomplete="off" class="layui-input"  style="width:200px;display:inline;" />
+                        </td>
+                        <td>参与手术人员：
+                            <input type="text" name="CYSSRY" data-id="CYSSRY" lay-maxlength="40" placeholder="请输入参与手术人员" autocomplete="off" class="layui-input" style="width:400px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            手术持续时间：
+                            <input type="text" name="SSCXSJ" data-id="SSCXSJ" lay-maxlength="40" placeholder="请输入手术持续时间" autocomplete="off" class="layui-input" style="width:400px;display:inline;" />
+
+                        </td>
+                        <td>
+                            手术植入物：
+                            <input type="radio" data-id='SSZRW' name='SSZRW' value="有" title="有" lay-filter="rdo" formType='radio' markid='SSZRW'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            有
+                            <input type="radio" data-id='SSZRW' name='SSZRW' value="无" title="无" lay-filter="rdo" formType='radio' markid='SSZRW'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            手术切口类型：
+                            <input type="radio" data-id='SSQKLX' name='SSQKLX' value="清洁" title="清洁" lay-filter="rdo" formType='radio' markid='SSQKLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            清洁
+                            <input type="radio" data-id='SSQKLX' name='SSQKLX' value="清洁-污染" title="清洁-污染" lay-filter="rdo" formType='radio' markid='SSQKLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            清洁-污染
+                            <input type="radio" data-id='SSQKLX' name='SSQKLX' value="污染" title="污染" lay-filter="rdo" formType='radio' markid='SSQKLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            污染
+                            <input type="radio" data-id='SSQKLX' name='SSQKLX' value="感染" title="感染" lay-filter="rdo" formType='radio' markid='SSQKLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            感染
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            麻醉（ASA）评分：
+                            <input type="radio" data-id='MZPF' name='MZPF' value="I级" title="I级" lay-filter="rdo" formType='radio' markid='MZPF'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            I级
+                            <input type="radio" data-id='MZPF' name='MZPF' value="II级" title="II级" lay-filter="rdo" formType='radio' markid='MZPF'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            II级
+                            <input type="radio" data-id='MZPF' name='MZPF' value="III级" title="III级" lay-filter="rdo" formType='radio' markid='MZPF'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            III级
+                            <input type="radio" data-id='MZPF' name='MZPF' value="IV级" title="IV级" lay-filter="rdo" formType='radio' markid='MZPF'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            IV级
+                            <input type="radio" data-id='MZPF' name='MZPF' value="V级" title="V级" lay-filter="rdo" formType='radio' markid='MZPF'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            V级
+                        </td>
+                        <td>
+                            麻醉：
+                            <input type="radio" data-id='MZLX' name='MZLX' value="全麻" title="全麻" lay-filter="rdo" formType='radio' markid='MZLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            全麻
+                            <input type="radio" data-id='MZLX' name='MZLX' value="硬膜外麻" title="硬膜外麻" lay-filter="rdo" formType='radio' markid='MZLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            硬膜外麻
+                            <input type="radio" data-id='MZLX' name='MZLX' value="腰麻" title="腰麻" lay-filter="rdo" formType='radio' markid='MZLX'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            腰麻
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>   
+                            <input type="checkbox" name="TNB" data-id="TNB" id="TNB" lay-skin="primary" value="糖尿病" title="糖尿病"/> 
+                        </td>
+                        <td>
+                            <input type="checkbox" name="MYQX" data-id="MYQX" id="MYQX" lay-skin="primary" value="免疫缺陷" title="免疫缺陷"/>  
+                        </td>
+                        <td>
+                            <input type="checkbox" name="MNDCG" data-id="MNDCG" id="MNDCG" lay-skin="primary" value="泌尿道插管"  title="泌尿道插管" />
+                            时间
+                            <input type="text" name="MNDCGSJ" data-id="MNDCGSJ" lay-maxlength="20" placeholder="请输入插管时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="ZL" data-id="ZL" id="ZL" lay-skin="primary" title="肿瘤"  value="肿瘤" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="MYYZJ" data-id="MYYZJ" id="MYYZJ" lay-skin="primary" title="免疫抑制剂"  value="免疫抑制剂" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="DJMCG" data-id="DJMCG" id="DJMCG" lay-skin="primary" title="动静脉插管" value="动静脉插管"  />
+                            时间
+                            <input type="text" name="DJMCGSJ" data-id="DJMCGSJ" lay-maxlength="20" placeholder="请输入插管时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> 
+                            <input type="checkbox" name="HM" data-id="HM" id="HM" lay-skin="primary" title="昏迷"  value="昏迷" />
+                        </td>
+                        <td> 
+                            <input type="checkbox" name="DDBXZ" data-id="DDBXZ" id="DDBXZ" lay-skin="primary" title="低蛋白血症" value="低蛋白血症"  /> 
+                        </td>
+                        <td>
+                            引流管部位
+                            <input type="text" name="YLGBW" data-id="YLGBW" lay-maxlength="20" placeholder="请输入引流管部位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            时间
+                            <input type="text" name="YLGBWSJ" data-id="YLGBWSJ" lay-maxlength="20" placeholder="请输入引流时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="GYH" data-id="GYH" id="GYH" lay-skin="primary" title="肝硬化"  value="肝硬化" />
+                        </td>
+                        <td> 
+                            <input type="checkbox" name="WBC" data-id="WBC" id="WBC" lay-skin="primary" title="WBC<1.5×215;109/L" value="WBC"  />
+                        </td>
+                        <td>
+                            激素及使用方法 <input type="text" name="JSSYFF" data-id="JSSYFF" lay-maxlength="20" placeholder="请输入激素及使用方法" autocomplete="off" class="layui-input" style="width:400px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="FL" data-id="FL" id="FL" lay-skin="primary" title="放疗" value="放疗"  />
+                            、
+                            <input type="checkbox" name="HL" data-id="HL" id="HL" lay-skin="primary" title="化疗"  value="化疗" />
+                        </td>
+                        <td>
+                            气管切开
+                            <input type="radio" data-id='QGQK' name='QGQK' value="是" title="是" lay-filter="rdo" formType='radio' markid='QGQK'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是
+                            <input type="radio" data-id='QGQK' name='QGQK' value="否" title="否" lay-filter="rdo" formType='radio' markid='QGQK'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否 
+                            时间<input type="text" name="QGQKSJ" data-id="QGQKSJ" lay-maxlength="20" placeholder="请输入切开时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                        <td>
+                            上呼吸机
+                            <input type="radio" data-id='SHXJ' name='SHXJ' value="是" title="是" lay-filter="rdo" formType='radio' markid='SHXJ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是
+                            <input type="radio" data-id='SHXJ' name='SHXJ' value="否" title="否" lay-filter="rdo" formType='radio' markid='SHXJ'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否 
+                            时间<input type="text" name="SHXJSJ" data-id="SHXJSJ" lay-maxlength="20" placeholder="请输入上呼吸机时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="XC" data-id="XC" id="XC" lay-skin="primary" title="哮喘"  value="哮喘" /></td>
+                        <td><input type="checkbox" name="GXB" data-id="GXB" id="GXB" lay-skin="primary" title="冠心病"  value="冠心病" /></td>
+                        <td><input type="checkbox" name="SZJB" data-id="SZJB" id="SZJB" lay-skin="primary" title="肾病"  value="肾病" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="MXZQGY" data-id="MXZQGY" id="MXZQGY" lay-skin="primary" title="慢性支气管炎" value="慢性支气管炎" /></td>
+                        <td><input type="checkbox" name="MXFBJB" data-id="MXFBJB" id="MXFBJB" lay-skin="primary" title="其它慢性肺部疾病" value="其它慢性肺部疾病" /></td>
+                        <td><input type="checkbox" name="QTMXJB" data-id="QTMXJB" id="QTMXJB" lay-skin="primary" title="其它慢性疾病"  value="其它慢性疾病" /></td>
+                    </tr>
+                </table>
+
+                <table id="tb_GrblPart2" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered" style="margin-top:20px;">
+                    <tr>
+                        <td colspan="2" style="font-weight:bold;">A.6 患者生活习惯、既往健康史 </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">
+                            A.6.1 饭前洗手：
+                            <input type="radio" data-id='FQXS' name='FQXS' value="每次均洗手" title="FQXS" markid='FQXS' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            每次均洗手
+                            <input type="radio" data-id='FQXS' name='FQXS' value="偶尔洗手" title="FQXS" markid='FQXS' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            偶尔洗手
+                            <input type="radio" data-id='FQXS' name='FQXS' value="从不洗手" title="FQXS" markid='FQXS' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            从不洗手
+                            <input type="radio" data-id='FQXS' name='FQXS' value="其它" title="FQXS" markid='FQXS' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            其它
+                        </td>
+                        <td style="padding-left:40px;">
+                            A.6.2 本次感染前是否其它部位感染
+                            <input type="radio" data-id='QTBWGR' name='QTBWGR' value="是" title="QTBWGR" markid='QTBWGR' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            是  
+                            <input type="radio" data-id='QTBWGR' name='QTBWGR' value="否" title="QTBWGR" markid='QTBWGR' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            否，
+                            感染部位：<input type="text" name="GRBW" data-id="GRBW" lay-maxlength="20" placeholder="请输入感染部位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="font-weight:bold;">A.7 患者发病前抗菌药物应用情况</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-left:40px;">
+                            A.7.1 品种：
+                            <input type="text" name="KJYWPZ" data-id="KJYWPZ" lay-maxlength="20" placeholder="请输入抗菌药物应用品种" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            药品名称：
+                            <input type="text" name="KJYWMC" data-id="KJYWMC" lay-maxlength="20" placeholder="请输入抗菌药品名称" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            天数/使用起止日期
+                            <input type="text" name="KJYWRQKS" data-id="KJYWRQKS" id="KJYWRQKS" @*lay-verify="date"*@ placeholder="请选择开始日期" autocomplete="off" class="layui-input" style="width:200px;display:inline;"  />-
+                            <input type="text" name="KJYWRQJS" data-id="KJYWRQJS" id="KJYWRQJS" @*lay-verify="date"*@ placeholder="请选择日期" autocomplete="off" class="layui-input" style="width:200px;display:inline;"  />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-weight:bold;">A.8 实验室检查</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">
+                            A.8.1感染相关指标：
+                            血常规：<input type="text" name="SYSXCG" data-id="SYSXCG" lay-maxlength="20" placeholder="请输入血常规" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />；
+                            CPR：<input type="text" name="SYSCPR" data-id="SYSCPR" lay-maxlength="20" placeholder="请输入CPR" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />；
+                            PCT：<input type="text" name="SYSPCT" data-id="SYSPCT" lay-maxlength="20" placeholder="请输入PCT" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />；
+                            其它：<input type="text" name="SYSQT" data-id="SYSQT" lay-maxlength="20" placeholder="请输入其它指标" autocomplete="off" class="layui-input" style="width:150px;display:inline;" />； 
+                        </td>
+                        <td style="padding-left:40px;font-weight:bold;">A.8.2血清学和病原学检测的调查见表 A.2</td>
+                    </tr>
+                </table>
+
+                <table id="tb_XqxByxjc" title="血清学和病原学检测表" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered" style="margin-top:20px;">
+                    <tr class="title_bt">
+                        <td colspan="8" style="text-align:center;font-weight:bold;font-size:20px;">表A.2 血清学和病原学检测</td>
+                    </tr>
+                    <tr class="title_bt">
+                        <td style="text-align:center;width:5%;">序号</td>
+                        <td style="text-align:center;width:15%;">标本类型</td>
+                        <td style="text-align:center;width:15%;">采样时间</td>
+                        <td style="text-align:center;width:15%;">检测项目</td>
+                        <td style="text-align:center;width:15%;">检测方法</td>
+                        <td style="text-align:center;width:15%;">检测单位</td>
+                        <td style="text-align:center;width:15%;">结果</td>
+                        <td style="text-align:center;width:5%;">操作</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><input type="text" name="BBLX" data-id="BBLX" lay-maxlength="20" placeholder="请输入标本类型" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="CYSJ" data-id="CYSJ" @*lay-verify="date"*@ placeholder="请选择采样时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCXM" data-id="JCXM" lay-maxlength="20" placeholder="请输入检测项目" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCFF" data-id="JCFF" lay-maxlength="20" placeholder="请输入检测方法" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCDW" data-id="JCDW" lay-maxlength="20" placeholder="请输入检测单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td><input type="text" name="JCJG" data-id="JCJG" lay-maxlength="20" placeholder="请输入检测结果" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                        <td></td>
+                    </tr>
+
+                    <tr class="title_bt">
+                        <td colspan="8">注：标本类型包括咽拭子、痰、血、尿、粪便、分泌物等与该感染相关的临床标本 </td>
+                    </tr>
+                </table>
+
+                <table id="tb_GrblPart3" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered" style="margin-top:20px;">
+                    <tr>
+                        <td colspan="4" style="font-weight:bold;">A.9 转归与最终诊断情况 </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding-left:40px;">
+                            A.9.1 最终诊断：
+                            <input type="radio" data-id='ZZZD' name='ZZZD' value="确诊病例" title="确诊病例" markid='ZZZD' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            确诊病例
+                            <input type="radio" data-id='ZZZD' name='ZZZD' value="疑似病例" title="疑似病例" markid='ZZZD' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            疑似病例
+                            <input type="radio" data-id='ZZZD' name='ZZZD' value="临床诊断病例" title="临床诊断病例" markid='ZZZD' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            临床诊断病例
+                            <input type="radio" data-id='ZZZD' name='ZZZD' value="排除" title="排除" markid='ZZZD' lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            排除
+                        </td>
+                        <td>A.9.2 诊断单位：<input type="text" name="ZDDW" data-id="ZDDW" lay-maxlength="20" placeholder="请输入诊断单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" /></td>
+                    </tr> 
+                    <tr>
+                        <td colspan="4" style="padding-left:40px;">
+                            A.9.3 转归：
+                            <input type="radio" data-id='ZG' name='ZG' markid='ZG' value="痊愈" title="痊愈" lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            痊愈，出院日期：<input type="text" name="CYRQ" data-id="CYRQ" id="CYRQ" @*lay-verify="date"*@ placeholder="请选择出院日期" autocomplete="off" class="layui-input"  style="width:200px;display:inline;" />
+                            <input type="radio" data-id='ZG' name='ZG' markid='ZG' value="死亡" title="死亡" lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            死亡，死亡日期：<input type="text" name="SWRQ" data-id="SWRQ" id="SWRQ" @*lay-verify="date"*@ placeholder="请选择死亡日期" autocomplete="off" class="layui-input"  style="width:200px;display:inline;" /> 
+                            死亡原因：<input type="text" name="SWYY" data-id="SWYY" lay-maxlength="20" placeholder="请输入死亡原因" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                            <input type="radio" data-id='ZG' name='ZG' markid='ZG' value="其它" title="其它" lay-filter="rdo" formType='radio'><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            其它：<input type="text" name="ZGQT" data-id="ZGQT" lay-maxlength="20" placeholder="请输入其它转归原因" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="font-weight:bold;">A.10 其它需记载事项 </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><p align="justify">可根据实际情况增加或减少个案表内容，例如：若怀疑与麻醉剂、消毒剂有关，应记录麻醉剂、消毒剂的相关信息，以及封存剩余麻醉剂、消毒剂进行检测的后续情况；若怀疑与植入物有关，应记录植入物以及对同批号植入物进行检测的相关信息；若怀疑与消毒供应中心（CSSD）处置有关，则应追溯相关信息等。 </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="font-weight:bold;">A.11 调查单位、人员和时间 </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:40px;">
+                            A.11.1 调查单位：
+                            <input type="text" name="DCDW" data-id="DCDW" lay-maxlength="20" placeholder="请输入调查单位" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                        <td>
+                            A.11.2 调查者签名：
+                            <input type="text" name="DCZQM" data-id="DCZQM" lay-maxlength="20" placeholder="请输入调查者签名" autocomplete="off" class="layui-input" style="width:200px;display:inline;" />
+                        </td>
+                        <td colspan="2">A.11.3 调查时间：
+                            <input type="text" name="DCSJKS" data-id="DCSJKS" id="DCSJKS" @*lay-verify="date"*@ placeholder="请选择开始时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;"/>
+                            <input type="text" name="DCSJJS" data-id="DCSJJS" id="DCSJJS" @*lay-verify="date"*@ placeholder="请选择结束时间" autocomplete="off" class="layui-input" style="width:200px;display:inline;"/>
+                        </td>
+                    </tr>
+                </table>
+
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#SZKSID"), "0", {  });
+    CreateSelectOptionFromDeptInfo($("#CZKSID"), "0", { });
+
+    for (i = 0; i <= 31; i++) {
+        EnvSel_1($("#SQDFL" + "_" + i), "0", {}, null);
+    }
+
+
+    //暂时保留 删除一行的按钮
+    $("#tb_EnvDetail").find("button").each(function () {
+        $(this).click(function () {
+            var lineNum = $(this).attr("id");
+            $("#_tr_" + lineNum).remove();
+        });
+    });
+
+    var EXID = GetQueryString("EXID");
+    if (EXID != "" && EXID != "undefined") {
+        $("#EXID").val(EXID);
+        EWinsBase.json("api/Infection/InfectionExamine/GetInfectionExamineSourceList", {
+            data: { "EXID": EXID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {  
+                  
+                EWinsBase.setDataModel($("#action_subm [data-id]"), data.data.Item1);   //感染调查表数据
+
+                var bloodSource = data.data.Item2;//tb_XqxByxjc  血清病原学检测数据
+                 
+
+                $("#tb_XqxByxjc tr[class!='title_bt']").each(function (i, v) {
+                    if (i >= bloodSource.length) {
+                        return;
+                    }
+                    var formItem = $(this).find("input");
+                    formItem.each(function (j, v) {
+                        //sourceItem += "\"" + $(this).attr("name")   + "\"";
+                        if ($(this).attr("name") == "CYSJ") {
+                            $(this).val(EWinsBase.formatData((bloodSource[i][$(this).attr("name")]), "yyyy-MM-dd hh:mm:ss"));
+                        } else {
+                            $(this).val(bloodSource[i][$(this).attr("name")]);
+                        }
+                    });
+                });
+
+                //出院日期  死亡日期   调查时间（开始/结束）
+                
+                $("#CYRQ").val(data.data.Item1["CYRQ"] == null ? "" : EWinsBase.formatData(data.data.Item1["CYRQ"], "yyyy-MM-dd hh:mm:ss"));
+                $("#SWRQ").val(data.data.Item1["SWRQ"] == null ? "" : EWinsBase.formatData(data.data.Item1["SWRQ"], "yyyy-MM-dd hh:mm:ss"));
+                $("#DCSJKS").val(data.data.Item1["DCSJKS"] == null ? "" : EWinsBase.formatData(data.data.Item1["DCSJKS"], "yyyy-MM-dd hh:mm:ss"));
+                $("#DCSJJS").val(data.data.Item1["DCSJJS"] == null ? "" : EWinsBase.formatData(data.data.Item1["DCSJJS"], "yyyy-MM-dd hh:mm:ss"));
+
+                //发生感染时所在科室
+                if (data.data.Item3 != null) {
+                    //发生感染时所在科室
+                    data.data.Item3.forEach(function (item, index) { $("#SZKSID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#SZKSID").val($(data.data.Item3).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+                //曾住科室
+                if (data.data.Item4 != null) {
+                    //曾住科室
+                    data.data.Item4.forEach(function (item, index) { $("#CZKSID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#CZKSID").val($(data.data.Item4).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+
+    //如果选择了日期，那么该列下的文本元素会被设置上非空验证，如果把日期数据清空了，那么该列内的数据都会制空
+    function addRemoveVerify(dateValue, prefix) {
+        if (dateValue != "") {
+            $("#tb_EnvDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").attr("lay-verify", "required");
+            });
+        } else {
+
+            $("#tb_EnvDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").removeAttr("lay-verify");
+                var formItem = $(this).find("input[markid*= '" + prefix + "']");
+                if (formItem.attr("formType") != "select") {
+                    formItem.val("")
+                } else {
+                    formItem.val("").trigger('change');
+                }
+            });
+        }
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        laydate.render({ elem: '#FBRQ' });
+        laydate.render({ elem: '#FXRQ' });
+        laydate.render({ elem: '#RYRQ' });
+        laydate.render({ elem: '#WSWRQ' });
+        laydate.render({ elem: '#SSRQ' }); 
+        laydate.render({ elem: '#KJYWRQKS' });
+        laydate.render({ elem: '#KJYWRQJS' }); 
+
+        laydate.render({ elem: '#CYRQ', type: 'datetime' });
+        laydate.render({ elem: '#SWRQ', type: 'datetime' });
+        laydate.render({ elem: '#DCSJKS', type: 'datetime' });
+        laydate.render({ elem: '#DCSJJS', type: 'datetime' }); 
+
+        //表A.2  血清学和病原学检测  循环列表中采样时间
+        lay('[name*=CYSJ]').each(function () {
+            laydate.render({
+                elem: this,
+                type: 'datetime'
+            });
+        }); 
+
+          
+        //form.on('radio(rdo)', function (data) {
+        //    var lineNum = $(data.elem).attr("id").replace(/[^0-9]/ig, "");  //获取的是单选框的ID，最后的数字对应行号。例如:kn0
+        //    var lineObj = $("#_tr_" + lineNum);
+        //    var fs = 0;
+        //    lineObj.find("input[type=radio]:checked").each(function () {
+        //        fs += parseFloat($(this).val());
+        //    });
+        //    $("#fz" + lineNum).val(fs);
+        //    //  form.render();
+        //});
+
+
+
+        form.on('submit(sub)', function (data) {
+            debugger  
+            //获取页面中所有的 文本框，单选框，下拉框，复选框  组成json 发送到后台
+
+
+            var exmModel = "{";  //最终返回的实体json 
+
+            exmModel += "\"EXID\"" + ":" + "\"" + $("#EXID").val() + "\"" + ",";
+
+            var tb_Part1_InputArr = [];  //表格ID为：tb_GrblPart1中所有input名称组成数组
+            $("#tb_GrblPart1 tr").find("input[name!='']").each(function (i, v) {
+                if ($.inArray($(v).attr("name"), tb_Part1_InputArr) < 0) {
+                    tb_Part1_InputArr.push($(v).attr("name"));
+                }
+            });
+            $.each(tb_Part1_InputArr, function (i, name) {
+                var input = $("input[name='" + name + "']");
+                if (input.attr("type") == "text") {
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + input.val() + "\"" + ",";
+                } else if (input.attr("type") == "radio") {
+                    var radioVal = $('input[name=' + name + ']:checked').val();
+                    var v = (radioVal === undefined ? "" : radioVal); //如果单选按钮没有选择过，那么对应的值是 undefined
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + v + "\"" + ",";
+                }
+            });
+            //发生感染时所在科室
+            exmModel += "\"SZKSID\"" + ":" + "\"" + getMultiSelectVal("SZKSID") + "\"" + ",";
+            exmModel += "\"SZKSNAME\"" + ":" + "\"" + getMultiSelectText("SZKSID") + "\"" + ",";
+            //曾住过科室
+            exmModel += "\"CZKSID\"" + ":" + "\"" + getMultiSelectVal("CZKSID") + "\"" + ",";
+            exmModel += "\"CZKSNAME\"" + ":" + "\"" + getMultiSelectText("CZKSID") + "\"" + ",";
+
+            var tb_Ygrys_InputArr = []; //表格ID为：tb_Ygrys中所有input名称组成数组
+            $("#tb_Ygrys tr").find("input[name!='']").each(function (i, v) {
+                if ($.inArray($(v).attr("name"), tb_Ygrys_InputArr) < 0) {
+                    tb_Ygrys_InputArr.push($(v).attr("name"));
+                }
+            }); 
+            $.each(tb_Ygrys_InputArr, function (i, name) {
+                var input = $("input[name='" + name + "']");
+                if (input.attr("type") == "text") {
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + input.val() + "\"" + ",";
+                } else if (input.attr("type") == "radio" || input.attr("type") == "checkbox") {
+                    var rdoChkVal = $('input[name=' + name + ']:checked').val();
+                    var v = (rdoChkVal === undefined ? "" : rdoChkVal); //如果单选按钮没有选择过，那么对应的值是 undefined
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + v + "\"" + ",";
+                } 
+            });
+
+            var tb_GrblPart2_InputArr = []; //表格ID为：tb_GrblPart2中所有input名称组成的数组
+            $("#tb_GrblPart2 tr").find("input[name!='']").each(function (i, v) {
+                if ($.inArray($(v).attr("name"), tb_GrblPart2_InputArr) < 0) {
+                    tb_GrblPart2_InputArr.push($(v).attr("name"));
+                }
+            });
+
+            $.each(tb_GrblPart2_InputArr, function (i, name) {
+                var input = $("input[name='" + name + "']");
+                if (input.attr("type") == "text") {
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + input.val() + "\"" + ",";
+                } else if (input.attr("type") == "radio" || input.attr("type") == "checkbox") {
+                    var rdoChkVal = $('input[name=' + name + ']:checked').val();
+                    var v = (rdoChkVal === undefined ? "" : rdoChkVal); //如果单选按钮没有选择过，那么对应的值是 undefined
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + v + "\"" + ",";
+                }
+            });
+
+            var tb_GrblPart3_InputArr = []; //表格ID为：tb_GrblPart2中所有input名称组成的数组
+            $("#tb_GrblPart3 tr").find("input[name!='']").each(function (i, v) {
+                if ($.inArray($(v).attr("name"), tb_GrblPart3_InputArr) < 0) {
+                    tb_GrblPart3_InputArr.push($(v).attr("name"));
+                }
+            });
+            $.each(tb_GrblPart3_InputArr, function (i, name) {
+                var input = $("input[name='" + name + "']");
+                if (input.attr("type") == "text") {
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + input.val() + "\"";
+                } else if (input.attr("type") == "radio" || input.attr("type") == "checkbox") {
+                    var rdoChkVal = $('input[name=' + name + ']:checked').val();
+                    var v = (rdoChkVal === undefined ? "" : rdoChkVal); //如果单选按钮没有选择过，那么对应的值是 undefined
+                    exmModel += "\"" + name + "\"" + ":" + "\"" + v + "\"";
+                }
+                if (i != tb_GrblPart3_InputArr.length - 1) {
+                    exmModel += ","
+                }
+            }); 
+            exmModel += "}";
+
+            // tb_XqxByxjc 
+
+
+
+            var exmSource = "[";
+            debugger
+            var rowLength = $("#tb_XqxByxjc tr[class!='title_bt']").length;   //获取数据行数量
+
+            $("#tb_XqxByxjc tr[class!='title_bt']").each(function (i, v) {
+                var sourceItem = "{";
+                var formItem = $(this).find("input");
+                //formItem+="\""+form+"\""
+                var formItemLength = formItem.length;
+                formItem.each(function (j, v) {
+                    sourceItem += "\"" + $(this).attr("name") + "\"" + ":" + "\"" + $(this).val() + "\"";
+                    if (j != (formItemLength - 1)) {
+                        sourceItem += ",";
+                    }
+                });
+                sourceItem += "}"
+                if (i != (rowLength - 1)) {
+                    sourceItem += ",";
+                }
+                exmSource += sourceItem;
+            });
+            exmSource += "]";
+
+
+            //var envModel = new Object();  //环境检测表
+            //envModel.EXID = $("#EXID").val();
+            //envModel.DEPTID = getMultiSelectVal("DpetID");
+            //envModel.DEPTNAME = getMultiSelectText("DpetID");
+            //envModel.SJDATE = $("#SJDATE").val();
+            //envModel.SJREN = $("#SJREN").val();
+            //envModel.JYZ = $("#JYZ").val();
+            //envModel.BGDATE = $("#BGDATE").val();
+            //console.log(exmSource);
+          //  return;
+
+            EWinsBase.json("api/Infection/InfectionExamine/Save", {
+                data: {
+                    'examModelJson': exmModel,
+                    'examBloodSource': exmSource
+                },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

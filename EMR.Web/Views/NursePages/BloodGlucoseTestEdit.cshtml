@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">病情护理记录单</p>
+	        <div class="rigBtn">
+	            <a class="layui-btn">趋势图</a>
+	        	<a class="layui-btn layui-btn-disabled">保存</a>
+	            <a class="layui-btn layui-btn-disabled">清空</a>
+	            <a class="layui-btn">查看/打印</a>
+	        </div>
+	 	</div>
+	 	<div class="nurContent">
+			<div class="gluEdit clearfix">
+				<div class="leftEdit fl">
+					<p><span>时间：</span><input type="text" id="time"></p>
+					<p><span>血糖：</span><input type="text">mmol/L</p>
+				</div>
+				<div class="leftEdit fl">
+					<p><span>备注：</span><input type="text"></p>
+					<p><span>测定者：</span><input type="text"></p>
+				</div>
+			</div>
+
+	 	</div>
+	 	<table id="glucose"></table>
+	</div>
+</body>
+<script>
+layui.use(['laydate','table'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+ 	laydate.render({ 
+	  elem: '#time',
+	  type: 'datetime'
+	});
+	table.render({
+	    elem: '#glucose'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '测定时间', sort: true}
+	      ,{field:'username', title: '测定结果(mmol/L)'}
+	      ,{field:'sex', title: '备注'}
+	      ,{field:'city', title: '测量者'}
+	      ,{field:'city', title: '编辑'}
+	      ,{field:'city', title: '删除'}
+	    ]]
+	  });
+ });
+</script>
+</html>

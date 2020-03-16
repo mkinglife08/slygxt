@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "检查总汇";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+@section css{
+    <link href="~/Content/reset.css" rel="stylesheet">
+    <link href="~/Content/qualityControl.css" rel="stylesheet">
+}
+<div class="qualityControl">
+    <div class="medrecord layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <span>入院时间：</span>
+                <input type="text" id="start">-<input type='text' id="stop">
+            </div>
+            <div class="layui-col-md1">
+                <span>科室</span>
+                <select name="DpetID" id="DpetID"></select>
+            </div>
+            <div class="layui-col-md3">
+                <span>医生：</span>
+                <select name="PersonID" id="PersonID" lay-verify="SelectRequired"></select>
+
+                <select name="lyjl" id="lyjl" >
+                    <option value="1">入院记录</option>
+                    <option value="2">首程记录</option>
+                    <option value="3">七十二小时会话</option>
+                </select>
+            </div>
+            <div class="layui-col-md3">
+                <span>时间点：</span>
+                <select name="sj" id="sj">
+                    <option value="">小于24h完成</option>
+                    <option value="">小于24h且48h内完成</option>
+                    <option value="">超过48h</option>
+                </select>
+            </div>
+        </div>
+        <div class="rigBtn">
+            <a class="layui-btn search">查询</a>
+            <a class="layui-btn">导出Excel</a>
+        </div>
+    </div>
+
+
+    <table class="qualityTable">
+        <tr>
+            <td>科室</td>
+            <td>病区</td>
+            <td>姓名</td>
+            <td>病案号</td>
+            <td>主治医生</td>
+            <td>住院时间</td>
+            <td>实际记录时间</td>
+        </tr>
+    </table>
+</div>
+<script>
+    $("#lyjl").select2().siblings().css("cssText", "width:150px!important");
+    $("#sj").select2().siblings().css("cssText", "width:300px!important");
+    //科室下拉框
+    var $DpetID = $("#DpetID");
+    CreateSelectOptionFromDeptInfo($DpetID, "0", { width: "100px!important" }, [{ id: "", text: "全部" }]);
+    $DpetID.append('<option value="" selected>全部</option>');//默认为全部
+    $DpetID.trigger('change');//重新渲染
+    //医生下拉框
+    var $PersonID = $("#PersonID");
+    CreateSelectOptionFromUser($PersonID, { width: "150px!important" }, [{ id: "", text: "全部" }]);
+    $PersonID.append('<option value="" selected>全部</option>');//默认为全部
+    $PersonID.trigger('change');//重新渲染
+
+
+    layui.use(['laydate', 'table'], function () {
+        var laydate = layui.laydate;
+        var table = layui.table;
+        laydate.render({elem: '#start'});
+        laydate.render({ elem: '#stop' });
+
+        // table.render({ //table 表格
+        //     elem: '#table'
+        //     ,cols: [[
+        // 	     {field:'username', title: '科室',align:'center'}
+        // 	    ,{field:'sex', title: '病区',align:'center'}
+        // 	    ,{field:'city', title: "姓名",align:'center'}
+        // 	    ,{field:'sign', title: '病案号',align:'center'}
+        // 	    ,{field:'sign', title: '主治医生',align:'center'}
+        // 	    ,{field:'sign', title: '住院时间',align:'center'}
+        // 	    ,{field:'sign', title: '实际记录时间',align:'center'}
+        //   	]]
+        //   });
+    });
+
+    $('.search').click(function () {
+        $('.qualityTable').show()
+    })
+</script>

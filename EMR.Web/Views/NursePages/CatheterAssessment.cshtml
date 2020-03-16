@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导管评估</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div class="layui-form layAll">
+	        	<span>床号</span>
+				<!-- <select name="" id="">
+					<option value=""></option>
+				</select> -->
+				<input type="radio" name="normal" title="有记录">有记录
+				<input type="radio" name="normal" title="全部">全部
+				<span>姓名：<input type="text" class="newInput"></span>
+				<span>住院号：<input type="text" class="newInput"></span>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">本科记录</a>
+	            <a class="layui-btn">添加导管</a>
+	        </div>
+	 	</div>
+	 	<div class="danger">提醒：现在是群录操作！</div>
+	 	<table id="table"></table>
+	</div>
+</body>
+
+<script>
+layui.use(['laydate','table','form'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+ 
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'sex', title: '操作',align:'center'}
+	      ,{field:'username', title: '编号',align:'center'}
+	      ,{field:'city', title: '部位',align:'center'}
+	      ,{field:'city', title: '置管日期',align:'center'}
+	      ,{field:'city', title: '是否拔管',align:'center'}
+	      ,{field:'city', title: '拔管日期',align:'center'}
+	      ,{field:'city', title: '登记表',align:'center'}
+	      ,{field:'city', title: '查看详情',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

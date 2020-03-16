@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "用户组编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<form class="layui-form" action="">
+        <div class="addUser">
+            <div class="userManag">
+                <div class="layui-form-item">
+                    <label class="layui-form-label cur_lable">组织机构代码</label>
+                    <div class="layui-input-inline">
+                        <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                            <option value="0">请选择组织机构代码</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户分组名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="RoleNAME" data-id="RoleNAME" lay-verify="required" lay-maxlength="20" placeholder="请输入用户分组名称" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+              
+                <div class="layui-form-item">
+                    <label class="layui-form-label">功能权限控制</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="POWER" value="1" title="查看" lay-skin="primary" checked="">
+                        <input type="checkbox" name="POWER" value="2" title="编辑" lay-skin="primary">
+                        <input type="checkbox" name="POWER" value="3" title="删除" lay-skin="primary">
+                        <input type="checkbox" name="POWER" value="4" title="打印" lay-skin="primary">
+                        <input type="checkbox" name="POWER" value="5" title="授权" lay-skin="primary">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户分组说明</label>
+                    <div class="layui-input-inline">
+                        <textarea name="RoleNote" data-id="RoleNote" placeholder="请输入用户分组说明" style="width:300px;height:80px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lastBtn">
+                <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+                <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+            </div>
+        </div>
+</form>
+<!--JS-->
+<script>
+    $('#OrganID').select2();
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganList();
+    var yhfzbh = GetQueryString("ROLEID");
+    if (yhfzbh != "") {
+        EWinsBase.json("api/SystemSupport/role/GetInfoById", {
+            data: { "ROLEID": yhfzbh },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                var power = (data.data["RolePower"]+"").split(',');
+                for (var i = 0; i < power.length; i++) {
+                    $("input:checkbox[name='POWER'][value='" + power[i] + "']").attr("checked", 'checked');
+                }
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+    else {
+        $("#OrganID").val(cookie.GetEMRUserCookie("api_token", "OrganID")).trigger('change');
+    }
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.on('submit(sub)', function (data) {
+            data.field["RoleID"] = GetQueryString("ROLEID") + "";
+            var POWER_check = "";
+            $('input[name="POWER"]:checked').each(function (i, item) {
+                POWER_check += item.value + ",";
+            });
+            data.field["RolePower"] = POWER_check;
+            EWinsBase.json("api/SystemSupport/role/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+    })
+
+</script>

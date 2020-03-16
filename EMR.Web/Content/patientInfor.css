@@ -1,0 +1,52 @@
+.line{ border:1px solid #e6e6e6; }
+.basicList,.otherList,.contactList,.admissList{ margin-top: 5px; }
+.basicList select{
+	height:30px;
+	width:30%;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+}
+.patient .basiLeft,.basiCenter,.basiRight,
+.otherLeft,.otherCenter,.otherRight,
+.signLeft,.signCenter,.signRight{
+	width: 33%;
+}
+.basiRight .payType,.otherInfor select,.contactList select,.admissList select{
+	width:100%;
+	height:30px;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+}
+.contactList .contactLeft{ width:48%;}
+.admissLeft,.admissCenter,.admissRight{
+	width:33%;
+}
+
+/*入院记录打印样式*/
+.physicalCheck .word{
+	font-size:15px;
+	height:20px;
+}
+.phyUp{ margin-top:5px;}
+.physicList .phyUp .bascLine {
+	float: left;
+	width:20%;
+}
+.physicList .phyUp .bascLine .symptoms{
+	position: relative;
+}
+.physicList .phyUp .bascLine .unit{
+	position: absolute;
+	right:5px;
+	top:5px;
+	color:#333;
+	font-size:13px;
+}
+.skinList,.orginList,.neckList,.lungList,.heartList{
+	width:25%;
+	float:left;
+}
+.chestList,.abdomenList,.nervousList,.suppleList{
+	width:33%;
+}
+.vesList{ width:80%; }

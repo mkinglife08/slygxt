@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4BB7D6BF-2425-4F71-988E-5C028E6AF7EA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EMR.Services</RootNamespace>
+    <AssemblyName>EMR.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\EMR.Common\bin\Debug\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extension\Extend.cs" />
+    <Compile Include="Filter\CommonFilter.cs" />
+    <Compile Include="Filter\Doctor\ProgressNoteFilter.cs" />
+    <Compile Include="Filter\Doctor\PatientDiagnosisFilter.cs" />
+    <Compile Include="Filter\Doctor\InpatientFilter.cs" />
+    <Compile Include="Filter\Filter.cs" />
+    <Compile Include="Filter\UserFilter.cs" />
+    <Compile Include="Filter\TreeNodeFilter.cs" />
+    <Compile Include="Interface\ISerialPrimarykey.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\Doctor\ConsultationService.cs" />
+    <Compile Include="Server\Doctor\InpatientAuthorizedService.cs" />
+    <Compile Include="Server\Doctor\MedicalRecordAccessRecordService.cs" />
+    <Compile Include="Server\Doctor\OuthospitalCardService.cs" />
+    <Compile Include="Server\Doctor\InpatientCardService.cs" />
+    <Compile Include="Server\Doctor\HospitalPhysicalRxamService.cs" />
+    <Compile Include="Server\Doctor\HospitalRecordService.cs" />
+    <Compile Include="Server\Doctor\BasicInpatientInfoService.cs" />
+    <Compile Include="Server\Doctor\FormEmrService.cs" />
+    <Compile Include="Server\Doctor\DeathRecordService.cs" />
+    <Compile Include="Server\Doctor\OuthospitalRecordService.cs" />
+    <Compile Include="Server\Doctor\StructuredTemplateService.cs" />
+    <Compile Include="Server\Doctor\ProgressNoteService.cs" />
+    <Compile Include="Server\Doctor\InpatientService.cs" />
+    <Compile Include="Server\Doctor\PatientDiagnosisService.cs" />
+    <Compile Include="Server\Doctor\MedicalRecordHomePageService.cs" />
+    <Compile Include="Server\Doctor\OperationRecordService.cs" />
+    <Compile Include="Server\Doctor\TransferService.cs" />
+    <Compile Include="Server\ExternalInterface\ExamineReportService.cs" />
+    <Compile Include="Server\ExternalInterface\PatientPaymentService.cs" />
+    <Compile Include="Server\Infection\DisInfectionService.cs" />
+    <Compile Include="Server\Infection\EnvironmentTestService.cs" />
+    <Compile Include="Server\Infection\DrugResistQuarService.cs" />
+    <Compile Include="Server\Infection\FeedBackService.cs" />
+    <Compile Include="Server\Infection\HandHygieneService.cs" />
+    <Compile Include="Server\Infection\InfectionExamineService.cs" />
+    <Compile Include="Server\Infection\RiskInfectionService.cs" />
+    <Compile Include="Server\Infection\WashHandService.cs" />
+    <Compile Include="Server\Nurse\TemperatureChartExtraService.cs" />
+    <Compile Include="Server\Nurse\TemperatureChartService.cs" />
+    <Compile Include="Server\Public\DeptInfoService.cs" />
+    <Compile Include="Server\Public\DoctorGroupService.cs" />
+    <Compile Include="Server\Public\FormEmrTemplateService.cs" />
+    <Compile Include="Server\Public\StructuredTemplateService.cs" />
+    <Compile Include="Server\Public\UserInfoService.cs" />
+    <Compile Include="SystemSupport\RoleService.cs" />
+    <Compile Include="SystemSupport\SysAppInfoService.cs" />
+    <Compile Include="SystemSupport\OrganInfoService.cs" />
+    <Compile Include="SystemSupport\FunInfoService.cs" />
+    <Compile Include="SystemSupport\CodeDictService.cs" />
+    <Compile Include="CommonService.cs" />
+    <Compile Include="SystemSupport\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EMR.Common\EMR.Common.csproj">
+      <Project>{dc6f8cf2-b98d-4689-9266-2e65c26a48a8}</Project>
+      <Name>EMR.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMR.Core\EMR.Core.csproj">
+      <Project>{bb4fcb6f-f437-44c7-92ab-251fade1e4a5}</Project>
+      <Name>EMR.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMR.Data\EMR.Data.csproj">
+      <Project>{df8c9e0d-5515-43a9-8765-f54501d92639}</Project>
+      <Name>EMR.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="obj\Release\build.force" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\EMR.Services.csprojResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\EMR.Services.dll" />
+    <Content Include="bin\Debug\EMR.Services.pdb" />
+    <Content Include="obj\Release\EMR.Services.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

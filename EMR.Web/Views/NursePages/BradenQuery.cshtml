@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>braden查询</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	       	<div>
+				<select name="" id="">
+					<option value="">时间</option>
+				</select>
+				<input type="text" id="test" class="JobNumber" >--<input type="text" id="test1" class="JobNumber">
+				<span>床号：<input type="text" class="JobNumber"></span>
+				<span>姓名：<input type="text" class="JobNumber"></span>
+	       	</div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">查询</a>
+	        </div>
+	 	</div>
+		<p>braden评分最新评分如下：</p>
+		<table id="table"></table>
+	</div>
+</body>
+
+<script>
+layui.use(['laydate','table'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+ 	laydate.render({ 
+	  elem: '#test',
+	});
+	laydate.render({ 
+	  elem: '#test1',
+	});
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '床号',align:'center'}
+	      ,{field:'username', title: '姓名',align:'center'}
+	      ,{field:'sex', title: '记录时间',align:'center'}
+	      ,{field:'city', title: '评分',align:'center'}
+	      ,{field:'city', title: '操作',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

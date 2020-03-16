@@ -1,0 +1,734 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>写文书</title>
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/courseRecord.css">
+	<style>
+		.layui-tab-card>.layui-tab-title li {
+		    border-right: 1px solid #ccc;
+		}
+		.layui-tab-card>.layui-tab-title .layui-this {
+		    border-top:1px solid green;
+		}
+	</style>
+</head>
+<body> 
+	<div class="layui-body" style="background:#F0F2F3;padding:10px;">
+			<div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+				    <li class="layui-this">术前小结</li>
+				    <li>术前讨论</li>
+				    <li>术前自查表</li>
+				    <li>手术记录</li>
+				    <li>非计划再次手术记录</li>
+				    <li>术后首次病程兼谈话记录</li>
+				    <li>手术知情同意书</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">术前小结</p>
+					        <div class="rigBtn">
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>另存入模板</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>导入模板</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检验报告</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检查报告</a>
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>查看/打印</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<table class="disTable">
+								<tr>
+									<td>病史摘要</td>
+									<td>
+										<textarea name="" id="fir"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>术前诊断</td>
+									<td>
+										<table class="tdTable">
+											<tr>
+												<td>序号</td>
+												<td>主</td>
+												<td>诊断名称 复制诊断</td>
+												<td>诊断时间</td>
+												<td>书写医生</td>
+												<td>操作</td>
+											</tr>
+											<tr class="layui-form">
+												<td><input type="checkbox" name="" title="1" lay-skin="primary"></td>
+												<td>✔</td>
+												<td>下肢动脉栓塞</td>
+												<td>2015-04-08 20：30</td>
+												<td>黄医生</td>
+												<td>
+													<a>修改</a>  <a>下移</a>
+												</td>
+											</tr>
+
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>手术指征</td>
+									<td>
+										<textarea name="" id="Surgical" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>拟施手术名称和方式</td>
+									<td>
+										<textarea name="" id="procedureName" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>拟施麻醉方式</td>
+									<td>
+										<textarea name="" id="anesthesia" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>注意事项</td>
+									<td>
+										<textarea name="" id="attention" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>书写医生</td>
+									<td>
+										<input type="text" disabled="disabled">
+									</td>
+								</tr>
+								<tr>
+									<td>书写时间</td>
+									<td>
+										<input type="text" id="test1">
+									</td>
+								</tr>
+							</table>
+
+						</div>
+					</div>
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">术前讨论记录</p>
+					        <div class="rigBtn">
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>另存入模板</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>导入模板</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检验报告</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检查报告</a>
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>查看/打印</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<table class="disTable">
+								<tr>
+									<td>讨论日期</td>
+									<td><input type="text" id="test2"></td>
+								</tr>
+								<tr>
+									<td>参与人员</td>
+									<td><input type="text"></td>
+								</tr>
+								<tr>
+									<td>病史摘要</td>
+									<td>
+										<textarea name="" id="history">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>术前准备情况</td>
+									<td>
+										<textarea name="" id="preparation">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>手术指征</td>
+									<td>
+										<textarea name="" id="surgery">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>手术方案 </td>
+									<td>
+										<textarea name="" id="operationScheme">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										可能出现的意外<br>
+										及防范措施 
+									</td>
+									<td>
+										<textarea name="" id="prevent">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>具体讨论意见 </td>
+									<td>
+										<textarea name="" id="opinion">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>主持人小结意见 </td>
+									<td>
+										<textarea name="" id="summary">
+										</textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>书写医生</td>
+									<td>
+										<input type="text" disabled="disabled">
+									</td>
+								</tr>
+								<tr>
+									<td>书写时间</td>
+									<td>
+										<input type="text" id="test3">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">择期手术病人术前管理科室自查表</p>
+					        <div class="rigBtn">
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<h3 class="disTittle">择期手术病人术前管理科室自查表</h3>
+							<div class="disStart clearfix">
+								<div class="fir">
+									<p>病人姓名：<span>王默默</span></p>
+									<p>主治医师<input type="text"></p>
+								</div>
+								<div class="fir">年龄<span>80</span>岁</div>
+								<div class="fir">
+									<p>科室床号<span>血管外科21212</span></p>
+									<p>一助<input type="text"></p>
+								</div>
+								<div class="fir">
+									<p>住院号<span>00116965</span></p>
+									<p>拟手术日期<input type="text" id="test4"></p>
+								</div>
+							</div>
+							<div class="disCenter">
+								<p>术前诊断</p>
+								<table class="tdTable">
+									<tr>
+										<td>序号</td>
+										<td>主</td>
+										<td>诊断名称 复制诊断</td>
+										<td>诊断时间</td>
+										<td>书写医生</td>
+										<td>操作</td>
+									</tr>
+									<tr class="layui-form">
+										<td><input type="checkbox" name="" title="1" lay-skin="primary"></td>
+										<td>✔</td>
+										<td>下肢动脉栓塞</td>
+										<td>2015-04-08 20：30</td>
+										<td>黄医生</td>
+										<td>
+											<p><a>修改</a>  <a>上移</a></p>
+											<p><a>删除</a>  <a>下移</a></p>
+										</td>
+									</tr>
+								</table>
+								<p class="sumName">手术名称 <input type="text"></p>
+								<table class="disTable">
+									<tr>
+										<td>项目</td>
+										<td>完成情况</td>
+										<td>备注</td>
+									</tr>
+									<tr>
+										<td>血常规、血型</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>生化（肝肾功能、血糖等）</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>凝血功能</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>输血四项</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>心电图</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>胸片</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>B超</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>专科病人的特殊检查结果</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>首次病程录</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>手术知情同意书及术前小结</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>术前讨论</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>麻醉知情同意书</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>输血治疗同意书</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+								
+									<tr>
+										<td>住院病历</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>重大疑难手术审批、新技术新项目备案</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+									<tr>
+										<td>其他专科项目</td>
+										<td>
+											<select name="" id="">
+												<option value="">请选择</option>
+										    </select>
+									    </td>
+										<td><input type="text"></td>
+									</tr>
+
+								</table>
+								<p class="lastP">自查责任人签字<span class="signature">张医师</span> <span class="time">审核日期 <input type="text" id="test5"></span></p>
+								<p>（注：四类手术自查责任人必须为科主任，三类及以下手术自查人可为该医疗组组长。）</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">手术记录</p>
+					        <div class="rigBtn">
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<table class="disTable">
+								<tr>
+									<td>手术时间</td>
+									<td><input type="text" id="test6"></td>
+								</tr>
+								<tr>
+									<td>术前诊断</td>
+									<td>
+										<table class="tdTable">
+											<tr>
+												<td>序号</td>
+												<td>主</td>
+												<td>诊断名称 复制诊断</td>
+												<td>诊断时间</td>
+												<td>书写医生</td>
+												<td>操作</td>
+											</tr>
+											<tr class="layui-form">
+												<td><input type="radio" name="nor" title="1" >1</td>
+												<td>✔</td>
+												<td>下肢动脉栓塞</td>
+												<td>2015-04-08 20：30</td>
+												<td>黄医生</td>
+												<td>
+													<p><a>修改</a>  <a>上移</a></p>
+													<p><a>删除</a>  <a>下移</a></p>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>手术名称</td>
+									<td><input type="text"></td>
+								</tr>
+								<tr>
+									<td>术中诊断</td>
+									<td>
+										<table class="tdTable">
+											<tr>
+												<td>序号</td>
+												<td>主</td>
+												<td>诊断名称 复制诊断</td>
+												<td>诊断时间</td>
+												<td>书写医生</td>
+												<td>操作</td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td><input type="checkbox" name="" title="" lay-skin="primary"></td>
+												<td>
+													<input type="text" style="width:30%">补充<input type="text" style="width:20%">
+													<select name="" id="">
+														<option value="">确诊</option>
+														<option value="">待查</option>
+													</select>
+												</td>
+												<td><input type="text"></td>
+												<td>张医生</td>
+												<td><a>确定添加</a></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>手术人员</td>
+									<td colspan="5">
+										<span>主刀医生 <input type="text" style="width: 10%;"></span>
+										<span style="margin:0 10%">一助 <input type="text" style="width:10%"></span>
+										<span>二助 <input type="text" style="width: 10%;"></span>
+									</td>
+								</tr>
+								<tr>
+									<td>麻醉方式</td>
+									<td>
+										<select name="" id="">
+											<option value="">会诊</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>麻醉人员</td>
+									<td>
+										<input type="text">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6" style="text-align:left;color: #A64a46">手术经过（包括病人体位，切口处理，病灶所见及手术步骤：）</td>
+								</tr>
+								<tr>
+									<td><a class="layui-btn">术后病程导入</a></td>
+									<td><select name="" id="course"></select></td>
+								</tr>
+								<tr>
+									<td>记录医生</td>
+									<td><input type="text" disabled="disabled"></td>
+								</tr>
+								<tr>
+									<td>记录时间</td>
+									<td><input type="text" id="test7"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">非计划再次手术记录</p>
+					        <div class="rigBtn">
+					        	<a class="layui-btn"><i class="iconfont">&#xe69e;</i>导入诊断</a>
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<div class="reoperation">
+								<p>入院时间 <input type="text"></p>
+								<div class="reopList">
+									<p>入院诊断：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+									<p>首次手术情况：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+									<p>首次术后情况：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+									<p>再次手术后情况：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+									<p>整改措施：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+								</div>
+								<p>
+									登记者：<input type="text" class="dengji">
+									科主任：<input type="text" class="dengji">
+									记录时间：<input type="text" class="dengji">
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item ">
+						<div class="medrecord">
+					        <p class="word">术后首次病程兼谈话记录</p>
+					        <div class="rigBtn">
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>导入诊断</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检验报告</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>检查报告</a>
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>查看/打印</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<table class="disTable">
+								<tr>
+									<td>备选项</td>
+									<td class="layui-form" style="text-align:left;">
+										<input type="checkbox" name="" title="换页打印" lay-skin="primary">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p><a>记录内容</a></p>
+										<p style="margin: 5px 0;"><a class="layui-btn">手术记录导入</a></p>
+										<p><a class="layui-btn">生命体征导入</a></p>
+									</td>
+									<td>
+										<textarea name="" id="record" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>书写医生</td>
+									<td><input type="text" disabled></td>
+								</tr>
+								<tr>
+									<td>书写时间</td>
+									<td><input type="text" id="test8"></td>
+								</tr>
+							</table>
+							<div>
+								患者签名：<input type="text" class="dengji">
+								与患者关系：<input type="text" class="dengji">
+								<span><input type="text" class="dengji">年</span>
+								<span><input type="text" class="dengji">月</span>
+								<span><input type="text" class="dengji">日</span>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item layui-show">
+						<div class="medrecord">
+					        <p class="word">手术知情同意书</p>
+					        <div class="rigBtn">
+					        	<a class="layui-btn"><i class="iconfont save"></i>另存为模板</a>
+					        	<a class="layui-btn"><i class="iconfont save"></i>导入模板</a>
+					        	<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>导入诊断</a>
+					            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>暂存</a>
+					            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+					        </div>
+						</div>
+						<div class="discuss">
+							<div class="reoperation">
+								<div class="all">
+									<p>简要病程诊断：</p>
+									<textarea name="" id="" cols="30" rows="6"></textarea>
+									<p>手术指征：<input type="text" style="width:87%"></p>
+									<p>拟实施手术名称：<input type="text" style="width:81%"></p>
+									<p>手术方式：<input type="text" style="width:87%"></p>
+									<p>术前准备及防范措施：<input type="text" style="width:77%"></p>
+									<div class="indent">
+										医学是一门科学，还有许多未被认识的领域。另外，患者的个体差异很大，疾病的变化也各不相同，相同的诊治手段有可能出现不同的结果。因此，任何手术都具有较高的诊疗风险，有些风险是医务人员和现代医学只是无法预见、防范和避免的医疗意外，有些是能够预见但却无法完全避免和防范的并发症。我作为主刀医师保证，将以良好的医德医术为患者手术，严格遵守医疗操作规范，密切观察病情，及时处理、抢救，力争将风险降到最低限度，如术中情况有变化及时与家属取得联系。
+									</div>
+									<p>手术中可能出现的意外和风险：</p>
+									<div class="indent">
+										<h3>•术中心跳呼吸骤停,导致死亡或无法挽回的脑死亡•难以控制的大出血•不可避免的邻近器官、血管、神经损伤•病情变化导致手术进程中断或更改手术方案•除上述情况外,本次手术还可能发生下列情况：</h3>
+										<input type="text" style="width:98%">
+									</div>
+									<p>手术可能出现的意外和并发症：</p>
+									<div class="indent">
+										<h3>•术后出血、局部或全身感染、切口裂开、脏器功能衰竭（包括DIC）、水电解质平衡紊乱•术后气道阻塞，呼吸、心跳骤停•诱发原有或潜在疾病恶化•术后病理报告与术中快速病理检查结果不符再次手术•除上述情况外，本次手术还可能导致下列并发症：</h3>
+										<input type="text" style="width:98%">
+									</div>
+									<p class="layui-form indent">
+										上述情况医生已讲明，我对可能出现的风险表示充分理解，<input type="radio" name="nor" title="同意">同意<input type="radio" name="nor" title="不同意">不同意实施此项技术，愿意承担由于疾病本身或现有医疗技术所限而导致的医疗意外及并发症，并签字为证。同时授权医师，在遇到预料之外的紧急、危险情况时，从考虑本人利益角度出发，按照医学常规予以处置。
+									</p>
+									<div class="lastEnd">
+										<div class="clearfix">
+											<p class="fl">患方签字<input type="text" class="dengji"></p>
+											<p class="fr"><input type="text" class="dengji">年<input type="text" class="dengji">月<input type="text" class="dengji">日</p>
+										</div>
+										<div class="clearfix">
+											<p class="fl">主刀医师签字<input type="text" class="dengji"></p>
+											<p class="fr"><input type="text" class="dengji">年<input type="text" class="dengji">月<input type="text" class="dengji">日</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div> 
+		</div>     
+	</div>
+		
+    	
+	
+			
+ 
+</body>
+<script>
+  layui.use(['element','laydate','layedit'], function(){
+  		var table = layui.table;
+  		var element = layui.element;
+  		var laydate = layui.laydate;
+  		var layedit = layui.layedit;
+  		layedit.build('fir',{height:197});
+  		layedit.build('Surgical',{height:197});
+  		layedit.build('procedureName',{height:197});
+  		layedit.build('anesthesia',{height:197});
+  		layedit.build('attention',{height:197});
+  		layedit.build('history',{height:197});
+  		layedit.build('preparation',{height:197});
+  		layedit.build('surgery',{height:197});
+  		layedit.build('operationScheme',{height:197});
+  		layedit.build('prevent',{height:197});
+  		layedit.build('opinion',{height:197});
+  		layedit.build('summary',{height:197});
+  		layedit.build('course',{height:197});
+  		layedit.build('record',{height:197});
+  		
+
+	  laydate.render({
+	  	elem:'#test',
+	  	type: 'datetime'
+	  });
+	   laydate.render({
+	  	elem:'#test1',
+	  	type: 'datetime'
+	  })
+	  laydate.render({
+	  	elem:'#test2'
+	  });
+	  laydate.render({
+	  	elem:'#test3',
+	  	type: 'datetime'
+	  });
+
+	  laydate.render({
+	  	elem:'#test4',
+	  	type: 'datetime'
+	  });
+	  laydate.render({
+	  	elem:'#test5',
+	  	type: 'datetime'
+	  });
+	   laydate.render({
+	  	elem:'#test6',
+	  	type: 'datetime'
+	  	,range: true
+	  });
+	 laydate.render({
+	  	elem:'#test7'
+	  	
+	  });
+	 laydate.render({
+	  	elem:'#test8',
+	  	type: 'datetime'
+	  });
+	
+	})
+
+
+</script>
+</html>
+	

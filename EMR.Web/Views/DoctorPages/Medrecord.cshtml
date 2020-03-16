@@ -1,0 +1,1046 @@
+﻿@{
+    ViewBag.Title = "住院病案首页";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/medrecord.css">
+<style>
+    html {
+        width:98%;
+    }
+    .allFir {
+        width: 20%;
+    }
+
+    .select2 {
+        width: 50% !important;
+    }
+
+    .alllast {
+        display: block;
+        width: 40%;
+    }
+
+    .medLeft, .perFirst {
+        width: 32%;
+    }
+
+    .qualLefts .layui-form-label {
+        width: 120px !important;
+    }
+
+    .RescueNum {
+        border: 1px solid #ccc;
+        height: 20px;
+        padding-left: 5px;
+        border-radius: 5px;
+        width: 15%;
+    }
+
+    .deperLeft .layui-form-label {
+        width: 172px;
+    }
+</style>
+<div class="medrecord">
+    <p class="word">住院病案首页</p>
+    <div class="rigBtn">
+        <a class="layui-btn" id="AddNewOperate" onclick="AddOperationRecord()"><i class="layui-icon colorAdd">&#xe61f;</i>新增手术与操作</a>
+        <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont staging">&#xe689;</i>暂存</a>
+        <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        <a class="layui-btn" id="ViewAndPrint" href="~/page/DoctorPages/MedrecordPrint" style="display:none;"><i class="iconfont print">&#xe61b;</i>查看/打印</a>
+    </div>
+</div>
+<form class="layui-form" action="" id="form1">
+    <div class="medInfor" id="divData">
+        <input type="hidden" name="HomePageId" data-id="HomePageId" id="HomePageId" />
+        <input type="hidden" name="HealthCard" data-id="HealthCard" id="HealthCard" />
+        <input type="hidden" name="PaymentMethod" data-id="PaymentMethod" id="PaymentMethod" />
+        <!-- 入院信息 -->
+        <div class="addHost">
+            <p class="text">入院信息</p>
+            <div class="medContent">
+                <div class="fir clearfix">
+                    <div class="medLeft fl">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">病案号</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="InpatientId" disabled>
+
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="Gender" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <span class="spWord" style="width:85px;">医疗付费方式</span>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="PaymentMethod" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">婚姻</label>
+                            <div class="layui-input-block">
+                                <select name="MaritalCode" id="MaritalCode" data-id="MaritalCode" class="marriage" disabled></select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">民族</label>
+                            <div class="layui-input-block">
+                                <select name="EthnicCode" id="EthnicCode" data-id="EthnicCode" class="choseSele" disabled="disabled"></select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">户口地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="HouseholdDetailed" data-id="HouseholdDetailed" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="Phone" data-id="Phone" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单位地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="CompanyAddress" data-id="CompanyAddress" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="ContactName" data-id="ContactName" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="ContactPhone" data-id="ContactPhone" disabled="disabled">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">入院科室</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="CurrentDeptID" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出院科室(?)</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="LeaveDept" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medLeft fl">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">住院次数</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="HISInpatientCount" disabled>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出生日期</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="BirthDate" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <span class="spWord" style="width:82px;">新生儿出生体重</span>
+
+                            <div class="layui-input-block" style="margin-left:110px;">
+                                <input type="text" lay-verify="required" class="layui-input" name="NBAgeWeight" data-id="NBAgeWeight">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">职业</label>
+                            <div class="layui-input-block">
+                                <select name="JobCode" id="JobCode" data-id="JobCode" class="choseSele" disabled="disabled"></select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">国籍</label>
+                            <div class="layui-input-block">
+                                <select name="NationalityCode" id="NationalityCode" data-id="NationalityCode" class="nationality" disabled="disabled"></select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">户口邮编</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="HouseholdPostcode" data-id="HouseholdPostcode" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">现地址邮编</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="HISInpatientCount" data-id="HISInpatientCount" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单位电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="CompanyPhone" data-id="CompanyPhone" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">关系</label>
+                            <div class="layui-input-block">
+                                <select name="ContactRelation" id="ContactRelation" class="choseSele">
+                                    <option>父子</option>
+                                    <option>父女</option>
+                                    <option>母子</option>
+                                    <option>母女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">入院时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="EntryTime" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出院时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="LeaveTime" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">转科情况</label>
+                            <div class="layui-input-block">
+
+                                <input type="text" data-id="ConversionDept" lay-verify="required" class="layui-input" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="medLeft fl">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="Name" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">年龄</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="Age" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <span class="spWord" style="width:82px;">新生儿入院体重</span>
+                            @*<label class="layui-form-label spWord" style="width:98px;">新生儿入院体重</label>*@
+                            <div class="layui-input-block" style="margin-left:112px;">
+                                <input type="text" lay-verify="required" class="layui-input" name="NBHospitalWeight" data-id="NBHospitalWeight">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出生地</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="BirthPlace" data-id="BirthPlace" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">身份证号</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" data-id="IdCard" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">现地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="AddressDetail" data-id="AddressDetail" disabled="disabled">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">工作单位</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="Company" data-id="Company" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单位邮编</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="CompanyPostcode" data-id="CompanyPostcode" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" class="layui-input" name="ContactPlace" data-id="ContactPlace" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">入院病房</label>
+                            <div class="layui-input-block">
+
+                                <input type="text" lay-verify="required" class="layui-input" data-id="AdmissionBedWard" disabled="disabled">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出院病房</label>
+                            <div class="layui-input-block">
+
+                                <input type="text" lay-verify="required" class="layui-input" data-id="LeaveBedWard" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <span class="spWord" style="width:84px;">实际住院天数</span>
+                            <div class="layui-input-block">
+
+                                <input type="text" lay-verify="required" class="layui-input" data-id="" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 诊疗信息 -->
+        <div class="diagInfor">
+            <p class="text">诊疗信息</p>
+            <div class="diagList" style="width:80%;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">入院途径</label>
+                    <div class="layui-input-block">
+                        <select name="InpatientCode" data-id="InpatientCode" id="InpatientCode" class="bloodYype"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">门(急)诊诊断</label>
+                    <div class="layui-input-block">
+                        <select name="ClinicDiagnosis" data-id="ClinicDiagnosis" id="ClinicDiagnosis" class="bloodYype"></select>
+                        @*<input type="text" lay-verify="required" class="layui-input" name="ClinicDiagnosis" data-id="ClinicDiagnosis" style="width:30%">*@
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">疾病编码</label>@*门诊诊断编码*@
+                    <div class="layui-input-block">
+                        <input type="text" lay-verify="required" class="layui-input" name="ClinicDiagnosisCode" data-id="ClinicDiagnosisCode" id="ClinicDiagnosisCode">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 出院诊断-西医 -->
+        <div class="hosDia">
+            <p class="text">出院诊断-西医</p>
+            <div id="PatientDiagnosisTable" lay-filter="PatientDiagnosisTable"></div>
+        </div>
+
+        <!-- 诊疗相关信息 -->
+        <div class="releInfor">
+            <p class="text">诊疗相关信息</p>
+            <div class="infor_host clearfix">
+                <div class="inforLeft fl">
+                    <div class="layui-form-item">
+                        <span class="spWord" style="width: 143px;">损伤，中毒的外部原因</span>
+                        <div class="layui-input-block" style="margin-left:178px">
+                            <input type="text" lay-verify="required" class="layui-input" name="ExternalityDesc" data-id="ExternalityDesc">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">病理诊断</label>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required" class="layui-input" name="PathologicDiagnosis" data-id="PathologicDiagnosis">
+                        </div>
+                    </div>
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><i style="color:red;font-size:20px;">*</i>药物过敏</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="DrugAllergy" value="1" title="有">有
+                                <input type="radio" name="DrugAllergy" value="0" title="无">无
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">死亡者尸检</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="Autopsy" value="1" title="是">是
+                                <input type="radio" name="Autopsy" value="2" title="否">否
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inforLeft fl">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><i style="color:red;font-size:20px;">*</i>血型</label>
+                        <div class="layui-input-block">
+                            <select name="BloodType" id="BloodType" class="bloodYype"></select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><i style="color:red;font-size:20px;">*</i>RH</label>
+                        <div class="layui-input-block">
+                            <select name="RH" id="RH" class="bloodYype"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">病床编号</label>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required" class="layui-input" name="BedNumber" data-id="BedNumber">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">病理号</label>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required" class="layui-input" name="PathologyNo" data-id="PathologyNo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 手术与操作 -->
+        <div class="Operation">
+            <p class="text">手术与操作 <a class="layui-btn" onclick="AddOperationRecord()">新增手术与操作</a></p>
+            <div class="OperationHost" id="OperationTable" lay-filter="OperationTable">
+
+            </div>
+        </div>
+        <!-- 离院信息 -->
+        <div class="Departure">
+            <p class="text">离院信息</p>
+            <div class="deparHost clearfix">
+                <div class="deperLeft fl" style="width:48%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label digital headLabe"><i style="color:red;font-size:20px;">*</i>离院方式</label>
+                        <div class="layui-input-block" style="margin-left:217px;">
+                            <select name="LeaveHospitalWay" data-id="LeaveHospitalWay" id="LeaveHospitalWay" class="bloodYype"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label digital headLabe">拟接收医疗机构名称</label>
+                        <div class="layui-input-block digitalLin" style="margin-left:217px;">
+                            <input type="text" lay-verify="required" class="layui-input" name="ToHospital" data-id="ToHospital">
+                        </div>
+                    </div>
+                </div>
+                <div class="deperLeft fl" style="width:48%">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label digital headLabe">是否有31天内再住院计划</label>
+                            <div class="layui-input-inline" style="width:107px">
+                                <input type="radio" name="ReadmPlan" value="0" title="无">无
+                                <input type="radio" name="ReadmPlan" value="1" title="有">有
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label digital headLabe">颅脑损伤患者昏迷时间</label>
+                        <div class="layui-input-block digitalLin" style="margin-left:217px;">
+                            <input type="text" class="layui-input" name="ComaTimeBefore" data-id="ComaTimeBefore" id="ComaTimeBefore" placeholder="请选择时间">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人员信息 -->
+        <div class="personInfor">
+            <p class="text">人员信息</p>
+            <div class="person clearfix">
+                <div class="perFirst fl">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">科主任</label>
+                        <div class="layui-input-block">
+                            <select name="DeptDirectorUserId" id="DeptDirectorUserId"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">责任护士</label>
+                        <div class="layui-input-block">
+                            <select name="ResponsibleNurseId" id="ResponsibleNurseId"></select>
+                            @*<input type="text" lay-verify="required" class="layui-input" name="ResponsibleNurseName" data-id="ResponsibleNurseName">*@
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">病案质量</label>
+                        <div class="layui-input-block">
+                            <select name="MedicalRecordMass" data-id="MedicalRecordMass" id="MedicalRecordMass" class="bloodYype"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">住院医生</label>
+                        <div class="layui-input-block">
+                            <select name="ResidentDoctorId" id="ResidentDoctorId"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="perFirst fl">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">主(副)任医师</label>
+                        <div class="layui-input-block">
+                            <select name="DirectorUserId" id="DirectorUserId"></select>
+                            @*<input type="text" lay-verify="required" class="layui-input" name="DirectorName" data-id="DirectorName">*@
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">进修医师</label>
+                        <div class="layui-input-block">
+                            <select name="RefresherDoctorId" id="RefresherDoctorId"></select>
+                            @*<input type="text" lay-verify="required" class="layui-input" name="RefresherDoctorName" data-id="RefresherDoctorName">*@
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">质控医师</label>
+                        <div class="layui-input-block">
+                            <select name="QcDoctorId" id="QcDoctorId"></select>
+                            @*<input type="text" lay-verify="required" class="layui-input" name="QcDoctorName" data-id="QcDoctorName">*@
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">日期</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="QcTime" data-id="QcTime" id="QcTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="perFirst fl">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">主治医师</label>
+                        <div class="layui-input-block">
+                            <select name="VisitingStaffId" id="VisitingStaffId"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">实习医师</label>
+                        <div class="layui-input-block">
+                            <select name="InternDoctorId" id="InternDoctorId"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">质控护士</label>
+                        <div class="layui-input-block">
+                            <select name="QcNurseId" id="QcNurseId"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">编码员</label>
+                        <div class="layui-input-block">
+                            <select name="CoderUserId" id="CoderUserId"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 质量信息 -->
+        <div class="quality" style="padding-bottom:50%">
+            <p class="text">质量信息</p>
+            <div class="qualInfor">
+
+                <div class="qualLefts">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>单病种管理</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="SingleDiseaseManage" data-id="SingleDiseaseManage" value="1" title="有(中医)">有(中医)
+                                <input type="radio" name="SingleDiseaseManage" data-id="SingleDiseaseManage" value="2" title="有(西医)">有(西医)
+                                <input type="radio" name="SingleDiseaseManage" data-id="SingleDiseaseManage" value="0" title="无">无
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item clearfix">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>医院感染情况</label>
+                            <div class="layui-input-block" style="float:left;margin-left:5px;width:15%">
+                                <input type="radio" name="InfectionSituation" value="0" title="无" lay-filter="InfectionSituation">无
+                                <input type="radio" name="InfectionSituation" value="1" title="有" lay-filter="InfectionSituation">有
+
+                            </div>
+                            <span id="DivInfectionSituation" style="float:left;display:none">
+                                <input type="text" class="RescueNum" name="InfectionSituationInfo" data-id="InfectionSituationInfo" style="width:100%;" />
+                            </span>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>输血反应</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="TransfusionReaction" value="1" title="有输血无反应">有输血无反应
+                                <input type="radio" name="TransfusionReaction" value="2" title="有输血有反应">有输血有反应
+                                <input type="radio" name="TransfusionReaction" value="3" title="未输血">未输血
+
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>临床路径管理</label>
+                            <div class="layui-input-block" style="width:40%">
+                                <select name="CpManage" id="CpManage" class="bloodYype"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="allList">
+                        <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>诊断符合情况</label>
+                        <div class="clearfix" style="line-height:40px">
+                            <div class="allFir fl">
+                                <span class="fl">门诊和出院</span>
+                                <select name="ClinicInhospital" id="ClinicInhospital" class="seleFirst fl">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="allFir fl">
+                                <span class="fl">入院和出院</span>
+                                <select name="AdmissionDischarged" id="AdmissionDischarged" class="seleFirst fl">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="allFir fl">
+                                <span class="fl">临床和病理</span>
+                                <select name="ClinicPathology" data-id="ClinicPathology" id="ClinicPathology" class="seleFirst fl">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="allFir fl" @*style="width:30%;"*@>
+                                <span class="fl">放射与病理</span>
+                                <select name="IrradiationPathology" data-id="IrradiationPathology" id="IrradiationPathology" class="seleFirst fl">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <span class="alllast" style="margin-left:10%">注：(0未做 1符合 2不符合 3未做)</span>
+                    </div>
+                    <div class="layui-form">
+                        <div class="layui-form-item clearfix" style="line-height:40px;">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>抢救情况</label>
+                            <div class="layui-input-block fl" style="margin-left:5px;width:15%">
+                                <input type="radio" name="RescueCase" value="0" title="无" lay-filter="RescueCase">无
+                                <input type="radio" name="RescueCase" value="1" title="有" lay-filter="RescueCase">有
+
+                            </div>
+                            <div id="DivRescueCase" class="fl">
+                                抢救<input type="text" class="RescueNum" name="RescueNum" data-id="RescueNum" />次，成功<input type="text" class="RescueNum" name="RescueSucceedNum" data-id="RescueSucceedNum" />次
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label digital lastLabe"><i style="color:red;font-size:20px;">*</i>住院期间出现危重</label>
+                            <div class="layui-input-block ">
+                                <input type="radio" name="LmminenceGrave" value="1" title="是">是
+                                <input type="radio" name="LmminenceGrave" value="0" title="否">否
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>急症</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="EmergencyCase" value="1" title="是">是
+                                <input type="radio" name="EmergencyCase" value="0" title="否">否
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>疑难情况</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="DifficultSituation" value="1" title="是">是
+                                <input type="radio" name="DifficultSituation" value="0" title="否">否
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>转归情况</label>
+                            <div class="layui-input-block" style="width:40%">
+                                <select name="PrognosisOfDisease" data-id="PrognosisOfDisease" class="bloodYype"></select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label lastLabe"><i style="color:red;font-size:20px;">*</i>病例分型</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="CaseClassification" value="0" title="无">无
+                                <input type="radio" name="CaseClassification" value="1" title="单纯普通病历">单纯普通病历
+                                <input type="radio" name="CaseClassification" value="2" title="单纯急症病例">单纯急症病例
+                                <input type="radio" name="CaseClassification" value="3" title="复杂疑难病例">复杂疑难病例
+                                <input type="radio" name="CaseClassification" value="4" title="复杂危重病例">复杂危重病例
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label digital lastLabe"><i style="color:red;font-size:20px;">*</i>手术相关院内感染</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="SurgicalInfections" value="0" title="无">无
+                                <input type="radio" name="SurgicalInfections" value="1" title="有">有
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label digital lastLabe"><i style="color:red;font-size:20px;">*</i>入院后确诊日期</label>
+                            <div class="layui-input-inline" style="width:40%">
+                                <input type="text" class="layui-input" name="DiagnosisDate" data-id="DiagnosisDate" id="DiagnosisDate" placeholder="请选择确诊日期">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label digital lastLabe"><i style="color:red;font-size:20px;">*</i>非预期重返手术</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="UnexpectedSurgery" value="1" title="是">是
+                                <input type="radio" name="UnexpectedSurgery" value="0" title="否">否
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //如果OnlyView为true,将编辑按钮隐藏
+        if (GetQueryString("OnlyView") == "true") {
+            $(".medrecord .rigBtn").hide();
+        }
+
+
+
+        //职业下拉框单选框
+        $("#ClinicInhospital").select2(); $("#AdmissionDischarged").select2();
+        $("#ClinicPathology").select2(); $("#IrradiationPathology").select2();
+        CreateSelectOptionFromCodeDict($("#JobCode"), "Profession", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#CpManage"), "ClinicalState", { width: "200px!important" });
+        CreateSelectOptionFromCodeDict($("#EthnicCode"), "Ethnic", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#NationalityCode"), "Nationality", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#MaritalCode"), "Marital", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#InpatientCode"), "InpatientCode", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#BloodType"), "BloodType", { width: "100%!important" });
+        CreateSelectOptionFromCodeDict($("#RH"), "RH");
+        CreateSelectOptionFromCodeDict($("#LeaveHospitalWay"), "LeaveHospitalWay");
+        CreateSelectOptionFromCodeDict($("#MedicalRecordMass"), "MedicalRecordMass", { width: "100%!important" });
+        CreateSelectOptionFromDiagnosis($("#ClinicDiagnosis"), { width: "100%!important" });
+        //医生护士等用户下拉单选框
+        CreateSelectOptionFromUser($("#DeptDirectorUserId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#DirectorUserId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#ResponsibleNurseId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#RefresherDoctorId"), { width: "100%!important" })
+        CreateSelectOptionFromUser($("#InternDoctorId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#CoderUserId"), { width: "100%!important" })
+        CreateSelectOptionFromUser($("#QcDoctorId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#QcNurseId"), { width: "100%!important" })
+        CreateSelectOptionFromUser($("#VisitingStaffId"), { width: "100%!important" });
+        CreateSelectOptionFromUser($("#ResidentDoctorId"), { width: "100%!important" })
+
+        $("#ClinicDiagnosis").on("select2:select", function () {
+            var data = $(this).val();
+            $("#ClinicDiagnosisCode").val(data);
+        });
+        layui.use(['form', 'layedit', 'laydate', 'table'], function () {
+            var form = layui.form;
+            var layedit = layui.layedit;
+            var laydate = layui.laydate;
+            var table = layui.table;
+            table.render({
+                elem: '#PatientDiagnosisTable'
+               , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=3"
+                //, cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                  { field: 'DiagnosisId', title: '序号', align: 'center' }
+                  , { field: 'DiagnosisName', title: '诊断', align: 'center' }
+                  , { field: 'AdmissionIllness', title: '入院情况', align: 'center' }
+                  , { field: 'ICDCode', title: 'ICD10', align: 'center' }
+                ]]
+            });
+            table.render({
+                elem: '#OperationTable'
+                , url: EWinsBase.__curHostAddress + 'api/Doctor/OperationRecord/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId")
+                //, cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+               , cols: [[
+                 { field: 'OperationId', title: '手术、操作编码', align: 'center' }
+                 , { field: 'StartTime', title: '手术、操作日期', align: 'center', templet: "#StartTime" }
+                 , { field: 'OperationLevelName', title: '手术级别', align: 'center' }
+                 , { field: 'OperationName', title: '手术、操作名称', align: 'center' }
+                  , { field: 'SurgeonName', title: '术者', align: 'center' }
+                 , { field: 'FirstAssistantName', title: 'I助', align: 'center' }
+                 , { field: 'SecondAssistantName', title: 'Ⅱ助', align: 'center' }
+                  , { field: 'AnesthesiaWayName', title: '麻醉方式', align: 'center' }
+                 , { field: 'HealingLevelName', title: '切口愈合等级', align: 'center' }
+                 , { field: 'Anesthesia1Name', title: '麻醉医师', align: 'center' }
+               ]]
+                , method: 'get'
+                , page: false
+                , limits: [150]
+                , limit: 150
+                , loading: false
+                , done: function (res, curr, count) {
+                    //加载表格后进行初始化
+                    EWinsBase.ValidateToken(res);
+                    $("#hdnCurRowId").val("");
+                }
+            });
+            laydate.render({
+                elem: '#QcTime'
+                , type: 'datetime'
+            });
+            laydate.render({
+                elem: '#ComaTimeBefore'
+                , type: 'datetime'
+            });
+            laydate.render({
+                elem: '#DiagnosisDate'
+              , type: 'datetime'
+            });
+            //监听行单击事件（单击事件为：rowDouble）
+            table.on('row(OperationTable)', function (obj) {
+                var data = obj.data;
+                ShowWin('修改手术与操作', 'page/DoctorPages/OperationRecordEdit?InpatientId=' + NewGetQueryString("InpatientId") + '&OperationId=' + data.OperationId, 800, 600)
+            });
+            form.on('submit(sub)', function (data) {
+                var ClinicDiagnosis = $("#ClinicDiagnosis option:checked").text();
+                var temp = $('#form1').serialize();
+                temp += "&InpatientId=" + NewGetQueryString("InpatientId");
+                temp += "&ClinicDiagnosis=" + ClinicDiagnosis;
+                temp += "&VisitingName=" + $("#VisitingStaffId option:checked").text();
+                temp += "&ResidentName=" + $("#ResidentDoctorId option:checked").text();
+                temp += "&DeptDirectorName=" + $("#DeptDirectorUserId option:checked").text();
+                temp += "&DirectorName=" + $("#DirectorUserId option:checked").text();
+                temp += "&ResponsibleNurseName=" + $("#ResponsibleNurseId option:checked").text();
+                temp += "&RefresherDoctorName=" + $("#RefresherDoctorId option:checked").text();
+                temp += "&InternDoctorName=" + $("#InternDoctorId option:checked").text();
+                temp += "&CoderUserName=" + $("#CoderUserId option:checked").text();
+                temp += "&QcDoctorName=" + $("#QcDoctorId option:checked").text();
+                temp += "&QcNurseName=" + $("#QcNurseId option:checked").text();
+                temp += "&InpatientWay=" + $("#InpatientCode option:checked").text();
+                EWinsBase.json("api/Doctor/MedicalRecordHomePage/SaveMedicalRecordHomePage", {
+                    //data: data.field,
+                    data: temp,
+                    type: "POST",
+                    async: false,
+                    usedCache: false,
+                    success: function (config, data) {
+                        layer.msg(data.msg, { time: 1000 }
+                        );
+                    },
+                    error: function (error) {
+                    }
+                })
+                return false;
+            });
+
+            form.on('radio(RescueCase)', function (data) {
+                if (data.value == "1")
+                    document.getElementById('DivRescueCase').style.display = 'block';
+                else
+                    document.getElementById('DivRescueCase').style.display = 'none';
+            });
+
+            form.on('radio(InfectionSituation)', function (data) {
+                if (data.value == "1")
+                    document.getElementById('DivInfectionSituation').style.display = 'block';
+                else
+                    document.getElementById('DivInfectionSituation').style.display = 'none';
+            });
+
+
+        });
+        EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+            data: { "InpatientId": NewGetQueryString("InpatientId") },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                if (data.data["MedicalRecordState"] == "1") {
+                    $(".layui-btn").css("display", "none");
+                }
+                //var power = (data.data["RolePower"] + "").split(',');
+                //for (var i = 0; i < power.length; i++) {
+                //    $("input:checkbox[name='POWER'][value='" + power[i] + "']").attr("checked", 'checked');
+                //}
+                if (data.data["JobCode"] != null) {
+                    //绑定职务初始值
+                    $("#JobCode").append("<option value=" + data.data["JobCode"] + ">" + data.data["Job"] + "</option>");
+                    $("#JobCode").val(data.data["JobCode"]).trigger('change');
+                }
+                if (data.data["MaritalCode"] != null) {
+                    //绑定职务初始值
+                    $("#MaritalCode").append("<option value=" + data.data["MaritalCode"] + ">" + data.data["Marital"] + "</option>");
+                    $("#MaritalCode").val(data.data["MaritalCode"]).trigger('change');
+                }
+                //赋值入院途径
+                if (data.data["InpatientCode"] != null) {
+                    $("#InpatientCode").append("<option value=" + data.data["InpatientCode"] + ">" + data.data["InpatientWay"] + "</option>");
+                    $("#InpatientCode").val(data.data["InpatientCode"]).trigger('change');
+                }
+                //赋值临床路径
+                if (data.data["CpManage"] != null) {
+                    $("#CpManage").append("<option value=" + data.data["CpManage"] + ">" + data.data["CpManageName"] + "</option>");
+                    $("#CpManage").val(data.data["CpManage"]).trigger('change');
+                }
+                if (data.data.Creator != cookie.GetEMRUserCookie("api_token", "UserId")) {
+                    $('a').each(function () {
+                        $(this).css('display', 'none');
+                    });
+                    $("#ViewAndPrint").css('display', '');
+                }
+            },
+            error: function (error) {
+            }
+        })
+        EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetMedicalRecordHomePageInfoById", {
+            data: { "InpatientId": NewGetQueryString("InpatientId") },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    $("#ViewAndPrint").css("display", "inline-block");
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+
+                    //赋值血型
+                    if (data.data["BloodType"] != null) {
+                        $("#BloodType").append("<option value=" + data.data["BloodType"] + ">" + data.data["BloodTypeName"] + "</option>");
+                        $("#BloodType").val(data.data["BloodType"]).trigger('change');
+                    }
+                    //赋值RH
+                    if (data.data["RH"] != null) {
+                        $("#RH").append("<option value=" + data.data["RH"] + ">" + data.data["RHName"] + "</option>");
+                        $("#RH").val(data.data["RH"]).trigger('change');
+                    }
+                    //赋值离院方式
+                    if (data.data["LeaveHospitalWay"] != null) {
+                        $("#LeaveHospitalWay").append("<option value=" + data.data["LeaveHospitalWay"] + ">" + data.data["LeaveHospitalWayName"] + "</option>");
+                        $("#LeaveHospitalWay").val(data.data["LeaveHospitalWay"]).trigger('change');
+                    }
+                    //赋值病案质量
+                    if (data.data["MedicalRecordMass"] != null) {
+                        $("#MedicalRecordMass").append("<option value=" + data.data["MedicalRecordMass"] + ">" + data.data["MedicalRecordMassName"] + "</option>");
+                        $("#MedicalRecordMass").val(data.data["MedicalRecordMass"]).trigger('change');
+                    }
+                    //赋值转归情况
+                    if (data.data["PrognosisOfDisease"] != null) {
+                        $("#PrognosisOfDisease").append("<option value=" + data.data["PrognosisOfDisease"] + ">" + data.data["PrognosisOfDiseaseName"] + "</option>");
+                        $("#PrognosisOfDisease").val(data.data["PrognosisOfDisease"]).trigger('change');
+                    }
+                    //赋值门(急)诊诊断
+                    if (data.data["ClinicDiagnosis"] != null) {
+                        $("#ClinicDiagnosis").append("<option value=" + data.data["ClinicDiagnosisCode"] + ">" + data.data["ClinicDiagnosis"] + "</option>");
+                        $("#ClinicDiagnosis").val(data.data["ClinicDiagnosisCode"]).trigger('change');
+                    }
+                    //赋值诊断符合情况
+                    if (data.data["ClinicInhospital"] != null) {
+                        $("#ClinicInhospital").append("<option value=" + data.data["ClinicInhospital"] + ">" + data.data["ClinicInhospital"] + "</option>");
+                        $("#ClinicInhospital").val(data.data["ClinicInhospital"]).trigger('change');
+                    }
+                    if (data.data["AdmissionDischarged"] != null) {
+                        $("#AdmissionDischarged").append("<option value=" + data.data["AdmissionDischarged"] + ">" + data.data["AdmissionDischarged"] + "</option>");
+                        $("#AdmissionDischarged").val(data.data["AdmissionDischarged"]).trigger('change');
+                    }
+                    if (data.data["ClinicPathology"] != null) {
+                        $("#ClinicPathology").append("<option value=" + data.data["ClinicPathology"] + ">" + data.data["ClinicPathology"] + "</option>");
+                        $("#ClinicPathology").val(data.data["ClinicPathology"]).trigger('change');
+                    }
+                    if (data.data["IrradiationPathology"] != null) {
+                        $("#IrradiationPathology").append("<option value=" + data.data["IrradiationPathology"] + ">" + data.data["IrradiationPathology"] + "</option>");
+                        $("#IrradiationPathology").val(data.data["IrradiationPathology"]).trigger('change');
+                    }
+
+                    if (data.data["DeptDirectorUserId"] != null) {
+                        $("#DeptDirectorUserId").append("<option value=" + data.data["DeptDirectorUserId"] + ">" + data.data["DeptDirectorName"] + "</option>");
+                        $("#DeptDirectorUserId").val(data.data["DeptDirectorUserId"]).trigger('change');
+                    }
+                    if (data.data["DirectorUserId"] != null) {
+                        $("#DirectorUserId").append("<option value=" + data.data["DirectorUserId"] + ">" + data.data["DirectorName"] + "</option>");
+                        $("#DirectorUserId").val(data.data["DirectorUserId"]).trigger('change');
+                    }
+                    if (data.data["VisitingStaffId"] != null) {
+                        $("#VisitingStaffId").append("<option value=" + data.data["VisitingStaffId"] + ">" + data.data["VisitingName"] + "</option>");
+                        $("#VisitingStaffId").val(data.data["VisitingStaffId"]).trigger('change');
+                    }
+                    if (data.data["ResidentDoctorId"] != null) {
+                        $("#ResidentDoctorId").append("<option value=" + data.data["ResidentDoctorId"] + ">" + data.data["ResidentName"] + "</option>");
+                        $("#ResidentDoctorId").val(data.data["ResidentDoctorId"]).trigger('change');
+                    }
+                    if (data.data["ResponsibleNurseId"] != null) {
+                        $("#ResponsibleNurseId").append("<option value=" + data.data["ResponsibleNurseId"] + ">" + data.data["ResponsibleNurseName"] + "</option>");
+                        $("#ResponsibleNurseId").val(data.data["ResponsibleNurseId"]).trigger('change');
+                    }
+                    if (data.data["RefresherDoctorId"] != null) {
+                        $("#RefresherDoctorId").append("<option value=" + data.data["RefresherDoctorId"] + ">" + data.data["RefresherDoctorName"] + "</option>");
+                        $("#RefresherDoctorId").val(data.data["RefresherDoctorId"]).trigger('change');
+                    }
+                    if (data.data["InternDoctorId"] != null) {
+                        $("#InternDoctorId").append("<option value=" + data.data["InternDoctorId"] + ">" + data.data["InternDoctorName"] + "</option>");
+                        $("#InternDoctorId").val(data.data["InternDoctorId"]).trigger('change');
+                    }
+                    if (data.data["CoderUserId"] != null) {
+                        $("#CoderUserId").append("<option value=" + data.data["CoderUserId"] + ">" + data.data["CoderUserName"] + "</option>");
+                        $("#CoderUserId").val(data.data["CoderUserId"]).trigger('change');
+                    }
+                    if (data.data["QcDoctorId"] != null) {
+                        $("#QcDoctorId").append("<option value=" + data.data["QcDoctorId"] + ">" + data.data["QcDoctorName"] + "</option>");
+                        $("#QcDoctorId").val(data.data["QcDoctorId"]).trigger('change');
+                    }
+                    if (data.data["QcNurseId"] != null) {
+                        $("#QcNurseId").append("<option value=" + data.data["QcNurseId"] + ">" + data.data["QcNurseName"] + "</option>");
+                        $("#QcNurseId").val(data.data["QcNurseId"]).trigger('change');
+                    }
+                    //赋值 药物过敏 单选框
+                    $("input:radio[name='DrugAllergy'][value='" + data.data["DrugAllergy"] + "']").attr("checked", 'checked');
+                    //赋值 死亡者尸检 单选框
+                    $("input:radio[name='Autopsy'][value='" + data.data["Autopsy"] + "']").attr("checked", 'checked');
+                    //赋值 31天内再住院计划 单选框
+                    $("input:radio[name='ReadmPlan'][value='" + data.data["ReadmPlan"] + "']").attr("checked", 'checked');
+                    //赋值 单病种管理 单选框
+                    $("input:radio[name='SingleDiseaseManage'][value='" + data.data["SingleDiseaseManage"] + "']").attr("checked", 'checked');
+                    //赋值 输血反应 单选框
+                    $("input:radio[name='TransfusionReaction'][value='" + data.data["TransfusionReaction"] + "']").attr("checked", 'checked');
+                    //赋值 抢救情况 单选框
+                    $("input:radio[name='RescueCase'][value='" + data.data["RescueCase"] + "']").attr("checked", 'checked');
+                    if (data.data["RescueCase"] == "1")
+                        document.getElementById('DivRescueCase').style.display = 'block';
+                    else
+                        document.getElementById('DivRescueCase').style.display = 'none';
+                    //赋值 医院感染情况 单选框
+                    $("input:radio[name='InfectionSituation'][value='" + data.data["InfectionSituation"] + "']").attr("checked", 'checked');
+                    if (data.data["InfectionSituation"] == "1")
+                        document.getElementById('DivInfectionSituation').style.display = 'block';
+                    else
+                        document.getElementById('DivInfectionSituation').style.display = 'none';
+                    //赋值 临床路经管理 单选框
+                    $("input:radio[name='ClinicalPathway'][value='" + data.data["ClinicalPathway"] + "']").attr("checked", 'checked');
+                    //赋值 急症 单选框
+                    $("input:radio[name='EmergencyCase'][value='" + data.data["EmergencyCase"] + "']").attr("checked", 'checked');
+                    //赋值 疑难情况 单选框
+                    $("input:radio[name='DifficultSituation'][value='" + data.data["DifficultSituation"] + "']").attr("checked", 'checked');
+                    //赋值 病例分型 单选框
+                    $("input:radio[name='CaseClassification'][value='" + data.data["CaseClassification"] + "']").attr("checked", 'checked');
+                    //赋值 手术相关院内感染 单选框
+                    $("input:radio[name='SurgicalInfections'][value='" + data.data["SurgicalInfections"] + "']").attr("checked", 'checked');
+                    //赋值 非预期重返手术 单选框
+                    $("input:radio[name='UnexpectedSurgery'][value='" + data.data["UnexpectedSurgery"] + "']").attr("checked", 'checked');
+                    //赋值 住院期间出现危重 单选框
+                    $("input:radio[name='LmminenceGrave'][value='" + data.data["LmminenceGrave"] + "']").attr("checked", 'checked');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+        function AddOperationRecord() {
+            ShowWin('新增手术与操作', 'page/DoctorPages/OperationRecordEdit?InpatientId=' + NewGetQueryString("InpatientId"), 800, 600)
+        }
+        function refreshTable() {
+            layui.table.reload("OperationTable", {
+                where: { InpatientId: NewGetQueryString("InpatientId"), token: EWinsBase.Token }//这里传参  向后台
+                    , method: 'post'
+            });
+        }
+    </script>
+    <script type="text/html" id="StartTime">
+        {{ d.StartTime.ToString("yyyy-MM-dd") }}
+    </script>
+</form>

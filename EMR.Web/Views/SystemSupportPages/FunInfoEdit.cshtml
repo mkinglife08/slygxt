@@ -1,0 +1,235 @@
+﻿@{
+    ViewBag.Title = "系统功能定义编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<form class="layui-form" id="form1" action="">
+    <input type="hidden" name="ParentID" id="ParentID" data-id="ParentID" />
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label cur_lable">系统模块代码</label>
+                <div class="layui-input-inline">
+                    <select name="SYSID" id="SYSID" data-id="SYSID" lay-verify="required" placeholder="请选择系统模块" lay-filter="aihao">
+                        <option value="">请选择模块</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">功能定义名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="FUNName" data-id="FUNName" lay-verify="required" onblur='$("#SpellCode").val(pinyin.getCamelChars(this.value).substr(0, 6))' lay-maxlength="20" placeholder="请输入功能定义名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">显示排序序号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DisplaySort" id="DisplaySort" data-id="DisplaySort" placeholder="请输入显示排序序号" autocomplete="off"
+                           class="layui-input">
+                </div>
+
+               
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">功能对应页面</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="FUNPage" data-id="FUNPage" lay-maxlength="150" placeholder="请输入功能对应页面" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">功能定义级别</label>
+                <div class="layui-input-inline">
+                    <select name="FUNLevel" id="FUNLevel" data-id="FUNLevel" lay-verify="required" placeholder="请选择功能定义级别" lay-filter="aihao">
+                        <option value="1">一级</option>
+                        <option value="2">二级</option>
+                        <option value="3">三级</option>
+                    </select>
+                </div>
+               
+            </div>
+            
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">拼音码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="SpellCode" id="SpellCode" data-id="SpellCode" lay-maxlength="6" placeholder="请输入拼音码" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">自定义码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="CustomCode" data-id="CustomCode" lay-maxlength="6" placeholder="请输入自定义码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                
+
+                <label class="layui-form-label">是否末级判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsLast" value="0" title="不是末级" checked="">不是末级
+                    <input type="radio" name="IsLast" value="1" title="末级">末级
+                </div>
+                <label class="layui-form-label">是否作废判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsCance" value="0" title="正常" checked="">正常
+                    <input type="radio" name="IsCance" value="1" title="作废">作废
+                </div>
+               
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">功能定义图片</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <div class="layui-upload-list uploadImg">
+                            <img id="imageFUNICON" src="~/Content/images/upload_img.png"
+                                 width="150" style="cursor: pointer;" />
+                            <input id="fileFUNICON" name="file" type="file" onchange="upload_cover(this, 'FUNICON')"
+                                   style="position: absolute; left: 0px; top: 0px; width: 150px; height: 60px; opacity: 0; cursor: pointer;" />
+                            <input type="hidden" value="" name="FUNIcon" id="FUNIcon" data-id="FUNIcon" />
+                        </div>
+                    </div>
+                </div>
+
+                <label class="layui-form-label">定义选中图片</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <div class="layui-upload-list uploadImg">
+                            <img id="imageCHECKICON" src="~/Content/images/upload_img.png"
+                                 width="150" style="cursor: pointer;" />
+                            <input id="fileCHECKICON" name="file" type="file" onchange="upload_cover(this, 'CHECKICON')"
+                                   style="position: absolute; left: 0px; top: 0px; width: 150px; height: 60px; opacity: 0; cursor: pointer;" />
+                            <input type="hidden" value="" name="CheckIcon" id="CheckIcon" data-id="CheckIcon" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">定义备注信息</label>
+                <div class="layui-input-inline">
+                    <textarea name="FUNNtoe" data-id="FUNNtoe" style="width:550px;" placeholder="请输入定义备注信息" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div style="height:70px;"></div>
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+
+</form>
+
+<!--JS-->
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script src="~/Scripts/hanzitocode.js"></script>
+<script>
+    $('#FUNLevel').select2();
+    $("#ParentID").val(GetQueryString("PARENTID"));
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    var FUNID = GetQueryString("FUNID");
+    //初始化组织机构代码下拉框
+    $('#OrganID').select2();    //1、先初始化成select2控件，
+    GetOrganList();             //2、再去动态加载数据，顺序不能乱！
+    //初始化系统模块代码下拉框
+    $('#SYSID').select2();
+    EWinsBase.json("api/SystemSupport/sysappinfo/Getall", {
+        data: { page: 1, limit: 100 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data)
+                data.data.forEach(function (val, index) {
+                    $("#SYSID").append("<option value=" + val.SYSID + ">" + val.SYSName + "</option>");
+                })
+        },
+    });
+    function upload_cover(obj,key) {
+        ajax_upload(obj, "FunInfo", FUNID, function (data) { //function(data)是上传图片的成功后的回调方法
+            $('#image' + key).attr('src', __curHostAddress + data.data); //给<input>的src赋值去显示图片
+            $('#' + key).val(data.data);
+        });
+    }
+    
+    if (FUNID != "") {
+        EWinsBase.json("api/SystemSupport/FunInfo/GetInfoById", {
+            data: { "FUNID": FUNID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data["FUNIcon"] != "" && data.data["FUNIcon"] != null) {
+                    $("#imageFUNICON").attr("src", __curHostAddress + data.data["FUNIcon"]);
+                }
+                if (data.data["CheckIcon"] != "" && data.data["CheckIcon"] != null) {
+                    $("#imageCHECKICON").attr("src", __curHostAddress + data.data["CheckIcon"]);
+                }
+                $("input:radio[name='IsShow'][value='" + data.data["IsShow"] + "']").attr("checked", 'checked');
+                $("input:radio[name='IsLast'][value='" + data.data["IsLast"] + "']").attr("checked", 'checked');
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+                $("#FUNLevel").val(data.data["FUNLevel"]).trigger('change');
+                $("#SYSID").val(data.data["SYSID"]).trigger('change');
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+    else {
+        var PARENTID = GetQueryString("PARENTID");
+        if (PARENTID.indexOf("MODULE_") >= 0) {
+            $("#SYSID").val(PARENTID.replace("MODULE_", ""));
+            PARENTID = 0;
+            $("#ParentID").val("0");
+        }
+        else if (GetQueryString("SYSID") != "")
+            $("#SYSID").val(GetQueryString("SYSID"));
+        if (PARENTID != "" && PARENTID != "0")
+            $("input:radio[name='IsLast'][value=1]").attr("checked", 'checked');
+        else
+            $("input:radio[name='IsLast'][value=0]").attr("checked", 'checked');
+        $("#OrganID").val(cookie.GetEMRUserCookie("api_token", "ORGANID")).trigger('change');
+        $("#DisplaySort").val(EWinsBase.simplifySyncJsonGet("api/SystemSupport/FunInfo/GetLastDISPLAYSORT", { PARENTID: PARENTID }).data);
+    }
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit;
+
+        form.on('submit(sub)', function (data) {
+            data.field["FUNID"] = GetQueryString("FUNID") + "";
+            data.field["SpellCode"] = pinyin.getCamelChars(data.field["FUNName"]).substr(0, 6);
+            EWinsBase.json("api/SystemSupport/FunInfo/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            wind.refreshNode();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+            })
+            return false;
+        });
+        form.render();
+    })
+
+</script>

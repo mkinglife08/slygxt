@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "用户编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="../../Content/font.css">
+<link rel="stylesheet" href="../../Content/xadmin.css">
+<div class="x-body layui-anim layui-anim-up" style="margin-top:-24px; padding-top:0px;">
+    <blockquote class="layui-elem-quote">
+        欢迎管理员：
+        <span class="x-red" id="curuser"></span>！当前时间:<span id="curtime"></span>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>数据统计</legend>
+        <div class="layui-field-box">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                            <div carousel-item="">
+                                <ul class="layui-row layui-col-space10 layui-this">
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>会诊单数量</h3>
+                                            <p>
+                                                <cite>17</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>需完善病历数</h3>
+                                            <p>
+                                                <cite>6</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                  
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>本病区人数</h3>
+                                            <p>
+                                                <cite>67</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                  
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>待归档人数</h3>
+                                            <p>
+                                                <cite>99</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                   
+                                   
+                                
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>系统通知</legend>
+        <div class="layui-field-box">
+            <table class="layui-table" lay-skin="line">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a class="x-a" href="#" target="_blank">新版电子病历系统 EMR 2.0上线了</a>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>系统信息</legend>
+        <div class="layui-field-box">
+            <table class="layui-table">
+                <tbody>
+                    <tr>
+                        <th>电子病历版本</th>
+                        <td>EMR 2.0</td>
+                    </tr>
+                    <tr>
+                        <th>服务器地址</th>
+                        <td>192.168.0.1</td>
+                    </tr>
+                    <tr>
+                        <th>操作系统</th>
+                        <td>WINDOWS Server2018</td>
+                    </tr>
+                    <tr>
+                        <th>运行环境</th>
+                        <td>IIS/(7.0)</td>
+                    </tr>
+     
+    
+                    <tr>
+                        <th>上传附件限制</th>
+                        <td>2M</td>
+                    </tr>
+                    <tr>
+                        <th>执行时间限制</th>
+                        <td>30s</td>
+                    </tr>
+           
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+<script>
+    window.onload = function () {
+        setInterval(function () {
+            var time = new Date();   // 程序计时的月从0开始取值后+1   
+            var m = time.getMonth() + 1;
+            var t = time.getFullYear() + "-" + m + "-"
+            + time.getDate() + " " + time.getHours() + ":"
+            + time.getMinutes() + ":" + time.getSeconds();
+            $("#curtime").html(t);
+        }, 1000);
+        $("#curuser").html(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    };
+       
+</script>

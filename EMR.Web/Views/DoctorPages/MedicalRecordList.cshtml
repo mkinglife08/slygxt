@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>围手术期文书</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/courseRecord.css">
+</head>
+<body>
+
+<div class="medrecord">
+	<p class="word">围手术期文书</p>
+	<div class="rigBtn">
+	        <a class="layui-btn">新增</a>
+	</div>
+</div>
+<div class="period">
+	<table id="periodTable" lay-filter="test"></table>
+</div>
+ 
+</body>
+<script src="~/Scripts/layui/layui.js"></script>
+<script>
+  layui.use('table', function(){
+  		var table = layui.table;
+	  table.render({ //table 表格
+	    elem: '#periodTable'
+	    ,cols: [[
+	      {field:'username', title: '拟施手术名称',align:'center'}
+	      ,{field:'sex', title: '手术名称',align:'center'}
+	      ,{field:'city', title: '手术日期',align:'center'}
+	      ,{field:'sign', title: '手术医师',align:'center'}
+	      ,{field:'experience', title: '操作',align:'center'}
+	    ]]
+	  });
+
+});
+
+</script>
+</html>
+	

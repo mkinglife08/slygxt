@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+    <div class="qualityControl">
+        <div class="medrecord">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo">
+                            <span>统计时间：</span>
+                            <input type="text" id="start1">-<input type='text' id="stop1">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs3">
+                        <div class="grid-demo grid-demo-bg1">
+                            <span>科室：</span>
+                            <select name="" id="">
+                                <option value="">全部</option>
+                                <option value="">血液</option>
+                                <option value="">外科</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="rigBtn">
+                        <a class="layui-btn search">查询</a>
+                        <a class="layui-btn search">导出到Excel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start1'
+		});
+		laydate.render({
+	  		elem:'#stop1'
+		});
+	});
+	
+</script>
+</html>
+	

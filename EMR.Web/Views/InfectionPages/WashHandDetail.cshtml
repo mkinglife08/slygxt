@@ -1,0 +1,644 @@
+﻿
+@{
+    ViewBag.Title = "WashHandDetail";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: left;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">洗手（卫生手消毒）操作评分标准</div>
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                </div>
+
+                <label class="layui-form-label cur_lable">操作者</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OPNAME" data-id="OPNAME" id="OPNAME" lay-maxlength="20" placeholder="请输入操作者" autocomplete="off" class="layui-input" />
+                </div>
+
+                <label class="layui-form-label cur_lable">职业</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="PRONAME" data-id="PRONAME" lay-maxlength="20" placeholder="请输入职业" autocomplete="off" class="layui-input" />
+                </div>
+
+
+                <label class="layui-form-label cur_lable">监考人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="PROCTOR" data-id="PROCTOR" lay-maxlength="20" placeholder="请输入监考人" autocomplete="off" class="layui-input" />
+                </div>
+
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">考核日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="PROCTDATE" data-id="PROCTDATE" id="PROCTDATE" lay-maxlength="20" placeholder="请输入考核日期" autocomplete="off" class="layui-input" />
+                </div>
+
+                <label class="layui-form-label cur_lable">得分</label>
+                <div class="layui-input-inline">
+                    <input type="text"  id="WIRTESCORE" name="WIRTESCORE" data-id="WIRTESCORE" lay-maxlength="20" placeholder="请输入得分" autocomplete="off" class="layui-input" value="100" />
+                </div>
+            </div>
+
+            <input type="hidden" id="WHOID" name="WHOID" data-id="WHOID" />
+            <input type="hidden" id="DEPTID" name="DEPTID" data-id="DEPTID" />
+            <input type="hidden" id="DEPTNAME" name="DEPTNAME" data-id="DEPTNAME" />
+            <input type="hidden" id="XZRYID" name="XZRYID" data-id="XZRYID" />
+            <input type="hidden" id="XZRYMC" name="XZRYMC" data-id="XZRYMC" />
+            <input type="hidden" id="XZRQ" name="XZRQ" data-id="XZRQ" />
+            <input type="hidden" id="ORGANID" name="ORGANID" data-id="ORGANID" />
+
+            <table width="90%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                <tr>
+                    <td valign="center" style="width:9%;"><p align="center"><strong>项&#160;&#160;目</strong><strong> </strong></p></td>
+                    <td valign="center" style="width:39%;"><p align="center"><strong>操作流程与标准</strong><strong> </strong></p></td>
+                    <td valign="center" style="width:16%;"><p align="center"><strong>要&#160; 求</strong><strong> </strong></p></td>
+                    <td valign="center" style="width:11%;"><p align="center"><strong>分 值</strong><strong> </strong></p></td>
+                    <td valign="center" style="width:15%;"><p align="center"><strong>扣分依据</strong><strong> </strong></p></td>
+                    <td valign="center" style="width:10%;"><p align="center"><strong>扣 分</strong><strong> </strong></p></td>
+                </tr>
+                <tr>
+                    <td style="width:9%;"><p style="text-align:center;"><strong>操作准备</strong></p></td>
+                    <td>
+                        <p>
+                            @*个人准备：<u>着装整洁&#9312;；指甲前端平甲缘，指缝无污垢&#9313;；手部无首饰、手表等&#9314;；</u><u> </u><br />
+        物品准备：<u>非手触式</u><u>或肘式开关</u><u>流动水洗手池</u><u>；</u><u>擦手</u><u>纸巾</u><u>&#9315;</u><u>；洗手液</u><u>或</u><u>手消毒剂&#9316;；
+        手消开启后有效期30天</u><u>/洗手液开启后有效期90天</u><u>&#9317;</u><u>。</u>*@
+                            @*自定义特性说明 kffz:扣分分值 refText:选中checkbox后将对应的title传递到的name表单 refVal:将扣分的值传递到对应的name表单 *@
+                            个人准备：
+                            <input type="checkbox" name="ZZZJ" data-id="ZZZJ" id="ZZZJ" lay-skin="primary" value="着装整洁" title="&#9312着装整洁" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx" />
+                            <input type="checkbox" name="ZJZT" data-id="ZJZT" id="ZJZT" lay-skin="primary" value="指甲状态" title="&#9313指甲前端平甲缘，指缝无污垢" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx" /> @* 指甲状态 *@
+                            <input type="checkbox" name="SBSP" data-id="SBSP" id="SBSP" lay-skin="primary" value="手部饰品" title="&#9314手部无首饰、手表等" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx"/> @* 手部饰品 *@
+                            <br />
+                            物品准备：
+                            <input type="checkbox" name="XSZB" data-id="XSZB" id="XSZB" lay-skin="primary" value="洗手装备" title="&#9315非手触式或肘式开关流动水洗手池；擦手纸巾" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx" />
+                            <input type="checkbox" name="XSXD" data-id="XSXD" id="XSXD" lay-skin="primary" value="洗手消毒" title="&#9316洗手液或手消毒剂" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx"/>
+                            <input type="checkbox" name="XXZB" data-id="XXZB" id="XXZB" lay-skin="primary" value="消洗质保" title="&#9317手消开启后有效期30天/洗手液开启后有效期90天" kffz="1" refText="DEDBASIS1" refVal="BASIS1" lay-filter="cbx"/>
+
+                        </p>
+                    </td>
+                    <td><p>洗手考&#9312;&#9313;&#9314;&#9315;&#9316;&#9317;项；卫生手考&#9312;&#9313;&#9314;&#9316;&#9317;项；少一项扣1分</p></td>
+                    <td><p align="center">6</p></td>
+                    <td><textarea placeholder="扣分依据" data-id="DEDBASIS1" class="layui-textarea" name="DEDBASIS1"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS1" name="BASIS1" data-id="BASIS1" value="0" /></td>
+                </tr>
+                <tr>
+                    <td rowspan="12"><p style="text-align:center;"><strong>操作流程</strong></p></td>
+
+                    <td valign="center">
+                        @*<p>1、<u>非手触式&#9312;</u>（肘式或感应式）开启水龙头，<u>充分淋湿双手&#9313;</u>后<u>正确</u><u>关闭水龙头&#9314;</u> </p>*@
+                         
+                        <input type="checkbox" name="FSCS" data-id="FSCS" id="FSCS" lay-skin="primary" value="非手触式" title="&#9312非手触式（肘式或感应式）开启水龙头" kffz="1" refText="DEDBASIS2" refVal="BASIS2"  lay-filter="cbx"/>
+                        <input type="checkbox" name="LSSS" data-id="LSSS" id="LSSS" lay-skin="primary" value="淋湿双手" title="&#9313充分淋湿双手" kffz="1" refText="DEDBASIS2" refVal="BASIS2" lay-filter="cbx" />
+                        <input type="checkbox" name="GBLT" data-id="GBLT" id="GBLT" lay-skin="primary" value="关闭水龙头" title="&#9314正确关闭水龙头" kffz="1" refText="DEDBASIS2" refVal="BASIS2" lay-filter="cbx" />
+                    </td>
+                    <td valign="center"> <p> 少或错一条扣1分； <br /> 卫生手无此步自然得分  </p> </td>
+
+                    <td valign="center"><p align="center">3 </p></td>
+                    <td><textarea placeholder="扣分依据" data-id="DEDBASIS2" class="layui-textarea" name="DEDBASIS2"></textarea> </td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS2" name="BASIS2" data-id="BASIS2" value="0"  />       </td>
+                </tr>
+                <tr>
+                    <td valign="center">
+                        @*<p>2、<u>手背</u><u>或小鱼际处</u><u>按压&#9312;</u>（非指腹、手心按压）取适量洗手液或<u>手消毒剂（3ml）&#9313;均匀涂抹&#9314;</u>至<u>整个手掌、手背、手指和指缝&#9315;</u> </p>*@
+                        <input type="checkbox" name="SBAY" data-id="SBAY" id="SBAY" lay-skin="primary" value="手背或小鱼际处按压" title="&#9312手背或小鱼际处按压" kffz="1" refText="DEDBASIS3" refVal="BASIS3" lay-filter="cbx" />
+                        <input type="checkbox" name="QXXJ" data-id="QXXJ" id="QXXJ" lay-skin="primary" value="取消洗剂" title="&#9313(非指腹、手心按压)取适量洗手液或手消毒剂(3ml)" kffz="1" refText="DEDBASIS3" refVal="BASIS3" lay-filter="cbx"/>
+                        <input type="checkbox" name="JYTM" data-id="JYTM" id="JYTM" lay-skin="primary" value="均匀涂抹" title="&#9314均匀涂抹" kffz="1" refText="DEDBASIS3" refVal="BASIS3" lay-filter="cbx"/>
+                        <input type="checkbox" name="ZBZF" data-id="ZBZF" id="ZBZF" lay-skin="primary" value="掌背指缝" title="&#9315至整个手掌、手背、手指和指缝" kffz="1" refText="DEDBASIS3" refVal="BASIS3" lay-filter="cbx"/>
+                         
+                    </td>
+                    <td valign="center"><p>少或错一条扣1分 </p></td>
+                    <td valign="center"><p align="center">4 </p></td>
+                    <td><textarea placeholder="扣分依据" data-id="DEDBASIS3" class="layui-textarea" name="DEDBASIS3"></textarea> </td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS3" name="BASIS3" data-id="BASIS3" value="0"  />      </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>3、双手揉擦（按七步洗手法步骤）</p>
+                        @*<input type="checkbox" name="SSRC" data-id="SSRC" id="SSRC" lay-skin="primary" value="双手揉擦" title="3、双手揉擦（按七步洗手法步骤）" kffz="10" refText="DEDBASIS4" refVal="BASIS4" lay-filter="cbx" />*@
+                    </td>
+                    <td rowspan="7">
+                        <p>
+                            1<strong>、</strong>按七步洗手法的步骤 <br /><br />
+                            2、洗手时认真揉搓双手至少15秒钟，不足15秒扣10分 <br /><br />
+                            3、每步来回揉搓至少5次，不足5次的相应步骤扣2分 <br /><br />
+                            4、少洗步骤，则扣除相应的分值 <br /><br />
+                            5、操作熟练规范，不熟练、不规范均扣相应步骤2分
+                        </p>
+                    </td>
+                    <td valign="center"><p align="center">（共70） </p></td>
+                    <td>@*<textarea placeholder="扣分依据" data-id="DEDBASIS4" class="layui-textarea" name="DEDBASIS4"></textarea>*@ </td>
+                    <td>@*<input type="text" lay-verify="required|number" class="layui-input" id="BASIS4" name="BASIS4" data-id="BASIS4" />*@      </td>
+                </tr>
+                <tr>
+                    <td>@*<p>&#9312;（内）掌心相对，手指并拢，相互揉搓</p>*@
+                        <input type="checkbox" name="XHRC" data-id="XHRC" id="XHRC" lay-skin="primary" value="相互揉搓" title="&#9312(内)掌心相对,手指并拢,相互揉搓" kffz="10" refText="DEDBASIS5" refVal="BASIS5" lay-filter="cbx"/>
+                    </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS5" data-id="DEDBASIS5"></textarea> </td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS5" name="BASIS5" data-id="BASIS5"  value="0" />      </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">
+                        @*<p>&#9313;（外）手心对手背沿指缝相互揉搓，交换进行 </p>*@
+                        <input type="checkbox" name="JHJX" data-id="JHJX" id="JHJX" lay-skin="primary" value="交换进行" title="&#9313(外)手心对手背沿指缝相互揉搓,交换进行" kffz="10" refText="DEDBASIS6" refVal="BASIS6" lay-filter="cbx"/>
+                     </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS6" data-id="DEDBASIS6"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS6" name="BASIS6" data-id="BASIS6" value="0"  />      </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">
+                        @*<p>&#9314;（夹）掌心相对，双手交叉指缝相互揉搓 </p>*@
+                        <input type="checkbox" name="ZXXD" data-id="ZXXD" id="ZXXD" lay-skin="primary" value="掌心相对" title="&#9314(夹)掌心相对,双手交叉指缝相互揉搓" kffz="10" refText="DEDBASIS7" refVal="BASIS7" lay-filter="cbx"/>
+                    </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS7" data-id="DEDBASIS7"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS7" name="BASIS7" data-id="BASIS7" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">@*<p>&#9315;（弓）弯曲手指使关节在另一手掌心旋转揉搓，交换进行 </p>*@
+                        <input type="checkbox" name="WQSZ" data-id="WQSZ" id="WQSZ" lay-skin="primary" value="弯曲手指" title="&#9315(弓)弯曲手指使关节在另一手掌心旋转揉搓,交换进行" kffz="10" refText="DEDBASIS8" refVal="BASIS8"  lay-filter="cbx"/>
+                    </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS8" data-id="DEDBASIS8"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS8" name="BASIS8" data-id="BASIS8" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">
+                        @*<p>&#9316;（大）一手握另一手大拇指旋转揉搓，交换进行 </p>*@
+                        <input type="checkbox" name="WDMZ" data-id="WDMZ" id="WDMZ" lay-skin="primary" value="握大拇指" title="&#9316(大)一手握另一手大拇指旋转揉搓,交换进行" kffz="10" refText="DEDBASIS9" refVal="BASIS9" lay-filter="cbx"/>
+                    </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS9" data-id="DEDBASIS9"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS9" name="BASIS9" data-id="BASIS9" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">
+                        @*<p>&#9317;（立）将一手五个手指尖并拢放在另一手掌心旋转揉搓，交换进行 </p>*@
+                        <input type="checkbox" name="ZJBL" data-id="ZJBL" id="ZJBL" lay-skin="primary" value="指尖并拢" title="&#9317(立)将一手五个手指尖并拢放在另一手掌心旋转揉搓,交换进行" kffz="10" refText="DEDBASIS10" refVal="BASIS10"  lay-filter="cbx"/>
+                    </td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS10" data-id="DEDBASIS10"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS10" name="BASIS10" data-id="BASIS10" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td width="259" valign="center">
+                        @*<p>&#9318;（腕）必要时加洗双侧手腕 </p>*@
+                        <input type="checkbox" name="SCSW" data-id="SCSW" id="SCSW" lay-skin="primary" value="双侧手腕" title="&#9318(腕)必要时加洗双侧手腕" kffz="10" refText="DEDBASIS11" refVal="BASIS11" lay-filter="cbx"/>
+                    </td>
+                    <td><p>自然得分</p></td>
+                    <td><p align="center">10</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS11" data-id="DEDBASIS11"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS11" name="BASIS11" data-id="BASIS11" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*<p>4、流动水冲洗整个双手，<u>双手冲净</u>&#9312;，<u>正确关闭</u>&#9313;<u>（非手触式）</u>水龙头，<u>不甩手&#9314;</u>，<u>整个操作过程中无水花飞溅&#9315;</u></p>*@
+                        4、流动水冲洗整个双手，
+                        <input type="checkbox" name="SSCJ" data-id="SSCJ" id="SSCJ" lay-skin="primary" value="双手冲净" title="&#9312双手冲净" kffz="1" refText="DEDBASIS12" refVal="BASIS12" lay-filter="cbx"/>
+                        <input type="checkbox" name="ZQGB" data-id="ZQGB" id="ZQGB" lay-skin="primary" value="正确关闭" title="&#9313正确关闭"  kffz="1" refText="DEDBASIS12" refVal="BASIS12" lay-filter="cbx"/>
+                        <input type="checkbox" name="FSCSLT" data-id="FSCSLT" id="FSCSLT" lay-skin="primary" value="非手触式龙头" title="&#9314(非手触式)水龙头，不甩手" kffz="1" refText="DEDBASIS12" refVal="BASIS12" lay-filter="cbx" />
+                        <input type="checkbox" name="SHFJ" data-id="SHFJ" id="SHFJ" lay-skin="primary" value="水花飞溅" title="&#9315整个操作过程中无水花飞溅" kffz="1" refText="DEDBASIS12" refVal="BASIS12" lay-filter="cbx" />
+                    </td>
+                    <td>
+                        <p>
+                            错一条扣1分； <br />
+                            卫生手无此步自然得分
+                        </p>
+                    </td>
+                    <td><p align="center">4</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS12" data-id="DEDBASIS12"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS12" name="BASIS12" data-id="BASIS12" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*<p>5、洗手后干手<u>纸巾擦拭</u>&#9312;双手；卫生手消毒后，<u>手消毒剂作用1分钟至干&#9313;</u></p>*@
+
+                        @*<input type="radio" data-id='CGXD' name='CGXD' value="擦拭双手" title="&#9312纸巾擦拭双手" lay-filter="rdo" kffz="1" refText="DEDBASIS13" refVal="BASIS13"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            &#9312; 纸巾擦拭双手
+                          <input type="radio" data-id='CGXD' name='CGXD' value="消毒至干" title="&#9313手消毒剂作用1分钟至干" lay-filter="rdo" kffz="1" refText="DEDBASIS13" refVal="BASIS13"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i></div>
+                            &#9313; 手消毒剂作用1分钟至干*@
+
+                        <input type="checkbox" name="CSSS" data-id="CSSS" id="CSSS" lay-skin="primary" value="擦拭双手" title="&#9312纸巾擦拭双手" kffz="1" refText="DEDBASIS13" refVal="BASIS13" lay-filter="cbx" />
+                        <input type="checkbox" name="XDZG" data-id="XDZG" id="XDZG" lay-skin="primary" value="消毒至干" title="&#9313手消毒剂作用1分钟至干" kffz="1" refText="DEDBASIS13" refVal="BASIS13" lay-filter="cbx" />
+
+                    </td>
+                    <td>
+                        <p>
+                            洗手考&#9312;项；&nbsp;
+                            卫生手考&#9313;项
+                        </p>
+                    </td>
+                    <td><p align="center">1</p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS13" data-id="DEDBASIS13"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS13" name="BASIS13" data-id="BASIS13" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td valign="center"><p align="center"><strong>其他</strong><strong> </strong></p></td>
+                    <td valign="center">
+                        @*<p>计时：整个洗手过程在1分钟内完成 </p>*@
+                        <input type="checkbox" name="XSSJ" data-id="XSSJ" id="XSSJ" lay-skin="primary" value="洗手时间" title="计时:整个洗手过程在1分钟内完成"  kffz="3" refText="DEDBASIS14" refVal="BASIS14" lay-filter="cbx" />
+                    </td>
+                    <td valign="center"><p>超时扣分 </p></td>
+                    <td valign="center"><p align="center">3 </p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS14" data-id="DEDBASIS14"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS14" name="BASIS14" data-id="BASIS14" value="0"  /></td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><p align="center"><strong>现场提问</strong></p></td>
+                    <td valign="center">
+                        @*<p>洗手或卫生手消毒的指征 </p>*@
+                        <input type="checkbox" name="XDZZ" data-id="XDZZ" id="XDZZ" lay-skin="primary" value="消毒指征" title="洗手或卫生手消毒的指征"  kffz="6" refText="DEDBASIS15" refVal="BASIS15" lay-filter="cbx" />
+                    </td>
+                    <td valign="center"><p>少一条扣1分 </p></td>
+                    <td valign="center"><p align="center">6 </p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS15" data-id="DEDBASIS15"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS15" name="BASIS15" data-id="BASIS15" value="0"  /></td>
+                </tr>
+                <tr>
+                    <td valign="center">
+                        @*<p>先洗手后消毒的指征 </p>*@
+                        <input type="checkbox" name="XXHX" data-id="XXHX" id="XXHX" lay-skin="primary" value="先洗后消" title="先洗手后消毒的指征" kffz="2" refText="DEDBASIS16" refVal="BASIS16" lay-filter="cbx" />
+
+                    </td>
+                    <td valign="center"><p>少一条扣1分 </p></td>
+                    <td valign="center"><p align="center">2 </p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS16" data-id="DEDBASIS16"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS16" name="BASIS16" data-id="BASIS16" value="0"  /></td>
+                </tr>
+                <tr>
+                    <td valign="center">
+                        @*<p>卫生手消毒，监测的细菌菌落总数：&#8804;10cfu/cm2 </p>*@
+
+                        <input type="checkbox" name="XJJL" data-id="XJJL" id="XJJL" lay-skin="primary" value="细菌菌落" title="卫生手消毒,监测的细菌菌落总数:&#8804;10cfu/cm2"  kffz="1" refText="DEDBASIS17" refVal="BASIS17"  lay-filter="cbx"/>
+
+                    </td>
+                    <td valign="center"><p>答错扣分 </p></td>
+                    <td valign="center"><p align="center">1 </p></td>
+                    <td><textarea placeholder="扣分依据" class="layui-textarea" name="DEDBASIS17" data-id="DEDBASIS17"></textarea></td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="BASIS17" name="BASIS17" data-id="BASIS17" value="0"  />     </td>
+                </tr>
+                <tr>
+                    <td><p align="center"><strong>合计</strong></p></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><p align="center">100</p></td>
+                    <td>&nbsp;</td>
+                    <td><input type="text" lay-verify="required|number" class="layui-input" id="SUMSCORE" name="SUMSCORE" data-id="SUMSCORE" value="100" /></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });
+
+    var WHOID = GetQueryString("WHOID");
+    if (WHOID != "" && WHOID != "undefined") {
+        EWinsBase.json("api/Infection/WashHand/GetWashHandModel", {
+            data: { "WHOID": WHOID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+              //  debugger
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);
+
+                //绑定科室
+                if (data.data.Item2 != null) {
+                    //绑定科室初始值
+                    data.data.Item2.forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#DpetID").val($(data.data.Item2).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#PROCTDATE',
+            type: 'date'
+        });
+
+        var totalScore = 100;
+        $('input[id*="BASIS"]').on("blur", function () {
+            var minuend = 0;
+            $('input[id*="BASIS"]').each(function () {
+                minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+            });
+            var score = (parseFloat(totalScore) - parseFloat(minuend));
+            $("#SUMSCORE").val(score);
+            $("#WIRTESCORE").val(score); 
+        });
+
+        //checkbox 选择
+        form.on('checkbox(cbx)', function (data) {
+           //console.log(data.elem); //得到checkbox原始DOM对象
+           //console.log(data.elem.checked); //开关是否开启，true或者false
+           //console.log(data.value); //开关value值，也可以通过data.elem.value得到
+            //console.log(data.othis); //得到美化后的DOM对象
+             
+            var kffz = $(data.elem).attr("kffz"); //扣分分值
+            var kfTitle = $(data.elem).attr("title");  //扣分原因，文字
+            var refText = $(data.elem).attr("refText");  //文字要保存到的文本框
+            var refVal = $(data.elem).attr("refVal");   //被扣分值要计算到的文本框
+
+            var theText = $('textarea[name=' + refText + ']').val(); // 扣分原因文本框内的文字
+            var theVal = $('input[name=' + refVal + ']').val();   // 扣分文本框内的分值
+
+            var theTextArr = theText.split(" "); //textarea中的值以空格分隔成数组
+
+            if (data.elem.checked) {  //选中了checkbox
+                theTextArr.push(kfTitle); 
+               var resText = theTextArr.join(' ');   //以空格分隔数组保存到textarea中
+                $('textarea[name=' + refText + ']').val(resText);  
+
+                theVal = parseFloat(theVal == "" ? 0 : theVal); 
+                $('input[name=' + refVal + ']').val((parseFloat(kffz) + parseFloat(theVal)));
+
+            } else {
+                //取消选中checkbox 
+                theTextArr.splice($.inArray(kfTitle, theTextArr), 1);  // 找到数组中的值将它移除
+                var resText = theTextArr.join(' ');                    //以空格分隔数组保存到textarea中
+                $('textarea[name=' + refText + ']').val(resText);
+
+                theVal = parseFloat(theVal == "" ? 0 : theVal);   
+                $('input[name=' + refVal + ']').val(theVal == "0" ? "0" : (parseFloat(theVal) - parseFloat(kffz)));
+            }
+             
+            var minuend = 0;
+            $('input[id*="BASIS"]').each(function () {
+                minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+            });
+            var score = (parseFloat(totalScore) - parseFloat(minuend));
+            $("#SUMSCORE").val(score);
+            $("#WIRTESCORE").val(score);  
+        });
+
+        //radio 选择
+        //form.on('radio(rdo)', function (data) {
+        //    //console.log(data.elem); //得到checkbox原始DOM对象 
+        //    //console.log(data.value); //开关value值，也可以通过data.elem.value得到 
+
+        //    var kffz = $(data.elem).attr("kffz"); //扣分分值
+        //    var kfTitle = $(data.elem).attr("title");  //扣分原因，文字
+        //    var refText = $(data.elem).attr("refText");  //文字要保存到的文本框
+        //    var refVal = $(data.elem).attr("refVal");   //被扣分值要计算到的文本框
+
+        //    var theText = $('textarea[name=' + refText + ']').val(); // 扣分原因文本框内的文字
+        //    var theVal = $('input[name=' + refVal + ']').val();   // 扣分文本框内的分值
+
+        //    var theTextArr = theText.split(" "); //textarea中的值以空格分隔成数组
+
+        //    if (data.elem.checked) {  //选中了checkbox
+        //        theTextArr.push(kfTitle);
+        //        var resText = theTextArr.join(' ');   //以空格分隔数组保存到textarea中
+        //        $('textarea[name=' + refText + ']').val(resText);
+
+        //        theVal = parseFloat(theVal == "" ? 0 : theVal);
+        //        $('input[name=' + refVal + ']').val((parseFloat(kffz) + parseFloat(theVal)));
+
+        //    } else {
+        //        //取消选中checkbox 
+        //        theTextArr.splice($.inArray(kfTitle, theTextArr), 1);  // 找到数组中的值将它移除
+        //        var resText = theTextArr.join(' ');                    //以空格分隔数组保存到textarea中
+        //        $('textarea[name=' + refText + ']').val(resText);
+
+        //        theVal = parseFloat(theVal == "" ? 0 : theVal);
+        //        $('input[name=' + refVal + ']').val(theVal == "0" ? "0" : (parseFloat(theVal) - parseFloat(kffz)));
+        //    }
+
+        //    var minuend = 0;
+        //    $('input[id*="BASIS"]').each(function () {
+        //        minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+        //    });
+        //    var score = (parseFloat(totalScore) - parseFloat(minuend));
+        //    $("#SUMSCORE").val(score);
+        //    $("#WIRTESCORE").val(score);
+        //});
+         
+             
+
+        form.on('submit(sub)', function (data) {
+            
+            data.field["DEPTID"] = getMultiSelectVal("DpetID"); 
+            data.field["DEPTNAME"] = getMultiSelectText("DpetID");
+
+            EWinsBase.json("api/Infection/WashHand/Save", {
+                data: data.field ,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

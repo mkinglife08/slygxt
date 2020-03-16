@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+  <select id="User.List">
+    select a.*,b.dictname as jobName ,c.dictname as JobLevelName,decode(a.ISCANCE,'0','正常','1','作废') IsCanceName
+    from GI_UserInfo a
+    left join GI_CODEDICT b on a.job=b.dictcode and b.parentid=409
+    left join GI_CODEDICT c on a.job=c.dictcode and c.parentid=430
+    <dynamic prepend=" where 1=1 ">
+      <isNotNullOrEmpty prepend=" and " property="OrganId">a.OrganId=:OrganId</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="UserName">a.USERNAME like '%#UserName#%'</isNotNullOrEmpty>
+    </dynamic>
+  </select>
+
+  <select id="User.Fun.List">
+    select a.* from GI_FunInfo a where a.ISCANCE=0
+    <dynamic prepend="">
+      <isNotNullOrEmpty prepend=" and " property="UserId">exists (select 1 from GI_ROLERIGHT b where b.funid = a.funid and exists (select 1 from GI_ROLEMEMBER c where b.roleid = c.roleid and c.userid =:UserId))</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="SysId">a.sysid=:SysId</isNotNullOrEmpty>
+      <isGreaterThan compareValue="0" prepend=" and " property="FunLevel">a.funlevel=:FunLevel</isGreaterThan>
+    </dynamic>
+    order by a.displaysort,a.funid
+  </select>
+
+  <select id="User.Sys.List">
+    select B.*,A.USERID,A.ISDEFAULT from GI_USERSYS A inner JOIN GI_SYSAPPINFO B oN A.sysID = B.sysID
+    <dynamic prepend=" where 1=1 ">
+      <isNotNullOrEmpty prepend=" and " property="UserId">a.userid=:UserId</isNotNullOrEmpty>
+    </dynamic>
+    order by b.displaysort ,a.sysid
+  </select>
+</sqlMap>

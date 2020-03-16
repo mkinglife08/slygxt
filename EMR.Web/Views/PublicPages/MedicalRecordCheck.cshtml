@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "完整性核查";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+@section css{
+    <link href="~/Content/reset.css" rel="stylesheet">
+    <link href="~/Content/qualityControl.css" rel="stylesheet">
+}
+
+<div class="qualityControl">
+    <div class="medrecord">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-xs3" >
+                    <div class="grid-demo">
+                        <span>出院科室</span>
+                        <select name="dpetid" id="dpetid"></select>
+                    </div>
+                </div>
+                <div class="layui-col-xs4">
+                    <div class="grid-demo">
+                        <span>出院日期：</span>
+                        <input type="text" id="start">-<input type='text' id="stop">
+                    </div>
+                </div>
+                <div class="layui-col-xs2" >
+                    <div class="grid-demo">
+                        <span>住院号：</span>
+                        <input type="text" id="zyh">
+                    </div>
+                </div>
+                <div class="layui-col-xs2">
+                    <div class="grid-demo">
+                        <span>姓名：</span>
+                        <input type="text" id="name">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="rigBtn">
+            <a class="layui-btn" id="btQuery">查询</a>
+        </div>
+    </div>
+    <div id="TableMRC"></div>
+</div>
+<script>
+    //初始化绑定科室
+    var $DpetID = $("#dpetid");
+    CreateSelectOptionFromDeptInfo($DpetID, "0", { width: "100px!important" }, [{ id: "", text: "全部" }]);
+    $DpetID.append('<option value="" selected>全部</option>');//默认为全部
+    $DpetID.trigger('change');//重新渲染
+
+    layui.use(['laydate', 'table'], function () {
+        var laydate = layui.laydate;
+        var table = layui.table;
+        laydate.render({ elem: '#start' });
+        laydate.render({ elem: '#stop' });
+        //本月1日到当前日期
+        $("#start").val(currentTime("-", new Date(new Date().getFullYear(), new Date().getMonth(), 1)).ToString("yyyy-MM-dd"));
+        $("#stop").val(currentTime().ToString("yyyy-MM-dd"));
+        var TableMRC=table.render({ //table 表格
+            elem: '#TableMRC'
+            , id: 'TableMRC'
+            , height: $(window).height() - 100
+            , cols: [[
+                { field: 'deptname', title: '科室', align: 'center' }
+                , { field: 'inpatientid', title: '住院号', width: '120', align: 'center' }
+                , { field: 'healthcard', title: '健康卡号', width: '120', align: 'center' }
+                , { field: 'name', title: "患者姓名", width: '120', align: 'center' }
+                , { field: 'hashospitalrecord', title: '入院记录', width: '120', align: 'center' }
+                , { field: 'hasprogressnotefirst', title: '首次病程记录', width: '120', align: 'center' }
+                , { field: 'hasconsent', title: '疗诊知情同意记录', width: '150', align: 'center' }
+                , { field: 'hashomepage', title: '病案首页', width: '120', align: 'center' }
+                , { field: 'hasouthospitalrecord', title: '出院记录', width: '120', align: 'center' }
+            ]]
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //搜索按钮
+        $('#btQuery').on('click', function () {
+            TableMRC.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/QualityControl/MedicalRecordCheckList?token=' + EWinsBase.Token
+                , where: { DpetID: $("#dpetid").val(), Start: $("#start").val(), Stop: $("#stop").val(), Zyh: $("#zyh").val(), Name: $("#name").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+
+    });
+
+</script>

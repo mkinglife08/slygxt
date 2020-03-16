@@ -1,0 +1,174 @@
+﻿@{
+    ViewBag.Title = "用户组管理";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<div class="my-btn-box"> 
+    <div class="container">
+        <div class="choseBtn clearfix">
+           
+            <div class="icon_left aList fl">
+                <a class="btn-add btn-default" id="btn-add">
+                    <i class="layui-icon colorAdd">&#xe61f;</i>添加
+                </a>
+                <a class="btn-add btn-default" id="btn-edit">
+                    <i class="iconfont btn-edit">&#xe74e;</i>编辑
+                </a>
+                <a class="btn-add btn-default" id="btn-right">
+                    <i class="layui-icon btn-right">&#xe857;</i>功能定义
+                </a>
+                <a class="layui-btn-danger radius btn-delect" id="btn-delete" >
+                    <i class="layui-icon btn-delete">&#xe640;</i>删除
+                </a>
+                <input type="hidden" id="hdnCurRowId" value="" />
+
+            </div>
+            <div class="icon_right fl" id="icon_rights">
+                <div class="layui-form-item fl">
+                    <label class="layui-form-label index_label">搜索条件</label>
+                    <div class="layui-input-block">
+                        <input type="text" autocomplete="off" id="keyword" placeholder="请输入用户组名称" class="layui-input index_input">
+                    </div>
+                </div>
+                <a class="layui-btn mgl-20 fl" id="btQuery">
+                    <i class="iconfont">&#xe6ac;</i>
+                    查询
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dateTable" lay-filter="dateTable"></div>
+
+<!-- js -->
+<script type="text/javascript">
+    //保存用户组按钮事件
+    function right_save(role_funinfo_check) {
+        EWinsBase.ajax({
+            url: "api/SystemSupport/role/SaveRoleRight",
+            type: "POST",
+            data: { "ROLEID": $("#hdnCurRowId").val(), "role_funinfo_check": role_funinfo_check },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 0) {
+                    layer.msg(data.msg, { icon: 6 });
+                } else {
+                    layer.msg(data.msg, { icon: 5 });
+                }
+            }
+        });
+        layer.closeAll();
+    }
+    // layui方法
+    layui.use(['table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , layer = layui.layer
+                , vipTable = layui.vip_table
+                , $ = layui.jquery;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: vipTable.getFullHeight()-20    //容器高度
+            , cols: [[
+                { checkbox: false, sort: false, fixed: false, space: true }//标题栏
+                , { field: 'RoleID', title: '分组编号', width: '90', align: 'center' }
+                , { field: 'OrganID', title: '机构代码', width: '90', align: 'center',hide:true }
+                , { field: 'RoleNAME', title: '用户分组名称', width: '150', align: 'center' }
+                , { field: 'OrganID', title: '机构名称', width: '150', align: 'center' }
+                , { field: 'PowerName', title: '功能权限', width: '90', align: 'center' }
+                , { field: 'RoleNote', title: '分组说明', width: '30%', align: 'left' }
+               
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress+'api/SystemSupport/role/GetAll?token=' + EWinsBase.Token
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+            }
+        });
+
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.RoleID);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //监听行双击事件
+        table.on('rowDouble(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.RoleID);
+            ShowWin('修改用户组', 'page/SystemSupportPages/RoleEdit?ROLEID=' + $("#hdnCurRowId").val(), 700, 400)
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+
+        //添加按钮事件
+        $('#btn-add').on('click', function () {
+            ShowWin('添加用户组', 'page/SystemSupportPages/RoleEdit', 700, 400)
+        });
+        //编辑按钮事件
+        $('#btn-edit').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin('修改用户组', 'page/SystemSupportPages/RoleEdit?ROLEID=' + $("#hdnCurRowId").val(), 700, 400)
+        });
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { keyword: $("#keyword").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //删除按钮事件
+        $('#btn-delete').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            top.layer.confirm('是否确认要删除该条信息？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/SystemSupport/role/delete",
+                    type: "POST",
+                    data: { "ROLEID": $("#hdnCurRowId").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            top.layer.msg("删除成功", { icon: 6 });
+                            tableIns.reload();
+                        } else {
+                            top.layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+    //用户分组权限弹出框
+    $('#btn-right').on('click', function () {
+        if ($("#hdnCurRowId").val() == "") {
+            layer.msg("请选择要操作的行", { icon: 5 });
+            return;
+        }
+        ShowWin('用户分组权限', 'page/SystemSupportPages/RoleRight?ROLEID=' + $("#hdnCurRowId").val(), 350, 600)
+    });
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+            where: { keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+        });
+    }
+</script>

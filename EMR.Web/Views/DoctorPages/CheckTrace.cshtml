@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="qualityHeader clearfix">
+			<div class="qualityText">
+			    <span>入院日期：</span>
+			    <input type="text" id="start" style="width:30%">-<input type='text' id="stop" style="width:30%">
+			</div>
+			<div class="qualityText">
+				<span>科室</span>
+				<select name="" id="">
+					<option value="">全部</option>
+					<option value="">血液</option>
+					<option value="">外科</option>
+				</select>
+			</div>
+			<div class="qualityText">
+				<span>主治医师：</span>
+				<select name="" id="">
+					<option value="">所有</option>
+					<option value="">范医生</option>
+					<option value="">王医生</option>
+				</select>
+				
+			</div>
+			<div class="qualityText">
+				<a class="layui-btn">查询</a>
+			</div>
+		</div>
+		<div class="textList">
+			<p>质管检查病人</p>
+			<textarea name="" id="" cols="30" rows="10"></textarea>
+		</div>
+		<div class="qualityHeader clearfix">
+			<div class="qualityText">
+			    <span>检查记录时间：</span>
+			    <input type="text" id="start1" style="width:30%">-<input type='text' id="stop1" style="width:30%">
+			</div>
+			<div class="qualityText">
+				<span>科室</span>
+				<select name="" id="">
+					<option value="">全部</option>
+					<option value="">血液</option>
+					<option value="">外科</option>
+				</select>
+			</div>
+			<div class="qualityText">
+				<span>答复医生：</span>
+				<select name="" id="">
+					<option value="">所有</option>
+					<option value="">范医生</option>
+					<option value="">王医生</option>
+				</select>
+				<select name="" id="">
+					<option value="">已回复</option>
+					<option value="">未回复</option>
+					<option value="">所有</option>
+				</select>
+				
+			</div>
+			<div class="qualityText">
+				<a class="layui-btn">查询</a>
+				<a class="layui-btn">导出Excel</a>
+				<a class="layui-btn">已阅</a>
+			</div>
+		</div>
+		<div class="textList">
+			<p>质管检查记录：</p>
+			<textarea name="" id="" cols="30" rows="10"></textarea>
+		</div>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start'
+		});
+		laydate.render({
+	  		elem:'#stop'
+		});
+		laydate.render({
+	  		elem:'#start1'
+		});
+		laydate.render({
+	  		elem:'#stop1'
+		});
+
+	})
+</script>
+</html>

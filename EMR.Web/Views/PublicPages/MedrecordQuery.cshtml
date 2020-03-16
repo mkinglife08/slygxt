@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "住院病人列表";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/template.css">
+<style>
+    .ulsList li a{
+        display:inline-block;
+        width:100%;
+        height:100%;
+    }
+   .ulsList .listTittle{
+       border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+    cursor: pointer;
+   }
+    .consultRight {
+        height:98%;
+    }
+</style>
+<div class="consultation">
+    <div class="header_log" id="divData">
+        <ul class="logUls clearfix">
+            <li style="width: 10%;"><span>床号：</span><p data-id="BedNumber" class="bedNumber">001</p></li>
+            <li style="width: 10%;"><span>病案号：</span><p data-id="InpatientId"></p></li>
+            <li style="width:10%"><span>姓名：</span><p data-id="Name"></p></li>
+            <li style="width:10%;"><span>年龄：</span><p data-id="Age"></p>岁</li>
+            <li style="width: 9%;"><span>住院：</span><p id="zyts"></p>天</li>
+            <li style="width: 14%;"><span>性质：</span><p style="width:60%;"></p></li>
+            <li style="width: 22%;"><span>诊断：</span><p data-id="Diagnosis" style="width:75%;"></p></li>
+        </ul>
+    <div class="consultCent">
+        <ul class="ulsList">
+            <li class="listTittle">全部病历资料</li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/MedrecordPrint?OnlyView=true')">病案首页</a></li>
+            <li class="layui-hide"><a href="javascript:;" onclick="RedirectToPage('')">住院病历</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/ProgressNoteList?OnlyView=true')">病程</a></li>
+            <li class="layui-hide"><a href="javascript:;" onclick="RedirectToPage('')">围手术文期文书</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/InformedConsentHour?OnlyView=true')">诊疗知情同意书</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/InformedConsent?OnlyView=true')">知情同意书</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/ConsultationList?OnlyView=true')">会诊</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('')">医嘱</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('')">检验</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('')">检查</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/OuthospitalRecord?OnlyView=true')">出院记录</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/DeathRecord?OnlyView=true')">死亡记录</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/HospitalCard?OnlyView=true')">住院卡</a></li>
+            <li><a href="javascript:;" onclick="RedirectToPage('DoctorPages/DischargeCertificate?OnlyView=true')">出院证</a></li>
+            <li class="layui-hide"><a href="javascript:;" onclick="RedirectToPage('')">三线抗菌药物使用申请表</a></li>
+            <li class="listTittle">护理资料</li>
+            <li><a href="javascript:;" onclick="RedirectToPage('NursePages/TemperatureChart?OnlyView=true')">体温单</a></li>
+            <li class="layui-hide"><a>入院评估单</a></li>
+            <li class="layui-hide"><a>护理记录</a></li>
+            <li class="layui-hide"><a>血糖</a></li>
+            <li class="layui-hide"><a>术前准备单</a></li>
+            <li class="layui-hide"><a>出院评估单</a></li>
+            <li class="layui-hide"><a>导管评估</a></li>
+            <li class="layui-hide"><a>压疮高度危险及压疮报告表 </a></li>
+            <li class="layui-hide"><a>产科入院评估 </a></li>
+            <li class="layui-hide"><a>健康宣教</a></li>
+            <li class="layui-hide"><a>产程图 </a></li>
+            <li class="layui-hide"><a>分娩记录 </a></li>
+            <li class="layui-hide"><a>产前记录 </a></li>
+            <li class="layui-hide"><a>产后护理记录单 </a></li>
+            <li class="layui-hide"><a>无证无卡孕产妇登记 </a></li>
+        </ul>
+        <div class="layui-body" style="left: 163px;">
+            <div class="consultRight">
+                <iframe id="iframe" src="~/page/DoctorPages/MedrecordPrint?OnlyView=true" style="width:100%;height:100%;border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(function () {
+        $(".consultation").height($(window).height() - 10)
+        $(".consultation").width($(window).width() - 30)
+        $(".consultCent").height($(window).height() - 60)
+        
+    })
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            $("#zyts").html(DateDiff(data.data.EntryTime.ToString("yyyy-MM-dd")));
+            $("title").html(data.data.Name);
+        },
+        error: function (error) {
+        }
+    })
+    layui.use(['laydate', 'table'], function () {
+        var laydate = layui.laydate;
+        var table = layui.table;
+        table.render({
+            elem: '#demo4'
+            // ,url:'/demo/table/user/'
+         , cols: [[
+           { field: 'username', title: '申请时间', align: 'center' }
+           , { field: 'sex', title: '主管医生', align: 'center' }
+           , { field: 'city', title: '操作', align: 'center' }
+         ]]
+        });
+      
+    })
+    function RedirectToPage(pageUrl) {
+        if (pageUrl!="")
+        $("#iframe").attr("src", __curHostAddress + "page/" + pageUrl);
+    }
+    $('.ulsList li a').click(function () {
+        $(this).css({ 'color': '#3F88CF', 'font-weight': 'bold' }).parent().css('background', '#EAEFF5').siblings().not('.listTittle')
+            .css('background', '#fff').children('a').css({ 'color': '#333', 'font-weight': 'normal' });
+    })
+</script>

@@ -1,0 +1,417 @@
+﻿
+@{
+    ViewBag.Title = "TemperatureChart";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/reset.css">
+}
+
+<div class="medrecord">
+    <p class="word">体温单</p>
+    <div class="rigBtn">
+        @*<a class="layui-btn" href="OverallPrint()"><i class="iconfont edit">&#xe61b;</i>整体打印</a>*@
+        <a class="layui-btn" onclick="printFace()"><i class="iconfont print">&#xe61b;</i>打印</a>
+    </div>
+</div>
+<div class="patient" style="padding-bottom:32%;">
+    <div class="TCheads">
+        <span>住院周数</span>
+        <a href="javascript:;" id="lastweek">上一周</a>
+        <select id="zyzs"></select>
+        <a href="javascript:;" id="nextweek">下一周</a>
+    </div>
+    <div class="TCContent" id="TCContent">
+        <style>
+            .TCheads {
+                text-align: center;
+                border-bottom: 1px solid #0A64A4;
+                padding-bottom: 10px;
+                margin: 10px 15px;
+            }
+
+            .TCContent {
+                text-align: center;
+            }
+
+            .TCTabel td {
+                border: solid 2px;
+                font-family: Arial,宋体;
+                font-size: 12px;
+            }
+
+            .TCTabel .imagetd {
+                border: solid 1px;
+            }
+        </style>
+        <table style="margin:auto" class="TCTabel" id="TCTabel">
+            <tr id="tcrq"><td width="98px">日期</td><td width="70px"></td><td width="70px"></td><td width="70px"></td><td width="70px"></td><td width="70px"></td><td width="70px"></td><td width="70px"></td></tr>
+            <tr id="tczyts"><td>住院天数</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="tcsshts"><td>手术后天数</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>时间</td><td>上午 下午</td><td>上午 下午</td><td>上午 下午</td><td>上午 下午</td><td>上午 下午</td><td>上午 下午</td><td>上午 下午</td></tr>
+            <tr><td class="imagetd" colspan="8"><img id="image" src="" alt="" /></td></tr>
+            <tr id="StoolTreq"><td>大便</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="Intake"><td>入量(ml)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="Output"><td>出量(ml)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="UPD"><td>尿量(ml)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="Weight"><td>体重(kg)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr id="Abdomen"><td>腹围(cm)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="divMain" class="noprint divMain" onmouseover="clearTimeout(mouseout);" onmousemove="clearTimeout(mouseout);ShowCoverDiv();">
+</div>
+<div id="divCover" class="noprint divCover" onclick="ShowTiwendan();">
+</div>
+<script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+<style type="text/css">
+    .divCover {
+        filter: alpha(opacity=50);
+        opacity: 0.7;
+        width: 72px;
+        height: 822px;
+        background-color: #96D2F5;
+        /*display: none;*/
+    }
+
+    .divMain {
+        visibility: hidden;
+        /*background-color: #FFFFFF;*/
+        filter: alpha(opacity=0);
+        opacity: 0.7;
+        z-index: 10;
+        width: 502px;
+        height: 790px;
+        position: absolute;
+    }
+</style>
+
+
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+        $(".noprint").hide();
+    }
+
+
+    //打印
+    function printFace() {
+        var LODOP = getLodop();
+        if (LODOP.VERSION) {
+            LODOP.PRINT_INIT("体温单打印");
+
+            var css = "";
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/reset.css" />';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/medrecord.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/common.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/style.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css"/>';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/iconfont/iconfont.css">';
+
+            var aheadDiv = '<div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">' +
+                '<div class="medrecordPrin">' +
+                '<div class="print_all">';
+
+
+            var html = document.getElementById("TCContent").innerHTML;
+
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", css + html + "");
+            //LODOP.ADD_PRINT_URL(30, 20, 746, "95%", location.href + "?print=face");
+            //LODOP.SET_PRINT_STYLEA(0, "HOrient", 3);
+            //LODOP.SET_PRINT_STYLEA(0, "VOrient", 3);
+            //		LODOP.SET_SHOW_MODE("MESSAGE_GETING_URL",""); //该语句隐藏进度条或修改提示信息
+            //		LODOP.SET_SHOW_MODE("MESSAGE_PARSING_URL","");//该语句隐藏进度条或修改提示信息
+            LODOP.PREVIEW();
+        }
+    }
+
+    var InpatientId = NewGetQueryString("InpatientId");
+    var EntryTime;//入院时间
+    var LeaveTime;//出院时间
+    var OperationStartTime = "";//手术结束时间
+    if (InpatientId != "") {
+        //获取病人实体
+        EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+            data: { "InpatientId": NewGetQueryString("InpatientId") },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    //EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                    EntryTime = data.data["EntryTime"];//入院时间
+                    LeaveTime = data.data["LeaveTime"];//出院时间
+
+                }
+            },
+            complete: function () {
+                //手术日期
+                EWinsBase.json("api/Doctor/OperationRecord/GetAll", {
+                    data: { "InpatientId": NewGetQueryString("InpatientId"), "page": "1", "limit": "10" },
+                    type: "POST",
+                    async: false,
+                    usedCache: false,
+                    success: function (config, data) {
+                        if (data.data != null) {
+                            $(data.data).each(function (i, n) {
+                                if (OperationStartTime == "") {
+                                    OperationStartTime = n.StartTime.ToString("yyyy-MM-dd");//如果手术开始日为空，当前手术日期赋予
+                                } else {
+                                    if (datedifference(OperationStartTime, n.StartTime.ToString("yyyy-MM-dd")) > 0) {
+                                        //保存的手术时间和该条信息的手术时间比较，如果相隔天数为大于零，说明保存的手术时间更早，将更晚的手术时间保存下来
+                                        OperationStartTime = n.StartTime.ToString("yyyy-MM-dd");//手术结束时间
+                                    }
+                                }
+                            });
+
+                        }
+                    },
+                    complete: function () {
+                        //绑定周
+                        BinWeeks(EntryTime, LeaveTime);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    //绑定入院周数下拉框
+    function BinWeeks(EntryTime, LeaveTime) {
+        EntryTime = EntryTime.ToString("yyyy-MM-dd");//入院时间
+        var today = currentTime().substring(0, 10);//当前时间
+        if (LeaveTime != "") {
+            LeaveTime = LeaveTime.ToString("yyyy-MM-dd");//出院时间
+        } else {
+            LeaveTime = today;
+        }
+        var days = datedifference(EntryTime, LeaveTime) + 1;//共几天
+        var weeks = Math.ceil(days / 7);
+        //给下拉框加数据
+        for (var i = 0; i < weeks; i++) {
+            var sel = i == weeks - 1 ? ' selected="selected" ' : '';
+            $("#zyzs").append('<option value="' + (i + 1) + '" ' + sel + '">第 ' + (i + 1) + ' 周</option>');
+        }
+        binTable(weeks);
+    }
+
+    //下拉框更改
+    $(document).on("change", "#zyzs", function () {
+        var weeks = $(this).val();
+        binTable(weeks);
+    });
+
+    //上一周
+    $(document).on("click", "#lastweek", function () {
+        var selindex = $("#zyzs").get(0).selectedIndex;
+        if (selindex > 0) {
+            $("#zyzs").get(0).selectedIndex = selindex - 1;
+        }
+        var weeks = $("#zyzs").val();
+        binTable(weeks);
+    });
+    //下一周
+    $(document).on("click", "#nextweek", function () {
+        var selindex = $("#zyzs").get(0).selectedIndex;
+        $("#zyzs").get(0).selectedIndex = selindex + 1;
+        var weeks = $("#zyzs").val();
+        binTable(weeks)
+    });
+
+    //绑定table
+    function binTable(weeks) {
+        var maxIndex = $("#zyzs option:last").index();//最大索引
+        var selindex = $("#zyzs").get(0).selectedIndex;//当前索引
+        if (selindex == 0) { $("#lastweek").hide(); } else { $("#lastweek").show(); }//当前索引为零，上一周按钮隐藏
+        if (selindex >= maxIndex) { $("#nextweek").hide(); } else { $("#nextweek").show(); }//当前索引为最大索引，下一周按钮隐藏
+
+
+        var StartDay = currentTime("-", AddDays(EntryTime.ToString("yyyy-MM-dd"), (weeks - 1) * 7)).substring(0, 10);//一周第一天
+        var EndDay = currentTime("-", AddDays(StartDay, 6)).substring(0, 10);//一周最后一天日期
+        var zyts = (weeks - 1) * 7 + 1;//住院天数
+        OperationStartTime = OperationStartTime === undefined ? "" : OperationStartTime;
+        var OperationEnddays = 0;
+        if (OperationStartTime != "") {
+            OperationEnddays = datedifference(OperationStartTime, StartDay) + 1;//手术日和显示的第一天差几天
+        }
+        //生成脉搏和体温的图片
+        $("#image").attr("src", EWinsBase.__curHostAddress + "api/Nurse/TemperatureChart/GetTemperatureChartImg?InpatientId=" + InpatientId + "&StartDay=" + StartDay);
+        //$("#image").css({"width":"800px"});
+        //日期的行
+        $("#tcrq").html("").append("<td width=\"98px\">日期</td><td width=\"70px\">" + StartDay + "</td>");//日期
+        //住院天数的行
+        $("#tczyts").html("").append("<td>住院天数</td><td>" + zyts + "</td>");//住院天数
+        //术后天数的行
+        $("#tcsshts").html("").append("<td>手术后天数</td><td>" + (OperationEnddays > 0 ? OperationEnddays : "") + "</td>");//如果大于0的话显示
+        for (i = 0; i < 6; i++) {
+
+            //日期
+            var thisday = currentTime("-", AddDays(StartDay, (i + 1))).substring(0, 10);
+            $("#tcrq").append("<td width=\"70px\">" + thisday + "</td>");
+
+            //住院天数
+            $("#tczyts").append("<td>" + (datedifference(thisday, LeaveTime.ToString("yyyy-MM-dd")) >= 0 ? (zyts + i + 1) : "") + "</td>");
+
+
+            //术后天数
+            if (OperationStartTime != "" && datedifference(thisday, LeaveTime.ToString("yyyy-MM-dd")) >= 0) {
+                $("#tcsshts").append("<td>" + ((OperationEnddays + i + 1) > 0 ? (OperationEnddays + i + 1) : "") + "</td>");//如果大于0的话显示
+            } else {
+                $("#tcsshts").append("<td></td>");
+            }
+
+        }
+
+        //体温单额外
+        EWinsBase.json("api/Nurse/TemperatureChartExtra/GetListByTime", {
+            data: { "InpatientId": NewGetQueryString("InpatientId"), "StartDay": StartDay, "EndDay": EndDay },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    for (i = 1; i < 8; i++) {
+                        var thisday = currentTime("-", AddDays(StartDay, (i))).substring(0, 10);
+                        $(data.data).each(function (ii, n) {
+                            if (n.MeasureTime.ToString("yyyy-MM-dd") == thisday) {
+                                $("#StoolTreq td").eq(i).html(n.StoolTreq);//大便次数
+                                $("#Intake td").eq(i).html(n.Intake);//入量
+                                $("#Output td").eq(i).html(n.Output);//出量
+                                $("#UPD td").eq(i).html(n.UPD);//尿量
+                                $("#Weight td").eq(i).html(n.Weight);//体重
+                                $("#Abdomen td").eq(i).html(n.Abdomen);//腹围
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
+
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    var mouseout;
+    var col;
+    var DivmainX;
+    var WindowWidth;
+    var StartX;
+    var TopY;
+    var PFinished;
+    function Moveout(e) {
+        var event = window.event || e;
+        var x = event.clientX;
+        mouseout = setTimeout(function () {
+            HideCoverDiv(x);
+        }, 100);
+    }
+    function ShowCoverDiv() {
+        var event = arguments.callee.caller.arguments[0] || window.event
+        var x = event.clientX;
+        col = Math.ceil((x - StartX - 99) / 72);
+        if ($("#divCover").css("display") == "none") {
+            if (col > 0 && col < 8) {
+                $("#divCover").css("display", "");
+            }
+        }
+        $("#divCover").css({ "position": "absolute", "top": TopY-3, "zIndex": 11, "left": (StartX + 99) + 72 * (col - 1) });
+    }
+    function HideCoverDiv(x) {
+        if (document.getElementById("divCover").style.display != "none") {
+            if (x < (StartX + 99) || x > (StartX + 603))
+                document.getElementById("divCover").style.display = "none";
+        }
+    }
+
+    function ShowTiwendan() {
+        var strZyXh = NewGetQueryString("InpatientId");
+        var week = $("#zyzs").get(0).selectedIndex;//当前索引
+        var today = currentTime().substring(0, 10);//当前时间
+        var selday = $("#tcrq td").eq(col).html();//测量时间
+
+        if (datedifference(today, selday)<=0) {
+            ShowWin('体温记录', 'page/NursePages/TemperatureChartEdit?InpatientId=' + NewGetQueryString("InpatientId") + "&day=" + selday, 900, 710);
+
+
+            //var ret = showModalDialog("../Nurse/Twd_Edit.aspx?col=" + col + "&week=" + week + "&time=" + time + "&zyxh=" + strZyXh, window, "dialogWidth:800px;dialogHeight:600px;status:no;center:yes;help:no;resizable=no;scroll:yes");
+            //if (ret == "y") {
+            //    location.reload(true);
+            //}
+            //else {
+            //    if (self.dialogArguments != null && self.dialogArguments) {
+            //        self.close();
+            //        self.dialogArguments.showModal(document.getElementById("_ctl0_C1_hZyxh").value);
+            //    }
+            //    location.reload(true);
+            //}
+        }
+        else {
+            alert("选择的日期大于当前日期");
+        }
+    }
+
+    function InitMainDiv() {
+        WindowWidth = document.body.clientWidth;    //当前窗口的宽
+        StartX = (WindowWidth - 603) / 2;
+        var pobj = $("#TCTabel")[0].offsetParent;// document.getElementById("_ctl0_C1_gridviewTwd").offsetParent;
+        var ptop = $("#TCTabel")[0].offsetTop;// document.getElementById("_ctl0_C1_gridviewTwd").offsetTop;
+        while (pobj != null && pobj.tagName.toLowerCase() != "body") {
+            ptop += pobj.offsetTop;
+            pobj = pobj.offsetParent;
+        }
+        TopY = ptop;
+        $("#divMain").css("visibility", "visible");
+        $("#divMain").css("left", StartX + 99);
+        $("#divMain").css("top", TopY);
+
+    }
+    window.onload = function () {
+        //if (document.getElementById("_ctl0_C1_hRole").value == 6) {     //6为护士
+        if (1 == 1) {     //6为护士
+            InitMainDiv();
+        }
+        else {
+            document.getElementById("divMain").style.display = "none";
+        }
+    }
+    window.onresize = function () {
+        InitMainDiv();
+    }
+    document.body.onmouseover = Moveout;
+
+    function PageFinished() {
+        if (document.readyState == "complete") {
+            InitMainDiv();
+        }
+        else { setTimeout(PageFinished, 100); }
+    }
+    setTimeout(PageFinished, 100);
+
+    //function scoll() {
+    //    var h = window.screen.availHeight - 400;
+    //    document.getElementById("floatdiv").style.top = (document.body.scrollTop) + "px";
+    //}
+    timerID = setTimeout("doit()", 100);
+    function doit() {
+        //scoll();
+        //window.onscroll = scoll;
+        window.onresize = function () {
+            InitMainDiv();
+            //scoll();
+        };
+    }
+    function Par() {
+        if (self.dialogArguments) {
+            self.dialogArguments.showModal(NewGetQueryString("InpatientId"));
+            self.close();
+        }
+    }
+
+</script>

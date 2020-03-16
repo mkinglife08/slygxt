@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "72小时诊疗知情同意书";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/informed.css">
+<link rel="stylesheet" href="~/Content/iconfont/iconfont.css">
+
+<style>
+    .iconfont {
+        cursor: pointer;
+        font-size: 17px;
+    }
+
+    .edit {
+        color: #0000CD;
+    }
+
+    .delete {
+        color: #A52A2A;
+    }
+</style>
+<div class="medrecord">
+    <p class="word">知情同意书</p>
+    <div class="rigBtn clearfix">
+        <div class="courseBtn fl">
+            <a class="layui-btn" id="AddRecord"><i class="layui-icon colorAdd">&#xe61f;</i>导入诊断</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix" style="min-height:400px;padding-bottom:25%">
+    <form action="">
+        <div id="showDiv">
+
+        </div>
+    </form>
+</div>
+<!-- js -->
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (GetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+    }
+
+    var TemplateContent = HTMLDecode(EWinsBase.simplifySyncJsonGet("api/Public/FormEmrTemplate/GetInfoById", { TemplateId: 1 }).data["TemplateContent"]);
+    EWinsBase.ajax({
+        url: "api/Doctor/MedicalRecordHomePage/GetInpatientInfoById",
+        type: "POST",
+        cache: false,
+        async: false,//这里千万不能用异步
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        dataType: "json",
+        success: function (data) {
+            $.each(data.data, function (i, val) {
+                TemplateContent = TemplateContent.replace("${" + i + "}", (val+"").replace("null",""));
+                //text = text + "Key:" + i + ", Value:" + val;
+            });
+        }
+    });
+    $("#showDiv").html(TemplateContent);
+    
+    layui.use(['element', 'form'], function () {
+        var element = layui.element;
+        var form = layui.form;
+        form.on('submit(sub)', function (data) {
+            var aa = {};
+            $("form input").each(function (n, obj) {
+                if (obj.type == "checkbox")
+                    aa[obj.name] = obj.checked;
+                else if (obj.type == "text")
+                    aa[obj.name] = obj.value;
+            });
+            var strJson = JSON.stringify(aa);
+            //console.log($("#showDiv").html())
+            //var sss = $("#showDiv").html();
+            EWinsBase.json("api/Doctor/FormEmr/SaveInfo", {
+                data: { FormContent: strJson, InpatientId: NewGetQueryString("InpatientId"), FormId: 1 },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            });
+        });
+    });
+
+</script>

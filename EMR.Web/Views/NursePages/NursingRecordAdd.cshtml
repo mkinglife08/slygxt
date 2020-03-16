@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocumentAdd">
+		<table class="tableList mskTable">
+			<tr>
+				<td>时间：</td>
+				<td colspan="8">
+					<input type="text" id="test1">
+					<span>提示：护理记录多条添加  点击‘保存不返回’按钮进行保存 </span>
+				</td>
+			</tr>
+			<tr>
+				<td>体温：</td>
+				<td>
+					<select name="" id="">
+						<option value="">口温</option>
+					</select>
+					<input type="text">℃
+				</td>
+				<td>脉搏：</td>
+				<td>
+					<select name="" id="">
+						<option value="">脉搏</option>
+					</select>
+					<input type="text">次/分
+				</td>
+				<td>呼吸：</td>
+				<td><input type="text">次/分钟</td>
+				<td>血压：</td>
+				<td><input type="text">/<input type="text">mmHg</td>
+			</tr>
+			<tr>
+				<td>意识：</td>
+				<td colspan="3">
+					<select name="" id="">
+						<option value="">请选择</option>
+					</select>
+				</td>
+				<td>SPO2</td>
+				<td colspan="3"><input type="text">%</td>
+			</tr>
+			<tr>
+				<td>瞳孔：</td>
+				<td colspan="3">
+					<input type="text">(左)
+					<input type="text">(右)mm
+				</td>
+				<td>对光反射：</td>
+				<td colspan="3">
+					<select name="" id="">
+					</select>（左）
+					<select name="" id="">
+					</select>（右）
+				</td>
+			</tr>
+			<tr>
+				<td>出入量：</td>
+				<td colspan="8">
+					<div class="amount">
+						<div class="amountContent">
+							<table class="amountTable">
+								<tr>
+									<td>入量名称</td>
+									<td>量(ml)</td>
+								</tr>
+								<tr >
+									<td><input type="text"></td>
+									<td class="moisture">
+										<input type="text">
+										<div class="calculator">
+											<ul class="numb">
+												<li>1</li>
+												<li>2</li>
+												<li>3</li>
+												<li>4</li>
+												<li>5</li>
+												<li>6</li>
+												<li>7</li>
+												<li>8</li>
+												<li>9</li>
+												<li>0</li>
+												<li>.</li>
+												<li>00</li>
+											</ul>
+											<p class="delet">
+												<a href="javascript:;">含水量计算</a>
+												<a href="javascript:;">清除</a>
+												<a href="javascript:;">x</a>
+											</p>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="last" colspan="3"><a class="layui-btn addTr">+</a></td>
+								</tr>
+							</table>
+
+							<a class="layui-btn intake">导入入量</a>
+							<table class="outTable">
+								<tr>
+									<td>出量名称</td>
+									<td>量(ml)</td>
+								</tr>
+								<tr>
+									<td class="outName">
+										<input type="text">
+										<div class="outList">
+											<ul class="outUl">
+												<li>尿量</li>
+												<li>引流液</li>
+												<li>汗液</li>
+												<li>稀便</li>
+												<li>呕吐物</li>
+												<li>其他</li>
+												<li>超滤量</li>
+											</ul>
+											<p class="delet"><a>清除</a><a>x</a></p>
+										</div>
+									</td>
+									<td class="outMoisture">
+										<input type="text">
+										<div class="outCalculator">
+											<ul class="outNumb">
+												<li>1</li>
+												<li>2</li>
+												<li>3</li>
+												<li>4</li>
+												<li>5</li>
+												<li>6</li>
+												<li>7</li>
+												<li>8</li>
+												<li>9</li>
+												<li>0</li>
+												<li>.</li>
+												<li>00</li>
+											</ul>
+											<p class="delet">
+												<a href="javascript:;">含水量计算</a>
+												<a href="javascript:;">清除</a>
+												<a href="javascript:;">x</a>
+											</p>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="last" colspan="3"><a class="layui-btn">+</a></td>
+								</tr>
+							</table>
+
+						</div>
+
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>基础护理：</td>
+				<td colspan="8" class="layui-form">
+					<input type="checkbox" name="" lay-skin="primary" title="红外线照射">
+					<input type="checkbox" name="" lay-skin="primary" title="叩肺">
+					<input type="checkbox" name="" lay-skin="primary" title="抬臀">
+					<input type="checkbox" name="" lay-skin="primary" title="温水擦浴">
+					<input type="checkbox" name="" lay-skin="primary" title="会阴护理">
+					<input type="checkbox" name="" lay-skin="primary" title="口腔护理">
+					<input type="checkbox" name="" lay-skin="primary" title="外周静脉置管">
+					<input type="checkbox" name="" lay-skin="primary" title="更换留置针敷贴">
+					<input type="checkbox" name="" lay-skin="primary" title="更换肝素帽">
+					<input type="checkbox" name="" lay-skin="primary" title="雾化吸入">
+					<input type="checkbox" name="" lay-skin="primary" title="红光治疗">
+					<input type="checkbox" name="" lay-skin="primary" title="蓝光治疗">
+					<input type="checkbox" name="" lay-skin="primary" title="膀胱冲洗">
+					<input type="checkbox" name="" lay-skin="primary" title="松解袖带">
+					<input type="checkbox" name="" lay-skin="primary" title="更换SPO2指套位置">
+					<input type="checkbox" name="" lay-skin="primary" title="脐部护理">
+					<input type="checkbox" name="" lay-skin="primary" title="更换吸氧管">
+					<input type="checkbox" name="" lay-skin="primary" title="气压治疗">
+					<input type="checkbox" name="" lay-skin="primary" title="更换减压装置">
+					<input type="checkbox" name="" lay-skin="primary" title="伤口换药">
+					<input type="checkbox" name="" lay-skin="primary" title="更换引流瓶">
+					<input type="checkbox" name="" lay-skin="primary" title="检查约束部位">
+					<input type="checkbox" name="" lay-skin="primary" title="气切护理">
+					<input type="checkbox" name="" lay-skin="primary" title="更换床单">
+					<input type="checkbox" name="" lay-skin="primary" title="拔除外置留置针">
+					<input type="checkbox" name="" lay-skin="primary" title="翻身">
+					<input type="checkbox" name="" lay-skin="primary" title="吸痰">
+					<input type="checkbox" name="" lay-skin="primary" title="超声药物透入治疗">
+					<input type="checkbox" name="" lay-skin="primary" title="高危压疮防范护理">
+					<input type="checkbox" name="" lay-skin="primary" title="中药涂擦">
+					<input type="checkbox" name="" lay-skin="primary" title="低频脉冲电治疗">
+				</td>
+			</tr>
+			<tr>
+				<td>健康教育：</td>
+				<td colspan="8">
+					<input type="text">
+					<a>导入健康宣教</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><a href="javascript:;">病情观察</a></p>
+					<p><a href="javascript:;">护理措施</a></p>
+					<p><a href="javascript:;">效果评价</a></p>
+				</td>
+				<td colspan="8" class="clearfix">
+					<div class="whrite fl">
+						<textarea name="" id="observation" cols="30" rows="10"></textarea>
+					</div>
+					<div class="listBtn fl">
+						<div>
+							<a class="layui-btn">检验报告</a>
+							<a class="layui-btn">检查报告</a>
+						</div>
+						<div>
+							<a class="layui-btn">专业护理</a>
+							<a class="layui-btn">记录模板</a>
+						</div>
+						<div>
+							<a class="layui-btn">病程记录</a>
+							<a class="layui-btn">入院记录</a>
+						</div>
+						<div><a class="layui-btn">手术记录</a></div>
+						<div>
+							<select name="" id="">
+								<option value="">护理评分</option>
+								<option value="">疼痛评分</option>
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="minBtn">
+			<a class="layui-btn">暂存</a>
+			<a class="layui-btn">保存并返回</a>
+			<a class="layui-btn">保存不返回</a>
+			<a class="layui-btn">关闭</a>
+			<a class="layui-btn">清空</a>
+		</div>
+		<table class="tableList margin">
+			<tr>
+				<td rowspan="5">自定义项：</td>
+				<td>意识8：</td>
+				<td><input type="text"></td>
+				<td>意识9：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>对光反射4：</td>
+				<td colspan="3"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>基础护理26：</td>
+				<td><input type="text"></td>
+				<td>基础护理27：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>基础护理28：</td>
+				<td><input type="text"></td>
+				<td>基础护理29：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><a class="layui-btn">保存</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script src="jquery-1.10.2.min.js"></script>
+<script src="layui/layui.js"></script>
+<script>
+layui.use(['form','layedit'], function(){
+  var form = layui.form;
+  var layedit = layui.layedit;
+   layedit.build('observation',{height:145});
+ });
+
+$(".moisture input").click(function(){
+	$('.calculator').show();
+})
+$(".outMoisture input").click(function(){
+	$('.outCalculator').show();
+})
+$(".outName input").click(function(){
+	$('.outList').show();
+})
+$(".addTr").click(function(){
+	var addTr = $(this).parent().parent().prev();
+	var newTr = addTr.clone();
+    newTr.insertBefore(addTr);
+})
+
+</script>
+</html>

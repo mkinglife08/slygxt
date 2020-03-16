@@ -1,0 +1,312 @@
+﻿@{
+    ViewBag.Title = "感染督查反馈单数据编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+
+
+<form class="layui-form" action="" lay-filter="component-form-group">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">
+                树兰（杭州）医院医院感染督查反馈单
+            </div>
+            <div id="dateTable" lay-filter="dateTable"></div>
+
+            <script type="text/html" id="dateTable-barDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+            <input type="hidden" id="FKDID" data-id="FKDID" />
+            <input type="hidden" id="FKDSOURCEID" data-id="FKDSOURCEID" />
+
+            <div style="overflow:hidden;padding-top:10px;border:1px solid #e2e2e2;">
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label cur_lable">受检科室</label>
+                    <div class="layui-input-inline">
+                        <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                    </div>
+
+                    <label class="layui-form-label cur_lable">检查时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="JCSJ" data-id="JCSJ" id="JCSJ" lay-verify="date" placeholder="请输入检查时间" autocomplete="off" class="layui-input" />
+                    </div>
+
+                    <label class="layui-form-label cur_lable">检查者</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="JCZ" data-id="JCZ" lay-maxlength="20" placeholder="请输入检查者" autocomplete="off" class="layui-input" />
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">存在的问题</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea name="CZWT" data-id="CZWT" placeholder="请输入存在的问题" class="layui-textarea" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">现场照片</label>
+                        <div class="layui-input-inline">
+                            <div class="layui-upload uploadPictures">
+                                <div class="layui-upload-list uploadImg">
+                                    <img id="image" src="~/Content/images/upload_img.png"
+                                         width="100" style="cursor: pointer;" />
+                                    <input id="picture_upload_User" name="file" type="file" onchange="upload_scenePhoto(this)"
+                                           style="position: absolute; left: 0px; top: 0px; width: 100px; height: 100px; opacity: 0; cursor: pointer;" />
+                                    <input type="hidden" value="" name="XCZP" id="XCZP" data-id="XCZP" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">整改建议</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea placeholder="请输入整改建议" data-id="ZGJY" class="layui-textarea" lay-verify="required" name="ZGJY"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">科室原因分析</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea placeholder="请输入科室原因分析" data-id="KSYYFX" class="layui-textarea" lay-verify="required" name="KSYYFX"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">科室整改措施</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea placeholder="请输入科室整改措施" data-id="KSZGCS" class="layui-textarea" lay-verify="required" name="KSZGCS"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">效果评价</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea placeholder="请输入效果评价" data-id="XGPJ" class="layui-textarea" lay-verify="required" name="XGPJ"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-block" style="width:70%;margin-left:150px;">
+                            <textarea placeholder="请输入备注" data-id="BZ" class="layui-textarea" lay-verify="required" name="BZ"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">科室主任/护士长签名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="KHSZQM" data-id="KHSZQM" lay-maxlength="20" placeholder="请签名" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label cur_lable">签名时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="QMRQ" data-id="QMRQ" id="QMRQ" lay-verify="date" placeholder="请输入签名时间" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="lastBtn">
+                    <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+                    <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+ 
+<!--JS-->
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script>
+    //初始化下拉框单选框（数据从字典获取）
+    //CreateSelectOptionFromCodeDict($("#Job"), "Job", { width: "100%!important" });
+    //CreateSelectOptionFromCodeDict($("#JobLevel"), "JobLevel", { width: "100%!important" });
+    //CreateSelectOptionFromCodeDict($("#UserPosition"), "Position", { width: "100%!important" });
+    //CreateRadiosFromCodeDict($("#divUserSex"), "UserSex", "Sex"); 
+
+    //科室下拉框多选框                 
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });  
+
+
+    //弹出框页面初始化（长宽高等）
+   // PopupPageInit();
+    //初始化组织机构代码下拉框
+   // GetOrganList();
+    //生成GUID
+    function guid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    //上传现场照片  
+    function upload_scenePhoto(obj) {
+        ajax_upload(obj, "ScenePhoto", guid(), function (data) { //function(data)是上传图片的成功后的回调方法
+            $('#image').attr('src', __curHostAddress + data.data); //给<input>的src赋值去显示图片
+            $('#XCZP').val(data.data);
+        });
+    } 
+     
+ 
+    layui.use(['form', 'layedit', 'laydate', 'table', 'vip_table'], function () {
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , vipTable = layui.vip_table
+            , laydate = layui.laydate;
+        laydate.render({ elem: '#JCSJ' });
+        laydate.render({ elem: '#QMRQ' });
+        var FKDID = NewGetQueryString("FKDID");
+        $("#FKDID").val(FKDID);
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable',                  //指定原始表格元素选择器（推荐id选择器）
+            //height: vipTable.getFullHeight() - 60,    //容器高度
+            // height: 'full-200',
+            cols: [[                  //标题栏
+                { field: 'FKDSOURCEID', title: '序号', width: '90', align: 'center' },
+                { field: 'CZWT', title: '存在问题', width: '90', align: 'center' },
+                {
+                    field: 'XCZP', title: '现场照片', width: '90', align: 'center',
+                    event: 'showPhotos', templet: function (d) { 
+                        var randomPara = (Math.random() + '').substr(2);
+                        var divStr = "<div style='overflow:hidden;' class='photo-album' id='" + randomPara + "'>";
+                        if (d.XCZP == "" || d.XCZP == null) {
+                             //没有图片的情况下，给默认图
+                         } else {
+                             divStr += '<img src="' + EWinsBase.__curHostAddress + '' + d.XCZP + '" style="cursor:pointer;width:28px; height:28px; background-size:cover;display:inline-block;margin-right:4px;"/>';
+                         } 
+                        return divStr + "</div>";
+                    }
+                },
+                { field: 'ZGJY', title: '整改建议', width: '90', align: 'center' },
+                { field: 'KSYYFX', title: '科室原因分析', width: '120', align: 'center' },
+                { field: 'KSZGCS', title: '科室整改措施', width: '150', align: 'center' },
+                { field: 'XGPJ', title: '效果评价', width: '150', align: 'center' },
+                { field: 'BZ', title: '备注', width: '150', align: 'left' },
+                { width: 178, align: 'center', fixed: 'right', toolbar: '#dateTable-barDemo' }
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Infection/InspectFeedBack/GetAllFkdSource?token=' + EWinsBase.Token + "&FKDID=" + FKDID
+            //, where: { "ParentID": $("#hdnCurId").val(), "keyword": $("#keyword").val() } //lv:这里的查询条件是只在初始化的时候有用，查询请在reload里面构造where条件
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+                $("#hdnCurRowUserName").val("");
+                //debugger
+                //var aa = vipTable;
+                //console.log("res:" + res.count + ",curr:" + curr + ",count:" + count);
+
+            }
+        });
+
+        //监听工具条
+        table.on('tool(dateTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+               // layer.alert('编辑行：<br>' + JSON.stringify(data))
+
+                EWinsBase.json("api/Infection/InspectFeedBack/GetFkdSourceModel", {
+                    data: { "fkdSourceId": data.FKDSOURCEID },
+                    type: "POST",
+                    async: false,
+                    usedCache: false,
+                    success: function (config, data) {
+                       // debugger  
+                        EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);
+                        EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item2);
+
+                        //绑定科室
+                        if (data.data.Item2["DpetList"] != null) {
+                            //绑定科室初始值
+                            data.data.Item2["DpetList"].forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                            $("#DpetID").val($(data.data.Item2["DpetList"]).map(function () { return this.DeptID }).get()).trigger('change');
+                        }
+
+                        if (data.data.Item2.XCZP != "" && data.data.Item2.XCZP != null) {
+                            $("#image").attr("src", __curHostAddress + data.data.Item2.XCZP);
+                        }
+                         
+                    },
+                    error: function (error) {
+                        //window.location.reload();
+                        //
+                    }
+                })
+            } else if (obj.event === 'showPhotos') {
+                EWinsBase.json('api/Infection/InspectFeedBack/ShowPhotos', {
+                    data: { FKDSOURCEID: data.FKDSOURCEID }, 
+                    type: "POST",
+                    async: false,
+                    usedCache: false,
+                    success: function (config, d) {
+                        layer.photos({
+                            photos: d.data
+                           // , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                        });
+                    }
+                });
+            }
+        });
+
+
+        form.on('submit(sub)', function (data) {
+            debugger
+            //反馈单
+            var fkdModel = new Object();
+            fkdModel.FKDID = $("#FKDID").val();
+            fkdModel.DEPTID = getMultiSelectVal("DpetID");
+            fkdModel.DEPTNAME = getMultiSelectText("DpetID"); 
+            fkdModel.JCSJ = data.field["JCSJ"];
+            fkdModel.JCZ = data.field["JCZ"]; 
+            fkdModel.KHSZQM = data.field["KHSZQM"];
+            fkdModel.QMRQ = data.field["QMRQ"];
+
+            //反馈单数据
+            var fkdSourceModel = new Object();
+            fkdSourceModel.FKDSOURCEID = data.field["FKDSOURCEID"];
+            fkdSourceModel.CZWT = data.field["CZWT"];
+            fkdSourceModel.XCZP = data.field["XCZP"];
+            fkdSourceModel.ZGJY = data.field["ZGJY"];
+            fkdSourceModel.KSYYFX = data.field["KSYYFX"];
+            fkdSourceModel.KSZGCS = data.field["KSZGCS"];
+            fkdSourceModel.XGPJ = data.field["XGPJ"];
+            fkdSourceModel.BZ = data.field["BZ"];
+            fkdSourceModel.FKDID = data.field["FKDID"];             
+
+            EWinsBase.json("api/Infection/InspectFeedBack/Save", {
+                data: { 'fkdModel': fkdModel, 'fkdSourceModel': fkdSourceModel },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    })
+</script>

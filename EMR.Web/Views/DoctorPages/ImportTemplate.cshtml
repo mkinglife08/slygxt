@@ -1,0 +1,252 @@
+﻿@{
+    ViewBag.Title = "导入模板";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/newOption.css">
+<style>
+    .layuiAll{
+	margin-top: 0;
+}
+    .rightTable{ margin:5px 0}
+    .rightTable textarea{ height:60px;}
+ 
+</style>
+<form class="layui-form" id="form1" action="">
+    <div class="layuiAll clearfix">
+        <div class="allLeft fl">
+            <div class="leftUp">
+                <table class="upTable">
+                    @*<tr>
+                        <td>模板类型</td>
+                        <td class="layui-form">
+                            <input type="radio" name="nor" title="整体模板">整体模板
+                            <input type="radio" name="nor" title="单文本模板">单文本模板
+                        </td>
+                    </tr>*@
+                    <tr>
+                        <td>使用范围</td>
+                        <td class="layui-form">
+                            <input type="radio" name="nor" title="个人">个人
+                            <input type="radio" name="nor" title="科室">科室
+                            <input type="radio" name="nor" title="全院">全院
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>一级分类</td>
+                        <td>
+                            <select name="" id="">
+                                <option value="">中医首次病程记录</option>
+                                <option value="">西医首次病程记录</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>二级分类</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>模板名称</td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="lastTd"><a class="layui-btn">查询</a></td>
+                    </tr>
+                </table>
+            </div>
+            <a href="~/Views/DoctorPages/DeathRecord.cshtml"></a>
+            <div class="layui-col-xs12 layui-col-sm2 layui-col-md2" style="border:1px solid #ccc;margin-top: 8px;overflow:auto;width:100%;height:auto;">
+                <ul id="myZtree" class="ztree"></ul>
+                <input type="hidden" id="hdnParentId" />
+                <input type="hidden" id="hdnCurId" />
+                <input type="hidden" id="hdnCurRowId" value="" />
+            </div>
+        </div>
+        <div class="allRight fl">
+            <div class="medrecord">
+                <p class="word">导入模板</p>
+                <div class="rigBtn">
+                    <a class="layui-btn" id="Import" onclick="Import();"><i class="layui-icon colorAdd">&#xe61f;</i>导入</a>
+                    <a class="layui-btn" onclick="Import();"><i class="iconfont staging">&#xe689;</i>合并导入</a>
+                    <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                    <a class="layui-btn" id="Delete"><i class="iconfont print">&#xe61b;</i>删除</a>
+                    <a class="layui-btn" onclick="ShowWinClose();"><i class="iconfont print">&#xe61b;</i>关闭</a>
+                </div>
+            </div>
+            <table class="rightTable layui-form">
+                <tr>
+                    <td style="width:63px"><i style="color:red">*</i>二级分类</td>
+                    <td style="text-align:left;width: 17%;"><input type="text" id="ParentTempName" style="width:96%"></td>
+                    <td><i style="color:red">*</i>模板名称</td>
+                    <td style="text-align:left"><input type="text" id="TemplateName"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="num" lay-skin="primary" ></td>
+                    <td>病例特点</td>
+                    <td colspan="5"><textarea style="resize:none" name="" ></textarea></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</form>
+<!--JS-->
+<script>
+    CreateRadiosFromCodeDict($("#divShareType"), "ShareType", "ShareType");
+    //初始化下拉框单选框（数据从字典获取）
+    CreateSelectOptionFromCodeDict($("#TemplateType"), "TemplateType");
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    if (GetQueryString("TemplateType") != "") {
+        $("#TemplateType").append("<option value=" + GetQueryString("TemplateType") + ">" + unescape(GetQueryString("TemplateTypeName")) + "</option>");
+        $("#TemplateType").val(GetQueryString("TemplateType")).trigger('change');
+    }
+    $("#TemplateType").attr("disabled", "disabled");
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.on('submit(sub)', function (data) {
+            var curParentWindowDocument = parent.document;
+            var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+            var wind;
+            if (cur_tab_index == 1)
+                wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+            else
+                wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+            wind.SaveTemplate(data.field);
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            return false;
+        });
+        form.render();
+    })
+    $("#Delete").click(function () {
+        EWinsBase.json("api/Public/StructuredTemplate/Delete", {
+            data: { TemplateId: $("#hdnCurId").val() },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                layer.msg(data.msg, { time: 1000 });
+            },
+        });
+    })
+    function Import() {
+        var curParentWindowDocument = parent.document;
+        var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+        var wind;
+        if (cur_tab_index == 1)
+            wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+        else
+            wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+        var ConDataList = [];
+        $("input[name='TempContent']").each(function () {
+            if ($(this)[0].checked) {
+                var ConData = [];
+                ConData["Title"] = $("#title" + $(this)[0].value).html();
+                ConData["Content"] = $("#con" + $(this)[0].value).html();
+                ConDataList.push(ConData);
+            }
+        });
+        wind.ImportTemplate(ConDataList);
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    // 生成一个模拟树
+    var createTree = function (node, level) {
+        // alert(dat);
+        //alert(level);
+        //alert(node);
+        EWinsBase.ajax({
+            url: "api/Public/StructuredTemplate/GetTreeNode",
+            type: "POST",
+            cache: false,
+            async: false,//这里千万不能用异步，这段代码必须加
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 0) {
+                    node = data.data;
+                } else {
+
+                }
+            }
+        });
+        return node;
+    };
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: zTreeOnClick
+        }
+    };
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#myZtree"), setting, createTree());
+    });
+
+    function zTreeOnClick(event, treeId, treeNode) {       //第二步
+        $("#spCurNodeName").html(treeNode.name);
+        $("#hdnParentId").val(treeNode.pId);
+        $("#hdnCurId").val(treeNode.id);
+        EWinsBase.json("api/Public/StructuredTemplate/GetInfoById", {
+            data: { "TemplateId": treeNode.id },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (!EWinsBase.isNullOrEmpty(data.data)) {
+                    var ContentHtml = "";
+                    ContentHtml += '<tr><td style="width:63px"><i style="color:red">*</i>二级分类</td>    '
+                    ContentHtml += '<td style="width:12%"><input type="text" style="width:96%" id="ParentTempName" value="' + (data.data.ParentTempName+"").replace("null", "") + '"></td>   '
+                    ContentHtml += '<td><i style="color:red">*</i>模板名称222</td>        '
+                    ContentHtml += '<td><input type="text" id="TemplateName" value="' + data.data.TemplateName + '"></td></tr>'
+
+                    if (isJSON(data.data["TemplateContent"])) {
+                        var RecordContent = eval('(' + data.data["TemplateContent"] + ')');
+                        RecordContent.forEach(function (item, index) {
+                            ContentHtml += '<tr><td><input type="checkbox" name="TempContent" value="' + index + '" lay-skin="primary"></td>';
+                            ContentHtml += '<td id="title'+index+'">' + item.Title + '</td>';
+                            ContentHtml += '<td colspan="3"><textarea style="resize:none" id="con' + index + '">' + item.Content + '</textarea></td></tr>';
+                        })
+                        
+                    }
+                    else
+                    {
+                        ContentHtml += '<tr><td><input type="checkbox" name="TempContent" lay-skin="primary"></td>';
+                        ContentHtml += '<td id="title0">模板内容</td>"';
+                        ContentHtml += '<td colspan="3"><textarea style="resize:none" id="con0">' + (data.data["TemplateContent"]+"").replace("null","") + '</textarea></td></tr>';
+                    }
+                    $(".rightTable").html(ContentHtml);
+                    layui.use('form', function () {
+                        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                        form.render();
+                    });
+                }
+            }
+        })
+    }
+
+    function isJSON(str) {
+        if (typeof str == 'string') {
+            try {
+                var obj = JSON.parse(str);
+                if (typeof obj == 'object' && obj) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (e) {
+                return false;
+            }
+        }
+    }
+</script>

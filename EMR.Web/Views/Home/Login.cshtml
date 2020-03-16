@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "用户登录-EMR 2.0 管理系统 ";
+    Layout = "~/Views/Shared/_Common_Layout.cshtml";
+}
+@section head{
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script type="text/javascript" src="~/Scripts/EWins.Base.js"></script>
+ 
+<script>
+$(function () {
+    layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(login)', function (data) {
+            EWinsBase.json("api/SystemSupport/user/login?jsoncallback=localHandler", {
+                data: data.field,
+                type: data.form.method,//"POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    if (data.code != 0)
+                        layui.layer.alert(data.msg);
+                    else if (data.data != null) {
+                        cookie.set('api_token' + data.data.UserId, JSON.stringify(data.data), { expires: 1 });
+                        location.href = "index?EMRIDSIGN=" + data.data.UserId;
+                    }
+                }
+            })
+            //layer.msg(JSON.stringify(data.field),function(){
+            //    location.href='index.html'
+            //});
+            return false;
+        });
+    });
+    //placeholder
+    $(".textbtn").on("click", "div a", function () {
+        $(this).prev().focus()
+    });
+    $(".textbtn div input").on('keydown', function (event) {
+        var data = $(this).val();
+        if (event.keyCode == 8) {
+            if (data.length < 2) {
+                $(this).next().show()
+            }
+        } else {
+            $(this).next().hide()
+        }
+    })
+
+})
+var localHandler = function (data) {
+    if (data.code != 0)
+        layui.layer.alert(data.msg);
+    else if (data.data != null) {
+        cookie.set('api_token' + data.data.UserId, JSON.stringify(data.data), { expires: 1 });
+        location.href = "index?EMRIDSIGN=" + data.data.UserId;
+    }
+};
+
+</script>
+}
+<div class="login_header">
+    <div class="login-body">
+        <div class="login-center">
+            <div class="allPic">
+                    <div class="newLeft fl">
+                        <div class="hostpital clearfix">
+                            <div class="login_icons fl"><img src="../../../Content/images/logo.jpg" /></div>
+                            <span class="host_word fl"></span>
+                        </div>
+                        <div class="center-img"><img src="../../../Content/images/pic.png" alt="" /></div>
+                    </div>
+                    <div class="login-main fr">
+                        <div class="layui-elip">电子病历2.0</div>
+                        <form method="post" class="layui-form textbtn" >
+                            <div class="username">
+                                <div class="login-icon"><img src="../../../Content/images/user.png" /></div>
+                                <input type="text" name="account" required lay-verify="required" autocomplete="off" class="text">
+                                <a class="user">用户名</a>
+                            </div>
+                            <div class="password">
+                                <div class="login-icon"><img src="../../../Content/images/password.png" /></div>
+                                <input type="password" name="password"  autocomplete="off" class="past">
+                                <a class="user ipt">密码</a>
+
+                            </div>
+                            <div class="login-btn">
+                                <button type="submit" lay-submit lay-filter="login" class="layui-btn in_btn">登录</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+

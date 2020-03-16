@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "aaaView";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>病历信息</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/doctorIndex.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script src="~/Scripts/vip_comm2.js"></script>
+    <script src="~/Scripts/vip_nav.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/EMRBase.js"></script>
+    <script type="text/javascript" src="~/Scripts/msgHub.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/EWins.Base.js"></script>
+    <style> 
+        .layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this {
+            background: #EAEFF5!important;
+            color: #3F88CF!important;
+        }
+        .bedNumber{
+             font-size: 14px;
+            color: #fff!important;
+            background: #3388E1;
+            border-radius: 5px;
+            height: 15px;
+            line-height: 15px;
+             padding: 3px 8px;
+             margin-top:3px;
+        }
+        .sex{
+            color:#0094ff!important;
+        }
+      .layui-side-scroll .lyui-nav-itemed .otherOne:hover{
+        background:#3388E1!important;
+         color:#000!important;
+      }
+    
+    </style>
+</head>
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header my-header">
+            <a href="index.html">
+                <div class="my-header-logo">EMR 2.0 管理系统</div>
+            </a>
+            <div class="my-header-btn">
+                <button class="layui-btn layui-btn-small btn-nav"><i class="iconfont icon-gongneng" style="font-size:25px !important;"></i></button>
+            </div>
+            <!-- 顶部左侧添加选项卡监听 -->
+            <ul class="layui-nav" lay-filter="side-top-left"></ul>
+
+            <!-- 顶部右侧添加选项卡监听 -->
+            
+                <ul class="layui-nav my-header-user-nav " lay-filter="side-top-right" style="height:100%;">
+                    <li class="layui-nav-item" style="color:#fff;">
+                    </li>
+                    <li class="layui-nav-item" >
+                        <a class="name" style="color:#fff;padding: 0 20px;" href="javascript:;" id="curUserName"></a>
+                       
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            <!-- 二级菜单 -->
+                            <dd>
+                                <a class="name" href="javascript:openuserinfo();" style="color:#000; padding: 0 10px;">
+                                    <i class="iconfont icon-bussinesscard"></i>
+                                    个人信息
+                                </a>
+                            </dd>
+                            <dd>
+                                <a class="name" href="javascript:openpasswordedit();" style="color:#000; padding: 0 10px;">
+                                    <i class="iconfont icon-survey1"></i>
+                                    修改密码
+                                </a>
+                            </dd>
+                            <dd>
+                                <a class="name" href="javascript:loginout();" style="color:#000; padding: 0 10px;">
+                                    <i class="iconfont">&#xe618;</i>
+                                    退出
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right" style="padding:0;">
+                <li class="layui-nav-item" style="color:#fff;  cursor:pointer;padding: 0 0 0 10px;" id="msgs" onclick="openMsgPop()">
+                    <i class="iconfont icon-xiaoxi1" style="font-size:21px; position: relative; top:1px; "></i>
+                    <span id="msg_count" style="height: 15px;line-height: 15px;display:block;color:#FFF;text-align:center;background-color: #F00;border-radius: 17px;position: relative;top:-44px;left:12px;width: 18px;font-size: 13px;">0</span>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side my-side">
+            <div class="layui-side-scroll">
+                 @*左侧主菜单添加选项卡监听*@ 
+                <ul class="layui-nav layui-nav-tree" lay-filter="side-main" id="funinfo" style="border:1px solid #e6e6e6"></ul>
+            </div>
+        </div>
+        <div class="layui-body my-body">
+            <div class="header_log" id="divData" >
+                <ul class="logUls clearfix" >
+                    <li style="width: 10%;"><span>床号：</span><p data-id="BedNumber" class="bedNumber"></p></li>
+                    <li style="width: 10%;"><span>病案号：</span><p data-id="InpatientId"></p></li>
+                    <li style="width:10%"><span>姓名：</span><p data-id="Name"></p></li>
+                    <li style="width:10%;"><span>年龄：</span><p data-id="Age"></p>岁</li>
+                    <li style="width: 8%;"><span>性别：</span><p id="sex" class="sex">男</p></li>
+                    <li style="width: 9%;"><span>住院：</span><p id="zyts"></p>天</li>
+                    <li style="width: 14%;"><span>性质：</span><p style="width:60%;"></p></li>
+                    <li style="width: 22%;"><span>诊断：</span><p data-id="Diagnosis" style="width:75%;"></p></li>
+                </ul>
+            </div>
+            <div class="layui-tab layui-tab-card my-tab" lay-filter="card" lay-allowClose="true" style="margin-top:6px;" >
+                <ul class="layui-tab-title">
+                    <li class="layui-this" lay-id="1"><span><i class="layui-icon">&#xe638;</i>病程记录</span></li>
+                </ul>
+                <div class="layui-tab-content" style="width:100%;height:100%;">
+                    <div class="layui-tab-item layui-show" style="height:100%;"> 
+                        <iframe id="iframe" src="~/page/DoctorPages/ProgressNoteList"></iframe> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer" style="background-color:#0A64A4;height:30px;line-height:30px;left:0px;width:100%;position:fixed;bottom:0;z-index:100;text-align:center;display:none;">Copyrights@杭州华卓科技有限公司</div>
+    </div>
+</body>
+
+
+<script>
+    $(function () {
+        $(".layui-tab-content").height($(window).height())
+       
+    })
+    localStorage.log = 1;
+    $("#curUserName").html("<img  style=\"height:40px;padding-right: 5px;\" src=\"../../" + cookie.GetEMRUserCookie("api_token", "UserPhoto") + "\" />" + cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    EWinsBase.json("api/SystemSupport/user/GetUserFunInfo", {
+        type: "POST",
+        data: { userid: GetQueryString("EMRIDSIGN"), SYSID: GetQueryString("SYSID"), FUNLEVEL: 2 },
+        dataType: "json",
+        success: function (config, data) {
+            if (data.code == 0) {
+                var data = data.data;
+                var outhtml = "";
+                //无法多级，多级样式不一样
+                var iIndex = 0;
+                if (data) {
+                    data.forEach(function (item, i) {
+                        if (item.parentid == "58") {
+                            outhtml += '<li class="layui-nav-item ' + (iIndex == 0 ? "layui-nav-itemed " : "") + '" onclick="navClick(this);"><a href="javascript:" style="border-bottom:1px solid #e6e6e6;" class="otherOne ' + (iIndex == 0 ? "addActive" : "") + '"><i class="layui-icon">&#xe620;</i>' + item.funname + '</a><dl class="layui-nav-child">';
+                            data.forEach(function (item2, i) {
+                                if (item2.parentid == item.funid) {
+                                    var hrefUrl = "";
+                                    if (item2.funpage != null) {
+                                        //如果url带问号(本身带参数)，去掉search的问号连接url
+                                        if (item2.funpage.indexOf('?') > 0) { hrefUrl += item2.funpage + "&" + location.search.substring(1, location.search.length - 1); }
+                                        else { hrefUrl += item2.funpage + location.search; }
+                                    }
+                                    outhtml += '<dd  class="addColor"><a href="javascript:;" style="border-bottom: 1px solid #f2f2f2;" href-url="' + item2.funpage + location.search + '"><i class="layui-icon">&#xe621;</i>' + item2.funname + '</a></dd>'
+                                }
+                            })
+                            outhtml += '</dl></li>';
+                            iIndex++;
+                        }
+                    });
+                }
+                $("#funinfo").html(outhtml);
+                if (layui.element)
+                    layui.element.init();
+                $('#funinfo').on('click', '.layui-nav-item', function () {
+                    $(this).siblings().children(".otherOne").removeClass("addActive")
+                    $(this).children(".otherOne").addClass("addActive")
+                    $(this).siblings().removeClass('layui-nav-itemed')
+                    if ($(this).hasClass('layui-nav-itemed')) {
+                        $(this).removeClass('layui-nav-itemed')
+                    } else {
+                        $(this).addClass('layui-nav-itemed')
+                    }
+                });
+                navClick();
+            }
+        }
+    });
+
+    //根据病人id获得病人
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": GetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            $("#zyts").html(DateDiff(data.data.EntryTime.ToString("yyyy-MM-dd")));
+            $("title").html(data.data.Name);
+        },
+        error: function (error) {
+        }
+    })
+
+    layui.use(['element', 'layedit', 'table'], function () {
+        var table = layui.table,
+          layedit = layui.layedit,
+          element = layui.element;
+        getNewMsgCnt();
+
+    });
+    $('#funinfo').on('click' ,'.layui-nav-item', function () {
+        $(this).children(".otherOne").addClass("addActive")
+        $(this).siblings().children(".otherOne").removeClass("addActive")
+        $(this).siblings().removeClass('layui-nav-itemed')
+        if ($(this).hasClass('layui-nav-itemed')) {
+            $(this).removeClass('layui-nav-itemed')
+        } else {
+            $(this).addClass('layui-nav-itemed')
+        }
+    });
+    function navClick(obj) {
+        $(".layui-tab-item ").height($(window).height()-160);
+        $(".layui-side-scroll .layui-nav-item").each(function (i, item) {
+            $(this).children("dl").css({
+                'height': ($(window).height() - ($("#funinfo").find("li").length*45)-70) + 'px',
+                'overflow': 'auto'
+            })         
+        });
+        $(".layui-tab-title").css("display", "block");
+    }
+
+    //退出
+    function loginout() {
+        layer.confirm('是否确定要退出系统？', function (index, layero) {
+            location.href = __curHostAddress + 'login';
+            cookie.delete("api_token");
+        });
+    }
+    //打开用户个人信息
+    function openuserinfo() {
+        ShowWin('修改个人信息', 'page/PublicPages/UserInfoEdit?UserID=' + GetQueryString("EMRIDSIGN"), 800, 500)
+    }
+    //修改密码
+    function openpasswordedit() {
+        ShowWin('修改密码', 'page/PublicPages/UserPassWordEdit?UserID=' + GetQueryString("EMRIDSIGN"), 480, 300)
+    }
+    function DateDiff(sDate) {    //sDate1和sDate2是xxxx-xx-xx格式  
+        var sdate = new Date(sDate.replace(/-/g, "/"));
+        var now = new Date();
+        var days = now.getTime() - sdate.getTime();
+        var day = parseInt(days / (1000 * 60 * 60 * 24));
+        return day;
+    }
+</script>
+</html>

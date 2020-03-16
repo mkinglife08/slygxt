@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "FormEmrTemplateEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<form class="layui-form" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">父级</label>
+                <div class="layui-input-inline">
+                    <select name="ParentId" id="ParentId" class="deletSele" lay-verify="SelectRequired" placeholder="父级"></select>
+                    
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="TemplateName" data-id="TemplateName" lay-verify="required" lay-maxlength="30" placeholder="请输入模板名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">模板类型</label>
+                <div class="layui-input-inline">
+                    <select name="TemplateType" id="TemplateType" class="deletSele" lay-verify="SelectRequired" placeholder="请选择模板类型"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板内容<br /><a href="javascript:ShowHelp();" style="color:red;">帮助</a></label>
+                <div class="layui-input-block" style="width:80%;margin-left:150px;">
+                    <textarea name="TemplateContent"  id="TemplateContent" placeholder="请输入模板内容" autocomplete="off" class="layui-textarea"></textarea>
+                    <script type="text/javascript">
+                        var windowHeight = $(window).height();
+                        UE.getEditor('TemplateContent', { initialFrameWidth: "100%", initialFrameHeight: windowHeight-260 });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont icon-saves" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganSelect();
+    //父级
+    CreateSelectFormEmrTemplate($("#ParentId"), "1");
+    //初始化模板类型下拉框
+    CreateSelectOptionFromCodeDict($("#TemplateType"), "FormEmrTemplateType", { width: "100%!important" });
+
+    var TemplateId = GetQueryString("TemplateId");
+    if (TemplateId != "") {
+        EWinsBase.json("api/Public/FormEmrTemplate/GetInfoById", {
+            data: { "TemplateId": TemplateId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+                $("#ParentId").val(data.data["ParentId"]).trigger('change');
+                console.log(HTMLDecode(data.data["TemplateContent"]));
+                //绑定富文本框的内容需要反转义
+                $("#TemplateContent").val(HTMLDecode(data.data["TemplateContent"]));
+                //$("#TemplateContent").val(HTMLDecode(data.data["TemplateContent"]));//反转义模板内容
+
+                //绑定模板类型
+                if (data.data["TemplateType"] != null) {
+                    $("#TemplateType").append("<option value=" + data.data["TemplateType"] + ">" + data.data["TemplateTypeName"] + "</option>");
+                    $("#TemplateType").val(data.data["TemplateType"]).trigger('change');
+                }
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+    else {
+        var ParentId = GetQueryString("ParentId");
+
+    }
+    function ShowHelp() {
+        layer.open({
+            type: 1 //Page层类型
+  , title: '帮助'
+  , shade: 0.6 //遮罩透明度
+  , maxmin: true //允许全屏最小化
+  , anim: 1 //0-6的动画形式，-1不开启
+  , content: '<div style="padding:50px;">姓名：${Name}<br />性别：${Gender}<br />年龄：${Age}<br />住院号：${InpatientId}<br />床号：${BedNumber}<br />民族：${Ethnic}<br />现地址：${AddressDetail}<br />联系电话：${Phone}<br />当前科室：${CurrentDeptName}<br />入院时间：${EntryTime}<br />入院途径：${InpatientWay}<br /></div>'
+        });
+    }
+    function insertHtml() {
+        UE.getEditor('TemplateContent').execCommand('insertHtml', "aaa");
+    }
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+        form.on('submit(sub)', function (data) {
+            data.field["TemplateId"] = GetQueryString("TemplateId");
+            //富文本框的内容需要转义标签才能提交
+            data.field["TemplateContent"] = HTMLEncode($("#TemplateContent").val());
+            //var aa = {};
+            //$("#TemplateContent input").each(function (n, obj) {
+            //    if (obj.type == "text")
+            //        aa[obj.name] = obj.value;
+            //});
+            //return false;
+            EWinsBase.json("api/Public/FormEmrTemplate/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            setTimeout(function () {
+                                var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                                var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                                wind.refreshTable();//刷新表格
+                                wind.refreshNode();//刷新树
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                            }, 900);
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+
+            return false;
+        });
+    })
+</script>
+
+

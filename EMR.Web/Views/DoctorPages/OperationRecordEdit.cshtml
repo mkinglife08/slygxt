@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "用户编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<style>
+.submEdit .layui-form-label{
+    width:130px;
+}
+.layui-input-block{ margin-left:140px;}
+</style>
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/newOption.css">
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm">
+        <div class="submEdit" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">手术、操作名称</label>
+                <div class="layui-input-block">
+                    <select name="OperationCode" id="OperationCode" class="deletSele" lay-verify="SelectRequired" placeholder="请选择手术、操作" multiple="multiple"></select>
+                    @*<input type="hidden" name="OperationCode" data-id="OperationCode" class="layui-input">*@
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手术、操作时间</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" name="StartTime" data-id="StartTime" id="StartTime" class="layui-input" placeholder="请选择手术、操作时间">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手术级别</label>
+                <div class="layui-input-block">
+                    <select name="OperationLevel" id="OperationLevel" lay-verify="SelectRequired" placeholder="请选择手术级别" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手术、操作医生</label>
+                <div class="layui-input-block">
+                    <select name="SurgeonId" id="SurgeonId" lay-verify="SelectRequired" placeholder="请选择手术、操作医生" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">助手1</label>
+                <div class="layui-input-block">
+                    <select name="FirstAssistantId" id="FirstAssistantId" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">助手2</label>
+                <div class="layui-input-block">
+                    <select name="SecondAssistantId" id="SecondAssistantId" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">麻醉方式</label>
+                <div class="layui-input-block">
+                    <select name="AnesthesiaWayCode" id="AnesthesiaWayCode" lay-verify="SelectRequired" placeholder="请选择麻醉方式" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">切口愈合等级</label>
+                <div class="layui-input-block" id="divHealingLevel">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">麻醉医生</label>
+                <div class="layui-input-block">
+                    <select name="Anesthesia1Id" id="Anesthesia1Id" lay-verify="SelectRequired" placeholder="请选择麻醉医生" style="width:100%"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='lastBtn'>
+        <button class="layui-btn" lay-submit="" lay-filter="sub">
+            <i class="iconfont icon-saves">&#xe688;</i>保存
+        </button>
+        <button class="layui-btn" onclick="ShowWinClose();">
+            <i class="iconfont">&#xe63e;</i>
+            关闭
+        </button>
+
+    </div>
+</form>
+<!--JS-->
+<script>
+    ShowWinSet();
+    //初始化下拉框单选框（数据从字典获取）
+    CreateSelectOptionFromCodeDict($("#OperationLevel"), "OperationLevel");
+    CreateSelectOptionFromCodeDict($("#AnesthesiaWayCode"), "AnesthesiaWay");
+    CreateRadiosFromCodeDict($("#divHealingLevel"), "HealingLevel", "HealingLevel");
+    //手术操作下拉框多选框
+    CreateSelectOptionFromDiagnosis($("#OperationCode"), { width: "100%!important" });
+    CreateSelectOptionFromUser($("#SurgeonId"), { width: "100%!important" });
+    CreateSelectOptionFromUser($("#FirstAssistantId"), { width: "100%!important" });
+    CreateSelectOptionFromUser($("#SecondAssistantId"), { width: "100%!important" });
+    CreateSelectOptionFromUser($("#Anesthesia1Id"), { width: "100%!important" });
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+
+    var OperationId = GetQueryString("OperationId");
+    if (OperationId != "") {
+        EWinsBase.json("api/Doctor/OperationRecord/GetInfoById", {
+            data: { "OperationId": OperationId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                $("input:radio[name='HealingLevel'][value='" + data.data["HealingLevel"] + "']").attr("checked", 'checked');
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                if (data.data["OperationLevel"] != null) {
+                    $("#OperationLevel").append("<option value=" + data.data["OperationLevel"] + ">" + data.data["OperationLevelName"] + "</option>");
+                    $("#OperationLevel").val(data.data["OperationLevel"]).trigger('change');
+                }
+                if (data.data["AnesthesiaWayCode"] != null) {
+                    $("#AnesthesiaWayCode").append("<option value=" + data.data["AnesthesiaWayCode"] + ">" + data.data["AnesthesiaWayName"] + "</option>");
+                    $("#AnesthesiaWayCode").val(data.data["AnesthesiaWayCode"]).trigger('change');
+                }
+                if (data.data["OperationCode"] != null) {
+                    $("#OperationCode").append("<option value=" + data.data["OperationCode"] + ">" + data.data["OperationName"] + "</option>");
+                    $("#OperationCode").val(data.data["OperationCode"]).trigger('change');
+                }
+                if (data.data["SurgeonId"] != null) {
+                    $("#SurgeonId").append("<option value=" + data.data["SurgeonId"] + ">" + data.data["SurgeonName"] + "</option>");
+                    $("#SurgeonId").val(data.data["SurgeonId"]).trigger('change');
+                }
+                if (data.data["FirstAssistantId"] != null) {
+                    $("#FirstAssistantId").append("<option value=" + data.data["FirstAssistantId"] + ">" + data.data["FirstAssistantName"] + "</option>");
+                    $("#FirstAssistantId").val(data.data["FirstAssistantId"]).trigger('change');
+                }
+                if (data.data["SecondAssistantId"] != null) {
+                    $("#SecondAssistantId").append("<option value=" + data.data["SecondAssistantId"] + ">" + data.data["SecondAssistantName"] + "</option>");
+                    $("#SecondAssistantId").val(data.data["SecondAssistantId"]).trigger('change');
+                }
+                if (data.data["Anesthesia1Id"] != null) {
+                    $("#Anesthesia1Id").append("<option value=" + data.data["Anesthesia1Id"] + ">" + data.data["Anesthesia1Name"] + "</option>");
+                    $("#Anesthesia1Id").val(data.data["Anesthesia1Id"]).trigger('change');
+                }
+                //$("#AnesthesiaWayCode").val(data.data["AnesthesiaWayCode"]).trigger('change');
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        laydate.render({
+            elem: '#StartTime'
+        });
+        form.on('submit(sub)', function (data) {
+            data.field["InpatientId"] = GetQueryString("InpatientId");
+            data.field["SurgeonName"] = $("#SurgeonId option:checked").text();
+            data.field["FirstAssistantName"] = $("#FirstAssistantId option:checked").text();
+            data.field["SecondAssistantName"] = $("#SecondAssistantId option:checked").text();
+            data.field["Anesthesia1Name"] = $("#Anesthesia1Id option:checked").text();
+            data.field["OperationCode"] = getMultiSelectVal("OperationCode");
+            data.field["OperationName"] = getMultiSelectText("OperationCode");
+            data.field["OperationId"] = GetQueryString("OperationId") + "";
+            EWinsBase.json("api/Doctor/OperationRecord/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            //由于弹出框是顶层弹出的，所以必须获取到弹窗来源页的父窗口。
+                            //var cur_parent_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+                            //var curParentWindowDocument;
+                            //if (cur_parent_index == 1)
+                            //    curParentWindowDocument = $("#iframe", parent.document)[0].contentDocument;
+                            //else
+                            //    curParentWindowDocument = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentDocument;
+
+                            var curParentWindowDocument = parent.document;
+                            var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind;
+                            if (cur_tab_index == 1)
+                                wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+                            else
+                                wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    })
+</script>

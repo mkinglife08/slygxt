@@ -1,0 +1,322 @@
+﻿
+@{
+    ViewBag.Title = "ConsultationList";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="/Content/index.css">
+<style>
+    html {
+        width: 98%;
+    }
+
+    .text {
+        font-size: 16px;
+        color: #0A64A4;
+        width: 100%;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        border-bottom: 1px solid #0A64A4;
+        margin-bottom: 6px;
+    }
+
+    .medrecords .rigBtn .coursePd {
+        height: 40px;
+        line-height: 40px;
+    }
+</style>
+<div class="home_content">
+    <input type="hidden" class="layui-input" id="hdnCurRowId" style="display:none;">
+    <input type="hidden" id="hdnName" value="" />
+    <div class="medrecords">
+
+        <div class="rigBtn">
+            <div class="courseSelect fl">
+                <div class="coursePd">
+                    <span class="textType">会诊时间</span>
+                    <input type="text" class="text search_input searchtime" style="width:100px;height: 18px; padding-top: 5px;" id="start_time">--
+                    <input type="text" class="text search_input searchtime" style="width:100px;height: 18px; padding-top: 5px;" id="end_time">
+
+                </div>
+            </div>
+            <div class="courseBtn fl">
+                <a class="layui-btn" id="btnQuery">
+                    <i class="iconfont">&#xe6ac;</i>
+                    查询
+                </a>
+                <a class="layui-btn bacx" id="btIBAQuery">
+                    <i class="iconfont">&#xe6ac;</i>病案查阅
+                </a>
+                <a class="layui-btn  btn-add btn-default" id="btn-add">
+                    <i class="layui-icon colorAdd">&#xe61f;</i>添加
+                </a>
+                @*<a class="layui-btn  btn-add btn-default" id="btn-edit">
+                        <i class="iconfont btn-edit">&#xe74e;</i>编辑
+                    </a>
+                    <a class="layui-btn  layui-btn-danger radius btn-delect" id="btn-delete">
+                        <i class="layui-icon btn-delete">&#xe640;</i>停用
+                    </a>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="request">
+    <p class="text">请求他科会诊</p>
+
+    <div id="requestTable" lay-filter="requestTable"></div>
+</div>
+<div id="apply">
+    <p class="text">回复他科会诊</p>
+
+    <div id="applyTable" lay-filter="applyTable"></div>
+</div>
+<!-- js -->
+<script type="text/javascript">
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".btn-add,.btn-delect,.bacx").hide();
+        $(".rigBtn").hide();
+    }
+
+    // layui方法
+    layui.use(['table', 'form', 'layer', 'vip_table', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , layer = layui.layer
+                , vipTable = layui.vip_table
+                , $ = layui.jquery
+        , laydate = layui.laydate;
+        lay('.searchtime').each(function () {
+            laydate.render({
+                elem: this //指定元素
+                 , type: 'date'
+
+            });
+        });
+        // 表格渲染
+        var requestTableIns = table.render({
+            elem: '#requestTable'                //指定原始表格元素选择器（推荐id选择器）
+            , cols: [[                  //标题栏
+              //  { checkbox: false, sort: false, fixed: false, space: true, hide: true },
+            { field: 'ConsultationId', title: '类型', align: 'center', hide: true }
+            ,{ field: 'InpatientId', title: '病人id', align: 'center', hide: true }
+            , { field: 'ConsultationTypeName', title: '类型', align: 'center', width: '60' }
+                , { field: 'ConsultationStateName', title: '状态', align: 'center', width: '80' }
+                , { field: 'InpatientName', title: '姓名', templet: "#Inpatient", align: 'center', width: '100' }
+                , { field: 'BedNum', title: '床号', align: 'center', width: '100' }
+             , { field: 'RequestDepartName', title: '开单科室', align: 'center', width: '100' }
+                , { field: 'RequesterName', title: '开单医师', align: 'center', width: '100' }
+                , { field: 'ApplyTime', title: '请求时间', align: 'center', templet: "#ApplyTime", width: '180' }
+                , { field: 'HospitalName', title: '会诊医院', align: 'center', width: '100' }
+                , { field: 'ApplyDepartName', title: '会诊科室', align: 'center', width: '150' }
+                , { field: 'ApplyDoctorName', title: '会诊医生', align: 'center', width: '100' }
+                , { field: 'ReplyTime', title: '答复时间', align: 'center', templet: "#ReplyTime", width: '150' }
+            ,{ align: 'center', toolbar: '#RequestHandle', width: '120' }
+
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/Consultation/GetRequestConsultationByUser?token=' + EWinsBase.Token
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+                if (count == 0) {
+                    $('#request').hide();
+                }
+
+                //如果OnlyView为true,将编辑按钮隐藏
+                if (NewGetQueryString("OnlyView") == "true") {
+                    $(".OnlyView").hide();
+                }
+            }
+        });
+
+        var applyTableIns = table.render({
+            elem: '#applyTable'                //指定原始表格元素选择器（推荐id选择器）
+         , cols: [[                  //标题栏
+           //  { checkbox: false, sort: false, fixed: false, space: true, hide: true },
+             { field: 'ConsultationId', title: '类型', width: '100',  align: 'center', hide: true }
+            , { field: 'InpatientId', title: '病人id', align: 'center', hide: true }
+             , { field: 'ConsultationTypeName', title: '类型', width: '60', align: 'center' }
+             , { field: 'ConsultationStateName', title: '状态', width: '80', align: 'center' }
+             , { field: 'InpatientName', title: '姓名', templet: "#Inpatient", width: '100', align: 'center' }
+                , { field: 'BedNum', title: '床号', align: 'center', width: '100' }
+             , { field: 'RequestDepartName', title: '开单科室', align: 'center', width: '100' }
+             , { field: 'RequesterName', title: '申请人', width: '100', align: 'center' }
+             , { field: 'ApplyTime', title: '请求时间', width: '180',  align: 'center', templet: "#ApplyTime" }
+             , { field: 'HospitalName', title: '会诊医院', width: '100',  align: 'center' }
+             , { field: 'ApplyDepartName', title: '会诊科室', width: '100', align: 'center' }
+             , { field: 'ApplyDoctorName', title: '会诊医生', width: '100',  align: 'center' }
+             , { field: 'ReplyTime', title: '答复时间', width: '180',templet: "#ReplyTime", align: 'center' }
+             , { align: 'center', toolbar: '#ApplyHandle', width:'120' }
+         ]]
+         , id: 'dataCheck'
+         , url: EWinsBase.__curHostAddress + 'api/Doctor/Consultation/GetApplyConsultationByUser?token=' + EWinsBase.Token
+         , method: 'get'
+         , page: true
+         , limits: [mylimit, 50, 100, 150]
+         , limit: mylimit
+         , loading: false
+         , done: function (res, curr, count) {
+             //加载表格后进行初始化
+             EWinsBase.ValidateToken(res);
+             $("#hdnCurRowId").val("");
+             if (count == 0) {
+                 $('#apply').hide();
+             }
+
+                //如果OnlyView为true,将编辑按钮隐藏
+             if (NewGetQueryString("OnlyView") == "true") {
+                    $(".OnlyView").hide();
+                }
+         }
+        });
+        //监听工具条
+        table.on('tool(requestTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                ShowWin('打印会诊单', 'page/DoctorPages/ConsultationPrint?ConsultationId=' + data.ConsultationId, 1000, $(window).height() - 90)
+
+            } else if (obj.event === 'del') {
+                layer.confirm('是否确认要删除该条信息？', function (index) {
+                    EWinsBase.ajax({
+                        url: "api/Doctor/Consultation/DeleteConsultation",
+                        type: "POST",
+                        data: { "ConsultationId": data.ConsultationId },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                layer.msg("删除成功", { icon: 6 });
+                                tableReload;
+                            } else {
+                                layer.msg("删除失败", { icon: 5 });
+                            }
+                        }
+                    });
+                });
+            } else if (obj.event === 'edit') {
+                ShowWin('修改会诊单', 'page/DoctorPages/ConsultationEdit?ConsultationId=' + data.ConsultationId, 900, $(window).height() - 90)
+            }
+        });
+        table.on('tool(applyTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'edit') {
+                ShowWin('回复会诊单', 'page/DoctorPages/ConsultationEdit?ConsultationId=' + data.ConsultationId + '&type=1', 900, $(window).height() - 90)
+            }
+        });
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(requestTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.ConsultationId);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //监听行双击事件
+        table.on('rowDouble(requestTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.ConsultationId);
+            ShowWin('会诊单', 'page/DoctorPages/ConsultationEdit?ConsultationId=' + $("#hdnCurRowId").val(), 900, $(window).height() - 90)
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+       //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(applyTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.ConsultationId);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+
+        });
+        //监听行双击事件
+        table.on('rowDouble(applyTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.ConsultationId);
+            ShowWin('会诊单', 'page/DoctorPages/ConsultationEdit?ConsultationId=' + $("#hdnCurRowId").val(), 900, $(window).height() - 90)
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //查询病案
+        $('#btIBAQuery').on('click', function () {
+            ShowWin($("#hdnName").val() + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + NewGetQueryString('InpatientId'), $(window).width() + 150, $(window).height() + 90);
+        });
+
+        //添加按钮事件
+        $('#btn-add').on('click', function () {
+            ShowWin('添加会诊单', 'page/DoctorPages/ConsultationEdit?type=0&InpatientId=' + NewGetQueryString('InpatientId'), 900, $(window).height() - 90)
+        });
+        //编辑按钮事件
+        $('#btn-edit').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin('修改会诊单', 'page/DoctorPages/ConsultationEdit?ConsultationId=' + $("#hdnCurRowId").val(), 900, $(window).height() - 90)
+        });
+
+        var tableReload = function () {
+            requestTableIns.reload({
+                where: { start_time: $("#start_time").val(), end_time: $("#end_time").val(), token: EWinsBase.Token }//这里传参  向后台
+             , method: 'post'
+            });
+            applyTableIns.reload({
+                where: { start_time: $("#start_time").val(), end_time: $("#end_time").val(), token: EWinsBase.Token }//这里传参  向后台
+            , method: 'post'
+            });
+        }
+        //查询
+        $('#btnQuery').bind('click', tableReload);
+        //删除事件
+        $('#btn-delete').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            layer.confirm('是否确认要删除该条信息？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/Doctor/Consultation/Delete",
+                    type: "POST",
+                    data: { "ConsultationId": $("#hdnCurRowId").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            layer.msg("删除成功", { icon: 6 });
+                            $('#btnQuery').click();
+                        } else {
+                            layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+    function openInpatient(id) {
+        ShowWin($("#hdnName").val() + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + id, $(window).width() + 150, $(window).height() + 90);
+
+    }
+</script>
+<script type="text/html" id="ReplyTime">
+    {{ d.ReplyTime==null||d.ReplyTime==""?"":d.ReplyTime.ToString("yyyy-MM-dd hh:mm:ss") }}
+</script>
+<script type="text/html" id="ApplyTime">
+    {{ d.ApplyTime==null||d.ApplyTime==""?"":d.ApplyTime.ToString("yyyy-MM-dd hh:mm:ss") }}
+</script>
+<script type="text/html" id="Inpatient">
+    {{ d.InpatientId==null||d.InpatientId==""?d.InpatientName:"<a class='' onclick='openInpatient("+d.InpatientId+")'>"+d.InpatientName+"</a>" }}
+</script>
+<script type="text/html" id="RequestHandle">
+    <div class='OnlyView'>{{ d.ConsultationStateName=="新开"?"  <a class='layui-btn layui-btn-xs' lay-event='edit'>编辑</a><a class='layui-btn layui-btn-danger layui-btn-xs' lay-event='del'>删除</a>":"<a class='layui-btn layui-btn-primary layui-btn-xs' lay-event='detail'>查看/打印</a>" }}</div>
+</script>
+<script type="text/html" id="ApplyHandle">
+    <div class='OnlyView'>{{ d.ConsultationStateName=="新开"?"  <a class='layui-btn layui-btn-xs' lay-event='edit'>回复</a>":"<a class='layui-btn layui-btn-primary layui-btn-xs' lay-event='detail'>查看/打印</a>" }}</div>
+</script>

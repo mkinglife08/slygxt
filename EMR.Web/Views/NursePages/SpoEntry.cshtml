@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>血压录入</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div>
+				<span>测量日期：
+					<input type="text" id="test" class="JobNumber">
+				</span>
+				<span>测量时间：</span>
+				<select name="" id="">
+					<option value="">10AM</option>
+					<option value="">2AM</option>
+				</select>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">查询</a>
+	            <a class="layui-btn">编辑</a>
+	            <a class="layui-btn layui-disabled">整体保存</a>
+	        </div>
+	 	</div>
+	 	<table id="table"></table>
+	</div>		
+</body>
+<script>
+layui.use(['laydate','table'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+ 	laydate.render({ 
+	  elem: '#test',
+	});
+
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '床号',align:'center'}
+	      ,{field:'username', title: '姓名',align:'center'}
+	      ,{field:'city', title: '性别',align:'center'}
+	      ,{field:'city', title: '年龄',align:'center'}
+	      ,{field:'sex', title: '住院号',align:'center'}
+	      ,{field:'city', title: '上次SPO2',align:'center'}
+	      ,{field:'city', title: 'SPO2(%)',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

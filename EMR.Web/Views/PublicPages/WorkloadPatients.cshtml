@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo">
+                            <span>手术日期：</span>
+                            <input type="text" id="start1" style="width:30%">-<input type='text' id="stop1" style="width:30%">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg3">
+                            <span>科室：</span>
+                            <select name="" id="">
+                                <option value="">全部</option>
+                                <option value="">血液</option>
+                                <option value="">外科</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	        <div class="rigBtn">
+	             <a class="layui-btn search">查询</a>
+	             <a class="layui-btn search">导出到Excel</a>
+	        </div>
+	 	</div>
+		<table class="qualityTable none">
+			<thead>
+				<tr>
+					<td rowspan="3">序号</td>
+					<td rowspan="3">科室</td>
+					<td rowspan="3">医师姓名</td>
+					<td rowspan="3">职称</td>
+					<td colspan="3">收治患者数</td>
+					<td colspan="6">书写病例数</td>
+				</tr>
+				<tr>
+					<td rowspan="2">总数</td>
+					<td colspan="2">其中</td>
+					<td colspan="3">中医</td>
+					<td colspan="3">西医</td>
+				</tr>
+				<tr>
+					<td>中医单病种</td>
+					<td>临床路经</td>
+					<td>首程</td>
+					<td>入院</td>
+					<td>出院</td>
+					<td>首程</td>
+					<td>入院</td>
+					<td>出院</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>血液科</td>
+					<td>张医生</td>
+					<td>主治</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start1'
+		});
+		laydate.render({
+	  		elem:'#stop1'
+		});
+	});
+	$('.search').click(function(){
+		$('.qualityTable').show();
+	})
+</script>
+</html>
+	

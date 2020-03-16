@@ -1,0 +1,342 @@
+.layui-layedit-iframe{
+	height:200px;
+}
+.characteristics{ margin-top:5px; }
+.characterList,.judgment,.promis,.treatment{ margin-bottom:5px; }
+.charLeft,.judgLeft{
+	width:16%;
+	height: 202px;
+    padding-top: 41px;
+	border:1px solid #e6e6e6;
+}
+.charWord{
+	width:100%;
+	text-align: center;
+}
+.characterList .charLeft .charWord li{
+	margin-bottom: 10px;
+}
+.charRight,.judgRg,.promisRig,.treatRg{
+	width:83%;
+}
+.promisRig {
+	height: 243px;
+	overflow:auto;
+	border:1px solid #e6e6e6;
+}
+.write {
+    height: 9px;
+    line-height: 9px;
+    width: 13%;
+    text-align: center;
+    border: 1px solid #e6e6e6;
+}
+.writeInput{
+	width:87%;
+}
+
+/*72小时内诊疗知情告知同意会话*/
+.sessList{
+	margin-top: 5px;
+}
+.sessList .patientInfor{
+	width:33%;
+}
+.detailWord{
+	width:165px;
+}
+
+/*出院记录*/
+.outhospitalRecord{
+	width: 100%;
+}
+.outHostword{
+	text-align: center;
+	color:#0094ff;
+	line-height: 30px;
+}
+.enterHost,.outHost{ border:1px solid #e6e6e6; }
+.enterHost .enterHostAble,.outHost .outHostAble{
+	width:82%;
+}
+.charWord li{ margin-bottom: 5px; }
+.enterWord{ 
+	border-top:none;
+	border-left:none;
+	line-height: 153px;
+	text-align: center;
+}
+
+/*住院卡*/
+.hostpitalCard{
+	width:98%;
+	margin-top: 10px;
+}
+.hostpitalCard .cardContent{
+	width: 97%;
+	background:#fff;
+	margin:10px;
+	padding:10px;
+
+}
+.hostpitalCard .cardWord{
+	width: 100%;
+}
+.hostpitalCard .cardWord .cardWordFir{
+	font-size: 18px;
+	text-align: center;
+}
+.hostpitalCard .cardWord .cardWordSec{
+	font-size: 16px;
+	text-align: right;
+}
+.hostpitalCard .cardWord .cardWordSec span{
+	margin-left: 10px;
+	text-decoration:underline;
+	display: inline-block;
+	padding-bottom: 5px;
+}
+.hostpitalCard .cardTable{
+	border:1px solid #999;
+	width: 100%;
+	margin-top: 10px;
+	border-collapse: 0;
+}
+.hostpitalCard .cardTable .thead tr,.tbodyRig tr{
+	border-bottom: 1px solid #999;
+	height: 30px;
+	line-height: 30px;
+}
+.none{ opacity: 0 }
+
+.outOfhost{
+	width: 99.8%;
+	height:208px;
+	border:1px solid #999;
+	border-top: 0;
+}
+.outOfhost .outOfUp{ height: 90px; }
+.outOfhost .outOfLeft{
+	width: 60%;
+	border-right:  1px solid #999
+}
+.outOfhost .outOfLeft .outLeWord{
+	text-align: center;
+	width: 15%;
+	line-height: 78px;
+}
+.outOfhost .outOfLeft .outLeList {
+	border-left: 1px solid #999;
+	height: 80px;
+	padding:5px;
+	width: 76%;
+}
+.outOfRig{
+	width: 39%;
+}
+.outOfRig li{
+	border-bottom:1px solid #999;
+	width: 100%;
+	height: 29px;
+    line-height: 29px;
+    padding-left: 8px;
+
+}
+.outOfRig li:last-child{
+	border-bottom:none;
+}
+.outOfRig li .enterTime{ margin-left: 26% }
+.outOfDown{ 
+	border-top: 1px solid  #999;
+	height: 118px;
+
+}
+.outOfDown .outLeWord,.outLeLists,.outOfLeft,.outOfRig{ height: 100%; }
+.outOfDown .outLeLists{
+	height: 118px;
+	border-right: 1px solid #999;
+}
+.outOfDown .outOfRig li{
+	width:100%;
+	overflow: hidden;
+}
+.outOfDown .outOfRig li span{
+	width:24%;
+	display:block;
+	float: left;
+	border-right: 1px solid #999;
+	text-align: center;
+}
+.border{
+	border-right: 1px solid #999;
+}
+.disease{
+	width: 99.9%;
+	height: 36px;
+	padding-top: 6px;
+	border:1px solid #999;
+	border-top: none;
+}
+.treatment p{
+	font-size: 16px;
+	cursor: pointer;
+	text-decoration: underline;
+	height: 30px;
+	line-height: 30px;
+}
+.treatment .treatArea{
+	width: 99%;
+	padding:5px;
+}
+.lastText{
+	border:1px solid #999;
+	margin-top: 5px;
+	height: 237px;
+
+}
+.lastText .lastTextUls{ height: 145px; }
+.lastText .lastTextUls li{
+	width: 100%;
+	height: 28px;
+	border-bottom: 1px solid #999;
+	line-height: 28px;
+	overflow: hidden;
+}
+.lastText .lastTextUls li .listFir{
+	width:15%;
+	border-right: 1px solid #999;
+	text-align: center;
+	float: left;
+}
+.lastText .lastTextUls li .incision{ width: 60% }
+.lastText .lastTextUls li .incisTime{ width:39%; }
+.lastText .lastTextUls li .incision .listSec,.incisTime .listSec{
+	width: 25%;
+	text-align:center;
+}
+.margin_lef{ margin-left: 10px; }
+.outcome{ width: 100%; }
+.outcome .outcomeP{
+	width: 15%;
+	height: 92px;
+	line-height: 92px;
+	text-align: center;
+}
+.outUls{ width: 84.8% }
+.outUls li{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #999;
+}
+.liInput{
+	height: 20px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+	padding-left: 5px;
+}
+.doctName{
+	font-size: 16px;
+	text-align:right;
+	margin-right: 15px;
+}
+/*首次病程记录*/
+.progre{
+    width:100px;
+    border:1px solid #ccc;
+    line-height:40px;
+    text-align:center;
+}
+.progre a{
+    display:block;
+    font-size:18px;
+}
+/*写文书*/
+.discuss{
+	margin: 5px;
+    width: 96%;
+    background: #fff;
+    padding: 16px;
+}
+.disTable,.tdTable{
+	width:100%;
+	border:1px solid #ccc;
+	text-align:center;
+}
+.disTable tr,.tdTable tr{ border-bottom:1px solid #ccc; padding:6px 0;}
+.disTable tr td,.tdTable tr td{ border-right:1px solid #ccc;padding:6px;  }
+.tdTable tr td a{ cursor: pointer; }
+.discuss input{
+	width:70%;
+	height: 21px;
+	padding-left:5px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+}
+.disTittle{
+	height:30px;
+	line-height: 30px;
+	text-align:center;
+	font-size: 17px;
+}
+.disStart .fir{
+	float: left;
+	width:25%;
+}
+.disStart .fir p,.lastP{ line-height: 30px; }
+.disStart .fir span,.signature{ border-bottom: 1px solid #333;padding:0 6px; }
+.disStart .fir input,.time input{ margin-left:10px;width:50%; }
+.sumName{ margin:6px 0; }
+.time{ margin-left:20%; }
+.reoperation{
+	width:70%;
+	margin:0 auto;
+}
+.all{ width:100%; }
+.reoperation textarea,.textarea{
+	width:97%;
+	padding:5px;
+	resize:none;
+}
+.dengji{
+	width: 10% !important;
+	border:none !important;
+	border-bottom:1px solid #666!important;
+	border-radius: 0!important;
+}
+.all p{
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 30px;
+}
+.indent{ 
+	text-indent: 36px;
+    font-size: 15px;
+}
+ .lastEnd p{
+	width: 40%;
+ }
+ .lastEnd p input{
+	width:24% !important;
+  }
+ /*授权*/
+.authorization{
+	border:1px solid red;
+	width: 60%;
+	padding:0 3px;
+}
+.authorization p{
+	width:100%;
+	line-height: 25px;
+	color: red;
+}
+/*出院证*/
+.dischargeFir,.dischargeSec,.dischargeThird{
+	font-size: 15px;
+	line-height: 30px;
+}
+.dischargeList{ 
+	float: left;
+	width:23%;
+}
+.discharge{ float: left;width:43%; }

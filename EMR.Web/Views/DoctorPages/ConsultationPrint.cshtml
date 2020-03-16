@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "ConsultationPrint";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会诊信息</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/template.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+    <script>
+        function print() {
+            //$('#idFace').css("display", "none");
+            //$('#idBack').css("display", "block");
+            var LODOP = getLodop();
+            if (LODOP.VERSION) {
+                LODOP.PRINT_INIT("会诊单打印");
+                var css = '<link href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css" rel="stylesheet"/><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/reset.css"><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/template.css">'
+                var aheadDiv = '<div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">' +
+                                '<div class="medrecordPrin">' +
+                                '<div class="print_others">';
+                LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", css + document.getElementById("idBack").innerHTML + "</div></div>");
+                LODOP.PREVIEW();
+            }
+        }
+        layui.use(['form'], function () {
+            var form = layui.form
+                    , layer = layui.layer
+        var ConsultationId = GetQueryString("ConsultationId");
+        if (ConsultationId != "") {
+            $('#ConsultationId').val(ConsultationId);
+            EWinsBase.json("api/Doctor/Consultation/GetConsultationInfoById", {
+                data: { "ConsultationId": ConsultationId },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    EWinsBase.setDataModel($(".consultation [data-id]"), data.data);
+                    $('#DiseaseSummary').append(HTMLDecode(data.data.DiseaseSummary));
+                    if (data.data["HospitalType"] == "1") {
+                        $('#HospitalName').text('本院');
+                    }
+                    if (data.data["InpatientId"] != null&&data.data["InpatientId"] != "") {
+                        EWinsBase.json("api/Doctor/Consultation/GetInpatientInfoById", {
+                            data: { "InpatientId": data.data["InpatientId"] },
+                            type: "POST",
+                            async: false,
+                            usedCache: false,
+                            success: function (config, data) {
+                                EWinsBase.setDataModel($(".consultation [data-id]"), data.data);
+
+                            },
+                            error: function (error) {
+
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+
+                }
+            });
+        }
+        form.render();
+        
+        })
+    </script>
+</head>
+<body>
+    <div class="consultation">
+        <div class="medrecord">
+            <p class="word">会诊单打印</p>
+            <div class="rigBtn">
+                <a class="layui-btn" onclick="print()">打印</a>
+            </div>
+        </div>
+        <div class="consultCent singleCont">
+            <h3 class="single">会诊单</h3>
+            <div class="clearfix">
+                <span class="fl">请求</span>
+                <div class="fr">
+                    <p>时间：<span data-id="ApplyTime">2019-04-12</span></p>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <span data-id="HospitalName" id="HospitalName">本源</span><span data-id="ApplyDepartName">血液科</span><span data-id="ApplyDoctorName">长椅上</span>医师
+                </p>
+                <p class="indent">
+                    兹有<span data-id="CurrentDeptName">老年病科</span><span  data-id="CurrentWardName">六病区</span><span data-id="BedNumber">20601</span>床
+                    住院号<span ata-data-id="InpatientId">0001945</span>病人<span data-id="Name">叶嬷嬷</span>希于会诊，其简历简述如下
+                </p>
+                <div id="DiseaseSummary" style="min-height:200px;" rows="15" class="paper"></div>
+                <p class="align"><span data-id="RequestDepartName">老年病科</span><span data-id="RequesterName" >管理员</span>医师</p>
+                <div class="clearfix">
+                    <div class="fl">
+                        <p>答复:<span data-id="ReplyContent"></span></p>
+                        <p><span data-id="ReplyDepartName">老年病科</span><span data-id="ReplyDoctorName" >老年病科</span></p>
+                    </div>
+                    <div class="fr">
+                        <p>时间:<span data-id="ReplyTime">2018-09-01</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+
+</html>

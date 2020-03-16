@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>综合查询</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">综合查询</p>
+	        <div class="rigBtn">
+	            <a class="layui-btn">查询</a>
+	            <a class="layui-btn">清空</a>
+	            <a class="layui-btn">导出Excel</a>
+	        </div>
+	 	</div>
+		<div class="layui-row">
+			<div class="layui-col-md2" >
+			    <div class="jobs">
+			    	<span>病区</span>
+			    	<select name="" id="">
+			    		<option value="">八病区</option>
+			    		<option value="">一病区</option>
+			    	</select>
+			    </div>
+			    <div class="jobs">
+			    	主治医生：<input type="text" class="newInput">
+			    </div>
+			    <div class="jobs">
+			    	手术名称：<input type="text" class="newInput">
+			    </div>
+			</div>
+		  	<div class="layui-col-md4">
+		    	<div class="jobs">
+		    		病人姓名：<input type="text" class="newInput">
+		    		床    号：<input type="text" class="newInput">
+		    	</div>
+		    	<div class="jobs">
+		    		入院日期：<input type="text" class="newInput" id="test1">至<input type="text" class="newInput" id="test2">
+		    	</div>
+		    	<div class="jobs">入院诊断：<input type="text" class="newInput"></div>
+		  	</div>
+		  	<div class="layui-col-md3">
+		    	<div class="jobs">住    院    号：<input type="text" class="newInput"></div>
+				<div class="jobs">
+					出院日期：<input type="text" class="newInput" id="test3">至<input type="text" class="newInput" id="test4">
+				</div>
+				<div class="jobs">出院诊断：<input type="text" class="newInput"></div>
+		  	</div>
+		  	<div class="layui-col-md3">
+		    	<div class="jobs">
+		    		性别：<select name="" id=""></select>
+		    		路经病人：<select name="" id=""></select>
+		    	</div>
+		    	<div class="jobs">
+		    		年龄：<input type="text" class="newInput">至<input type="text" class="newInput">
+		    	</div>
+		  	</div>
+		</div>
+		<table id="table">   </table>
+	</div>
+</body>
+<script>
+layui.use(['laydate','table','form'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+ 	laydate.render({ 
+	  elem: '#test1',
+	});
+	laydate.render({ 
+	  elem: '#test2',
+	});
+	laydate.render({ 
+	  elem: '#test3',
+	});
+	laydate.render({ 
+	  elem: '#test4',
+	});
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '床号',align:'center'}
+	      ,{field:'username', title: '病人姓名',align:'center'}
+	      ,{field:'sex', title: '住院号',align:'center'}
+	      ,{field:'city', title: '性别',align:'center'}
+	      ,{field:'city', title: '年龄',align:'center'}
+	      ,{field:'city', title: 'CP',align:'center'}
+	      ,{field:'city', title: '入院诊断',align:'center'}
+	      ,{field:'city', title: '出院诊断',align:'center'}
+	      ,{field:'city', title: '病区',align:'center'}
+	      ,{field:'city', title: '入院时间',align:'center'}
+	      ,{field:'city', title: '出院时间',align:'center'}
+	      ,{field:'city', title: '住院天数',align:'center'}
+	      ,{field:'city', title: '病人住址',align:'center'}
+	      ,{field:'city', title: '联系电话',align:'center'}
+	      ,{field:'city', title: '主管医师',align:'center'}
+	      ,{field:'city', title: '复印状态',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

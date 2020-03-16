@@ -1,0 +1,176 @@
+
+.nav{
+	width:100%;
+	height:50px;
+	background: #0A64A4;
+}
+.layui-body{
+	margin-left: 5px;
+}
+/*表头*/
+
+.first{ margin-left:5px;}
+.userList{
+	width:10%;
+}
+.userList .listCont{
+	padding:5px 0;
+	font-size:13px;
+}
+.userList .listCont .userName{
+	width: 60%;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    padding-left: 4px;
+    margin:-5px 0 0 5px;
+}
+.userList .listCont dd{
+	color:#666;
+	margin-left:2px;
+	margin-top: 1px;
+	max-width: 61%;
+	white-space:nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+
+}
+.userList .listCont dt,.userList .listCont dd{
+	float:left;
+}
+
+
+
+/*表头结束*/
+
+/*病程记录*/
+.medrecords{
+    height:40px;
+    background:#e6e6e6;
+    position:relative;
+    padding:0 2%;
+    background: url(../../Content/images/logs.png) repeat;
+}
+.medrecords .word{
+    font-size:16px;
+    line-height: 40px;
+}
+.medrecords .rigBtn{
+    position:absolute;
+    right:15px;
+    top:0;
+}
+
+.textType{
+	font-size: 14px;
+	color:#666;
+	line-height: 40px;
+}
+.medrecords .rigBtn .coursePd{ position: relative;}
+.medrecords .rigBtn .courseList{
+	position: absolute;
+	left: 58px;
+	top: 38px;
+	z-index: 10000;
+	display: none;
+}
+.medrecords .rigBtn .courseList .uls,.otherUls{
+	border:1px solid #CCC;
+    border-bottom:none;
+	width: 237px;
+}
+.courseList .otherUls{ display: none; }
+.medrecords .rigBtn .courseList li{
+	border-bottom: 1px solid #CCC;
+    cursor: pointer;
+    height: 22px;
+    line-height: 22px;
+    font-size: 13px;
+    color: #000;
+ 	background: #fff;
+}
+.medrecords .rigBtn .courseList li:hover{
+	background: #87CEFA;
+}
+.medrecords .rigBtn .courseList li .num{
+	width: 17px;
+    display: inline-block;
+    text-align: center;
+	border-right: 1px solid #ccc;
+}
+.medrecords .rigBtn .courseList .lastLi{
+	border-bottom:none;
+	font-size: 21px;
+	text-align: right;
+	border:1px solid #CCC;
+    border-top:none;
+	cursor: pointer;
+	padding-right: 10px;
+}
+.medrecords .rigBtn .courseList .lastLi span.active{
+	color:red;
+}
+.medrecords .rigBtn .courseList .lastLi .numSec{
+	display: inline-block;
+	margin-left: 17px;
+}
+.medrecords .rigBtn .text{
+	width:67%;
+	height:30px;
+	padding-left:5px;
+	outline: none;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+}
+.courseBtn{ line-height: 40px; }
+.courseBtn .layui-btn{
+	height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+}
+.rightList{
+	width: 73%;
+}
+.firTable{
+	width:100%;
+	border:1px solid #ccc;
+	margin: 10px 0;
+	text-align:center;
+}
+.firTable tr{
+	border-bottom:1px solid #ccc; 
+
+}
+.firTable tr td{
+	border-right: 1px solid #ccc;
+	padding:5px 0;
+}
+.firTable tr td p{
+	font-size: 16px;
+	font-weight: bold;
+    line-height:30px;
+}
+.firTable tr td div{
+    line-height:25px;
+}
+
+.firTablePrint{
+	width:100%;
+	margin: 10px 0;
+	text-align:center;
+}
+.firTablePrint tr td{
+	padding:5px 0;
+}
+.firTablePrint tr td p{
+	font-size: 16px;
+	font-weight: bold;
+    line-height:30px;
+}
+.firTablePrint tr td div{
+    line-height:25px;
+}
+/*病程记录结束*/
+
+.layui-timeline-title{ font-size: 14px; }

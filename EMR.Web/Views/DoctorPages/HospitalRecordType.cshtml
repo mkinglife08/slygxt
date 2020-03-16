@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "HospitalRecordType";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/HospitalRecord.css">
+}
+<div class="HospitalRecord" style="padding-bottom:11%">
+    <div class="layui-tab layui-tab-card" style="padding-bottom:10%;">
+        <div class="layui-tab-item" style="display:block;">
+            <div class="examination">
+                <ul class="examList">
+                    <li class="exFir"><a href="javascript:;">记录类型</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var InpatientId = NewGetQueryString("InpatientId");
+    //根据病人id获取体格检查
+    EWinsBase.json("api/SystemSupport/CodeDict/GetChildByEName", {
+        data: { "EName": "RecordType" },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            console.log(data);
+            if (data.data != null) {
+                $.each(data.data, function (i, n) {
+                    $(".examList").append('<li><a href="' + EWinsBase.__curHostAddress + 'api/Doctor/HospitalRecord/AddHospitalRecord?token=' + cookie.GetEMRUserCookie("api_token", "Token") + '&InpatientId=' + InpatientId + '&RecordType=' + n.DictCode + '">' + n.DictName + '</a></li>');
+                });
+            }
+        },
+        error: function (error) {
+
+        }
+    });
+</script>

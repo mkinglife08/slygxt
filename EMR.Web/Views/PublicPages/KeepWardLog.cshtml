@@ -1,0 +1,583 @@
+﻿@{
+    ViewBag.Title = "住院病人列表";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+@section css{
+    <link href="~/Content/reset.css" rel="stylesheet">
+    <link href="~/Content/qualityControl.css" rel="stylesheet">
+}
+<style>
+    .layui-table-box {
+     padding-bottom: 0!important; 
+}
+    .layui-table-total {
+        border-top: 1px solid #e2e2e2;
+    }
+</style>
+<div class="qualityControl">
+    <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+            <li class="layui-this">入院情况</li>
+            <li>出院情况</li>
+            <li>转入情况</li>
+            <li>转出情况</li>
+            <li>统计</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="medrecord">
+                    <div class="layui-container">
+                        <div class="layui-row">
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <span>科室：</span>
+                                    <select name="DpetID1" id="DpetID1"></select>
+                                </div>
+                            </div>
+                            <div class="layui-col-xs3">
+                                <div class="grid-demo">
+                                    <span>入院时间：</span>
+                                    <input type="text" id="start1" class="timer">-<input type='text' id="stop1" class="timer">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>住院号：</span><input type="text" id="zyh1">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>姓名：</span><input type="text" id="Name1">
+                                </div>
+                            </div>
+                            <div class="rigBtn">
+                                <a class="layui-btn search" id="btQuery1">查询</a>
+                                <a class="layui-btn search" id="btDc1">导出到Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="qualityTable"  id="TableAdmission" lay-filter="TableAdmission"></table>
+            </div>
+            <div class="layui-tab-item">
+                <div class="medrecord">
+                    <div class="layui-container">
+                        <div class="layui-row">
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <span>科室：</span>
+                                    <select name="DpetID2" id="DpetID2"></select>
+                                </div>
+                            </div>
+                            <div class="layui-col-xs3">
+                                <div class="grid-demo">
+                                    <span>出院时间：</span>
+                                    <input type="text" id="start2" class="timer">-<input type='text' id="stop2" class="timer">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>住院号：</span><input type="text" id="zyh2">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>姓名：</span><input type="text" id="Name2">
+                                </div>
+                            </div>
+                            <div class="rigBtn">
+                                <a class="layui-btn search" id="btQuery2">查询</a>
+                                <a class="layui-btn" id="btDc2">导出到Excel</a>
+                                @*<a class="layui-btn">导出转科信息</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="qualityTable" id="TableLeave"></table>
+            </div>
+            <div class="layui-tab-item" >
+                <div class="medrecord">
+                    <div class="layui-container">
+                        <div class="layui-row">
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <span>科室：</span>
+                                    <select name="DpetID3" id="DpetID3"></select>
+                                </div>
+                            </div>
+                            <div class="layui-col-xs3">
+                                <div class="grid-demo">
+                                    <span>转科时间：</span>
+                                    <input type="text" id="start3" class="timer">-<input type='text' id="stop3" class="timer">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>住院号：</span><input type="text" id="zyh3">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>姓名：</span><input type="text" id="Name3">
+                                </div>
+                            </div>
+                            <div class="rigBtn">
+                                <a class="layui-btn search" id="btQuery3">查询</a>
+                                <a class="layui-btn" id="btDc3">导出到Excel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <table class="qualityTable" id="TableTransferIn"></table>
+            </div>
+            <div class="layui-tab-item">
+                <div class="medrecord">
+                    <div class="layui-container">
+                        <div class="layui-row">
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo grid-demo-bg1">
+                                    <span>转入科室：</span>
+                                    <select name="DpetID4" id="DpetID4"></select>
+                                </div>
+                            </div>
+                            <div class="layui-col-xs3">
+                                <div class="grid-demo">
+                                    <span>转出时间：</span>
+                                    <input type="text" id="start4" class="timer">-<input type='text' id="stop4" class="timer">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>住院号：</span><input type="text" id="zyh4">
+                                </div>
+                            </div>
+                            <div class="layui-col-xs2">
+                                <div class="grid-demo">
+                                    <span>姓名：</span><input type="text" id="Name4">
+                                </div>
+                            </div>
+                            <div class="rigBtn">
+                                <a class="layui-btn search" id="btQuery4">查询</a>
+                                <a class="layui-btn" id="btDc4">导出到Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="qualityTable" id="TableTransferOut"></table>
+            </div>
+            <div class="layui-tab-item">
+                <div class="medrecord">
+                    <div class="medrecord">
+                        <div class="layui-container">
+                            <div class="layui-row">
+                                <div class="layui-col-xs2">
+                                    <div class="grid-demo grid-demo-bg1">
+                                        <span>科室：</span>
+                                        <select name="DpetID5" id="DpetID5"></select>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs3">
+                                    <div class="grid-demo">
+                                        <span>统计时间：</span>
+                                        <input type="text" id="start5" class="timer">-<input type='text' id="stop5" class="timer">
+                                    </div>
+                                </div>
+                                <div class="rigBtn">
+                                    <a class="layui-btn search" id="btQuery5">查询</a>
+                                    <a class="layui-btn" id="btDc5">导出到Excel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="qualityTable" id="TableStatistics"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //科室下拉框
+    var $DpetID = $("#DpetID1,#DpetID2,#DpetID3,#DpetID4,#DpetID5");
+    CreateSelectOptionFromDeptInfo($DpetID, "0", { width: "100px!important" }, [{ id: "", text: "全部" }]);
+    $DpetID.append('<option value="" selected>全部</option>');//默认为全部
+    $DpetID.trigger('change');//重新渲染
+
+    mylimit = mylimit - 3;
+
+    layui.use(['laydate', 'table', 'element', 'form', 'layer', 'vip_table','excel'], function () {
+
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , laydate = layui.laydate
+            , vipTable = layui.vip_table
+            , element = layui.element
+            , $ = layui.jquery
+            , excel = layui.excel;
+        //搜索日期初始化
+        laydate.render({ elem: '#start1' });
+        laydate.render({ elem: '#stop1' });
+        laydate.render({ elem: '#start2' });
+        laydate.render({ elem: '#stop2' });
+        laydate.render({ elem: '#start3' });
+        laydate.render({ elem: '#stop3' });
+        laydate.render({ elem: '#start4' });
+        laydate.render({ elem: '#stop4' });
+        laydate.render({ elem: '#start5' });
+        laydate.render({ elem: '#stop5' });
+
+        //本月1日到当前日期
+        $("#start1,#start2,#start3,#start4,#start5").val(currentTime("-", new Date(new Date().getFullYear(), new Date().getMonth(), 1)).ToString("yyyy-MM-dd"));
+        $("#stop1,#stop2,#stop3,#stop4,#stop5").val(currentTime().ToString("yyyy-MM-dd"));
+
+        //入院情况表格渲染
+        var TableAdmission = table.render({
+            elem: '#TableAdmission'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , cols: [[                  //标题栏
+                { field: 'inpatientid', title: '住院号', width: '120', align: 'center' }
+                , { field: 'bednumber', title: '床位号', width: '120', align: 'center' }
+                , { field: 'healthcard', title: '健康卡号', width: '120', align: 'center' }
+                , { field: 'name', title: '入院病人姓名', width: '120', align: 'center' }
+                , { field: 'entrytime', title: '入院时间', width: '120', align: 'center', templet: "#EntryTime" }
+                , { field: 'currentdeptname', title: '现处科室', width: '150', align: 'center' }
+                , { field: 'inpatientid', title: '操作', width: '150', align: 'center', templet: "#operating" }
+
+            ]]
+            , id: 'TableAdmission'
+            //, url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetAdmissionList?token=' + EWinsBase.Token
+            , where: { DpetID: $("#DpetID1").val(), Start: $("#start1").val(), Stop: $("#stop1").val(), Zyh: $("#zyh1").val(), Name: $("#Name1").val() }//这里传参  向后台
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //入院情况查询按钮事件
+        $('#btQuery1').on('click', function () {
+            TableAdmission.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetAdmissionList?token=' + EWinsBase.Token
+                ,where: { DpetID: $("#DpetID1").val(), start: $("#start1").val(), stop: $("#stop1").val(), zyh: $("#zyh1").val(), Name: $("#Name1").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //导出入院情况数据
+        $('#btDc1').on('click', function () {
+            EWinsBase.json("api/Public/KeepWardLog/GetAdmissionList", {
+                type: "POST",
+                data: { DpetID: $("#DpetID1").val(), Start: $("#start1").val(), Stop: $("#stop1").val(), Zyh: $("#zyh1").val(), Name: $("#Name1").val(), page: 0, limit: 0 },
+                dataType: "json",
+                success: function (config, res) {
+                    // 假如返回的 res.data 是需要导出的列表数据
+                    var data = res.data;
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    data = excel.filterExportData(data, { inpatientid: 'inpatientid', bednumber: 'bednumber', healthcard: 'healthcard', name: 'name', entrytime: function (value, line, datas) { return line['entrytime'].ToString('yyyy-mm-dd'); }, currentdeptname: 'currentdeptname' });
+                    // 2. 数组头部新增表头
+                    data.unshift({ inpatientid: '住院号', bednumber: '床位号', healthcard: '健康卡号', name: '入院病人姓名', entrytime: '入院时间', currentdeptname: '现处科室' });
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: data
+                    }, '入院情况列表' + new Date().toLocaleString() + '.xlsx', 'xlsx');
+                }
+            });
+        });
+
+        //出院情况表格渲染
+        var TableLeave = table.render({
+            elem: '#TableLeave'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , cols: [[                  //标题栏
+                { field: 'inpatientid', title: '住院号', width: '120', align: 'center' }
+                , { field: 'bednumber', title: '床位号', width: '120', align: 'center' }
+                , { field: 'healthcard', title: '健康卡号', width: '120', align: 'center' }
+                , { field: 'name', title: '出院病人姓名', width: '120', align: 'center' }
+                , { field: 'entrytime', title: '住院时间', width: '120', align: 'center', templet: "#EntryTime" }
+                , { field: 'leavetime', title: '出院时间', width: '120', align: 'center', templet: "#LeaveTime" }
+                , { field: 'entrytime', title: '住院天数', width: '120', align: 'center', templet:"#TimeSum" }
+                , { field: 'conversiondept', title: '转归', width: '120', align: 'center' }
+                , { field: 'currentdeptname', title: '现处科室', width: '150', align: 'center' }
+                , { field: 'lastconversiondept', title: '转科信息', width: '150', align: 'center' }
+                , { field: 'inpatientid', title: '操作', width: '150', align: 'center', templet: "#operating" }
+
+            ]]
+            , id: 'TableLeave'
+            //, url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetLeaveList?token=' + EWinsBase.Token
+            , where: { DpetID: $("#DpetID2").val(), Start: $("#start2").val(), Stop: $("#stop2").val(), Zyh: $("#zyh2").val(), Name: $("#Name2").val() }//这里传参  向后台
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //出院情况查询按钮事件
+        $('#btQuery2').on('click', function () {
+            TableLeave.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetLeaveList?token=' + EWinsBase.Token
+                ,where: { DpetID: $("#DpetID2").val(), Start: $("#start2").val(), Stop: $("#stop2").val(), Zyh: $("#zyh2").val(), Name: $("#Name2").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //导出出院情况数据
+        $('#btDc2').on('click', function () {
+            EWinsBase.json("api/Public/KeepWardLog/GetLeaveList", {
+                type: "POST",
+                data: { DpetID: $("#DpetID2").val(), Start: $("#start2").val(), Stop: $("#stop2").val(), Zyh: $("#zyh2").val(), Name: $("#Name2").val(), page: 0, limit: 0 },
+                dataType: "json",
+                success: function (config, res) {
+                    var data = res.data;
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    data = excel.filterExportData(data, {
+                        inpatientid: 'inpatientid'
+                        , bednumber: 'bednumber'
+                        , healthcard: 'healthcard'
+                        , name: 'name'
+                        , entrytime: function (value, line, datas) { return line['entrytime'].ToString('yyyy-MM-dd'); }
+                        , leavetime: function (value, line, datas) { return line['leavetime'].ToString('yyyy-MM-dd'); }
+                        , timesum: function (value, line, datas) { return datedifference(line['entrytime'].ToString("yyyy-MM-dd"), line['leavetime'].ToString("yyyy-MM-dd")) + 1; }
+                        , conversiondept: 'conversiondept'
+                        , currentdeptname: 'currentdeptname'
+                        , lastconversiondept: 'lastconversiondept'
+                    });
+                    // 2. 数组头部新增表头
+                    data.unshift({ inpatientid: '住院号', bednumber: '床位号', healthcard: '健康卡号', name: '入院病人姓名', entrytime: '入院时间', leavetime: '出院病人', timesum: '住院天数', conversiondept: '转归', currentdeptname: '现处科室', lastconversiondept: '转科信息' });
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: data
+                    }, '出院情况列表' + new Date().toLocaleString() + '.xlsx', 'xlsx');
+                }
+            });
+
+        });
+
+        //转入情况列表渲染
+        var TableTransferIn = table.render({
+            elem: '#TableTransferIn'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , cols: [[                  //标题栏
+                { field: 'conversiontime', title: '转入日期', width: '120', align: 'center', templet: "#ConversionTime" }
+                , { field: 'currentdeptname', title: '现处科室', width: '120', align: 'center' }
+                , { field: 'olddeptname', title: '何科室转入', width: '120', align: 'center' }
+                , { field: 'healthcard', title: '病案号', width: '120', align: 'center' }
+                , { field: 'inpatientname', title: '姓名', width: '120', align: 'center' }
+                , { field: 'inpatientid', title: '操作', width: '150', align: 'center', templet: "#operating" }
+
+            ]]
+            , id: 'TableTransferIn'
+            , where: { DpetID: $("#DpetID3").val(), Start: $("#start3").val(), Stop: $("#stop3").val(), Zyh: $("#zyh3").val(), Name: $("#Name3").val() }//这里传参  向后台
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //转入情况查询按钮事件
+        $('#btQuery3').on('click', function () {
+            TableTransferIn.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetTransferInList?token=' + EWinsBase.Token
+                , where: { DpetID: $("#DpetID3").val(), Start: $("#start3").val(), Stop: $("#stop3").val(), Zyh: $("#zyh3").val(), Name: $("#Name3").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //导入转入情况数据
+        $('#btDc3').on('click', function () {
+            EWinsBase.json("api/Public/KeepWardLog/GetTransferInList", {
+                type: "POST",
+                data: { DpetID: $("#DpetID3").val(), Start: $("#start3").val(), Stop: $("#stop3").val(), Zyh: $("#zyh3").val(), Name: $("#Name3").val(), page: 0, limit: 0 },
+                dataType: "json",
+                success: function (config, res) {
+                    var data = res.data;
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    data = excel.filterExportData(data, {
+                        conversiontime: function (value, line, datas) { return line['conversiontime'].ToString('yyyy-MM-dd'); }
+                        , currentdeptname: 'currentdeptname'
+                        , olddeptname: 'olddeptname'
+                        , healthcard: 'healthcard'
+                        , inpatientname: 'inpatientname'
+                    });
+                    // 2. 数组头部新增表头
+                    data.unshift({ conversiontime: '转入日期', currentdeptname: '现处科室', olddeptname: '何科室转入', healthcard: '病案号', inpatientname: '姓名' });
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: data
+                    }, '转入情况列表' + new Date().toLocaleString() + '.xlsx', 'xlsx');
+                }
+            });
+        });
+
+        //转出情况列表渲染
+        var TableTransferOut = table.render({
+            elem: '#TableTransferOut'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , cols: [[                  //标题栏
+                { field: 'conversiontime', title: '转出日期', width: '120', align: 'center', templet: "#ConversionTime" }
+                , { field: 'olddeptname', title: '转出科室', width: '120', align: 'center' }
+                , { field: 'currentdeptname', title: '现处科室', width: '120', align: 'center' }
+                , { field: 'healthcard', title: '病案号', width: '120', align: 'center' }
+                , { field: 'inpatientname', title: '姓名', width: '120', align: 'center' }
+                , { field: 'inpatientid', title: '操作', width: '150', align: 'center', templet: "#operating" }
+
+            ]]
+            , id: 'TableTransferOut'
+            , where: { DpetID: $("#DpetID4").val(), Start: $("#start4").val(), Stop: $("#stop4").val(), Zyh: $("#zyh4").val(), Name: $("#Name4").val() }//这里传参  向后台
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //转出情况查询按钮事件
+        $('#btQuery4').on('click', function () {
+            TableTransferOut.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetTransferOutList?token=' + EWinsBase.Token
+                , where: { DpetID: $("#DpetID4").val(), Start: $("#start4").val(), Stop: $("#stop4").val(), Zyh: $("#zyh4").val(), Name: $("#Name4").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //导出转出情况数据
+        $('#btDc4').on('click', function () {
+            EWinsBase.json("api/Public/KeepWardLog/GetTransferOutList", {
+                type: "POST",
+                data: { DpetID: $("#DpetID4").val(), Start: $("#start4").val(), Stop: $("#stop4").val(), Zyh: $("#zyh4").val(), Name: $("#Name4").val(), page: 0, limit: 0 },
+                dataType: "json",
+                success: function (config, res) {
+                    var data = res.data;
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    data = excel.filterExportData(data, {
+                        conversiontime: function (value, line, datas) { return line['conversiontime'].ToString('yyyy-MM-dd'); }
+                        , olddeptname: 'olddeptname'
+                        , currentdeptname: 'currentdeptname'
+                        , healthcard: 'healthcard'
+                        , inpatientname: 'inpatientname'
+                    });
+                    // 2. 数组头部新增表头
+                    data.unshift({ conversiontime: '转出日期', olddeptname: '转出科室', currentdeptname: '现处科室', healthcard: '病案号', inpatientname: '姓名' });
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: data
+                    }, '转出情况列表' + new Date().toLocaleString() + '.xlsx', 'xlsx');
+                }
+            });
+
+        });
+
+        //统计表格渲染
+        var TableStatistics = table.render({
+            elem: '#TableStatistics'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , totalRow: true
+            , cols: [[                  //标题栏
+                { field: 'deptname', title: '科室', width: '120', align: 'center', totalRowText: '合计'}
+                , { field: 'wzs', title: '危重数', width: '120', align: 'center', sort: true, totalRow: true}
+                , { field: 'yybr', title: '原有病人', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'rybr', title: '入院病人', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'tkzr', title: '他科转入', width: '120', align: 'center', sort: true, totalRow: true}
+                , { field: 'cybr', title: '出院病人', width: '120', align: 'center', sort: true, totalRow: true}
+                , { field: 'zy', title: '治愈', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'hz', title: '好转', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'wy', title: '未愈', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'sw', title: '死亡', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'qt', title: '其他', width: '120', align: 'center', sort: true, totalRow: true }
+                , { field: 'zcbr', title: '转出', width: '120', align: 'center', sort: true, totalRow: true}
+            ]]
+            , id: 'TableAdmission'
+            , where: { DpetID: $("#DpetID5").val(), Start: $("#start5").val(), Stop: $("#stop5").val() }//这里传参  向后台
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //统计查询按钮事件
+        $('#btQuery5').on('click', function () {
+            TableStatistics.reload({
+                url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetStatisticsList?token=' + EWinsBase.Token
+                , where: { DpetID: $("#DpetID5").val(), Start: $("#start5").val(), Stop: $("#stop5").val() }//这里传参  向后台
+                , method: 'post'
+                , done: function (res, curr, count) {
+                    //合计去掉小数
+                    setTimeout(function () {
+                        for (var i = 1; i < 13; i++) {
+                            var a = $(".layui-table-total div:eq(" + i + ")").html();
+                            if (a != undefined) {
+                                a = a.substr(0, a.indexOf("."));
+                                $(".layui-table-total div:eq(" + i + ")").html(a);
+                            }
+                        }
+                    }, 100);
+                }
+            });
+        });
+        //导出转出情况数据
+        $('#btDc5').on('click', function () {
+            EWinsBase.json("api/Public/KeepWardLog/GetStatisticsList", {
+                type: "POST",
+                data: { DpetID: $("#DpetID5").val(), Start: $("#start5").val(), Stop: $("#stop5").val(), page: 0, limit: 0 },
+                dataType: "json",
+                success: function (config, res) {
+                    var data = res.data;
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    data = excel.filterExportData(data, {
+                        deptname: 'deptname', wzs: 'wzs', yybr: 'yybr', rybr: 'rybr', tkzr: 'tkzr', cybr: 'cybr', zy: 'zy', hz: 'hz', wy: 'wy', sw: 'sw', qt: 'qt', zcbr:'zcbr'});
+                    // 2. 数组头部新增表头
+                    data.unshift({ deptname: '科室', wzs: '危重数', yybr: '原有病人', rybr: '入院病人', tkzr: '他科转入', cybr: '出院病人', zy: '治愈', hz: '好转', wy: '未愈', sw: '死亡', qt: 'qt', zcbr:'转出病人'});
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: data
+                    }, '科室统计情况列表' + new Date().toLocaleString() + '.xlsx', 'xlsx');
+                }
+            });
+
+        });
+
+
+        //每行的病案查阅按钮
+        $('.qualityControl').on('click', ".btIBAQuery", function () {
+            var InpatientId = $(this).attr("data-id");
+            var Name = $(this).attr("data-name");
+            ShowWin(Name + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + InpatientId, $(window).width() + 150, $(window).height() + 90);
+        });
+
+
+
+    });
+
+</script>
+<script type="text/html" id="ConversionTime">
+    {{ d.conversiontime?d.conversiontime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="EntryTime">
+    {{ d.entrytime?d.entrytime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="LeaveTime">
+    {{ d.leavetime?d.leavetime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="operating">
+    <a class="layui-btn layui-btn-xs btIBAQuery" data-id="{{d.inpatientid}}" data-name="{{d.name}}">病案查阅</a>
+</script>
+<script type="text/html" id="TimeSum">
+    {{ datedifference(d.entrytime.ToString("yyyy-MM-dd"),d.leavetime.ToString("yyyy-MM-dd"))+1 }}
+</script>

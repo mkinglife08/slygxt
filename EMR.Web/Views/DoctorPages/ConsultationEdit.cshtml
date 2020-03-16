@@ -1,0 +1,467 @@
+﻿
+@{
+    ViewBag.Title = "ConsultationEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/HospitalRecord.css">
+}
+@*<link rel="stylesheet" href="~/Content/doctorIndex.css">*@
+<style>
+
+    .charLeft {
+        width: 16%;
+        height: 227px;
+        line-height: 39px;
+        border: 1px solid #e6e6e6;
+        border-right: none;
+    }
+
+    .charRight {
+        width: 82%;
+    }
+
+    .layui-btn {
+        width: 105px;
+    }
+
+    .header_log {
+        height: 30px;
+        background: #fff;
+        margin-bottom: 10px;
+        box-shadow: 1px 2px 9px 0px #ccc;
+        padding-top: 5px;
+        padding-left: 10px;
+    }
+
+    .logUls {
+        width: 100%;
+        overflow: hidden;
+    }
+    .logUls li {
+        float: left;
+        width: auto;
+        font-size: 13px;
+        padding: 3px;
+        margin-right: 6px;
+        font-size: 14px;
+    }
+    .ansym{ font-weight:bold;}
+   
+</style>
+<form class="layui-form" id="form1" action="">
+
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="header_log" id="divData">
+                <input type="hidden" class="layui-input" name="ConsultationId" id="ConsultationId" data-id="ConsultationId" style="display:none;">
+                <input type="hidden" class="layui-input" name="InpatientId" id="InpatientId" data-id="InpatientId" style="display:none;">
+                <input type="hidden" class="layui-input" name="ConsultationState" id="ConsultationState" data-id="ConsultationState" style="display:none;" >
+                <ul class="logUls clearfix">
+                    <li>
+                        <span>科室:</span>
+                        <span id="CurrentDeptName" @*data-id="CurrentDeptName"*@ class="ansym"></span>
+                    </li>
+                    <li>
+                        <label>病区:</label>
+                        <label id="CurrentWardName" data-id="CurrentWardName" class="ansym"></label>
+                    </li>
+                    <li>
+                        <label>床号:</label>
+                        <span id="BedNumber" data-id="BedNumber" class="ansym"></span>
+                    </li>
+                    <li>
+                        <label>
+                            病案号:
+                        </label>
+                        <span  data-id="InpatientId" class="ansym"></span>
+                    </li>
+                    <li>
+                        <label>
+                            姓名:
+                        </label>
+                        <label id="Name" data-id="Name" class="ansym"></label>
+                    </li>
+                    <li style="width:6%">
+                        <label>
+                            性别:
+                        </label>
+                        <label id="Gender" data-id="Gender" class="ansym"></label>
+                    </li>
+                    <li style="width:8%">
+                        <label>
+                            年龄:
+                        </label>
+                        <label id="Age" data-id="Age" class="ansym"></label>
+                    </li>
+
+                    <li style="width:10%">
+                        <label>
+                            住院:
+                        </label>
+                        <label id="EntryDays" data-id="EntryDays" class="ansym"></label>
+                    </li>
+
+                    <li class="layui-hide">
+                        <label>
+                            当前用户：
+                        </label>
+                        <label id="curUserName" data-id="curUserName" class="ansym"></label>
+                    </li>
+                </ul>
+
+            </div>
+            <div id="Apply">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">会诊类别</label>
+                    <div class="layui-input-inline" id="divConsultationType">
+                        <input type="radio" name="ConsultationType" value="1" title="普通" checked="checked">普通
+                        <input type="radio" name="ConsultationType" value="2" title="紧急">紧急
+                    </div>
+                    <label class="layui-form-label">会诊申请时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input searchtime" id="ApplyTime" lay-verify="required" data-id="ApplyTime" name="ApplyTime">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求会诊科室</label>
+                    <div class="layui-input-inline">
+                        <select name="ApplyDepartCode" id="ApplyDepartCode" class="deletSele" data-id="ApplyDepartCode" lay-verify="required" data-placeholder="请选择科室" style="height:38px;"></select>
+                        <input type="text" class="layui-input" id="ApplyDepartName" style="display:none;">
+                    </div>
+                    <label class="layui-form-label">请求会诊医生</label>
+                    <div class="layui-input-inline">
+                        <select name="ApplyDoctorCode" id="ApplyDoctorCode" class="deletSele" data-id="ApplyDoctorCode" lay-verify="required" data-placeholder="请选择医生" style="height:38px;"></select>
+                        <input type="text" class="layui-input" id="ApplyDoctorName" style="display:none;">
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求会诊医院</label>
+                    <div class="layui-input-inline" id="divHospitalType" style="width:400px;">
+                        <input type="radio" name="HospitalType" value="1" title="本院" checked="checked">本院
+                        <input type="radio" name="HospitalType" value="2" title="外院">外院
+                        <input type="text" id="HospitalName" style="display:none;">
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <div class="characterList clearfix">
+                        <div class="charLeft fl">
+                            <ul class="charWord">
+                                <li>病历简述</li>
+                                <li><a class="layui-btn">检验报告</a></li>
+                                <li><a class="layui-btn">检查报告</a></li>
+                                <li><a class="layui-btn" id="impDiseaseSummary">现病史导入</a></li>
+                            </ul>
+                        </div>
+                        <div class="charRight fl">
+                            <textarea class="layui-textarea" id="DiseaseSummary" name="DiseaseSummary" data-id="DiseaseSummary" style="display: none"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">会诊申请科室</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" name="RequestDepartCode" id="RequestDepartCode" data-id="RequestDepartCode" />
+                        <input type="text" name="RequestDepartName" id="RequestDepartName" data-id="RequestDepartName" disabled="disabled" class="layui-input" />
+                    </div>
+                    <label class="layui-form-label">会诊申请医生</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" name="RequesterCode" id="RequesterCode" data-id="RequesterCode" disabled="disabled" class="layui-input" />
+                        <input type="text" name="RequesterName" id="RequesterName" data-id="RequesterName" disabled="disabled" class="layui-input" />
+                    </div>
+                </div>
+               
+            </div>
+            <div id="Reply">
+                <div class="layui-form-item">
+                    <div class="characterList clearfix">
+                        <div class="charLeft fl">
+                            <ul class="charWord">
+                                <li>答复</li>
+                            </ul>
+                        </div>
+                        <div class="charRight fl">
+                            <textarea class="layui-textarea" style="height:230px;" id="ReplyContent" name="ReplyContent" data-id="ReplyContent" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">答复医生姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" name="ReplyDepartName" id="ReplyDepartName" data-id="ReplyDepartName" />
+                        <input type="hidden" name="ReplyDepartCode" id="ReplyDepartCode" data-id="ReplyDepartCode" />
+                        <input type="hidden" name="ReplyDoctorCode" id="ReplyDoctorCode" data-id="ReplyDoctorCode" />
+                        <input type="text" name="ReplyDoctorName" id="ReplyDoctorName" data-id="ReplyDoctorName" disabled="disabled" class="layui-input" />
+                    </div>
+                    <label class="layui-form-label">答复时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input searchtime" id="ReplyTime" lay-verify="required" data-id="ReplyTime" disabled="disabled" name="ReplyTime">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+<!--JS-->
+<script>
+    //初始化下拉框单选框（数据从字典获取）
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#ApplyDepartCode"), "0");
+    //组长下拉框 获取用户信息
+    var data = {};
+    data["UserType"] = 0;
+   // GetUserSelect($("#ApplyDoctorCode"));
+    CreateSelectOptionFromUser($("#ApplyDoctorCode"));
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+   
+
+    // 设置最小可选的日期
+    function minDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        lay('.searchtime').each(function () {
+            laydate.render({
+                elem: this //指定元素
+                 , type: 'datetime'
+                 , min: minDate()
+                , value: getTodayString()
+            });
+          
+        });
+        var DiseaseSummary = layedit.build('DiseaseSummary', {
+            height: 180 //设置编辑器高度
+        });//现病史
+        form.on('submit(sub)', function (data) {;
+            data.field["ApplyDoctorName"] = $('#ApplyDoctorCode').find("option:selected").text();
+            data.field["ApplyDepartName"] = $('#ApplyDepartCode').find("option:selected").text();
+            data.field["BedNum"] = $('#BedNumber').text();
+            data.field["HospitalType"] = $('#divHospitalType input:radio[name="HospitalType"]:checked').val()
+            data.field["HospitalType"] = $('#divHospitalType input:radio[name="HospitalType"]:checked').val()
+            data.field["DiseaseSummary"] = HTMLEncode(layedit.getContent(DiseaseSummary));
+            EWinsBase.json("api/Doctor/Consultation/SaveConsultationInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            //var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            //var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            //wind.refreshTable();
+                            //var index = parent.layer.getFrameIndex(window.name);
+                            //parent.layer.close(index);
+
+                            var curParentWindowDocument = parent.document;
+                            var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind;
+                            if (cur_tab_index == 1)
+                                wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+                            else
+                                wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+                            wind.tableReload;
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        });
+        $("#impDiseaseSummary").on("click", function () {
+            //根据病人id获取病历信息
+            EWinsBase.json("api/Doctor/HospitalRecord/GetInfoByInpatientId", {
+                data: { "InpatientId": $('#InpatientId').val() },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    if (data.data != null) {
+                        //如果存在该病人的入院记录
+                        //绑定富文本框的内容需要反转义
+                        layedit.setContent(DiseaseSummary, HTMLDecode(data.data["PresentHistory"]), false);
+                        form.render();
+
+                    } else {
+                        //如果不存在该病人的入院记录
+
+                    }
+                },
+                error: function (error) {
+
+                }
+            });
+        });
+        //会诊医院显示院名
+        $("#divHospitalType").on("click", ".layui-form-radio", function () {
+            var type = $('input:radio[name="HospitalType"]:checked').val();
+            if (type == "2") {
+                $('#HospitalName').val('').show();
+                $('#ApplyDoctorName').val('').show();
+                $('#ApplyDepartName').val('').show();
+                $('#ApplyDepartCode').val('').trigger('change').next().css("display", "none").next().css("display", "none");
+                $('#ApplyDoctorCode').val('').trigger('change').next().css("display", "none").next().css("display", "none");
+            } else {
+                $('#HospitalName').val('').hide();
+                $('#ApplyDoctorName').val('').hide();
+                $('#ApplyDepartName').val('').hide();
+                $('#ApplyDepartCode').val('').trigger('change').next().next().show();
+                $('#ApplyDoctorCode').val('').trigger('change').next().next().show();
+            }
+        });
+        $("#ImportTemplate").on("click", function () {
+            ShowWin('导入模板', 'page/DoctorPages/ImportTemplate?TemplateType=1&TemplateTypeName=' + escape("会诊单"), 1030, 620)
+        });
+        var ConsultationId = GetQueryString("ConsultationId");
+        var InpatientId = GetQueryString("InpatientId");
+        if (InpatientId != "") {
+            $('#InpatientId').val(InpatientId);
+        }
+        var type = GetQueryString("type");
+        if (ConsultationId != "") {
+            $('#divHospitalType').find("input:radio").attr('disabled', 'disabled');
+            $('#ConsultationId').val(ConsultationId);
+            EWinsBase.json("api/Doctor/Consultation/GetConsultationInfoById", {
+                data: { "ConsultationId": ConsultationId },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    EWinsBase.setDataModel($("#action_subm [data-id]"), data.data);
+                    $(window.frames["LAY_layedit_1"].document).find('body').append(HTMLDecode(data.data.DiseaseSummary));
+                    var htm = "";
+                    //请求会诊科室赋值
+                    htm = '<option value="' + data.data["ApplyDepartCode"] + '">' + data.data["ApplyDepartName"] + '</option>';
+                    $("#ApplyDepartCode").html(htm).val(data.data["ApplyDepartCode"]).trigger('change');
+                    //请求会诊医生赋值
+                   htm = '<option value="' + data.data["ApplyDoctorCode"] + '">' + data.data["ApplyDoctorName"] + '</option>';
+                   $("#ApplyDoctorCode").html(htm).val(data.data["ApplyDoctorCode"]).trigger('change');
+                    //赋值 医院类型 单选框
+                    $("input:radio[name='HospitalType'][value='" + data.data["HospitalType"] + "']").attr("checked", 'checked');
+                    //赋值 会诊类型 单选框
+                    $("input:radio[name='ConsultationType'][value='" + data.data["ConsultationType"] + "']").attr("checked", 'checked');
+                    if (data.data["HospitalType"] == "2") {
+                        $('#HospitalName').show();
+                    }
+                    if (data.data["ReplyTime"] == null||data.data["ReplyTime"] == "") {
+                        $('#ReplyTime').val(getTodayString());
+                    }
+                    if (type == 1) {
+                        $('#Reply').show();
+                        $('#Apply [data-id]').attr("disabled", "disabled");
+                        $('#divHospitalType').find("input:radio").attr('disabled', 'disabled');
+                        $('#divConsultationType').find("input:radio").attr('disabled', 'disabled');
+                        $("#ReplyDoctorCode").val(cookie.GetEMRUserCookie("api_token", "USERID"));
+                        $("#ReplyDoctorName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+                        $("#ReplyDepartCode").val(NewGetQueryString("BQID"));
+                        if ($('#ReplyDepartCode').val() != "") {
+                            EWinsBase.json("api/Public/DeptInfo/GetInfoById", {
+                                data: { "DeptID": $("#ReplyDepartCode").val() },
+                                type: "POST",
+                                async: false,
+                                usedCache: false,
+                                success: function (config, data) {
+                                    $("#ReplyDepartName").val(data.data.DeptName);
+
+                                },
+                                error: function (error) {
+
+                                }
+                            });
+                        }
+                        $("#LAY_layedit_1").contents().find("body[contenteditable]").prop("contenteditable", false);//禁用富文本layedit
+                        $('#ConsultationState').val('2');
+                    } else {
+                        if ($('#ConsultationState').val() == 2) {
+                            $('#Reply').show();
+                            $('#Reply [data-id]').attr("disabled", "disabled");
+
+                        } else {
+                            $('#Reply').hide();
+                        }
+                    }
+                  //  form.render();
+                },
+                error: function (error) {
+
+                }
+            });
+        } else {
+                $("#RequesterName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+                $("#RequesterCode").val(cookie.GetEMRUserCookie("api_token", "USERID"));
+                $("#RequestDepartCode").val(NewGetQueryString("BQID"));
+                if ($('#RequestDepartCode').val() != "") {
+                    EWinsBase.json("api/Public/DeptInfo/GetInfoById", {
+                        data: { "DeptID": $("#RequestDepartCode").val() },
+                        type: "POST",
+                        async: false,
+                        usedCache: false,
+                        success: function (config, data) {
+                            $("#RequestDepartName").val(data.data.DeptName);
+
+                        },
+                        error: function (error) {
+
+                        }
+                    });
+                }
+            
+        }
+        if ($('#InpatientId').val() != "") {
+            EWinsBase.json("api/Doctor/Consultation/GetInpatientInfoById", {
+                data: { "InpatientId": $('#InpatientId').val() },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                    $("#EntryDays").html(DateDiff(data.data.EntryTime.ToString("yyyy-MM-dd")) + "天");
+
+                },
+                error: function (error) {
+
+                }
+            });
+        }
+        form.render();
+        
+    })
+    $(document).ready(function () {
+        var type = GetQueryString("type");
+        if (type == 1) {
+            $('#Reply').show();
+            $('#Apply [data-id]').attr("disabled", "disabled");
+            $('#ConsultationState').val('2');
+        } else if (type == 0) {
+            $('#Reply').remove();
+        }
+        else {
+            if ($('#ConsultationState').val() == 2) {
+                $('#Reply').show();
+                $('#Reply [data-id]').attr("disabled", "disabled");
+
+            } else {
+                $('#Reply').hide();
+            }
+        }
+    });
+</script>

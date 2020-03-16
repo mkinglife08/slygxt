@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "检查总汇";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+@section css{
+    <link href="~/Content/reset.css" rel="stylesheet">
+    <link href="~/Content/qualityControl.css" rel="stylesheet">
+}
+    <form class="layui-form" id="form1">
+        <div class="qualityControl">
+            <div class="qualityHeader layui-form">
+                <div class="medrecord">
+                    <div class="summaryMed clearfix">
+                        <div class="summary fl">
+                            @*<input type="radio" name="srmtype" title="新汇总表时间" checked="checked" value="0">*@
+                            新汇总表时间
+                            <input type="text" id="start" style="width:150px;">
+                        </div>
+                        @*<div class="summary sumRight fl">
+                            <input type="radio" name="srmtype" title="已保存汇总表" value="1">已保存汇总表
+                            <input type="text" style="width:200px;" id="bg">
+                            <ul class="sumUls">
+                                <li>
+                                    <span class="num">1</span>
+                                    <span>2018-05-09 15:30</span>
+                                </li>
+                                <li>
+                                    <span class="num">2</span>
+                                    <span>2018-05-09 15:30</span>
+                                </li>
+                            </ul>
+                        </div>*@
+
+                    </div>
+                    <div class="rigBtn">
+                        <a class="layui-btn" id="btQuery">生成汇总表</a>
+                        @*<a class="layui-btn">保存</a>*@
+                    </div>
+                </div>
+
+                <div class="examination clearfix ccks">
+                    <p class="fl">抽查科室：</p>
+                    <dl class="inpList fl">
+                        <dt><input type="checkbox" id="allks" name="allks" title="全部" lay-skin="primary" lay-filter="ks"></dt>
+                        <dd id="ddks"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div id="SRMtable"></div>
+        </div>
+    </form>
+<script>
+
+
+    layui.use(['form', 'laydate', 'table'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var table = layui.table;
+        laydate.render({ elem: '#start' });
+        $("#start").val(currentTime().ToString("yyyy-MM-dd"))
+
+        //绑定表格
+        var SRMtable=table.render({ //table 表格
+            elem: '#SRMtable'
+            , cols: [[
+                { type: 'checkbox' }
+                , { field: 'inpatientid', title: '序号', align: 'center', width: '120' }
+                , { field: 'healthcard', title: '健康卡号', align: 'center', width: '120' }
+                , { field: 'deptname', title: '科室', align: 'center', width: '120' }
+                , { field: 'medicalstate', title: "在院", align: 'center', width: '120' }
+                , { field: 'receptiondoctor', title: '住院医师', align: 'center', width: '120' }
+                , { field: 'attendingdoctor', title: '主治医师', align: 'center', width: '120' }
+                , { field: 'bednumber', title: '床号', align: 'center', width: '120' }
+                , { field: 'name', title: '姓名', align: 'center', width: '120' }
+                , { field: 'wwcnum', title: '未完成项目', align: 'center', width: '350' }
+               // , { field: 'sign', title: '复核', align: 'center', width: '120' }
+                , { field: 'inpatientid', title: '查阅', align: 'center', width: '120', templet: "#operating"}
+            ]]
+        });
+        //生成汇总表
+        $('#btQuery').on('click', function () {
+            //类别0时间，1已存总汇表
+            //var type = $("[name='srmtype']:checked").val();
+            //科室集合
+            var ks = $("input:checkbox[name='ks']:checked").map(function () { return $(this).val(); }).get().join(",");
+            var start = $("#start").val();
+
+            if (ks === "") {
+                layui.layer.alert("请选择科室！", { time: false, btn: '确定' });
+            }
+            else if (start === "") {
+                layui.layer.alert("请选择新汇总表时间 ！", { time: false, btn: '确定' });
+            }else {
+                SRMtable.reload({
+                    url: EWinsBase.__curHostAddress + 'api/Public/QualityControl/GetSummaryRecoMedialList?token=' + EWinsBase.Token
+                    , where: { start: $("#start").val(), dpetidlist:ks }//这里传参  向后台
+                    , method: 'post'
+                });
+            }
+        });
+
+
+        //绑定科室
+        EWinsBase.json("api/Public/DeptInfo/GetDeptInfoByInpatient", {
+            type: "POST",
+            data: { isInpatient: 0 },
+            dataType: "json",
+            success: function (config, res) {
+                if (res != null) {
+                    var data = res.data;
+                    $("#ddks").html("");
+                    $.each(data, function (i, val) {$("#ddks").append('<input type="checkbox" name="ks" title="' + val.DeptName + '" value="' + val.DeptID + '" lay-skin="primary">');});
+                }
+                form.render();
+            }
+        });
+        //科室全选
+        form.on('checkbox(ks)', function (obj) {
+            $("#ddks input[name=ks]").each(function (index, item) {item.checked = obj.elem.checked;});
+            form.render('checkbox');
+        });
+
+
+        //每行的病案查阅按钮
+        $('.qualityControl').on('click', ".btIBAQuery", function () {
+            var InpatientId = $(this).attr("data-id");
+            var Name = $(this).attr("data-name");
+            ShowWin(Name + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + InpatientId, $(window).width() + 150, $(window).height() + 90);
+        });
+
+
+    });
+
+</script>
+<script type="text/html" id="EntryTime">
+    {{ d.entrytime?d.entrytime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="operating">
+    <a class="layui-btn layui-btn-xs btIBAQuery" data-id="{{d.inpatientid}}" data-name="{{d.name}}">病案查阅</a>
+</script>

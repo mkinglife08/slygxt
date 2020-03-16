@@ -1,0 +1,1309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D35D192A-98EA-4DD1-BDC2-7ADDD571B8EB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EMR.Web</RootNamespace>
+    <AssemblyName>EMR.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FastData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fast.Data.1.3.9\lib\net46\FastData.dll</HintPath>
+    </Reference>
+    <Reference Include="FastRedis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fast.Data.1.3.9\lib\net46\FastRedis.dll</HintPath>
+    </Reference>
+    <Reference Include="FastUntility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fast.Data.1.3.9\lib\net46\FastUntility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Base\Config.cs" />
+    <Compile Include="Controllers\Doctor\InpatientAuthorizedController.cs" />
+    <Compile Include="Controllers\Doctor\InpatientCardController.cs" />
+    <Compile Include="Controllers\Doctor\OuthospitalCardController.cs" />
+    <Compile Include="Controllers\Doctor\HospitalPhysicalRxamController.cs" />
+    <Compile Include="Controllers\Doctor\HospitalRecordController.cs" />
+    <Compile Include="Controllers\Doctor\DeathRecordController.cs" />
+    <Compile Include="Controllers\Doctor\OuthospitalRecordController.cs" />
+    <Compile Include="Controllers\Doctor\ProgressNoteController.cs" />
+    <Compile Include="Controllers\Doctor\StructuredTemplateController.cs" />
+    <Compile Include="Controllers\Doctor\FormEmrController.cs" />
+    <Compile Include="Controllers\Doctor\InpatientController.cs" />
+    <Compile Include="Controllers\Doctor\MedicalRecordHomePageController.cs" />
+    <Compile Include="Controllers\Doctor\OperationRecordController.cs" />
+    <Compile Include="Controllers\Doctor\PatientDiagnosisController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Infection\CommonHelperController.cs" />
+    <Compile Include="Controllers\Infection\DisInfectionController.cs" />
+    <Compile Include="Controllers\Infection\DrugResistQuarController.cs" />
+    <Compile Include="Controllers\Infection\EnvironmentTestController.cs" />
+    <Compile Include="Controllers\Infection\HandHygieneController.cs" />
+    <Compile Include="Controllers\Infection\InfectionExamineController.cs" />
+    <Compile Include="Controllers\Infection\InspectFeedBackController.cs" />
+    <Compile Include="Controllers\Infection\RiskInfectionController.cs" />
+    <Compile Include="Controllers\Infection\WashHandController.cs" />
+    <Compile Include="Controllers\Nurse\TemperatureChartController.cs" />
+    <Compile Include="Controllers\Nurse\TemperatureChartExtraController.cs" />
+    <Compile Include="Controllers\Page\DoctorPagesController.cs" />
+    <Compile Include="Controllers\Page\InfectionPagesController.cs" />
+    <Compile Include="Controllers\Page\NursePagesController.cs" />
+    <Compile Include="Controllers\Page\SystemSupportPagesController.cs" />
+    <Compile Include="Controllers\Doctor\ConsultationController.cs" />
+    <Compile Include="Controllers\Public\DeptInfoController.cs" />
+    <Compile Include="Controllers\Page\PublicPagesController.cs" />
+    <Compile Include="Controllers\Public\DoctorGroupController.cs" />
+    <Compile Include="Controllers\Public\FormEmrTemplateController.cs" />
+    <Compile Include="Controllers\Public\KeepWardLogController.cs" />
+    <Compile Include="Controllers\Public\QualityControlController.cs" />
+    <Compile Include="Controllers\Public\StructuredTemplateController.cs" />
+    <Compile Include="Controllers\Public\UserInfoController.cs" />
+    <Compile Include="Controllers\SystemSupport\CodeDictController.cs" />
+    <Compile Include="Controllers\SystemSupport\FunInfoController.cs" />
+    <Compile Include="Controllers\SystemSupport\OrganInfoController.cs" />
+    <Compile Include="Controllers\SystemSupport\RoleController.cs" />
+    <Compile Include="Controllers\SystemSupport\SysAppParamController.cs" />
+    <Compile Include="Controllers\SystemSupport\SysAppInfoController.cs" />
+    <Compile Include="Controllers\SystemSupport\UserController.cs" />
+    <Compile Include="DataModel\AI\AI_AREA.cs" />
+    <Compile Include="DataModel\AI\AI_DEPTINFO.cs" />
+    <Compile Include="DataModel\AI\AI_DIAGNOSIS.cs" />
+    <Compile Include="DataModel\AI\AI_DOCTORGROUP.cs" />
+    <Compile Include="DataModel\AI\AI_ETHNIC.cs" />
+    <Compile Include="DataModel\AI\AI_GROUPMEMBER.cs" />
+    <Compile Include="DataModel\AI\AI_MEDICALGROUP.cs" />
+    <Compile Include="DataModel\AI\AI_STRUCTUREDTEMPLATE.cs" />
+    <Compile Include="DataModel\AI\AI_USERDEPT.cs" />
+    <Compile Include="DataModel\AI\AI_USERMEDICALGROUP.cs" />
+    <Compile Include="DataModel\AI\AI_USERSUPERIORDOCTOR.cs" />
+    <Compile Include="DataModel\CD\CD_BASICINPATIENTINFO.cs" />
+    <Compile Include="DataModel\CD\CD_CONSULTATION.cs" />
+    <Compile Include="DataModel\CD\CD_DEATHRECORD.cs" />
+    <Compile Include="DataModel\CD\CD_FORMEMR.cs" />
+    <Compile Include="DataModel\CD\CD_FORMEMRTEMPLATE.cs" />
+    <Compile Include="DataModel\CD\CD_HOSPITALPHYSICALRXAM.cs" />
+    <Compile Include="DataModel\CD\CD_HOSPITALRECORD.cs" />
+    <Compile Include="DataModel\CD\CD_INPATIENT.cs" />
+    <Compile Include="DataModel\CD\CD_INPATIENTAUTHORIZED.cs" />
+    <Compile Include="DataModel\CD\CD_INPATIENTCARD.cs" />
+    <Compile Include="DataModel\CD\CD_MEDICALRECORD.cs" />
+    <Compile Include="DataModel\CD\CD_MEDICALRECORDCHANGES.cs" />
+    <Compile Include="DataModel\CD\CD_MEDICALRECORDHOMEPAGE.cs" />
+    <Compile Include="DataModel\CD\CD_OPERATIONRECORD.cs" />
+    <Compile Include="DataModel\CD\CD_OUTHOSPITALCARD.cs" />
+    <Compile Include="DataModel\CD\CD_OUTHOSPITALRECORD.cs" />
+    <Compile Include="DataModel\CD\CD_PATIENTDIAGNOSIS.cs" />
+    <Compile Include="DataModel\CD\CD_PROGRESSNOTE.cs" />
+    <Compile Include="DataModel\CN\CN_TEMPERATURECHART.cs" />
+    <Compile Include="DataModel\CN\CN_TEMPERATURECHARTEXTRA.cs" />
+    <Compile Include="DataModel\GI\GI_CODEDICT.cs" />
+    <Compile Include="DataModel\GI\GI_DEPTINFO.cs" />
+    <Compile Include="DataModel\GI\GI_FUNINFO.cs" />
+    <Compile Include="DataModel\GI\GI_MEDICALGROUP.cs" />
+    <Compile Include="DataModel\GI\GI_ORGANINFO.cs" />
+    <Compile Include="DataModel\GI\GI_ROLE.cs" />
+    <Compile Include="DataModel\GI\GI_ROLEMEMBER.cs" />
+    <Compile Include="DataModel\GI\GI_ROLERIGHT.cs" />
+    <Compile Include="DataModel\GI\GI_SERIALINFO.cs" />
+    <Compile Include="DataModel\GI\GI_SYSAPPINFO.cs" />
+    <Compile Include="DataModel\GI\GI_SYSAPPPARAM.cs" />
+    <Compile Include="DataModel\GI\GI_USERDEPT.cs" />
+    <Compile Include="DataModel\GI\GI_USERINFO.cs" />
+    <Compile Include="DataModel\GI\GI_USERMEDICALGROUP.cs" />
+    <Compile Include="DataModel\GI\GI_USERSUPERIORDOCTOR.cs" />
+    <Compile Include="DataModel\GI\GI_USERSYS.cs" />
+    <Compile Include="Extension\Common\BaseController.cs" />
+    <Compile Include="Extension\Common\UserTokenManager.cs" />
+    <Compile Include="Extension\Common\XmlSerializer.cs" />
+    <Compile Include="Extension\Extend.cs" />
+    <Compile Include="Extension\Models\UserToken.cs" />
+    <Compile Include="Filter\ErrorAttribute.cs" />
+    <Compile Include="Filter\PowerAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\EMR.Web.dll" />
+    <Content Include="bin\EMR.Web.pdb" />
+    <Content Include="Content\common.css" />
+    <Content Include="Content\courseRecord.css" />
+    <Content Include="Content\doctorIndex.css" />
+    <Content Include="Content\font.css" />
+    <Content Include="Content\hospitalBeds.css" />
+    <Content Include="Content\HospitalRecord.css" />
+    <Content Include="Content\iconfont\demo.css" />
+    <Content Include="Content\iconfont\demo_index.html" />
+    <Content Include="Content\iconfont\iconfont.css" />
+    <Content Include="Content\iconfont\iconfont.js" />
+    <Content Include="Content\icon\address-book-open.png" />
+    <Content Include="Content\icon\address-book.png" />
+    <Content Include="Content\icon\application-block.png" />
+    <Content Include="Content\icon\application-blog.png" />
+    <Content Include="Content\icon\application-detail.png" />
+    <Content Include="Content\icon\application-image.png" />
+    <Content Include="Content\icon\application-list.png" />
+    <Content Include="Content\icon\application-monitor.png" />
+    <Content Include="Content\icon\application-share.png" />
+    <Content Include="Content\icon\applications-stack.png" />
+    <Content Include="Content\icon\applications.png" />
+    <Content Include="Content\icon\application_side_contract.png" />
+    <Content Include="Content\icon\application_side_expand.png" />
+    <Content Include="Content\icon\archives.png" />
+    <Content Include="Content\icon\attach.png" />
+    <Content Include="Content\icon\award_star_gold_1.png" />
+    <Content Include="Content\icon\bin-metal-full.png" />
+    <Content Include="Content\icon\bin.png" />
+    <Content Include="Content\icon\block-share.png" />
+    <Content Include="Content\icon\blogs-stack.png" />
+    <Content Include="Content\icon\book-open-bookmark.png" />
+    <Content Include="Content\icon\book-open.png" />
+    <Content Include="Content\icon\book.png" />
+    <Content Include="Content\icon\bookmark.png" />
+    <Content Include="Content\icon\books-brown.png" />
+    <Content Include="Content\icon\book_open.png" />
+    <Content Include="Content\icon\box.png" />
+    <Content Include="Content\icon\brick_edit.png" />
+    <Content Include="Content\icon\cake.png" />
+    <Content Include="Content\icon\calculator-gray.png" />
+    <Content Include="Content\icon\Calculator.png" />
+    <Content Include="Content\icon\calendar--arrow.png" />
+    <Content Include="Content\icon\calendar--pencil.png" />
+    <Content Include="Content\icon\calendar-import.png" />
+    <Content Include="Content\icon\calendar-select.png" />
+    <Content Include="Content\icon\calendar_view_day.png" />
+    <Content Include="Content\icon\car-red.png" />
+    <Content Include="Content\icon\card-export.png" />
+    <Content Include="Content\icon\category.png" />
+    <Content Include="Content\icon\category_1.png" />
+    <Content Include="Content\icon\chart-up-color.png" />
+    <Content Include="Content\icon\chart.png" />
+    <Content Include="Content\icon\chart_bar.png" />
+    <Content Include="Content\icon\chart_pie.png" />
+    <Content Include="Content\icon\clock.png" />
+    <Content Include="Content\icon\cog.png" />
+    <Content Include="Content\icon\communication.png" />
+    <Content Include="Content\icon\commutator.png" />
+    <Content Include="Content\icon\computer--pencil.png" />
+    <Content Include="Content\icon\computer.png" />
+    <Content Include="Content\icon\computer_add.png" />
+    <Content Include="Content\icon\config.png" />
+    <Content Include="Content\icon\contrast-low.png" />
+    <Content Include="Content\icon\credit-card.png" />
+    <Content Include="Content\icon\credit-cards.png" />
+    <Content Include="Content\icon\dashboard.png" />
+    <Content Include="Content\icon\database-share.png" />
+    <Content Include="Content\icon\database.png" />
+    <Content Include="Content\icon\date.png" />
+    <Content Include="Content\icon\desktop-network.png" />
+    <Content Include="Content\icon\DirectionBoard.png" />
+    <Content Include="Content\icon\doc.png" />
+    <Content Include="Content\icon\document-hf-select.png" />
+    <Content Include="Content\icon\document-horizontal-text.png" />
+    <Content Include="Content\icon\document-import.png" />
+    <Content Include="Content\icon\document-library.png" />
+    <Content Include="Content\icon\document-list.png" />
+    <Content Include="Content\icon\document-task.png" />
+    <Content Include="Content\icon\document-text.png" />
+    <Content Include="Content\icon\document.png" />
+    <Content Include="Content\icon\donate.png" />
+    <Content Include="Content\icon\door-open-out.png" />
+    <Content Include="Content\icon\door.png" />
+    <Content Include="Content\icon\download.png" />
+    <Content Include="Content\icon\edit.png" />
+    <Content Include="Content\icon\email.png" />
+    <Content Include="Content\icon\envelope-label.png" />
+    <Content Include="Content\icon\equalizer.png" />
+    <Content Include="Content\icon\fingerprint.png" />
+    <Content Include="Content\icon\folder-open-image.png" />
+    <Content Include="Content\icon\folder.png" />
+    <Content Include="Content\icon\folder_heart.png" />
+    <Content Include="Content\icon\hand-share.png" />
+    <Content Include="Content\icon\heart.png" />
+    <Content Include="Content\icon\house.png" />
+    <Content Include="Content\icon\inbox-document.png" />
+    <Content Include="Content\icon\inbox-image.png" />
+    <Content Include="Content\icon\invoice.png" />
+    <Content Include="Content\icon\key.png" />
+    <Content Include="Content\icon\layout_content.png" />
+    <Content Include="Content\icon\library.png" />
+    <Content Include="Content\icon\login.png" />
+    <Content Include="Content\icon\mail-open-table.png" />
+    <Content Include="Content\icon\mail-open.png" />
+    <Content Include="Content\icon\maps-stack.png" />
+    <Content Include="Content\icon\medal-red.png" />
+    <Content Include="Content\icon\media-player-phone.png" />
+    <Content Include="Content\icon\money-coin.png" />
+    <Content Include="Content\icon\monitor-cast.png" />
+    <Content Include="Content\icon\monitor-off.png" />
+    <Content Include="Content\icon\monitor-sidebar.png" />
+    <Content Include="Content\icon\monitor-wallpaper.png" />
+    <Content Include="Content\icon\monitor-window-flow.png" />
+    <Content Include="Content\icon\monitor-window.png" />
+    <Content Include="Content\icon\my-account.png" />
+    <Content Include="Content\icon\newspapers.png" />
+    <Content Include="Content\icon\node-insert-previous.png" />
+    <Content Include="Content\icon\node-select.png" />
+    <Content Include="Content\icon\note_pad.png" />
+    <Content Include="Content\icon\old-versions.png" />
+    <Content Include="Content\icon\order.png" />
+    <Content Include="Content\icon\page_copy.png" />
+    <Content Include="Content\icon\page_edit.png" />
+    <Content Include="Content\icon\paper-bag-label.png" />
+    <Content Include="Content\icon\paper-plane--arrow.png" />
+    <Content Include="Content\icon\paper-plane--minus.png" />
+    <Content Include="Content\icon\pda.png" />
+    <Content Include="Content\icon\pencil-color.png" />
+    <Content Include="Content\icon\pencil.png" />
+    <Content Include="Content\icon\photo-album-blue.png" />
+    <Content Include="Content\icon\point-bronze.png" />
+    <Content Include="Content\icon\present-label.png" />
+    <Content Include="Content\icon\print-1.png" />
+    <Content Include="Content\icon\print.png" />
+    <Content Include="Content\icon\product.png" />
+    <Content Include="Content\icon\project.png" />
+    <Content Include="Content\icon\projection-screen-presentation.png" />
+    <Content Include="Content\icon\property-export.png" />
+    <Content Include="Content\icon\puzzle.png" />
+    <Content Include="Content\icon\rainbow.png" />
+    <Content Include="Content\icon\reports-stack.png" />
+    <Content Include="Content\icon\report_edit.png" />
+    <Content Include="Content\icon\scanner.png" />
+    <Content Include="Content\icon\script-text.png" />
+    <Content Include="Content\icon\settings.png" />
+    <Content Include="Content\icon\showreel.png" />
+    <Content Include="Content\icon\sitemap-image.png" />
+    <Content Include="Content\icon\smiley.png" />
+    <Content Include="Content\icon\sofa.png" />
+    <Content Include="Content\icon\speaker-volume-control.png" />
+    <Content Include="Content\icon\speaker-volume.png" />
+    <Content Include="Content\icon\special-offer.png" />
+    <Content Include="Content\icon\star-half.png" />
+    <Content Include="Content\icon\star.png" />
+    <Content Include="Content\icon\status_offline.png" />
+    <Content Include="Content\icon\status_online.png" />
+    <Content Include="Content\icon\sticky-notes-pin.png" />
+    <Content Include="Content\icon\store.png" />
+    <Content Include="Content\icon\subversion.png" />
+    <Content Include="Content\icon\suppliers.png" />
+    <Content Include="Content\icon\tables.png" />
+    <Content Include="Content\icon\tag.png" />
+    <Content Include="Content\icon\tags-label.png" />
+    <Content Include="Content\icon\telephone-fax.png" />
+    <Content Include="Content\icon\ui-menu-blue.png" />
+    <Content Include="Content\icon\ui-scroll-pane-table.png" />
+    <Content Include="Content\icon\user-black-female.png" />
+    <Content Include="Content\icon\user-business-boss.png" />
+    <Content Include="Content\icon\user-detective.png" />
+    <Content Include="Content\icon\user-female.png" />
+    <Content Include="Content\icon\user-gray.png" />
+    <Content Include="Content\icon\user-red.png" />
+    <Content Include="Content\icon\user-yellow.png" />
+    <Content Include="Content\icon\user.png" />
+    <Content Include="Content\icon\users.png" />
+    <Content Include="Content\icon\wallet.png" />
+    <Content Include="Content\icon\world.png" />
+    <Content Include="Content\icon\wrench-screwdriver.png" />
+    <Content Include="Content\icon\xueshi.png" />
+    <Content Include="Content\icon\zones.png" />
+    <Content Include="Content\icon\zoom.png" />
+    <Content Include="Content\icon\业务处理.gif" />
+    <Content Include="Content\icon\业务明细.gif" />
+    <Content Include="Content\icon\业务查询.gif" />
+    <Content Include="Content\icon\临床基础.gif" />
+    <Content Include="Content\icon\产地信息.gif" />
+    <Content Include="Content\icon\产地信息设置.gif" />
+    <Content Include="Content\icon\会计区间.gif" />
+    <Content Include="Content\icon\供应商家维护.gif" />
+    <Content Include="Content\icon\供应商家设置.gif" />
+    <Content Include="Content\icon\供货单位.gif" />
+    <Content Include="Content\icon\入库汇总.gif" />
+    <Content Include="Content\icon\全院库存.gif" />
+    <Content Include="Content\icon\公用代码设置.gif" />
+    <Content Include="Content\icon\公用基础.gif" />
+    <Content Include="Content\icon\出入明细.gif" />
+    <Content Include="Content\icon\出库汇总.gif" />
+    <Content Include="Content\icon\分类明细.gif" />
+    <Content Include="Content\icon\区域机构管理.gif" />
+    <Content Include="Content\icon\区域药库管理.gif" />
+    <Content Include="Content\icon\区域药房管理.gif" />
+    <Content Include="Content\icon\区域集成部署.gif" />
+    <Content Include="Content\icon\医嘱套餐设置.gif" />
+    <Content Include="Content\icon\医嘱频率设置.gif" />
+    <Content Include="Content\icon\医生分组设置.gif" />
+    <Content Include="Content\icon\医生常用药品.gif" />
+    <Content Include="Content\icon\医生接诊.gif" />
+    <Content Include="Content\icon\医生诊间.gif" />
+    <Content Include="Content\icon\医院基础.gif" />
+    <Content Include="Content\icon\单据出入方式.gif" />
+    <Content Include="Content\icon\发药方式对照.gif" />
+    <Content Include="Content\icon\取请领单.gif" />
+    <Content Include="Content\icon\基础设置.gif" />
+    <Content Include="Content\icon\失效药品.gif" />
+    <Content Include="Content\icon\尾差月报.gif" />
+    <Content Include="Content\icon\帐薄类别.gif" />
+    <Content Include="Content\icon\库存明细.gif" />
+    <Content Include="Content\icon\库房会计区间.gif" />
+    <Content Include="Content\icon\库房基本信息.gif" />
+    <Content Include="Content\icon\库房基础.gif" />
+    <Content Include="Content\icon\库房流向对照.gif" />
+    <Content Include="Content\icon\库房窗口信息.gif" />
+    <Content Include="Content\icon\应付帐款.gif" />
+    <Content Include="Content\icon\应付帐款对帐.gif" />
+    <Content Include="Content\icon\应付帐款结算.gif" />
+    <Content Include="Content\icon\成组药品设置.gif" />
+    <Content Include="Content\icon\打印单据设置.gif" />
+    <Content Include="Content\icon\打印项目设置.gif" />
+    <Content Include="Content\icon\摆放位置.gif" />
+    <Content Include="Content\icon\收入项目设置.gif" />
+    <Content Include="Content\icon\收支月报.gif" />
+    <Content Include="Content\icon\收费基础.gif" />
+    <Content Include="Content\icon\收费套餐设置.gif" />
+    <Content Include="Content\icon\收费细目授权.gif" />
+    <Content Include="Content\icon\收费细目管理.gif" />
+    <Content Include="Content\icon\收费项目下载.gif" />
+    <Content Include="Content\icon\新药信息.gif" />
+    <Content Include="Content\icon\日常业务.gif" />
+    <Content Include="Content\icon\期初数据录入.gif" />
+    <Content Include="Content\icon\期末结转.gif" />
+    <Content Include="Content\icon\权限管理.gif" />
+    <Content Include="Content\icon\疾病诊断设置.gif" />
+    <Content Include="Content\icon\病人信息查询.gif" />
+    <Content Include="Content\icon\病区发药.gif" />
+    <Content Include="Content\icon\病区床位设置.gif" />
+    <Content Include="Content\icon\积压药品.gif" />
+    <Content Include="Content\icon\窗口发药.gif" />
+    <Content Include="Content\icon\系统维护.gif" />
+    <Content Include="Content\icon\给药方式设置.gif" />
+    <Content Include="Content\icon\统计分析.gif" />
+    <Content Include="Content\icon\综合查询.gif" />
+    <Content Include="Content\icon\职工信息设置.gif" />
+    <Content Include="Content\icon\药品入库.gif" />
+    <Content Include="Content\icon\药品养护检查.gif" />
+    <Content Include="Content\icon\药品出库.gif" />
+    <Content Include="Content\icon\药品分类.gif" />
+    <Content Include="Content\icon\药品分类管理.gif" />
+    <Content Include="Content\icon\药品剂型.gif" />
+    <Content Include="Content\icon\药品剂型设置.gif" />
+    <Content Include="Content\icon\药品单位设备.gif" />
+    <Content Include="Content\icon\药品发放.gif" />
+    <Content Include="Content\icon\药品基础.gif" />
+    <Content Include="Content\icon\药品字典.gif" />
+    <Content Include="Content\icon\药品字典授权.gif" />
+    <Content Include="Content\icon\药品字典查询.gif" />
+    <Content Include="Content\icon\药品字典浏览.gif" />
+    <Content Include="Content\icon\药品常用方法.gif" />
+    <Content Include="Content\icon\药品库存.gif" />
+    <Content Include="Content\icon\药品报损.gif" />
+    <Content Include="Content\icon\药品盘存.gif" />
+    <Content Include="Content\icon\药品目录管理.gif" />
+    <Content Include="Content\icon\药品管理.gif" />
+    <Content Include="Content\icon\药品调价.gif" />
+    <Content Include="Content\icon\药品质量验收.gif" />
+    <Content Include="Content\icon\诊断日志查询.gif" />
+    <Content Include="Content\icon\诊疗日志查询.gif" />
+    <Content Include="Content\icon\诊疗项目管理.gif" />
+    <Content Include="Content\icon\调价月报.gif" />
+    <Content Include="Content\icon\账簿类别设置.gif" />
+    <Content Include="Content\icon\资金总帐.gif" />
+    <Content Include="Content\icon\进出月报.gif" />
+    <Content Include="Content\icon\部门信息设置.gif" />
+    <Content Include="Content\icon\采购计划.gif" />
+    <Content Include="Content\icon\门诊处方.gif" />
+    <Content Include="Content\icon\预检项目设置.gif" />
+    <Content Include="Content\images\aiwrap.png" />
+    <Content Include="Content\images\back.png" />
+    <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\code.png" />
+    <Content Include="Content\images\first.png" />
+    <Content Include="Content\images\layd.png" />
+    <Content Include="Content\images\login-back.jpg" />
+    <Content Include="Content\images\logo.jpg" />
+    <Content Include="Content\images\logo_index.jpg" />
+    <Content Include="Content\images\logs.png" />
+    <Content Include="Content\images\man.png" />
+    <Content Include="Content\images\password.png" />
+    <Content Include="Content\images\pic.png" />
+    <Content Include="Content\images\sec.png" />
+    <Content Include="Content\images\talck.png" />
+    <Content Include="Content\images\thir.png" />
+    <Content Include="Content\images\upload_img.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\v.png" />
+    <Content Include="Content\images\wrong.png" />
+    <Content Include="Content\images\wx.png" />
+    <Content Include="Content\images\zfb.png" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\informed.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\medrecord.css" />
+    <Content Include="Content\newOption.css" />
+    <Content Include="Content\nursedocuments.css" />
+    <Content Include="Content\patientInfor.css" />
+    <Content Include="Content\perinataPaper.css" />
+    <Content Include="Content\qualityControl.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\specializedexam.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\template.css" />
+    <Content Include="Content\tooltip.css" />
+    <Content Include="Content\uikit.css" />
+    <Content Include="Content\UserFiles\SysAppInfo\1.gif" />
+    <Content Include="Content\UserFiles\SysAppInfo\20.png" />
+    <Content Include="Content\UserFiles\SysAppInfo\3.png" />
+    <Content Include="Content\UserFiles\SysAppInfo\4.png" />
+    <Content Include="Content\UserFiles\SysAppInfo\5.png" />
+    <Content Include="Content\UserFiles\SysAppInfo\6.png" />
+    <Content Include="Content\UserFiles\User\1.png" />
+    <Content Include="Content\UserFiles\User\10.png" />
+    <Content Include="Content\UserFiles\User\13.png" />
+    <Content Include="Content\xadmin.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Map\Dept.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Map\Inpatient.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Map\Transfer.xml" />
+    <Content Include="Map\User.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\ajaxfileupload.js" />
+    <Content Include="Scripts\area.js" />
+    <Content Include="Scripts\city.js" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\echarts.min.js" />
+    <Content Include="Scripts\EWins.Base.js" />
+    <Content Include="Scripts\Extend.js" />
+    <Content Include="Scripts\hanzitocode.js" />
+    <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\EMRBase.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\layui\css\layui.css" />
+    <Content Include="Scripts\layui\css\layui.mobile.css" />
+    <Content Include="Scripts\layui\css\modules\code.css" />
+    <Content Include="Scripts\layui\css\modules\laydate\default\laydate.css" />
+    <Content Include="Scripts\layui\css\modules\layer\default\icon-ext.png" />
+    <Content Include="Scripts\layui\css\modules\layer\default\icon.png" />
+    <Content Include="Scripts\layui\css\modules\layer\default\layer.css" />
+    <Content Include="Scripts\layui\css\modules\layer\default\loading-0.gif" />
+    <Content Include="Scripts\layui\css\modules\layer\default\loading-1.gif" />
+    <Content Include="Scripts\layui\css\modules\layer\default\loading-2.gif" />
+    <Content Include="Scripts\layui\images\face\0.gif" />
+    <Content Include="Scripts\layui\images\face\1.gif" />
+    <Content Include="Scripts\layui\images\face\10.gif" />
+    <Content Include="Scripts\layui\images\face\11.gif" />
+    <Content Include="Scripts\layui\images\face\12.gif" />
+    <Content Include="Scripts\layui\images\face\13.gif" />
+    <Content Include="Scripts\layui\images\face\14.gif" />
+    <Content Include="Scripts\layui\images\face\15.gif" />
+    <Content Include="Scripts\layui\images\face\16.gif" />
+    <Content Include="Scripts\layui\images\face\17.gif" />
+    <Content Include="Scripts\layui\images\face\18.gif" />
+    <Content Include="Scripts\layui\images\face\19.gif" />
+    <Content Include="Scripts\layui\images\face\2.gif" />
+    <Content Include="Scripts\layui\images\face\20.gif" />
+    <Content Include="Scripts\layui\images\face\21.gif" />
+    <Content Include="Scripts\layui\images\face\22.gif" />
+    <Content Include="Scripts\layui\images\face\23.gif" />
+    <Content Include="Scripts\layui\images\face\24.gif" />
+    <Content Include="Scripts\layui\images\face\25.gif" />
+    <Content Include="Scripts\layui\images\face\26.gif" />
+    <Content Include="Scripts\layui\images\face\27.gif" />
+    <Content Include="Scripts\layui\images\face\28.gif" />
+    <Content Include="Scripts\layui\images\face\29.gif" />
+    <Content Include="Scripts\layui\images\face\3.gif" />
+    <Content Include="Scripts\layui\images\face\30.gif" />
+    <Content Include="Scripts\layui\images\face\31.gif" />
+    <Content Include="Scripts\layui\images\face\32.gif" />
+    <Content Include="Scripts\layui\images\face\33.gif" />
+    <Content Include="Scripts\layui\images\face\34.gif" />
+    <Content Include="Scripts\layui\images\face\35.gif" />
+    <Content Include="Scripts\layui\images\face\36.gif" />
+    <Content Include="Scripts\layui\images\face\37.gif" />
+    <Content Include="Scripts\layui\images\face\38.gif" />
+    <Content Include="Scripts\layui\images\face\39.gif" />
+    <Content Include="Scripts\layui\images\face\4.gif" />
+    <Content Include="Scripts\layui\images\face\40.gif" />
+    <Content Include="Scripts\layui\images\face\41.gif" />
+    <Content Include="Scripts\layui\images\face\42.gif" />
+    <Content Include="Scripts\layui\images\face\43.gif" />
+    <Content Include="Scripts\layui\images\face\44.gif" />
+    <Content Include="Scripts\layui\images\face\45.gif" />
+    <Content Include="Scripts\layui\images\face\46.gif" />
+    <Content Include="Scripts\layui\images\face\47.gif" />
+    <Content Include="Scripts\layui\images\face\48.gif" />
+    <Content Include="Scripts\layui\images\face\49.gif" />
+    <Content Include="Scripts\layui\images\face\5.gif" />
+    <Content Include="Scripts\layui\images\face\50.gif" />
+    <Content Include="Scripts\layui\images\face\51.gif" />
+    <Content Include="Scripts\layui\images\face\52.gif" />
+    <Content Include="Scripts\layui\images\face\53.gif" />
+    <Content Include="Scripts\layui\images\face\54.gif" />
+    <Content Include="Scripts\layui\images\face\55.gif" />
+    <Content Include="Scripts\layui\images\face\56.gif" />
+    <Content Include="Scripts\layui\images\face\57.gif" />
+    <Content Include="Scripts\layui\images\face\58.gif" />
+    <Content Include="Scripts\layui\images\face\59.gif" />
+    <Content Include="Scripts\layui\images\face\6.gif" />
+    <Content Include="Scripts\layui\images\face\60.gif" />
+    <Content Include="Scripts\layui\images\face\61.gif" />
+    <Content Include="Scripts\layui\images\face\62.gif" />
+    <Content Include="Scripts\layui\images\face\63.gif" />
+    <Content Include="Scripts\layui\images\face\64.gif" />
+    <Content Include="Scripts\layui\images\face\65.gif" />
+    <Content Include="Scripts\layui\images\face\66.gif" />
+    <Content Include="Scripts\layui\images\face\67.gif" />
+    <Content Include="Scripts\layui\images\face\68.gif" />
+    <Content Include="Scripts\layui\images\face\69.gif" />
+    <Content Include="Scripts\layui\images\face\7.gif" />
+    <Content Include="Scripts\layui\images\face\70.gif" />
+    <Content Include="Scripts\layui\images\face\71.gif" />
+    <Content Include="Scripts\layui\images\face\8.gif" />
+    <Content Include="Scripts\layui\images\face\9.gif" />
+    <Content Include="Scripts\layui\layui.all.js" />
+    <Content Include="Scripts\layui\layui.js" />
+    <Content Include="Scripts\layui\lay\modules\carousel.js" />
+    <Content Include="Scripts\layui\lay\modules\code.js" />
+    <Content Include="Scripts\layui\lay\modules\colorpicker.js" />
+    <Content Include="Scripts\layui\lay\modules\cookie.js" />
+    <Content Include="Scripts\layui\lay\modules\element.js" />
+    <Content Include="Scripts\layui\lay\modules\excel.js" />
+    <Content Include="Scripts\layui\lay\modules\flow.js" />
+    <Content Include="Scripts\layui\lay\modules\form.js" />
+    <Content Include="Scripts\layui\lay\modules\jquery.js" />
+    <Content Include="Scripts\layui\lay\modules\laydate.js" />
+    <Content Include="Scripts\layui\lay\modules\layedit.js" />
+    <Content Include="Scripts\layui\lay\modules\layer.js" />
+    <Content Include="Scripts\layui\lay\modules\laypage.js" />
+    <Content Include="Scripts\layui\lay\modules\laytpl.js" />
+    <Content Include="Scripts\layui\lay\modules\mobile.js" />
+    <Content Include="Scripts\layui\lay\modules\rate.js" />
+    <Content Include="Scripts\layui\lay\modules\slider.js" />
+    <Content Include="Scripts\layui\lay\modules\table.js" />
+    <Content Include="Scripts\layui\lay\modules\tree.js" />
+    <Content Include="Scripts\layui\lay\modules\upload.js" />
+    <Content Include="Scripts\layui\lay\modules\util.js" />
+    <Content Include="Scripts\LodopFuncs.js" />
+    <Content Include="Scripts\msgHub.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\select2tree.js" />
+    <Content Include="Scripts\tooltip.js" />
+    <Content Include="Scripts\ueditor\lang\en\en.js" />
+    <Content Include="Scripts\ueditor\lang\en\images\addimage.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\alldeletebtnhoverskin.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\alldeletebtnupskin.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\background.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\button.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\copy.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\deletedisable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\deleteenable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\imglabel.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\listbackground.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\localimage.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\music.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\rotateleftdisable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\rotateleftenable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\rotaterightdisable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\rotaterightenable.png" />
+    <Content Include="Scripts\ueditor\lang\en\images\upload.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\images\copy.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\images\imglabel.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\images\localimage.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\images\music.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\images\upload.png" />
+    <Content Include="Scripts\ueditor\lang\zh-cn\zh-cn.js" />
+    <Content Include="Scripts\ueditor\themes\default\css\ueditor.css" />
+    <Content Include="Scripts\ueditor\themes\default\dialogbase.css" />
+    <Content Include="Scripts\ueditor\themes\default\images\anchor.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\arrow.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\arrow_down.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\arrow_up.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\button-bg.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\cancelbutton.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\cursor_h.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\cursor_h.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\cursor_v.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\cursor_v.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\dialog-title-bg.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\filescan.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\highlighted.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\icons-all.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\icons.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\icons.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\lock.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\neweditor-tab-bg.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\pagebreak.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\scale.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\spacer.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\sparator_v.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\table-cell-align.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\tangram-colorpicker.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\toolbar_bg.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\unhighlighted.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\upload.png" />
+    <Content Include="Scripts\ueditor\themes\default\images\videologo.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\word.gif" />
+    <Content Include="Scripts\ueditor\themes\default\images\wordpaste.png" />
+    <Content Include="Scripts\ueditor\themes\iframe.css" />
+    <Content Include="Scripts\ueditor\third-party\codemirror\codemirror.css" />
+    <Content Include="Scripts\ueditor\third-party\codemirror\codemirror.js" />
+    <Content Include="Scripts\ueditor\third-party\snapscreen\UEditorSnapscreen.exe" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\fileprogress.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.cookies.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.proxy.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.queue.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.speed.js" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload.swf" />
+    <Content Include="Scripts\ueditor\third-party\swfupload\swfupload_fp9.swf" />
+    <Content Include="Scripts\ueditor\third-party\SyntaxHighlighter\shCore.js" />
+    <Content Include="Scripts\ueditor\third-party\SyntaxHighlighter\shCoreDefault.css" />
+    <Content Include="Scripts\ueditor\ueditor.all.min.js" />
+    <Content Include="Scripts\ueditor\ueditor.config.js" />
+    <Content Include="Scripts\ueditor\ueditor.parse.js" />
+    <Content Include="Scripts\uikit.js" />
+    <Content Include="Scripts\upload.js" />
+    <Content Include="Scripts\vip_comm2.js" />
+    <Content Include="Scripts\vip_comm.js" />
+    <Content Include="Scripts\vip_nav.js" />
+    <Content Include="Scripts\vip_tab.js" />
+    <Content Include="Scripts\vip_table.js" />
+    <Content Include="Scripts\zTree\js\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.all.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.all.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.core.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.core.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.excheck.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.excheck.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exedit.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exedit.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exhide.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exhide.min.js" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\2.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\3.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\4.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\5.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\6.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\7.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\8.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\diy\9.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\loading.gif" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Scripts\zTree\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Scripts\zTree\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Views\PublicPages\DeptInfoEdit.cshtml" />
+    <Content Include="Views\PublicPages\DeptInfoList.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\fonts\" />
+    <Folder Include="Content\UserFiles\ESign\" />
+    <Folder Include="Models\" />
+    <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Views\CommonHelper\" />
+    <Folder Include="Views\DisInfection\" />
+    <Folder Include="Views\DrugResistQuar\" />
+    <Folder Include="Views\EnvironmentTest\" />
+    <Folder Include="Views\HandHygiene\" />
+    <Folder Include="Views\HospitalRecord\" />
+    <Folder Include="Views\InspectFeedBack\" />
+    <Folder Include="Views\KeepWardLog\" />
+    <Folder Include="Views\RiskInfection\" />
+    <Folder Include="Views\StructuredTemplate\" />
+    <Folder Include="Views\TemperatureChartExtra\" />
+    <Folder Include="Views\TemperatureChart\" />
+    <Folder Include="Views\UserInfo\" />
+    <Folder Include="Views\WashHand\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_List_Layout.cshtml" />
+    <Content Include="Views\Shared\_Edit_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Common_Layout.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\SystemSupportPages\CodeDictList.cshtml" />
+    <Content Include="Views\SystemSupportPages\CodeDictEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\RoleList.cshtml" />
+    <Content Include="Views\SystemSupportPages\RoleEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\FunInfoEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\FunInfoList.cshtml" />
+    <Content Include="Views\SystemSupportPages\OrganInfoEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\OrganInfoList.cshtml" />
+    <Content Include="Views\SystemSupportPages\SysAppInfoEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\SysAppInfoList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EMR.Common\EMR.Common.csproj">
+      <Project>{dc6f8cf2-b98d-4689-9266-2e65c26a48a8}</Project>
+      <Name>EMR.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMR.Core\EMR.Core.csproj">
+      <Project>{bb4fcb6f-f437-44c7-92ab-251fade1e4a5}</Project>
+      <Name>EMR.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMR.Data\EMR.Data.csproj">
+      <Project>{df8c9e0d-5515-43a9-8765-f54501d92639}</Project>
+      <Name>EMR.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMR.Services\EMR.Services.csproj">
+      <Project>{4bb7d6bf-2425-4f71-988e-5c028e6af7ea}</Project>
+      <Name>EMR.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SystemSupportPages\UserEdit.cshtml" />
+    <Content Include="Views\SystemSupportPages\UserList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SystemSupportPages\UserRole.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SystemSupportPages\UserSysApp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SystemSupportPages\RoleRight.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SystemSupportPages\welcome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\iconfont\iconfont.eot" />
+    <Content Include="Content\iconfont\iconfont.svg" />
+    <Content Include="Content\iconfont\iconfont.ttf" />
+    <Content Include="Content\iconfont\iconfont.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\layui\font\iconfont.eot" />
+    <Content Include="Scripts\layui\font\iconfont.svg" />
+    <Content Include="Scripts\layui\font\iconfont.ttf" />
+    <Content Include="Scripts\layui\font\iconfont.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\UserInfoList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\UserInfoEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\Medrecord.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\DoctorGroupEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\DoctorGroupList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\InpatientList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\UserPassWordEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ConsultationPop.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ConsultationList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ConsultationEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\StructuredTemplateList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\StructuredTemplateEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\PatientInfor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\HospitalRecordEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\HospitalRecord.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\MedicalRecordList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\OuthospitalRecord.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\OperationRecordEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\PatientDiagnosisEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\MedrecordPrint.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ProgressNoteChina.cshtml" />
+    <Content Include="Views\DoctorPages\ProgressNoteList.cshtml" />
+    <Content Include="Views\DoctorPages\ProgressNoteWestern.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ProgressNoteFirst.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\SaveTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\ImportTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\SpecializedExam.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\HospitalRecordType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NursePages\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NursePages\TemperatureChart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PublicPages\FormEmrTemplateEdit.cshtml" />
+    <Content Include="Views\PublicPages\FormEmrTemplateList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DoctorPages\InformedConsent.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\NursePages\TemperatureChartEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\iconfont\iconfont.woff2" />
+    <Content Include="Log\Error\log_2018_12_24.log" />
+    <Content Include="Log\Error\log_2018_12_25.log" />
+    <Content Include="Log\Error\log_2018_12_26.log" />
+    <Content Include="Log\Error\log_2018_12_27.log" />
+    <Content Include="Log\Error\log_2018_12_28.log" />
+    <Content Include="Log\Error\log_2018_12_29.log" />
+    <Content Include="Log\Error\log_2019_1_14.log" />
+    <Content Include="Log\Error\log_2019_1_15.log" />
+    <Content Include="Log\Error\log_2019_1_2.log" />
+    <Content Include="Log\Error\log_2019_1_21.log" />
+    <Content Include="Log\Error\log_2019_1_25.log" />
+    <Content Include="Log\Error\log_2019_1_29.log" />
+    <Content Include="Log\Error\log_2019_1_4.log" />
+    <Content Include="Log\Error\log_2019_1_7.log" />
+    <Content Include="Log\Error\log_2019_2_12.log" />
+    <Content Include="Log\Error\log_2019_2_13.log" />
+    <Content Include="Log\Error\log_2019_2_18.log" />
+    <Content Include="Log\Error\log_2019_2_25.log" />
+    <Content Include="Log\Error\log_2019_3_1.log" />
+    <Content Include="Log\Error\log_2019_3_14.log" />
+    <Content Include="Log\Error\log_2019_3_18.log" />
+    <Content Include="Log\Error\log_2019_3_22.log" />
+    <Content Include="Log\Error\log_2019_3_25.log" />
+    <Content Include="Log\Error\log_2019_3_5.log" />
+    <Content Include="Log\Error\log_2019_4_11.log" />
+    <Content Include="Log\Error\log_2019_4_12.log" />
+    <Content Include="Log\Error\log_2019_4_15.log" />
+    <Content Include="Log\Error\log_2019_4_16.log" />
+    <Content Include="Log\Error\log_2019_4_17.log" />
+    <Content Include="Log\Error\log_2019_4_19.log" />
+    <Content Include="Log\Error\log_2019_4_22.log" />
+    <Content Include="Log\Error\log_2019_4_23.log" />
+    <Content Include="Log\Error\log_2019_4_3.log" />
+    <Content Include="Log\Error\log_2019_5_10.log" />
+    <Content Include="Log\Error\log_2019_5_23.log" />
+    <Content Include="Log\Error\log_2019_5_24.log" />
+    <Content Include="Log\Error\log_2019_5_6.log" />
+    <Content Include="Log\Error\log_2019_5_8.log" />
+    <Content Include="obj\Release\build.force" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Properties\PublishProfiles\EMRWeb.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\DoctorPages\InformedConsentHour.cshtml" />
+    <Content Include="Views\DoctorPages\DeathRecord.cshtml" />
+    <Content Include="Views\DoctorPages\ConsultationPrint.cshtml" />
+    <Content Include="Views\PublicPages\InpatientList.cshtml" />
+    <Content Include="Views\DoctorPages\AttendPhy.cshtml" />
+    <Content Include="Views\DoctorPages\DischargeCertificate.cshtml" />
+    <Content Include="Views\DoctorPages\HospitalCard.cshtml" />
+    <Content Include="Views\DoctorPages\ImporTemp.cshtml" />
+    <Content Include="Views\DoctorPages\InformedConsentView.cshtml" />
+    <Content Include="Views\DoctorPages\PatientAuthorization.cshtml" />
+    <Content Include="Views\DoctorPages\ReportCard.cshtml" />
+    <Content Include="Views\DoctorPages\SeventyHourNotice.cshtml" />
+    <Content Include="Views\DoctorPages\UrinarySystems.cshtml" />
+    <Content Include="Views\DoctorPages\WrittenDocument.cshtml" />
+    <Content Include="Views\NursePages\BloodGlucoseTestEdit.cshtml" />
+    <Content Include="Views\NursePages\BloodGlucoseTestResult.cshtml" />
+    <Content Include="Views\NursePages\CatheterSheet.cshtml" />
+    <Content Include="Views\NursePages\LaborFigure.cshtml" />
+    <Content Include="Views\NursePages\NursingAdmEdit.cshtml" />
+    <Content Include="Views\NursePages\NursingAdmView.cshtml" />
+    <Content Include="Views\NursePages\NursingRecord.cshtml" />
+    <Content Include="Views\NursePages\NursingRecordAdd.cshtml" />
+    <Content Include="Views\NursePages\PostpartumRecord.cshtml" />
+    <Content Include="Views\NursePages\PrenatalRecords.cshtml" />
+    <Content Include="Views\NursePages\WomenWithoutCert.cshtml" />
+    <Content Include="Views\PublicPages\CheckTrace.cshtml" />
+    <Content Include="Views\PublicPages\ClassificatStatistic.cshtml" />
+    <Content Include="Views\PublicPages\KeepWardLog.cshtml" />
+    <Content Include="Views\PublicPages\MedicalRecordCheck.cshtml" />
+    <Content Include="Views\PublicPages\MedrecordQuery.cshtml" />
+    <Content Include="Views\PublicPages\QualityControlInspection.cshtml" />
+    <Content Include="Views\PublicPages\StatisticalOperation.cshtml" />
+    <Content Include="Views\PublicPages\StatisticalOperationWorkload.cshtml" />
+    <Content Include="Views\PublicPages\StatisticalStatisticList.cshtml" />
+    <Content Include="Views\PublicPages\StatisticalWardStatus.cshtml" />
+    <Content Include="Views\PublicPages\StatisticalWorkload.cshtml" />
+    <Content Include="Views\PublicPages\SummaryRecoMedial.cshtml" />
+    <Content Include="Views\PublicPages\SummaryRecordOperation.cshtml" />
+    <Content Include="Views\PublicPages\SummaryRecords.cshtml" />
+    <Content Include="Views\PublicPages\SurgicalCategory.cshtml" />
+    <Content Include="Views\PublicPages\WorkloadPatients.cshtml" />
+    <Content Include="Scripts\VitalSigns.json" />
+    <Content Include="Views\DoctorPages\MedicalRecordAccessRecord.cshtml" />
+    <Content Include="Scripts\CLodop_Setup_for_Win32NT.zip" />
+    <Content Include="Views\DoctorPages\BabyRecord.cshtml" />
+    <Content Include="Views\DoctorPages\FamilyCourse.cshtml" />
+    <Content Include="Views\DoctorPages\LowPosition.cshtml" />
+    <Content Include="Views\DoctorPages\NurseryRecord.cshtml" />
+    <Content Include="Views\DoctorPages\Puerperal.cshtml" />
+    <Content Include="Views\DoctorPages\SummaryFamily.cshtml" />
+    <Content Include="Views\DoctorPages\WhenRecord.cshtml" />
+    <Content Include="SqlMap.config" />
+    <Content Include="Views\PublicPages\AnnouncementManag.cshtml" />
+    <Content Include="Views\InfectionPages\InspectFeedBackList.cshtml" />
+    <Content Include="Views\DoctorPages\NumberQuery.cshtml" />
+    <Content Include="Views\DoctorPages\MedicalRecords.cshtml" />
+    <Content Include="Views\DoctorPages\MedicalReview.cshtml" />
+    <Content Include="Views\DoctorPages\MedicalSafety.cshtml" />
+    <Content Include="Views\DoctorPages\MedicaSecurityAdd.cshtml" />
+    <Content Include="Views\DoctorPages\Inspection.cshtml" />
+    <Content Include="Views\DoctorPages\InspectionReport.cshtml" />
+    <Content Include="Views\DoctorPages\IntegratedQuery.cshtml" />
+    <Content Include="Views\DoctorPages\JobRecords.cshtml" />
+    <Content Include="Views\DoctorPages\LongOrders.cshtml" />
+    <Content Include="Views\DoctorPages\MajorPreoper.cshtml" />
+    <Content Include="Views\DoctorPages\MajorSurgery.cshtml" />
+    <Content Include="Views\DoctorPages\MedicalMaintenance.cshtml" />
+    <Content Include="Views\DoctorPages\IncurableDiseases.cshtml" />
+    <Content Include="Views\DoctorPages\IncurableDiseasesAdd.cshtml" />
+    <Content Include="Views\DoctorPages\InforConsultation.cshtml" />
+    <Content Include="Views\DoctorPages\DiscussionRecord.cshtml" />
+    <Content Include="Views\DoctorPages\DiscussionRecordAdd.cshtml" />
+    <Content Include="Views\DoctorPages\DysphagiaSale.cshtml" />
+    <Content Include="Views\DoctorPages\criticalValue.cshtml" />
+    <Content Include="Views\DoctorPages\CheckTrace.cshtml" />
+    <Content Include="Views\DoctorPages\HandoverDuty.cshtml" />
+    <Content Include="Views\DoctorPages\HandoverDutyAdd.cshtml" />
+    <Content Include="Views\DoctorPages\NursingDocuments.cshtml" />
+    <Content Include="Views\DoctorPages\Physiotherapy.cshtml" />
+    <Content Include="Views\DoctorPages\PhysiotherapySheet.cshtml" />
+    <Content Include="Views\DoctorPages\Previous.cshtml" />
+    <Content Include="Views\DoctorPages\QualityControlInspection.cshtml" />
+    <Content Include="Views\DoctorPages\QualityView.cshtml" />
+    <Content Include="Views\DoctorPages\RecordLearning.cshtml" />
+    <Content Include="Views\DoctorPages\RecordLearningAdd.cshtml" />
+    <Content Include="Views\DoctorPages\RehabilitationList.cshtml" />
+    <Content Include="Views\DoctorPages\ReportQueries.cshtml" />
+    <Content Include="Views\DoctorPages\TemporaryOrders.cshtml" />
+    <Content Include="Views\DoctorPages\test.cshtml" />
+    <Content Include="Views\InfectionPages\InspectFeedBackSourceList.cshtml" />
+    <Content Include="Views\InfectionPages\InspectFeedBackList - 复制.cshtml" />
+    <Content Include="Views\InfectionPages\WashHandList.cshtml" />
+    <Content Include="Views\InfectionPages\WashHandDetail.cshtml" />
+    <Content Include="Views\InfectionPages\DisInfectionList.cshtml" />
+    <Content Include="Views\InfectionPages\DisInfectionDetail.cshtml" />
+    <Content Include="Views\InfectionPages\RiskInfectionList.cshtml" />
+    <Content Include="Views\InfectionPages\RiskInfectionDetail.cshtml" />
+    <Content Include="Views\InfectionPages\DrugResistQuarList.cshtml" />
+    <Content Include="Views\InfectionPages\DrugResistQuarDetail.cshtml" />
+    <Content Include="Views\InfectionPages\EnvironmentTestList.cshtml" />
+    <Content Include="Views\InfectionPages\EnvironmentTestDetail.cshtml" />
+    <Content Include="Views\InfectionPages\HandHygieneList.cshtml" />
+    <Content Include="Views\InfectionPages\HandHygieneDetail.cshtml" />
+    <Content Include="Views\InfectionPages\HandHygieneAnalysis.cshtml" />
+    <Content Include="Views\InfectionPages\InfectionExamineList.cshtml" />
+    <Content Include="Views\InfectionPages\InfectionExamineDetail.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4773/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

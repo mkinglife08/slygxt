@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+	        <p class="word">病历检查汇总</p>
+	        <div class="rigBtn">
+	             <a class="layui-btn">查询</a>
+	        </div>
+	 	</div>
+	 	<div class="qualityHeader layui-form">
+	 		<div class="summaryMed clearfix">
+				<div class="summary fl">
+				    <input type="radio" name="demo" title="新汇总表时间">新汇总表时间
+				    <input type="text" id="start">
+				</div>
+				<div class="summary sumRight fl">
+					<input type="radio" name="demo" title="已保存汇总表">已保存汇总表
+					<input type="text" style="width:200px;">
+					<ul class="sumUls">
+						<li>
+							<span class="num">1</span>  
+							<span>2018-05-09 15:30</span>
+						</li>
+						<li>
+							<span class="num">2</span>
+							<span>2018-05-09 15:30</span>
+						</li>
+					</ul>
+				</div>
+	 		</div>
+			<div class="examination clearfix">
+				<p class="fl">抽查科室：</p>
+				<dl class="inpList fl">
+					<dt><input type="checkbox" name=""  title="全部" lay-skin="primary"></dt>
+					<dd>
+						<input type="checkbox" name=""  title="血液科" lay-skin="primary">
+						<input type="checkbox" name=""  title="肿瘤科" lay-skin="primary">
+						<input type="checkbox" name=""  title="神经外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="脑外重症室" lay-skin="primary">
+						<input type="checkbox" name=""  title="神经内科" lay-skin="primary">
+						<input type="checkbox" name=""  title="内分泌科" lay-skin="primary">
+						<input type="checkbox" name=""  title="心血管内科" lay-skin="primary">
+						<input type="checkbox" name=""  title="呼吸内科" lay-skin="primary">
+						<input type="checkbox" name=""  title="消化内科" lay-skin="primary">
+						<input type="checkbox" name=""  title="风湿免疫科1" lay-skin="primary">
+						<input type="checkbox" name=""  title="风湿免疫科2" lay-skin="primary">
+						<input type="checkbox" name=""  title="胸外科、肿瘤外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="肛肠外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="肝胆外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="血管外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="泌尿外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="骨科(关节)" lay-skin="primary">
+						<input type="checkbox" name=""  title="骨科(创伤)" lay-skin="primary">
+						<input type="checkbox" name=""  title="骨科(脊柱)" lay-skin="primary">
+						<input type="checkbox" name=""  title="康复医学科" lay-skin="primary">
+						<input type="checkbox" name=""  title="整形外科" lay-skin="primary">
+						<input type="checkbox" name=""  title="老年病科" lay-skin="primary">
+						<input type="checkbox" name=""  title="眼科" lay-skin="primary">
+						<input type="checkbox" name=""  title="妇产科" lay-skin="primary">
+						<input type="checkbox" name=""  title="重症医学科" lay-skin="primary">
+						<input type="checkbox" name=""  title="耳鼻喉科" lay-skin="primary">
+						<input type="checkbox" name=""  title="感染性疾病科" lay-skin="primary">
+						<input type="checkbox" name=""  title="急诊医学科" lay-skin="primary">
+						<input type="checkbox" name=""  title="康桥院区" lay-skin="primary">
+						<input type="checkbox" name=""  title="EICU" lay-skin="primary">
+						<input type="checkbox" name=""  title="全科医疗科" lay-skin="primary">
+					</dd>
+				</dl>
+			</div>
+	 	</div>
+	 	
+	</div>
+</body>
+
+<script>
+layui.use(['laydate','table','form'],function () {
+	var laydate = layui.laydate;
+	var form = layui.form;
+	var table = layui.table;
+	laydate.render({
+	  	elem:'#start',
+	  	type:'datetime'
+	});
+	
+	
+})
+
+</script>
+</html>

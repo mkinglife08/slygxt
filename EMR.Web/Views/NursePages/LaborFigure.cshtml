@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">产程图</p>
+	        <div class="rigBtn">
+	            <a class="layui-btn">保存</a>
+	            <a class="layui-btn">查看</a>
+	            <a class="layui-btn">导入产前记录</a>
+	        </div>
+	 	</div>
+	    <div class="nurContent">
+	    	<p class="figure">产程图</p>
+	    	<table class="tableList laborTable">
+				<tr>
+					<td>宫缩时间：</td>
+					<td colspan="3"><input type="text" id="contractions"></td>
+				</tr>
+				<tr>
+					<td>记录时间：</td>
+					<td><input type="text" id="recording"></td>
+					<td>胎心率：</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>先露高低：</td>
+					<td><input type="text"></td>
+					<td>宫口扩张（cm）:</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>备注：</td>
+					<td><input type="text" style="width:80%"></td>
+					<td>护士签名：</td>
+					<td><input type="text"><a class="layui-btn">签名</a></td>
+				</tr>
+	    	</table>
+	    </div>
+
+	</div>
+</body>
+
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+ 	laydate.render({ 
+	  elem: '#contractions',
+	  type: 'datetime'
+	});
+	laydate.render({ 
+	  elem: '#recording',
+	  type: 'datetime'
+	});
+	
+ });
+</script>
+</html>

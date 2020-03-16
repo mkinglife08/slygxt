@@ -1,0 +1,518 @@
+﻿
+@{
+    ViewBag.Title = "手卫生依从性及正确性现场调查表数据";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">
+                手卫生依从性及正确性现场调查表
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                </div>
+
+            </div>
+
+            <input type="hidden" id="HANDID" name="HANDID" data-id="HANDID" />
+            <input type="hidden" id="DEPTID" name="DEPTID" data-id="DEPTID" />
+            <input type="hidden" id="DEPTNAME" name="DEPTNAME" data-id="DEPTNAME" />
+
+
+
+            <table id="tb_HandHygiene" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                <tr class="tb_title">
+                    <td rowspan="2" class="col_0" style="width:2%;">序号</td>
+                    <td rowspan="2" class="col_0" style="width:14%;">日期时段</td>
+                    <td rowspan="2" class="col_1" style="width:5%;">姓名</td>
+                    <td rowspan="2" class="col_2" style="width:5%;">职业</td>
+
+                    <td colspan="4" class="col_3">接触病人前</td>
+                    <td colspan="4" class="col_4">接触病人后</td>
+                    <td colspan="4" class="col_5">接触清洁、无菌物品前</td>
+                    <td colspan="4" class="col_6">接触病人周围环境后</td>
+                    <td colspan="4" class="col_6"><span class="col_6" style="width:10%;">接触污物（摘手套）后</span></td>
+                    <td colspan="4" class="col_6">配餐前</td>
+
+                    <td rowspan="2" class="col_6" style="width:5%;">调查者</td>
+                    <td rowspan="2" class="col_6" style="width:5%;">操作</td>
+                </tr>
+                <tr class="tb_title">
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                    <td class="col_3" style="width:2.6%;">消</td>
+                    <td class="col_3" style="width:2.6%;">洗</td>
+                    <td class="col_3" style="width:2.6%;">正确</td>
+                    <td class="col_3" style="width:2.6%;">未</td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    var tb = $("#tb_HandHygiene"); 
+
+    //构建30行
+    for (var i = 0; i < 30; i++) {
+        var $tdNum = $("<td valign='center'></td>"); //创建序号
+        $tdNum.html((i+1));
+
+        var $tdSjd = $("<td style='padding:10px 0px;'></td>"); //时间段开始 
+        $tdSjd.html("<input type='text' class='layui-input' id='SJDONE" + i + "'  name='SJDONE' data-id='SJDONE' markid='_" + i + "' formType ='input' style='width:45%;display:inline;' />-<input type='text' class='layui-input' name='SJDTWO' data-id='SJDTWO' id='SJDTWO" + i + "' markid='_" + i + "'  formType ='input'  style='width:45%;display:inline;' />");
+          
+        var $tdXM = $("<td valign='center'></td>"); //姓名
+        $tdXM.html("<input type='text' class='layui-input' id='XM" + i + "' name='XM' data-id='XM' markid='_" + i + "' formType ='input'/>");
+
+        var $tdZY = $("<td valign='center'></td>"); //职业
+       // $tdZY.html("<input type='text' class='layui-input' id='ZY" + i + "' name='ZY' data-id='ZY' markid='_input" + i + "'/>");
+        $tdZY.html("<select id='ZY" + i + "' name='ZY' data-id='ZY' markid='_" + i + "'  formType ='select' class='deletSele'><option value=''></option><option value='医生'>医生</option><option value='护士'>护士</option><option value='医技'>医技</option><option value='工人'>工人</option></select>");
+         
+        var $tdA_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //接触病人前 (消 洗 正确 未)
+        $tdA_1.html("<input type=\"radio\" data-id='JCBRQ' name='JCBRQ" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\" formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdA_2 = $("<td valign='center'></td>");  
+        $tdA_2.html("<input type=\"radio\" data-id='JCBRQ' name='JCBRQ" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdA_3 = $("<td valign='center'></td>");  
+        $tdA_3.html("<input type=\"radio\" data-id='JCBRQ' name='JCBRQ" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdA_4 = $("<td valign='center'></td>");  
+        $tdA_4.html("<input type=\"radio\" data-id='JCBRQ' name='JCBRQ" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdB_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //接触病人后 (消 洗 正确 未)
+        $tdB_1.html("<input type=\"radio\" data-id='JCBRH' name='JCBRH" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdB_2 = $("<td valign='center'></td>");       
+        $tdB_2.html("<input type=\"radio\" data-id='JCBRH' name='JCBRH" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdB_3 = $("<td valign='center'></td>");       
+        $tdB_3.html("<input type=\"radio\" data-id='JCBRH' name='JCBRH" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdB_4 = $("<td valign='center'></td>");       
+        $tdB_4.html("<input type=\"radio\" data-id='JCBRH' name='JCBRH" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdC_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //接触清洁、无菌物品前 (消 洗 正确 未)
+        $tdC_1.html("<input type=\"radio\" data-id='JCWJWPQ' name='JCWJWPQ" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdC_2 = $("<td valign='center'></td>");
+        $tdC_2.html("<input type=\"radio\" data-id='JCWJWPQ' name='JCWJWPQ" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdC_3 = $("<td valign='center'></td>");
+        $tdC_3.html("<input type=\"radio\" data-id='JCWJWPQ' name='JCWJWPQ" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\" formType ='radio'  markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdC_4 = $("<td valign='center'></td>");
+        $tdC_4.html("<input type=\"radio\" data-id='JCWJWPQ' name='JCWJWPQ" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdD_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //接触病人周围环境后
+        $tdD_1.html("<input type=\"radio\" data-id='JCBRHJH' name='JCBRHJH" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdD_2 = $("<td valign='center'></td>");
+        $tdD_2.html("<input type=\"radio\" data-id='JCBRHJH' name='JCBRHJH" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdD_3 = $("<td valign='center'></td>");
+        $tdD_3.html("<input type=\"radio\" data-id='JCBRHJH' name='JCBRHJH" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdD_4 = $("<td valign='center'></td>");
+        $tdD_4.html("<input type=\"radio\" data-id='JCBRHJH' name='JCBRHJH" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdE_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //接触污物（摘手套）后
+        $tdE_1.html("<input type=\"radio\" data-id='JCWWH' name='JCWWH" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdE_2 = $("<td valign='center'></td>");
+        $tdE_2.html("<input type=\"radio\" data-id='JCWWH' name='JCWWH" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdE_3 = $("<td valign='center'></td>");
+        $tdE_3.html("<input type=\"radio\" data-id='JCWWH' name='JCWWH" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\" formType ='radio'  markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdE_4 = $("<td valign='center'></td>");
+        $tdE_4.html("<input type=\"radio\" data-id='JCWWH' name='JCWWH" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdF_1 = $("<td valign='center' style='border-left:1px solid #0A64A4;'></td>"); //配餐前
+        $tdF_1.html("<input type=\"radio\" data-id='PCQ' name='PCQ" + i +"' value=\"消\" title=\"消\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdF_2 = $("<td valign='center'></td>");
+        $tdF_2.html("<input type=\"radio\" data-id='PCQ' name='PCQ" + i +"' value=\"洗\" title=\"洗\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdF_3 = $("<td valign='center'></td>");
+        $tdF_3.html("<input type=\"radio\" data-id='PCQ' name='PCQ" + i +"' value=\"正确\" title=\"正确\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdF_4 = $("<td valign='center'></td>");
+        $tdF_4.html("<input type=\"radio\" data-id='PCQ' name='PCQ" + i +"' value=\"未\" title=\"未\" lay-filter=\"rdo\"  formType ='radio' markid='_" + i + "'><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        
+        var $tdDcz = $("<td valign='center' style='width:4%;'></td>"); //调查者
+        $tdDcz.html("<input type='text' class='layui-input' name='DCZ' data-id='DCZ' formType ='input' id='DCZ"+i+"'  markid='_" + i + "'/>");
+
+        var $tdCz = $("<td valign='center' style='width:4%;'></td>"); //创建操作
+        $tdCz.html("<button type=\"button\" class=\"layui-btn layui-btn-danger layui-btn-xs\" id='" + i + "' lay-event=\"del\"  formType ='button'  markid='_btn" + i + "'>删除</button>");
+
+        var $tr = $("<tr id=\'_tr_" + i + "\'></tr>");// 创建tr，将td放置到tr中
+        $tr.append($tdNum).append($tdSjd).append($tdXM).append($tdZY).append($tdA_1).append($tdA_2).append($tdA_3).append($tdA_4).append($tdB_1).append($tdB_2).append($tdB_3).append($tdB_4).append($tdC_1).append($tdC_2).append($tdC_3).append($tdC_4);
+        $tr.append($tdD_1).append($tdD_2).append($tdD_3).append($tdD_4).append($tdE_1).append($tdE_2).append($tdE_3).append($tdE_4).append($tdF_1).append($tdF_2).append($tdF_3).append($tdF_4).append($tdDcz).append().append($tdCz);
+         
+        tb.append($tr);
+    }
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });
+
+
+    for (i = 0; i <30; i++) {
+        HandHygieneSel_1($("#ZY"+ i), "0", {}, null);
+    }
+    
+
+
+    $("#tb_HandHygiene").find("button").each(function () {
+        $(this).click(function () {
+            var lineNum = $(this).attr("id");
+            $("#_tr_" + lineNum).remove();
+        });
+    });
+
+
+    var HANDID = GetQueryString("HANDID");
+    if (HANDID != "" && HANDID != "undefined") {
+        $("#HANDID").val(HANDID);
+        EWinsBase.json("api/Infection/HandHygiene/GetHandHygieneSourceList", {
+            data: { "HANDID": HANDID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+
+                //Item1,手卫生依从性数据  Item2，科室数据  Item3，手卫生依从性数据
+                //EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);  //感染风险评分数据集合
+             
+                var dataItem = data.data.Item1;
+                for (var i = 0; i < dataItem.length; i++) {
+                    var a = dataItem[i]; 
+                    var tr = $("#_tr_" + i);
+                    tr.find("#SJDONE" + i).val(EWinsBase.formatData(a.SJDONE, "yyyy-MM-dd hh:mm:ss"));
+                    tr.find("#SJDTWO" + i).val(EWinsBase.formatData(a.SJDTWO, "yyyy-MM-dd hh:mm:ss")); 
+                    tr.find("#XM" + i).val(a.XM); 
+                    tr.find("#ZY" + i).val(a.ZY).trigger('change');
+                    tr.find("#DCZ" + i).val(a.DCZ);
+
+                    var rdoItemArr = ['JCBRQ', 'JCBRH', 'JCWJWPQ', 'JCBRHJH', 'JCWWH', 'PCQ'];
+                    $.each(rdoItemArr, function (j, v) {
+                        tr.find("[name= '" + v + "" + i + "']").each(function () {
+                            if ($(this).val() == a[v]) {
+                                $(this).attr("checked", "checked");
+                            }
+                        });
+                    });
+
+
+                  //  $("#_tr_" + i).find("#fz" + i).val(dataItem[i].FZ);
+
+                }
+
+                //EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item3);  //感染风险评分实体
+                //绑定科室
+                if (data.data.Item2 != null) {
+                    //绑定科室初始值
+                    data.data.Item2.forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#DpetID").val($(data.data.Item2).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table','laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+          
+       // SJDONE
+        //循环加载每一个日期框
+        lay('[name*=SJD]').each(function () {
+            laydate.render({
+                elem: this,
+                type: 'datetime'
+            });
+        }); 
+
+        //$("#tb_HandHygiene tr[id*='_tr_']").find("input[type=radio]").on("click", function () {
+        //    alert($(this).attr("id"))
+        //});
+
+        //form.on('radio(rdo)', function (data) {
+        //    var lineNum = $(data.elem).attr("id").replace(/[^0-9]/ig, "");  //获取的是单选框的ID，最后的数字对应行号。例如:kn0
+        //    var lineObj = $("#_tr_" + lineNum);
+        //    var fs = 0;
+        //    lineObj.find("input[type=radio]:checked").each(function () {
+        //        fs += parseFloat($(this).val());
+        //    });
+        //    $("#fz" + lineNum).val(fs);
+        //  //  form.render();
+        //});
+
+
+
+        form.on('submit(sub)', function (data) {
+            var res = "[";
+            var tr_length = $("#tb_HandHygiene tr[class!='tb_title']").length;
+            $("#tb_HandHygiene tr[class!='tb_title']").each(function (j,tr) {
+                res += "{";  
+                var rowInputFormItem = $(this).find("*[formType='input']"); //当前行内的input表单对象集合
+                 
+                rowInputFormItem.each(function (index, formItem) {
+                    var formName = $(formItem).attr("name"); 
+                        res += "\"" + formName + "\"" + ":" + "\"" + $(formItem).val() + "\"";   
+                        res += ","; 
+                });
+
+                res += "\"" + $("#ZY" + j).attr("name") + "\"" + ":" + "\"" + $("#ZY" + j).val()+"\""+",";//职业下拉框数据
+
+                var radioNameArr = []; //用于放置radio单选的数组
+                var radioItem = $(this).find("*[formType='radio']");
+                $(radioItem).each(function () {
+                    if ($.inArray($(this).attr("data-id"), radioNameArr) < 0)
+                    {
+                        radioNameArr.push($(this).attr("data-id"));
+                    }
+                }); 
+                $(radioNameArr).each(function (i, v) {
+                    var radioCkedLenth = $(tr).find("*[name='" + v + "" + j + "']:checked").length; //获取已经选中的单选框数量
+
+                    res += "\"" + v + "\"" + ":" + "\"" + (radioCkedLenth == 0 ? "" : $(tr).find("*[name='" + v + ""+j+"']:checked").val()) + "\"";
+                    if (i != (radioNameArr.length - 1)) {
+                        res += ",";
+                    }
+                }); 
+                res += "}";
+                if (j != (tr_length - 1)) {
+                    res += ",";
+                }
+            }); 
+            res += "]"
+             
+            var mainModel = new Object();  //感染风险表
+            mainModel.HANDID = $("#HANDID").val();
+            mainModel.DEPTID = getMultiSelectVal("DpetID");
+            mainModel.DEPTNAME = getMultiSelectText("DpetID"); 
+
+            EWinsBase.json("api/Infection/HandHygiene/Save", {
+                data: {
+                    'mainModel': mainModel,
+                    'handSource': res
+                },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

@@ -1,0 +1,1166 @@
+﻿
+@{
+    ViewBag.Title = "多重耐药菌隔离措施落实情况监督详情";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group" method="post">
+    <div id="action_subm">
+        <div class="submEdit"> 
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">
+                多重耐药菌隔离措施落实情况监督表
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label cur_lable">科室</label>
+                    <div class="layui-input-inline">
+                        <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                    </div>
+
+                    <label class="layui-form-label cur_lable">评估人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="OPNAME" data-id="OPNAME" id="OPNAME" lay-maxlength="20" lay-verify="required" placeholder="请输入评估人" autocomplete="off" class="layui-input" />
+                    </div>
+
+                    <label class="layui-form-label cur_lable">评估日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="PROCTDATE" data-id="PROCTDATE" id="PROCTDATE" lay-maxlength="20" lay-verify="date" placeholder="请输入评估日期" autocomplete="off" class="layui-input" />
+                    </div>
+
+                </div>
+
+                <input type="hidden" id="DCID" name="DCID" data-id="DCID" />
+                <input type="hidden" id="DEPTID" name="DEPTID" data-id="DEPTID" />
+                <input type="hidden" id="DEPTNAME" name="DEPTNAME" data-id="DEPTNAME" />
+
+                <table id="tb_DrugDetail" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                    <tr>
+                        <td style="width:8%;text-align:center;">项目</td>
+                        <td colspan="2" style="width:22%;">督察日期</td>
+                        <td class="col_0" style="width:10%;"> </td>
+                        <td class="col_1" style="width:10%;"> </td>
+                        <td class="col_2" style="width:10%;"> </td>
+                        <td class="col_3" style="width:10%;"> </td>
+                        <td class="col_4" style="width:10%;"> </td>
+                        <td class="col_5" style="width:10%;"> </td>
+                        <td class="col_6" style="width:10%;"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="6" style="text-align:center;">病人基本信息</td>
+                        <td colspan="2">床号</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">姓名</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">病案号</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">标本来源</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">多重耐药菌名称（英文简称）</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">主管医生</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">隔离医嘱</td>
+                        <td colspan="2">有/无</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" style="text-align:center;">病人安置</td>
+                        <td colspan="2">单间隔离</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">床旁隔离</td>
+                        <td>同种病原病人同室或同区域</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td>同房间病人为低免疫或有插管</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3" style="text-align:center;">隔离标识</td>
+                        <td colspan="2">病历卡上蓝色隔离标识</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">手腕带上蓝色隔离标识</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">病人床边蓝色隔离标牌</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="7" style="text-align:center;">隔离设施/物品</td>
+                        <td rowspan="2">床旁备快速手消净</td>
+                        <td>有/无</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td>是否在效期内</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">床边黄色垃圾桶</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">织物双层黄色袋装盛</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">床旁备个人防护用品</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">个人用品专人专用定点存放</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">医疗设备专人专用</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4" style="text-align:center;">环境清洁消毒</td>
+                        <td colspan="2">病人周围环境每日消毒≥2次</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">公用设备用后消毒</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">转诊或外出检查前通知接诊科室</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">终末消毒规范、彻底</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" style="text-align:center;">特别宣教</td>
+                        <td colspan="2">对保洁工人宣教/交接</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">对病人及家属宣教</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="6" style="text-align:center;">手卫生</td>
+                        <td rowspan="2">管床人员</td>
+                        <td>手卫生执行次数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td>手卫生总时机数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">家属陪护</td>
+                        <td>手卫生执行次数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td>手卫生总时机数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">会诊人员</td>
+                        <td>手卫生执行次数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td>手卫生总时机数</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align:center;">督查人</td>
+                        <td class="col_0"> </td>
+                        <td class="col_1"> </td>
+                        <td class="col_2"> </td>
+                        <td class="col_3"> </td>
+                        <td class="col_4"> </td>
+                        <td class="col_5"> </td>
+                        <td class="col_6"> </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="lastBtn">
+                <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+                <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+            </div>
+        </div>
+</form>
+
+<script>
+
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });
+
+    //构建行 JSON 数据
+    var constructJson = {
+        "line0": [
+            { "formType": "date", "type": "text", "id": "DCRQ0", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "0_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ1", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "1_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ2", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "2_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ3", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "3_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ4", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "4_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ5", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "5_", "layVerify": "date" },
+            { "formType": "date", "type": "text", "id": "DCRQ6", "name": "DCRQ", "placeholder": "请选择日期", "autocomplete": "false", "class": "layui-input", "markid": "6_", "layVerify": "date" }
+        ],
+        "line1": [
+            { "formType": "text", "type": "text", "id": "JBXX_A0", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_A0" },
+            { "formType": "text", "type": "text", "id": "JBXX_A1", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_A1" },
+            { "formType": "text", "type": "text", "id": "JBXX_A2", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_A2" },
+            { "formType": "text", "type": "text", "id": "JBXX_A3", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_A3" },
+            { "formType": "text", "type": "text", "id": "JBXX_A4", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_A4" },
+            { "formType": "text", "type": "text", "id": "JBXX_A5", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_A5" },
+            { "formType": "text", "type": "text", "id": "JBXX_A6", "name": "JBXX_A", "lay-maxlength": 20, "placeholder": "请输入床号", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_A6" }
+        ],
+        "line2": [
+            { "formType": "text", "type": "text", "id": "JBXX_B0", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_B0" },
+            { "formType": "text", "type": "text", "id": "JBXX_B1", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_B1" },
+            { "formType": "text", "type": "text", "id": "JBXX_B2", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_B2" },
+            { "formType": "text", "type": "text", "id": "JBXX_B3", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_B3" },
+            { "formType": "text", "type": "text", "id": "JBXX_B4", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_B4" },
+            { "formType": "text", "type": "text", "id": "JBXX_B5", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_B5" },
+            { "formType": "text", "type": "text", "id": "JBXX_B6", "name": "JBXX_B", "lay-maxlength": 20, "placeholder": "请输入姓名", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_B6" }
+        ],
+        "line3": [
+            { "formType": "text", "type": "text", "id": "JBXX_C0", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_C0" },
+            { "formType": "text", "type": "text", "id": "JBXX_C1", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_C1" },
+            { "formType": "text", "type": "text", "id": "JBXX_C2", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_C2" },
+            { "formType": "text", "type": "text", "id": "JBXX_C3", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_C3" },
+            { "formType": "text", "type": "text", "id": "JBXX_C4", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_C4" },
+            { "formType": "text", "type": "text", "id": "JBXX_C5", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_C5" },
+            { "formType": "text", "type": "text", "id": "JBXX_C6", "name": "JBXX_C", "lay-maxlength": 20, "placeholder": "请输入病案号", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_C6" }
+        ],
+        "line4": [
+            { "formType": "text", "type": "text", "id": "JBXX_D0", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_D0" },
+            { "formType": "text", "type": "text", "id": "JBXX_D1", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_D1" },
+            { "formType": "text", "type": "text", "id": "JBXX_D2", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_D2" },
+            { "formType": "text", "type": "text", "id": "JBXX_D3", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_D3" },
+            { "formType": "text", "type": "text", "id": "JBXX_D4", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_D4" },
+            { "formType": "text", "type": "text", "id": "JBXX_D5", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_D5" },
+            { "formType": "text", "type": "text", "id": "JBXX_D6", "name": "JBXX_D", "lay-maxlength": 20, "placeholder": "请输入标本来源", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_D6" }
+        ],
+        "line5": [
+            { "formType": "text", "type": "text", "id": "JBXX_E0", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_E0" },
+            { "formType": "text", "type": "text", "id": "JBXX_E1", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_E1" },
+            { "formType": "text", "type": "text", "id": "JBXX_E2", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_E2" },
+            { "formType": "text", "type": "text", "id": "JBXX_E3", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_E3" },
+            { "formType": "text", "type": "text", "id": "JBXX_E4", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_E4" },
+            { "formType": "text", "type": "text", "id": "JBXX_E5", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_E5" },
+            { "formType": "text", "type": "text", "id": "JBXX_E6", "name": "JBXX_E", "lay-maxlength": 20, "placeholder": "多重耐药菌(英文简称)", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_E6" }
+        ],
+        "line6": [
+            { "formType": "text", "type": "text", "id": "JBXX_F0", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "0_JBXX_F0" },
+            { "formType": "text", "type": "text", "id": "JBXX_F1", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "1_JBXX_F1" },
+            { "formType": "text", "type": "text", "id": "JBXX_F2", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "2_JBXX_F2" },
+            { "formType": "text", "type": "text", "id": "JBXX_F3", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "3_JBXX_F3" },
+            { "formType": "text", "type": "text", "id": "JBXX_F4", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "4_JBXX_F4" },
+            { "formType": "text", "type": "text", "id": "JBXX_F5", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "5_JBXX_F5" },
+            { "formType": "text", "type": "text", "id": "JBXX_F6", "name": "JBXX_F", "lay-maxlength": 20, "placeholder": "请输入主管医生", "autocomplete": "false", "class": "layui-input", "markid": "6_JBXX_F6" }
+        ],
+        "line7": [
+            { "formType": "select", "type": "select", "id": "GLYZ0", "name": "GLYZ", "markid": "0_GLYZ0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ1", "name": "GLYZ", "markid": "1_GLYZ1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ2", "name": "GLYZ", "markid": "2_GLYZ2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ3", "name": "GLYZ", "markid": "3_GLYZ3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ4", "name": "GLYZ", "markid": "4_GLYZ4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ5", "name": "GLYZ", "markid": "5_GLYZ5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLYZ6", "name": "GLYZ", "markid": "6_GLYZ6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line8": [
+            { "formType": "select", "type": "select", "id": "BRAZ_A0", "name": "BRAZ_A", "markid": "0_BRAZ_A0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A1", "name": "BRAZ_A", "markid": "1_BRAZ_A1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A2", "name": "BRAZ_A", "markid": "2_BRAZ_A2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A3", "name": "BRAZ_A", "markid": "3_BRAZ_A3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A4", "name": "BRAZ_A", "markid": "4_BRAZ_A4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A5", "name": "BRAZ_A", "markid": "5_BRAZ_A5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_A6", "name": "BRAZ_A", "markid": "6_BRAZ_A6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line9": [
+            { "formType": "select", "type": "select", "id": "BRAZ_B0", "name": "BRAZ_B", "markid": "0_BRAZ_B0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B1", "name": "BRAZ_B", "markid": "1_BRAZ_B1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B2", "name": "BRAZ_B", "markid": "2_BRAZ_B2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B3", "name": "BRAZ_B", "markid": "3_BRAZ_B3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B4", "name": "BRAZ_B", "markid": "4_BRAZ_B4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B5", "name": "BRAZ_B", "markid": "5_BRAZ_B5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_B6", "name": "BRAZ_B", "markid": "6_BRAZ_B6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line10": [
+            { "formType": "select", "type": "select", "id": "BRAZ_C0", "name": "BRAZ_C", "markid": "0_BRAZ_C0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C1", "name": "BRAZ_C", "markid": "1_BRAZ_C1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C2", "name": "BRAZ_C", "markid": "2_BRAZ_C2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C3", "name": "BRAZ_C", "markid": "3_BRAZ_C3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C4", "name": "BRAZ_C", "markid": "4_BRAZ_C4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C5", "name": "BRAZ_C", "markid": "5_BRAZ_C5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "BRAZ_C6", "name": "BRAZ_C", "markid": "6_BRAZ_C6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line11": [
+            { "formType": "select", "type": "select", "id": "GLBS_A0", "name": "GLBS_A", "markid": "0_GLBS_A0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A1", "name": "GLBS_A", "markid": "1_GLBS_A1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A2", "name": "GLBS_A", "markid": "2_GLBS_A2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A3", "name": "GLBS_A", "markid": "3_GLBS_A3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A4", "name": "GLBS_A", "markid": "4_GLBS_A4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A5", "name": "GLBS_A", "markid": "5_GLBS_A5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_A6", "name": "GLBS_A", "markid": "6_GLBS_A6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line12": [
+            { "formType": "select", "type": "select", "id": "GLBS_B0", "name": "GLBS_B", "markid": "0_GLBS_B0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B1", "name": "GLBS_B", "markid": "1_GLBS_B1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B2", "name": "GLBS_B", "markid": "2_GLBS_B2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B3", "name": "GLBS_B", "markid": "3_GLBS_B3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B4", "name": "GLBS_B", "markid": "4_GLBS_B4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B5", "name": "GLBS_B", "markid": "5_GLBS_B5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_B6", "name": "GLBS_B", "markid": "6_GLBS_B6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line13": [
+            { "formType": "select", "type": "select", "id": "GLBS_C0", "name": "GLBS_C", "markid": "0_GLBS_C0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C1", "name": "GLBS_C", "markid": "1_GLBS_C1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C2", "name": "GLBS_C", "markid": "2_GLBS_C2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C3", "name": "GLBS_C", "markid": "3_GLBS_C3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C4", "name": "GLBS_C", "markid": "4_GLBS_C4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C5", "name": "GLBS_C", "markid": "5_GLBS_C5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLBS_C6", "name": "GLBS_C", "markid": "6_GLBS_C6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line14": [
+            { "formType": "select", "type": "select", "id": "GLCS_A0", "name": "GLCS_A", "markid": "0_GLCS_A0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A1", "name": "GLCS_A", "markid": "1_GLCS_A1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A2", "name": "GLCS_A", "markid": "2_GLCS_A2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A3", "name": "GLCS_A", "markid": "3_GLCS_A3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A4", "name": "GLCS_A", "markid": "4_GLCS_A4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A5", "name": "GLCS_A", "markid": "5_GLCS_A5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_A6", "name": "GLCS_A", "markid": "6_GLCS_A6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line15": [
+            { "formType": "select", "type": "select", "id": "GLCS_B0", "name": "GLCS_B", "markid": "0_GLCS_B0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B1", "name": "GLCS_B", "markid": "1_GLCS_B1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B2", "name": "GLCS_B", "markid": "2_GLCS_B2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B3", "name": "GLCS_B", "markid": "3_GLCS_B3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B4", "name": "GLCS_B", "markid": "4_GLCS_B4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B5", "name": "GLCS_B", "markid": "5_GLCS_B5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_B6", "name": "GLCS_B", "markid": "6_GLCS_B6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line16": [
+            { "formType": "select", "type": "select", "id": "GLCS_C0", "name": "GLCS_C", "markid": "0_GLCS_C0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C1", "name": "GLCS_C", "markid": "1_GLCS_C1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C2", "name": "GLCS_C", "markid": "2_GLCS_C2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C3", "name": "GLCS_C", "markid": "3_GLCS_C3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C4", "name": "GLCS_C", "markid": "4_GLCS_C4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C5", "name": "GLCS_C", "markid": "5_GLCS_C5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_C6", "name": "GLCS_C", "markid": "6_GLCS_C6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line17": [
+            { "formType": "select", "type": "select", "id": "GLCS_D0", "name": "GLCS_D", "markid": "0_GLCS_D0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D1", "name": "GLCS_D", "markid": "1_GLCS_D1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D2", "name": "GLCS_D", "markid": "2_GLCS_D2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D3", "name": "GLCS_D", "markid": "3_GLCS_D3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D4", "name": "GLCS_D", "markid": "4_GLCS_D4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D5", "name": "GLCS_D", "markid": "5_GLCS_D5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_D6", "name": "GLCS_D", "markid": "6_GLCS_D6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line18": [
+            { "formType": "select", "type": "select", "id": "GLCS_E0", "name": "GLCS_E", "markid": "0_GLCS_E0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E1", "name": "GLCS_E", "markid": "1_GLCS_E1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E2", "name": "GLCS_E", "markid": "2_GLCS_E2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E3", "name": "GLCS_E", "markid": "3_GLCS_E3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E4", "name": "GLCS_E", "markid": "4_GLCS_E4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E5", "name": "GLCS_E", "markid": "5_GLCS_E5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "GLCS_E6", "name": "GLCS_E", "markid": "6_GLCS_E6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line19": [
+            { "formType": "select", "type": "select", "id": "GLCS_F0", "name": "GLCS_F", "markid": "0_GLCS_F0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F1", "name": "GLCS_F", "markid": "1_GLCS_F1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F2", "name": "GLCS_F", "markid": "2_GLCS_F2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F3", "name": "GLCS_F", "markid": "3_GLCS_F3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F4", "name": "GLCS_F", "markid": "4_GLCS_F4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F5", "name": "GLCS_F", "markid": "5_GLCS_F5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "GLCS_F6", "name": "GLCS_F", "markid": "6_GLCS_F6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line20": [
+            { "formType": "select", "type": "select", "id": "GLCS_G0", "name": "GLCS_G", "markid": "0_GLCS_G0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G1", "name": "GLCS_G", "markid": "1_GLCS_G1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G2", "name": "GLCS_G", "markid": "2_GLCS_G2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G3", "name": "GLCS_G", "markid": "3_GLCS_G3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G4", "name": "GLCS_G", "markid": "4_GLCS_G4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G5", "name": "GLCS_G", "markid": "5_GLCS_G5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" },
+            { "formType": "select", "type": "select", "id": "GLCS_G6", "name": "GLCS_G", "markid": "6_GLCS_G6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }, { "text": "暂无", "value": "暂无" }], "selType": "C" }
+        ],
+        "line21": [
+            { "formType": "select", "type": "select", "id": "HJQJXD_A0", "name": "HJQJXD_A", "markid": "0_HJQJXD_A0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A1", "name": "HJQJXD_A", "markid": "1_HJQJXD_A1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A2", "name": "HJQJXD_A", "markid": "2_HJQJXD_A2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A3", "name": "HJQJXD_A", "markid": "3_HJQJXD_A3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A4", "name": "HJQJXD_A", "markid": "4_HJQJXD_A4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A5", "name": "HJQJXD_A", "markid": "5_HJQJXD_A5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_A6", "name": "HJQJXD_A", "markid": "6_HJQJXD_A6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line22": [
+            { "formType": "select", "type": "select", "id": "HJQJXD_B0", "name": "HJQJXD_B", "markid": "0_HJQJXD_B0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B1", "name": "HJQJXD_B", "markid": "1_HJQJXD_B1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B2", "name": "HJQJXD_B", "markid": "2_HJQJXD_B2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B3", "name": "HJQJXD_B", "markid": "3_HJQJXD_B3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B4", "name": "HJQJXD_B", "markid": "4_HJQJXD_B4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B5", "name": "HJQJXD_B", "markid": "5_HJQJXD_B5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_B6", "name": "HJQJXD_B", "markid": "6_HJQJXD_B6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line23": [
+            { "formType": "select", "type": "select", "id": "HJQJXD_C0", "name": "HJQJXD_C", "markid": "0_HJQJXD_C0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C1", "name": "HJQJXD_C", "markid": "1_HJQJXD_C1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C2", "name": "HJQJXD_C", "markid": "2_HJQJXD_C2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C3", "name": "HJQJXD_C", "markid": "3_HJQJXD_C3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C4", "name": "HJQJXD_C", "markid": "4_HJQJXD_C4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C5", "name": "HJQJXD_C", "markid": "5_HJQJXD_C5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_C6", "name": "HJQJXD_C", "markid": "6_HJQJXD_C6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line24": [
+            { "formType": "select", "type": "select", "id": "HJQJXD_D0", "name": "HJQJXD_D", "markid": "0_HJQJXD_D0", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D1", "name": "HJQJXD_D", "markid": "1_HJQJXD_D1", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D2", "name": "HJQJXD_D", "markid": "2_HJQJXD_D2", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D3", "name": "HJQJXD_D", "markid": "3_HJQJXD_D3", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D4", "name": "HJQJXD_D", "markid": "4_HJQJXD_D4", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D5", "name": "HJQJXD_D", "markid": "5_HJQJXD_D5", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" },
+            { "formType": "select", "type": "select", "id": "HJQJXD_D6", "name": "HJQJXD_D", "markid": "6_HJQJXD_D6", "textValue": [{ "text": "是", "value": "是" }, { "text": "否", "value": "否" }], "selType": "B" }
+        ],
+        "line25": [
+            { "formType": "select", "type": "select", "id": "TBXJ_A0", "name": "TBXJ_A", "markid": "0_TBXJ_A0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A1", "name": "TBXJ_A", "markid": "1_TBXJ_A1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A2", "name": "TBXJ_A", "markid": "2_TBXJ_A2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A3", "name": "TBXJ_A", "markid": "3_TBXJ_A3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A4", "name": "TBXJ_A", "markid": "4_TBXJ_A4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A5", "name": "TBXJ_A", "markid": "5_TBXJ_A5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_A6", "name": "TBXJ_A", "markid": "6_TBXJ_A6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line26": [
+            { "formType": "select", "type": "select", "id": "TBXJ_B0", "name": "TBXJ_B", "markid": "0_TBXJ_B0", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B1", "name": "TBXJ_B", "markid": "1_TBXJ_B1", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B2", "name": "TBXJ_B", "markid": "2_TBXJ_B2", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B3", "name": "TBXJ_B", "markid": "3_TBXJ_B3", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B4", "name": "TBXJ_B", "markid": "4_TBXJ_B4", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B5", "name": "TBXJ_B", "markid": "5_TBXJ_B5", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" },
+            { "formType": "select", "type": "select", "id": "TBXJ_B6", "name": "TBXJ_B", "markid": "6_TBXJ_B6", "textValue": [{ "text": "有", "value": "有" }, { "text": "无", "value": "无" }], "selType": "A" }
+        ],
+        "line27": [
+
+            { "formType": "text", "type": "text", "id": "SWS_A0", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_A0" },
+            { "formType": "text", "type": "text", "id": "SWS_A1", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_A1" },
+            { "formType": "text", "type": "text", "id": "SWS_A2", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_A2" },
+            { "formType": "text", "type": "text", "id": "SWS_A3", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_A3" },
+            { "formType": "text", "type": "text", "id": "SWS_A4", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_A4" },
+            { "formType": "text", "type": "text", "id": "SWS_A5", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_A5" },
+            { "formType": "text", "type": "text", "id": "SWS_A6", "name": "SWS_A", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_A6" }
+        ],
+        "line28": [
+
+            { "formType": "text", "type": "text", "id": "SWS_B0", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_B0" },
+            { "formType": "text", "type": "text", "id": "SWS_B1", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_B1" },
+            { "formType": "text", "type": "text", "id": "SWS_B2", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_B2" },
+            { "formType": "text", "type": "text", "id": "SWS_B3", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_B3" },
+            { "formType": "text", "type": "text", "id": "SWS_B4", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_B4" },
+            { "formType": "text", "type": "text", "id": "SWS_B5", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_B5" },
+            { "formType": "text", "type": "text", "id": "SWS_B6", "name": "SWS_B", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_B6" }
+        ],
+        "line29": [
+
+            { "formType": "text", "type": "text", "id": "SWS_C0", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_C0" },
+            { "formType": "text", "type": "text", "id": "SWS_C1", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_C1" },
+            { "formType": "text", "type": "text", "id": "SWS_C2", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_C2" },
+            { "formType": "text", "type": "text", "id": "SWS_C3", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_C3" },
+            { "formType": "text", "type": "text", "id": "SWS_C4", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_C4" },
+            { "formType": "text", "type": "text", "id": "SWS_C5", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_C5" },
+            { "formType": "text", "type": "text", "id": "SWS_C6", "name": "SWS_C", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_C6" }
+        ],
+        "line30": [
+
+            { "formType": "text", "type": "text", "id": "SWS_D0", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_D0" },
+            { "formType": "text", "type": "text", "id": "SWS_D1", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_D1" },
+            { "formType": "text", "type": "text", "id": "SWS_D2", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_D2" },
+            { "formType": "text", "type": "text", "id": "SWS_D3", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_D3" },
+            { "formType": "text", "type": "text", "id": "SWS_D4", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_D4" },
+            { "formType": "text", "type": "text", "id": "SWS_D5", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_D5" },
+            { "formType": "text", "type": "text", "id": "SWS_D6", "name": "SWS_D", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_D6" }
+        ],
+        "line31": [
+
+            { "formType": "text", "type": "text", "id": "SWS_E0", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_E0" },
+            { "formType": "text", "type": "text", "id": "SWS_E1", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_E1" },
+            { "formType": "text", "type": "text", "id": "SWS_E2", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_E2" },
+            { "formType": "text", "type": "text", "id": "SWS_E3", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_E3" },
+            { "formType": "text", "type": "text", "id": "SWS_E4", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_E4" },
+            { "formType": "text", "type": "text", "id": "SWS_E5", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_E5" },
+            { "formType": "text", "type": "text", "id": "SWS_E6", "name": "SWS_E", "lay-maxlength": 20, "placeholder": "请输入手卫生执行次数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_E6" }
+        ],
+        "line32": [
+
+            { "formType": "text", "type": "text", "id": "SWS_F0", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "0_SWS_F0" },
+            { "formType": "text", "type": "text", "id": "SWS_F1", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "1_SWS_F1" },
+            { "formType": "text", "type": "text", "id": "SWS_F2", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "2_SWS_F2" },
+            { "formType": "text", "type": "text", "id": "SWS_F3", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "3_SWS_F3" },
+            { "formType": "text", "type": "text", "id": "SWS_F4", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "4_SWS_F4" },
+            { "formType": "text", "type": "text", "id": "SWS_F5", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "5_SWS_F5" },
+            { "formType": "text", "type": "text", "id": "SWS_F6", "name": "SWS_F", "lay-maxlength": 20, "placeholder": "请输入手卫生总时机数", "autocomplete": "false", "class": "layui-input", "markid": "6_SWS_F6" }
+        ],
+        "line33": [
+
+            { "formType": "text", "type": "text", "id": "DCR0", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "0_DCR0" },
+            { "formType": "text", "type": "text", "id": "DCR1", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "1_DCR1" },
+            { "formType": "text", "type": "text", "id": "DCR2", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "2_DCR2" },
+            { "formType": "text", "type": "text", "id": "DCR3", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "3_DCR3" },
+            { "formType": "text", "type": "text", "id": "DCR4", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "4_DCR4" },
+            { "formType": "text", "type": "text", "id": "DCR5", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "5_DCR5" },
+            { "formType": "text", "type": "text", "id": "DCR6", "name": "DCR", "lay-maxlength": 20, "placeholder": "请输入督查人", "autocomplete": "false", "class": "layui-input", "markid": "6_DCR6" }
+        ]
+    };
+
+    $("#tb_DrugDetail tr").each(function (row) {
+        $(this).find("td[class*='col_']").each(function (col, td) {
+            //i,td的索引号（从0开始） v:td 对象
+            var jsonIndex = ("line" + row);
+            var tdCons = constructJson[jsonIndex][col];
+            // debugger
+            if (tdCons.formType == "date" || tdCons.formType == "text") {
+                $("<input>", {
+                    type: tdCons.type,
+                    id: tdCons.id,
+                    name: tdCons.name,
+                    placeholder: tdCons.placeholder,
+                    autocomplete: tdCons.autocomplete,
+                    class: tdCons.class,
+                    markid: tdCons.markid,
+                    formType: tdCons.formType
+                    // , 'lay-verify': (tdCons.formType == "date" ? tdCons.layVerify : '')
+                }).appendTo($(td));
+            } else if (tdCons.formType == "select") {
+                var select = $("<select>", {
+                    name: tdCons.name,
+                    id: tdCons.id,
+                    markid: tdCons.markid,
+                    class: "deletSele",
+                    placeholder: "请选择科室",
+                    'lay-verify': "SelectRequired",
+                    formType: tdCons.formType
+                });
+                // console.log(tdCons.textValue);
+                select.append("<option value=''></option>");
+                $.each(tdCons.textValue, function (index, item) {
+                    select.append("<option value='" + item.value + "'>" + item.text + "</option>");
+                })
+                // console.log(select.html())
+                select.appendTo($(td));
+
+            }
+        });
+    });
+
+    $.each(constructJson, function (index, item) {
+        $.each(item, function (key, value) {
+            if (value.formType == "select") {
+                DrugResistQuarSel_1($("#" + value.id), "0", {}, null, value.selType);
+            } else {
+                return;
+            }
+        })
+    });
+
+    $("#tb_DrugDetail").find("button").each(function () {
+        $(this).click(function () {
+            var lineNum = $(this).attr("id");
+            $("#_tr_" + lineNum).remove();
+        });
+    });
+
+    var DCID = GetQueryString("DCID");
+    if (DCID != "" && DCID != "undefined") {
+        $("#DCID").val(DCID);
+        EWinsBase.json("api/Infection/DrugResistQuar/GetDrugResistQuarSourceList", {
+            data: { "DCID": DCID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+
+                //EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);  //多重耐药菌隔离措施数据集合
+
+                var dataItem = data.data.Item1;
+                for (var i = 0; i < dataItem.length; i++) {
+                    var a = dataItem[i];
+                    var markid = i + "_";
+                    $("#tb_DrugDetail").find("*[markid*= '" + markid + "']").each(function (i, v) {
+                        //$.ParseDate(curdata)
+                        var dataName = $(v).attr("name");
+                        var formType = $(v).attr("formType");
+                        if (formType != "select") {
+                            $(v).val((dataName == "DCRQ" ? $.ParseDate(a[dataName]) : a[dataName]));
+                        } else {
+                            $(v).val(a[dataName]).trigger('change');
+                        }
+                    });
+                }
+
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item3);  //多重耐药菌隔离措施实体
+                //绑定科室
+                if (data.data.Item2 != null) {
+                    //绑定科室初始值
+                    data.data.Item2.forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#DpetID").val($(data.data.Item2).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+    //如果选择了日期，那么该列下的文本元素会被设置上非空验证，如果把日期数据清空了，那么该列内的数据都会制空
+    function addRemoveVerify(dateValue, prefix) {
+        if (dateValue != "") {
+            $("#tb_DrugDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").attr("lay-verify", "required");
+            });
+        } else {
+
+            $("#tb_DrugDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").removeAttr("lay-verify");
+                var formItem = $(this).find("input[markid*= '" + prefix + "']");
+                if (formItem.attr("formType") != "select") {
+                    formItem.val("")
+                } else {
+                    formItem.val("").trigger('change');
+                }
+            });
+        }
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#PROCTDATE',
+            type: 'date'
+        });
+
+        laydate.render({
+            elem: '#DCRQ0',
+            type: 'date',
+            done: function (value, date, endDate) {
+                //value得到日期生成的值，如：2017-08-18  date:得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                //endDate得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                addRemoveVerify(value, "0_");
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ1', type: 'date',
+            done: function (value, date, endDate) { 
+                    addRemoveVerify(value, "1_"); 
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ2', type: 'date',
+            done: function (value, date, endDate) {
+                addRemoveVerify(value, "2_");
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ3',
+            type: 'date',
+            done: function (value, date, endDate) {
+                addRemoveVerify(value, "3_");
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ4',
+            type: 'date',
+            done: function (value, date, endDate) {
+                addRemoveVerify(value, "4_");
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ5', type: 'date',
+            done: function (value, date, endDate) {
+                addRemoveVerify(value, "5_");
+            }
+        });
+        laydate.render({
+            elem: '#DCRQ6',
+            type: 'date',
+            done: function (value, date, endDate) {
+                addRemoveVerify(value, "6_");
+            }
+        });
+
+        //var totalScore = 100;
+        //$('input[type="radio"]').on("blur", function () {
+        //    var minuend = 0;
+        //    $('input[id*="BASIS"]').each(function () {
+        //        minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+        //    });
+        //    var score = (parseFloat(totalScore) - parseFloat(minuend));
+        //    $("#SUMSCORE").val(score);
+        //    $("#WIRTESCORE").val(score);
+        //});
+
+
+        form.on('radio(rdo)', function (data) {
+            var lineNum = $(data.elem).attr("id").replace(/[^0-9]/ig, "");  //获取的是单选框的ID，最后的数字对应行号。例如:kn0
+            var lineObj = $("#_tr_" + lineNum);
+            var fs = 0;
+            lineObj.find("input[type=radio]:checked").each(function () {
+                fs += parseFloat($(this).val());
+            });
+            $("#fz" + lineNum).val(fs);
+            //  form.render();
+        });
+
+
+
+        form.on('submit(sub)', function (data) {
+            var drugSource = "[";
+            var dcrqLength = 0;
+            $("#tb_DrugDetail").find("input[name='DCRQ']").each(function () {
+                if ($(this).val() != "") //日期不为空，则拼接当前列的key，value 成json格式
+                {
+                    dcrqLength++;  //填写了督察日期 DCRQ 的数量
+                }
+            });
+            var num = 0;
+            $("#tb_DrugDetail").find("input[name='DCRQ']").each(function () {
+                if ($(this).val() != "") //日期不为空，则拼接当前列的key，value 成json格式
+                {
+                    num++;
+                    var res = "{";
+                    var markid = $(this).attr("markid"); //获取以数字加下划线开头的表单，例如：0_
+                    var colsCount = $("#tb_DrugDetail").find("*[markid*= '" + markid + "']").length;
+                    $("#tb_DrugDetail").find("*[markid*= '" + markid + "']").each(function (i, v) {
+                        res += "\"" + $(v).attr("name") + "\"" + ":" + "\"" + $(v).val() + "\"";
+                        if (i != colsCount - 1) {
+                            res += ","
+                        }
+                    });
+                    if (num != dcrqLength) {
+                        res += "},";
+                    } else {
+                        res += "}";
+                    }
+                    drugSource += res;
+                }
+            });
+            drugSource += "]";
+
+            var drugModel = new Object();  //多重耐药菌隔离措施落实情况监督表
+            drugModel.DCID = $("#DCID").val();
+            drugModel.DEPTID = getMultiSelectVal("DpetID");
+            drugModel.DEPTNAME = getMultiSelectText("DpetID");
+            drugModel.OPNAME = $("#OPNAME").val();
+            drugModel.PROCTDATE = $("#PROCTDATE").val();
+
+            EWinsBase.json("api/Infection/DrugResistQuar/Save", {
+                data: {
+                    'drugModel': drugModel,
+                    'drugSource': drugSource
+                },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

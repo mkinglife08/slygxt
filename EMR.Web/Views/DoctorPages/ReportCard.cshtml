@@ -1,0 +1,2739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>报卡</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/medrecord.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+    <style>
+        .layui-tab-card > .layui-tab-title li {
+            border-right: 1px solid #ccc;
+        }
+
+        .layui-tab-card > .layui-tab-title .layui-this {
+            border-top: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-body" style="background:#F0F2F3;padding:10px;">
+        <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">糖尿病报卡</li>
+                <li>肿瘤报卡</li>
+                <li>冠心病急性事件、脑卒报卡</li>
+                <li>农药中毒报卡</li>
+                <li>肺外结核病历报卡</li>
+                <li>传染病报卡</li>
+                <li>医院感染报卡</li>
+                <li>手术切口调查表</li>
+                <li>CO中毒报卡</li>
+                <li>高温中暑报卡</li>
+                <li>疑似职业病报卡</li>
+                <li>肺结核转诊单</li>
+                <li>居民死亡医学证明</li>
+            </ul>
+              
+            <div class="layui-tab-content">
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">浙江省糖尿病发病报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">浙江省糖尿病发病报告卡</h3>
+                    <div class="report_cont">
+                        <table id="periodTable"></table>
+                        <div class="report_head report_border clearfix">
+                            <div class="report_Rig fr">
+                                <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">卡片编号：</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">报告类别：</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" name="normal" value="" title="常规">常规
+                                            <input type="radio" name="normal" value="" title="死亡补发">死亡补发
+                                            <input type="radio" name="normal" value="" title="医院漏报">医院漏报
+                                            <input type="radio" name="normal" value="" title="居民漏报">居民漏报
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">住院号：</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="" class="layui-input" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="report_Infor">基本信息：</p>
+                        <div class="report_base report_border clearfix">
+                            <div class="report_left fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">姓名：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">出生日期：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">职业：</label>
+                                    <div class="layui-input-block">
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">农、林、牧、渔、水利业生产人员</option>
+                                            <option value="">专业技术人员</option>
+                                            <option value="">商业、服务业人员</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i style="color: red;font-weight: bolder;">*</i> 具体公种：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">民族：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">
+                                        <i style="color: red;font-weight: bolder;">*</i>身份证号码:
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">工作单位：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="report_left fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">性别：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">年龄：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">文化程度：</label>
+                                    <div class="layui-input-block">
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">小学</option>
+                                            <option value="">中学</option>
+                                            <option value="">高中</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">实足年龄：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">家庭电话：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">户口地址：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">居住地址：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="report_Infor">诊断信息：</p>
+                        <div class="layui-form">
+                            <div class="report_sym report_border">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">糖尿病类型：</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="normal" value="" title="Ⅰ型糖尿病">Ⅰ型糖尿病
+                                        <input type="radio" name="normal" value="" title="Ⅱ型糖尿病">Ⅱ型糖尿病
+                                        <input type="radio" name="normal" value="" title="妊娠糖尿病">妊娠糖尿病
+                                        <input type="radio" name="normal" value="" title="其他特殊类型">其他特殊类型
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">首次确诊是否有并发症：</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="" title="无" lay-skin="primary">
+                                        <input type="checkbox" name="" title="肾脏病变" lay-skin="primary">
+                                        <input type="checkbox" name="" title="神经病变" lay-skin="primary">
+                                        <input type="checkbox" name="" title="血管病变" lay-skin="primary">
+                                        <input type="checkbox" name="" title="视网膜病变 " lay-skin="primary">
+                                        <input type="checkbox" name="" title="皮肤感染 " lay-skin="primary">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">危险因素：</label>
+                                    <span>体重<input type="text" class="diagSpan">公斤</span>
+                                    <span>身高<input type="text" class="diagSpan">厘米</span>
+                                    <input type="checkbox" name="" title="肥胖" lay-skin="primary">
+                                    <input type="checkbox" name="" title="高血压" lay-skin="primary">
+                                    <input type="checkbox" name="" title="高血脂" lay-skin="primary">
+                                    <input type="checkbox" name="" title="巨大儿分娩史" lay-skin="primary">
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">家族史：</label>
+                                    <span>父母兄弟姐妹共<input type="text" class="diagSpan">人,</span>
+                                    <span>其中有糖尿病史：</span>
+                                    <input type="checkbox" name="" title="父" lay-skin="primary">
+                                    <input type="checkbox" name="" title="母" lay-skin="primary">
+                                    <input type="checkbox" name="" title="兄弟" lay-skin="primary">
+                                    <input type="checkbox" name="" title="姐妹" lay-skin="primary">
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">最高诊断单位：</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="normal" value="" title="省级医院">省级医院
+                                        <input type="radio" name="normal" value="" title="市级医院">市级医院
+                                        <input type="radio" name="normal" value="" title="县（区）级医院">县（区）级医院
+                                        <input type="radio" name="normal" value="" title="乡级医院">乡级医院
+                                        <input type="radio" name="normal" value="" title="其他">其他
+                                        <input type="radio" name="normal" value="" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">首次诊断日期：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" id="test" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">报卡单位：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">报卡医师：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">报卡日期：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" id="test1" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">死亡日期：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" id="test2" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">死亡原因：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">病史摘要（主诉、临床表现和主要检查情况）</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput" disabled="disabled">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">首次确诊是否有并发症：</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="" title="多饮、多尿" lay-skin="primary">
+                                        <input type="checkbox" name="" title="多食/常有饥饿感" lay-skin="primary">
+                                        <input type="checkbox" name="" title="乏力" lay-skin="primary">
+                                        <input type="checkbox" name="" title="体重下降" lay-skin="primary">
+                                        <input type="checkbox" name="" title="视力下降" lay-skin="primary">
+                                        <input type="checkbox" name="" title="肢体麻木" lay-skin="primary">
+                                        <input type="checkbox" name="" title="下肢浮肿" lay-skin="primary">
+                                        <input type="checkbox" name="" title="肢端溃疡" lay-skin="primary">
+                                        <input type="checkbox" name="" title="皮肤及外阴瘙痒" lay-skin="primary">
+                                        <input type="checkbox" name="" title="其他" lay-skin="primary">
+                                        <input type="checkbox" name="" title="无临床症状 " lay-skin="primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="report_Infor align">主要检查情况</p>
+                        <div class="report_main clearfix">
+                            <div class="mainLeft fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-1空腹血糖值(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">3-30GTT实验,2小时血浆葡萄糖水平(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-5 HDL-C(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-7甘油三酯(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-9糖化血红蛋白(%)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mainLeft fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-2随机血糖值(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-4总胆固醇(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-6LDL-C(mmol/L)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label diagLabel">E-8尿微量蛋白(mg/min)：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input diagInput">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">备注：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="lastWord">
+                            <p>填卡说明：</p>
+                            <p>1.糖尿病诊断和分型采用1999年WHO专家咨询的报告标准。</p>
+                            <p>2.巨大儿指出生时体重大于或等于4000克。 </p>
+                            <p>注：报告卡事带"<i style="color:red;font-weight: bolder;"> * </i>"部分为必填项目。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item">暂无数据</div>
+
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">浙江省冠心病急性事件、脑中卒发病报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">浙江省冠心病急性事件、脑中卒发病报告卡</h3>
+                    <div class="report_cont">
+                        <table id="acuteIncident"></table>
+                        <div class="report_head report_border clearfix">
+                            <div class="report_Lef fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">卡片编号：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">门诊号：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report_Lef fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">住院号：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width:136px;">ICD编号（ICD-10):</label>
+                                    <div class="layui-input-block" style="margin-left: 166px;">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="report_Infor">基本信息：</p>
+                        <div class="report_base report_border clearfix">
+                            <div class="report_left fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">姓名：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">出生日期：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" id="test3" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">职业：</label>
+                                    <div class="layui-input-block">
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">农、林、牧、渔、水利业生产人员</option>
+                                            <option value="">专业技术人员</option>
+                                            <option value="">商业、服务业人员</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">民族：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">
+                                        <i style="color: red;font-weight: bolder;">*</i>身份证号码:
+                                    </label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">工作单位：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">实足年龄：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width: 100px;">常住户口地址：</label>
+                                    <div class="layui-input-block" style="margin-left: 131px;">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="report_left fl">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">性别：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">发病年龄：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i style="color: red;font-weight: bolder;">*</i> 具体工种：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">文化程度：</label>
+                                    <div class="layui-input-block">
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">小学</option>
+                                            <option value="">中学</option>
+                                            <option value="">高中</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">婚姻：</label>
+                                    <div class="layui-input-block">
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">已婚</option>
+                                            <option value="">未婚</option>
+                                            <option value="">离婚</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">家庭电话：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width: 100px;">目前居住地址：</label>
+                                    <div class="layui-input-block" style="margin-left: 131px;">
+                                        <input type="text" name="" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="report_Infor">诊断：<input type="text" class="nosis"></p>
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">冠心病：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="" title="急性心肌梗塞" lay-skin="primary">
+                                    <input type="checkbox" name="" title="心性猝死" lay-skin="primary">
+                                    <input type="checkbox" name="" title="其他冠心病死亡" lay-skin="primary">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">脑中卒：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="" title="蛛网膜下腔出血" lay-skin="primary">
+                                    <input type="checkbox" name="" title="脑出血" lay-skin="primary">
+                                    <input type="checkbox" name="" title="脑梗塞" lay-skin="primary">
+                                    <input type="checkbox" name="" title="脑栓塞" lay-skin="primary">
+                                    <input type="checkbox" name="" title="脑血栓形成 " lay-skin="primary">
+                                    <input type="checkbox" name="" title="分类不明" lay-skin="primary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="judgment">
+                            <p>16.诊断依据（在空格内填相应数字）  典  型=1  不典型=2   无变化=3  未  查=4 </p>
+                            <table class="judgment_table">
+                                <tr>
+                                    <td class="aigRig">心电图 </td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td>CT </td>
+                                    <td><input type="text" class="addNum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="aigRig">临床症状</td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td>血管造影 </td>
+                                    <td><input type="text" class="addNum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="aigRig">血清酶</td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td>磁共振 </td>
+                                    <td><input type="text" class="addNum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="aigRig">脑脊液</td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td>尸检</td>
+                                    <td><input type="text" class="addNum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="aigRig">脑电图</td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td>神经科医生检查</td>
+                                    <td><input type="text" class="addNum"></td>
+                                </tr>
+                                <tr>
+                                    <td class="aigRig">死后推断</td>
+                                    <td><input type="text" class="addNum"></td>
+                                    <td style="opacity: 0">死后推断</td>
+                                    <td style="opacity: 0"><input type="text"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="layui-form">
+                            <div class="report_Time">
+                                <p class="interval">17.本次卒中发病时间与CT/磁共振检查时间间隔：</p>
+                                <p>
+                                    <input type="checkbox" name="" title="多饮、多尿" lay-skin="primary">
+                                    <input type="checkbox" name="" title="多食/常有饥饿感" lay-skin="primary">
+                                    <input type="checkbox" name="" title="乏力" lay-skin="primary">
+                                    <input type="checkbox" name="" title="体重下降" lay-skin="primary">
+                                    <input type="checkbox" name="" title="视力下降" lay-skin="primary">
+                                </p>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">18.首要症状（脑卒中)：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="" title="意识障碍" lay-skin="primary">
+                                    <input type="checkbox" name="" title="肢体麻痹" lay-skin="primary">
+                                    <input type="checkbox" name="" title="语言障碍" lay-skin="primary">
+                                    <input type="checkbox" name="" title="其它 " lay-skin="primary">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">19.病史：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="" title="慢性缺血性心脏病" lay-skin="primary">
+                                    <input type="checkbox" name="" title="高血压" lay-skin="primary">
+                                    <input type="checkbox" name="" title="糖尿病" lay-skin="primary">
+                                    <input type="checkbox" name="" title="高脂血症" lay-skin="primary">
+                                    <input type="checkbox" name="" title="嗜烟" lay-skin="primary">
+                                    <input type="checkbox" name="" title="嗜酒" lay-skin="primary">
+                                    <input type="checkbox" name="" title="无" lay-skin="primary">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">20.发病日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput" id="test4">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">21.确诊日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput" id="test5">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">22.诊断单位：</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="normal" value="" title="省级医院">省级医院
+                                    <input type="radio" name="normal" value="" title="市级医院">市级医院
+                                    <input type="radio" name="normal" value="" title="县（区）级医院">县（区）级医院
+                                    <input type="radio" name="normal" value="" title="乡级医院">乡级医院
+                                    <input type="radio" name="normal" value="" title="其他">其他
+                                    <input type="radio" name="normal" value="" title="不详">不详
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">23.是否首次发病：</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="normal" value="" title="是">是
+                                    <input type="radio" name="normal" value="" title="否">否
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">24.报卡单位：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">25.报卡医师：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">26.报卡日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput" id="test6">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">27.死亡日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput" id="test7">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label diagLabel">28.死亡原因：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input diagInput">
+                                </div>
+                            </div>
+                            <div class="report_History">
+                                <p>病史摘要（主诉、临床表现和主要检查情况</p>
+                                <input type="text" class="layui-input text">
+                            </div>
+                            <div class="lastWord">
+                                <p>1.卡片编号与ICD-10编码由疾控人员填写。 </p>
+                                <p>2.门诊号和住院号：如同时有门诊号和住院号时两栏都要填写。 </p>
+                                <p>3.婚姻：“未婚/有配偶/离异/丧偶”。不能简单填已婚、未婚。</p>
+                                <p>4.心性猝死：以住有冠心病史，本次以心性因素猝死。</p>
+                                <p>5.脑梗塞：本次以脑梗塞症状发作而就诊。无脑梗塞症状的其他病就诊时发现脑梗塞者不报。  </p>
+                                <p>	6.本卡由诊治冠心病急性事件、脑卒中病例的各级医院、厂矿院校医务室、医务人员填写，并及时报患者户口所在区（县）疾控中心。  </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">农药中毒报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">农 药 中 毒 报 告 卡</h3>
+                    <div class="report_cont">
+                        <table id="poisoning"></table>
+                        <div class="report_head report_border clearfix">
+                            <div class="poison_Rig fr">
+                                <p>表号：卫统<input type="text" class="diagSpan">表</p>
+                                <p>制表机关：卫生局</p>
+                                <p>批准机关：国家统计局</p>
+                                <p>批准文号：国统制[<input type="text" class="diagSpan">]号</p>
+                                <p>有效期至：<input type="text" class="diagSpan">年</p>
+                            </div>
+                        </div>
+                        <table class="poison_table">
+                            <tr>
+                                <td class="aigRig">卡片序号</td>
+                                <td><input type="text" class="addNum"></td>
+                                <td>现住址</td>
+                                <td><input type="text" class="addNum"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="aigRig">所属地区</td>
+                                <td>
+                                    <div class="layui-form">
+                                        <input type="checkbox" name="" title="本县地区" lay-skin="primary">
+                                        <input type="checkbox" name="" title="本市其他县区" lay-skin="primary">
+                                        <input type="checkbox" name="" title="本省其他地市" lay-skin="primary">
+                                        <input type="checkbox" name="" title="其他省" lay-skin="primary">
+                                        <input type="checkbox" name="" title="港澳台" lay-skin="primary">
+                                        <input type="checkbox" name="" title="外籍" lay-skin="primary">
+                                    </div>
+                                </td>
+                                <td>联系电话</td>
+                                <td><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">姓名</td>
+                                <td><input type="text" class="addNum"></td>
+                                <td>身份证号</td>
+                                <td><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">性别</td>
+                                <td>
+                                    <div class="layui-form">
+                                        <input type="radio" name="sex" title="男">男
+                                        <input type="radio" name="sex" title="女">女
+                                    </div>
+                                </td>
+                                <td>年龄</td>
+                                <td><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">中毒数量</td>
+                                <td>
+                                    <div class="layui-form">
+                                        <input type="checkbox" name="" title="单一" lay-skin="primary">
+                                        <input type="checkbox" name="" title="两种及以上" lay-skin="primary">
+                                    </div>
+                                </td>
+                                <td><span>中毒农药名称</span></td>
+                                <td> <input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">中毒类型</td>
+                                <td colspan="3">
+                                    <div class="layui-form">
+                                        <input type="checkbox" name="" title="生产性自用" lay-skin="primary">
+                                        <input type="checkbox" name="" title="生产性受雇" lay-skin="primary">
+                                        <input type="checkbox" name="" title="生活性误服（用）" lay-skin="primary">
+                                        <input type="checkbox" name="" title="生活性自服" lay-skin="primary">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">职业安全卫生知识的培训 *</td>
+                                <td colspan="3">
+                                    <div class="layui-form">
+                                        <input type="checkbox" name="" title="未接受教育" lay-skin="primary">
+                                        <input type="checkbox" name="" title="接受教育" lay-skin="primary">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">施药方式 *</td>
+                                <td colspan="3">
+                                    <div class="layui-form">
+                                        <span class="spray">隔行打药</span>
+                                        <input type="radio" name="normal" title="是">是
+                                        <input type="radio" name="normal" title="否">否
+                                        <span class="spray">退步打药</span>
+                                        <input type="radio" name="normal" title="是">是
+                                        <input type="radio" name="normal" title="否">否
+                                        <span class="spray">顺风打药</span>
+                                        <input type="radio" name="normal" title="是">是
+                                        <input type="radio" name="normal" title="否">否
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">危险行为 *</td>
+                                <td colspan="3">
+                                    <div class="layui-form">
+                                        <p>
+                                            <span class="spray">阅读标签</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">徒手配药</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">使用防护用品</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                        </p>
+                                        <p>
+                                            <span class="spray">施药时吸烟</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">施药时进食</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">用手擦汗</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                        </p>
+                                        <p>
+                                            <span class="spray">药械滴漏 </span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">身体被农药污染</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                            <span class="spray">打药结束后清洗</span>
+                                            <input type="radio" name="normal" title="是">是
+                                            <input type="radio" name="normal" title="否">否
+                                        </p>
+                                        <span class="spray">感觉不适继续工作</span>
+                                        <input type="radio" name="normal" title="是">是
+                                        <input type="radio" name="normal" title="否">否
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">首诊后转归</td>
+                                <td colspan="3">
+                                    <div class="layui-form">
+                                        <input type="radio" name="normal" title="治愈">治愈
+                                        <input type="radio" name="normal" title="好转">好转
+                                        <input type="radio" name="normal" title="死亡">死亡
+                                        <input type="radio" name="normal" title="其他">其他
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">具体转归信息 </td>
+                                <td colspan="3"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">诊断日期</td>
+                                <td><input type="text" class="addNum" id="test8"></td>
+                                <td>死亡日期</td>
+                                <td><input type="text" class="addNum" id="test9"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">备注</td>
+                                <td colspan="3"><textarea name="" id="" rows="5" class="textArea"></textarea></td>
+                            </tr>
+                        </table>
+                        <div class="lastWord poison_end">
+                            <p>
+                                <span>诊断单位（盖章）：<input type="text" class="seal"></span>
+                                <span>单位负责人：<input type="text" class="seal"></span>
+                            </p>
+                            <p>
+                                <span>填表人：<input type="text" class="seal"></span>
+                                <span>填表人电话：<input type="text" class="seal"></span>
+                                <span>填表日期：<input type="text" class="seal"></span>
+                            </p>
+                            <p>*仅限于生产性自用和生产性受雇引起的农药中毒</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 肺外结核病例登记报告卡 -->
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">肺外结核病例登记报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">肺外结核病例登记报告卡</h3>
+                    <div class="report_cont">
+                        <table id="tuberculosis"></table>
+                        <div class="tuber">
+                            <div class="tuber_fir report_border">
+                                <p>
+                                    浙江省<input type="text" class="tuberText">
+                                    地（市）<input type="text" class="tuberText">
+                                    乡（街道）<input type="text" class="tuberText">村(社区)结核病例登记报告卡
+                                </p>
+                                <p>登记号：<input type="text" class="tuberText"></p>
+                            </div>
+                            <div class="layui-form">
+                                <div class="tuber_fir report_border">
+                                    <span>患者姓名：<input type="text" class="tuberText"></span>
+                                    <span>性别：<input type="text" class="tuberText"></span>
+                                    <span>年龄：<input type="text" class="tuberText">周岁</span>
+                                    <span>职业：<input type="text" class="tuberText"></span>
+                                    <span>羁押人员：</span>
+                                    <input type="radio" name="normal" value="" title="有">有
+                                    <input type="radio" name="normal" value="" title="无">无
+                                </div>
+                            </div>
+                            <div class="tuber_sec report_border clearfix">
+                                <div class="secLeft fl">
+                                    <span>身份证号码：<input type="text" class="tuberText idCard"></span>
+                                </div>
+                                <div class="secLeft fl">
+                                    <span>民族：<input type="text" class="tuberText idCard"></span>
+                                    <span>病案号：<span>00118839</span></span>
+                                </div>
+                            </div>
+                            <div class="tuber_fir report_border">
+                                <p>
+                                    现地址：<input type="text" class="tuberText idCard">
+                                </p>
+                                <p>
+                                    户籍地址：<input type="text" class="tuberText idCard">
+                                    在本辖区居住的时间：<input type="text" class="tuberText">年<input type="text" class="tuberText">月
+                                </p>
+                            </div>
+                            <div class="tuber_sec report_border clearfix">
+                                <div class="secLeft fl">
+                                    <p>工作单位：<span>无</span></p>
+                                    <p><span>现住址联系人姓名：<input type="text" class="tuberText idCard"></span></p>
+                                    <p><span>户籍地址联系人姓名:<input type="text" class="tuberText idCard"></span></p>
+                                </div>
+                                <div class="secLeft fl">
+                                    <p>电话：<span>18000000</span></p>
+                                    <p>联系人电话：<input type="text" class="tuberText idCard"></p>
+                                    <p>联系人电话：<input type="text" class="tuberText idCard"></p>
+                                </div>
+                            </div>
+                            <div class="layui-form">
+                                <div class="tuber_partain report_border">
+                                    <span>患者来源：</span>
+                                    <input type="radio" name="normal" value="" title="因症就诊">因症就诊
+                                    <input type="radio" name="normal" value="" title="转诊">转诊
+                                    <input type="radio" name="normal" value="" title="追踪">追踪
+                                    <input type="radio" name="normal" value="" title="因症推荐">因症推荐
+                                    <input type="radio" name="normal" value="" title="接触者检查">接触者检查
+                                    <input type="radio" name="normal" value="" title="健康检查">健康检查
+                                    <input type="radio" name="normal" value="" title="其他">其他
+                                </div>
+                                <div class="tuber_source report_border clearfix">
+                                    <div class="secLeft fl">
+                                        <span>本次症状出现时间：<input type="text" class="tuberText ">年<input type="text" class="tuberText">月<input type="text" class="tuberText ">日</span>
+                                    </div>
+                                    <div class="secLeft fl">
+                                        <span>本次首诊：<input type="text" class="tuberText">年<input type="text" class="tuberText">月<input type="text" class="tuberText">日</span>
+                                    </div>
+                                </div>
+                                <div class="tuber_partain report_border">
+                                    <p>
+                                        <span>本次出现症状：</span>
+                                        <input type="checkbox" name="" title="咳嗽" lay-skin="primary">
+                                        <input type="checkbox" name="" title="咳痰" lay-skin="primary">
+                                        <input type="checkbox" name="" title="咯血" lay-skin="primary">
+                                        <input type="checkbox" name="" title="胸疼" lay-skin="primary">
+                                        <input type="checkbox" name="" title="发热" lay-skin="primary">
+                                        <input type="checkbox" name="" title="乏力" lay-skin="primary">
+                                        <input type="checkbox" name="" title="食欲减退" lay-skin="primary">
+                                        <input type="checkbox" name="" title="盗汗" lay-skin="primary">
+                                        <input type="checkbox" name="" title="其他" lay-skin="primary">
+                                    </p>
+                                    <p>
+                                        <span>卡介苗接种史：</span>
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <span class="medical">肝病史：</span>
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <span class="medical">肾病史：</span>
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="radio" name="normal" value="" title="无">无
+                                    </p>
+                                </div>
+                                <div class="emptyReason report_border clearfix">
+                                    <div class="emptyLeft fl" style="width: 12%;">
+                                        <div>
+                                            <p>空洞：</p>
+                                            <input type="radio" name="normal" value="" title="有">有
+                                            <input type="radio" name="normal" value="" title="无">无
+                                        </div>
+                                        <div>
+                                            <p>粟粒：</p>
+                                            <input type="radio" name="normal" value="" title="有">有
+                                            <input type="radio" name="normal" value="" title="无">无
+                                        </div>
+                                    </div>
+                                    <div class="emptyLeft fl" style="width: 15%;">
+                                        <p>X线号：</p>
+                                        <input type="text" class="tuberText noFound">
+                                    </div>
+                                    <div class="emptyLeft fl" style="width: 25%;">
+                                        <p>
+                                        <p>痰涂片检查:</p>
+                                        <input type="radio" name="normal" value="" title="阴性">阴性
+                                        <input type="radio" name="normal" value="" title="1+">1+
+                                        <input type="radio" name="normal" value="" title="2+">2+
+                                        <input type="radio" name="normal" value="" title="3+">3+
+                                        <input type="radio" name="normal" value="" title="4+">4+
+                                        </p>
+                                        <p>
+                                        <p>痰培养检查:</p>
+                                        <input type="radio" name="normal" value="" title="阴性">阴性
+                                        <input type="radio" name="normal" value="" title="1+">1+
+                                        <input type="radio" name="normal" value="" title="2+">2+
+                                        <input type="radio" name="normal" value="" title="3+">3+
+                                        <input type="radio" name="normal" value="" title="4+">4+
+                                        </p>
+                                    </div>
+                                    <div class="emptyLeft fl" style="width: 15%;">
+                                        <div>
+                                            <p>未查及原因：</p>
+                                            <input type="text" class="tuberText noFound">
+                                        </div>
+                                        <div>
+                                            <p>未查及原因：</p>
+                                            <input type="text" class="tuberText noFound">
+                                        </div>
+
+                                    </div>
+                                    <div class="emptyLeft fl" style="width:28%;">
+                                        <p>PPD试验：未查及原因: </p>
+                                        <p>
+                                            5IU <input type="text" class="tuberText calculation">
+                                            ×<input type="text" class="tuberText calculation">mm
+                                            <input type="text" class="tuberText calculation">
+                                        </p>
+                                        <p>
+                                            1IU <input type="text" class="tuberText calculation">
+                                            ×<input type="text" class="tuberText calculation">mm
+                                            <input type="text" class="tuberText calculation">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tuber_drugTest report_border clearfix">
+                                    <div class="fl" style="width:10%">
+                                        <p>药敏试验</p>
+                                        <p>结果：</p>
+                                    </div>
+                                    <div class="drugTest fl">
+                                        <p>
+                                            <span>H </span>
+                                            <input type="radio" name="normal" value="" title="耐药">耐药
+                                            <input type="radio" name="normal" value="" title="敏感">敏感
+                                            <input type="radio" name="normal" value="" title="污染">污染
+                                            <input type="radio" name="normal" value="" title="未做">未做
+                                        </p>
+                                        <p>
+                                            <span>E</span>
+                                            <input type="radio" name="normal" value="" title="耐药">耐药
+                                            <input type="radio" name="normal" value="" title="敏感">敏感
+                                            <input type="radio" name="normal" value="" title="污染">污染
+                                            <input type="radio" name="normal" value="" title="未做">未做
+                                        </p>
+                                    </div>
+                                    <div class="drugTest fl">
+                                        <p>
+                                            <span>R</span>
+                                            <input type="radio" name="normal" value="" title="耐药">耐药
+                                            <input type="radio" name="normal" value="" title="敏感">敏感
+                                            <input type="radio" name="normal" value="" title="污染">污染
+                                            <input type="radio" name="normal" value="" title="未做">未做
+                                        </p>
+                                        <p>
+                                            <span>S</span>
+                                            <input type="radio" name="normal" value="" title="耐药">耐药
+                                            <input type="radio" name="normal" value="" title="敏感">敏感
+                                            <input type="radio" name="normal" value="" title="污染">污染
+                                            <input type="radio" name="normal" value="" title="未做">未做
+                                        </p>
+
+                                    </div>
+                                    <div class="drugTest fl">
+                                        <p>药敏试验结果报告时间：</p>
+                                        <input type="text" class="tuberText">年<input type="text" class="tuberText">月<input type="text" class="tuberText">日
+                                    </div>
+
+                                </div>
+                                <div class="tuber_results report_border">
+                                    <span>HIV抗体检测结果:</span>
+                                    <input type="radio" name="normal" value="" title="已知阳性">已知阳性
+                                    <input type="radio" name="normal" value="" title="新检测初筛阳性">新检测初筛阳性
+                                    <input type="radio" name="normal" value="" title="新检测确认阳性">新检测确认阳性
+                                    <input type="radio" name="normal" value="" title="阴性">阴性
+                                    <input type="radio" name="normal" value="" title="拒查">拒查
+                                    <input type="radio" name="normal" value="" title="未提供">未提供
+                                </div>
+                                <div class="tuber_confirmed report_border clearfix">
+                                    <div class="confirmed fl" style="width:40%">
+                                        <span>本次确诊日期：</span>
+                                        <input type="text" class="tuberText">年
+                                        <input type="text" class="tuberText">月
+                                        <input type="text" class="tuberText">日
+                                    </div>
+                                    <div class="confirmed fl" style="width:25%">
+                                        <span>诊断：<input type="text" class="tuberText" style="width:60%"></span>
+                                    </div>
+                                    <div class="confirmed fl" style="width:25%">
+                                        <span>订正病名：<input type="text" class="tuberText" style="width:53%"></span>
+                                    </div>
+                                </div>
+                                <div class="tuber_confirmed report_border">
+                                    <p>
+                                        <span>合并其他系统结核</span>
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="checkbox" name="" title="结脑" lay-skin="primary">
+                                        <input type="checkbox" name="" title="淋巴" lay-skin="primary">
+                                        <input type="checkbox" name="" title="骨关节" lay-skin="primary">
+                                        <input type="checkbox" name="" title="泌尿生殖" lay-skin="primary">
+                                        <input type="checkbox" name="" title="消化系统" lay-skin="primary">
+                                        <input type="checkbox" name="" title="皮肤" lay-skin="primary">
+                                        <input type="checkbox" name="" title="多系统" lay-skin="primary">
+                                        <input type="checkbox" name="" title="其他" lay-skin="primary">
+                                    </p>
+                                    <p>
+                                        <span>合并症：</span>
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="checkbox" name="" title="糖尿病" lay-skin="primary">
+                                        <input type="checkbox" name="" title="尘肺" lay-skin="primary">
+                                        <input type="checkbox" name="" title="精神病" lay-skin="primary">
+                                        <input type="checkbox" name="" title="其他" lay-skin="primary">
+                                    </p>
+                                </div>
+                                <div class="tuber_confirmed report_border">
+                                    <div>
+                                        <span>本次登记日期:</span>
+                                        <input type="text" class="tuberText">年<input type="text" class="tuberText">月<input type="text" class="tuberText">日
+                                        <span>登记分类：</span>
+                                        <input type="radio" name="normal" value="" title="新患者">新患者
+                                        <input type="radio" name="normal" value="" title="复发">复发
+                                        <input type="radio" name="normal" value="" title="返回">返回
+                                        <input type="radio" name="normal" value="" title="初治失败">初治失败
+                                        <input type="radio" name="normal" value="" title="其他">其他
+                                    </div>
+                                    <div>
+                                        <span>治疗方案:</span>
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tuber_confirmed report_border">
+                                    <div>
+                                        <span>本次登记日期:</span>
+                                        <input type="text" class="tuberText">年<input type="text" class="tuberText">月<input type="text" class="tuberText">日
+                                        <span>治疗分类：</span>
+                                        <input type="radio" name="normal" value="" title="初治">初治
+                                        <input type="radio" name="normal" value="" title="复治">复治
+                                    </div>
+                                    <div>
+                                        <span>抗结核药物费用支付方式:</span>
+                                        <input type="radio" name="normal" value="" title="自费">自费
+                                        <input type="radio" name="normal" value="" title="减免">减免
+                                        <input type="radio" name="normal" value="" title="全免">全免
+                                        <input type="radio" name="normal" value="" title="全免（公费、社保等）">全免（公费、社保等）
+                                    </div>
+                                </div>
+                                <div class="tuber_confirmed report_border">
+                                    <p>
+                                        <span>转诊单位：<input type="text" class="tuberText"></span>
+                                        <span>转诊医生：<input type="text" class="tuberText"></span>
+                                        <span>报告单位：<input type="text" class="tuberText"></span>
+                                    </p>
+                                    <p>
+                                        <span>转诊单位：<input type="text" class="tuberText"></span>
+                                        <span>报告日期：</span>
+                                        <input type="text" class="tuberText">年<input type="text" class="tuberText">月<input type="text" class="tuberText">日
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-tab-item">暂无数据</div>
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">医院感染病人报卡登记表</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">医院感染病人报卡登记表</h3>
+                    <div class="report_cont">
+                        <table id="infectious"></table>
+                        <table class="infect_table">
+                            <tr>
+                                <td class="aigRig">姓名:</td>
+                                <td>张三</td>
+                                <td>性别:</td>
+                                <td>男</td>
+                                <td>年龄:</td>
+                                <td>82</td>
+                                <td>住院日期:</td>
+                                <td>2018-02-03</td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">科室:</td>
+                                <td>血管外科</td>
+                                <td>床号:</td>
+                                <td>21302</td>
+                                <td>住院号:</td>
+                                <td>150230</td>
+                                <td>出院日期:</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">入院诊断：</td>
+                                <td colspan="7">
+                                    1.下肢深静脉血栓形成（左，后遗症） 2.左小腿皮肤溃烂 3.高血压病
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">医院感染诊断:</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">院内感染日期:</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">转归：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <input type="radio" name="normal" value="" title="治愈">治愈
+                                        <input type="radio" name="normal" value="" title="好转">好转
+                                        <input type="radio" name="normal" value="" title="无变化或恶化">无变化或恶化
+                                        <input type="radio" name="normal" value="" title="死亡">死亡
+                                        <span style="margin-left: 10px;">与死亡关系：</span>
+                                        <input type="radio" name="normal" value="" title="直接">直接
+                                        <input type="radio" name="normal" value="" title="间接">间接
+                                        <input type="radio" name="normal" value="" title="无关">无关
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">感染部位：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <p>
+                                            <input type="checkbox" name="" title="①上呼吸道" lay-skin="primary">
+                                            <input type="checkbox" name="" title="②下呼吸道" lay-skin="primary">
+                                            <input type="checkbox" name="" title="③手术切口" lay-skin="primary">
+                                            <input type="checkbox" name="" title="④动静脉" lay-skin="primary">
+                                            <input type="checkbox" name="" title="⑤泌尿道" lay-skin="primary">
+                                            <input type="checkbox" name="" title="⑥血液" lay-skin="primary">
+                                            <input type="checkbox" name="" title="⑦胃肠道" lay-skin="primary">
+                                            <input type="checkbox" name="" title="⑧皮肤与软组织" lay-skin="primary">
+                                            <input type="checkbox" name="" title="⑨骨与关节" lay-skin="primary">
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" name="" title="⑩其他" lay-skin="primary">
+                                            <input type="text" style="width: 30%;height:25px;">
+                                        </p>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">易感因素:</td>
+                                <td colspan="15" style="padding:5px 0">
+                                    <div class="layui-form">
+                                        <p style="margin-bottom:3px;">
+                                            <input type="checkbox" name="" title="a.糖尿病" lay-skin="primary">
+                                            <input type="checkbox" name="" title="b.免疫抑制剂" lay-skin="primary">
+                                            <input type="checkbox" name="" title="c.激素" lay-skin="primary">
+                                            <input type="checkbox" name="" title="d.化疗" lay-skin="primary">
+                                            <input type="checkbox" name="" title="e.放疗" lay-skin="primary">
+                                            <input type="checkbox" name="" title="f癌症" lay-skin="primary">
+                                            <input type="checkbox" name="" title="g血液病" lay-skin="primary">
+                                            <input type="checkbox" name="" title="h肝硬化" lay-skin="primary">
+                                            <input type="checkbox" name="" title="i肾病" lay-skin="primary">
+                                            <input type="checkbox" name="" title="j营养不良" lay-skin="primary">
+                                            <input type="checkbox" name="" title="k高龄>75岁" lay-skin="primary">
+                                            <input type="checkbox" name="" title="l新生儿" lay-skin="primary">
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" name="" title="m免疫功能低下" lay-skin="primary">
+                                            <input type="checkbox" name="" title="n昏迷" lay-skin="primary">
+                                            <input type="checkbox" name="" title="o长期卧床" lay-skin="primary">
+                                            <input type="checkbox" name="" title="p透析" lay-skin="primary">
+                                            <input type="checkbox" name="" title="q抗菌药物应用" lay-skin="primary">
+                                            <input type="checkbox" name="" title="r器官移植" lay-skin="primary">
+                                            <input type="checkbox" name="" title="s切口延迟缝合" lay-skin="primary">
+                                            <input type="checkbox" name="" title="t其它" lay-skin="primary">
+                                            <input type="text" style="width: 30%;height:25px;">
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术名称：</td>
+                                <td colspan="3"><input type="text"></td>
+                                <td>手术开始时间：</td>
+                                <td colspan="3"><input type="text" id="test10"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术医生：</td>
+                                <td colspan="3"><input type="text"></td>
+                                <td>手术结束时间：</td>
+                                <td colspan="3"><input type="text" id="test10"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术类型：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <input type="radio" name="normal" value="" title="急诊">急诊
+                                        <input type="radio" name="normal" value="" title="择期">择期
+                                        <input type="radio" name="normal" value="" title="损伤">损伤
+                                        <span style="margin-left:10px;">麻醉方式：</span>
+                                        <input type="radio" name="normal" value="" title="全麻">全麻
+                                        <input type="radio" name="normal" value="" title="硬膜外">硬膜外
+                                        <input type="radio" name="normal" value="" title="局麻">局麻
+                                        <input type="radio" name="normal" value="" title="其他">其他
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">切口类型：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <input type="radio" name="normal" value="" title="清洁">清洁
+                                        <input type="radio" name="normal" value="" title="清洁污染">清洁污染
+                                        <input type="radio" name="normal" value="" title="污染">污染
+                                        <input type="radio" name="normal" value="" title="污染感染">污染感染
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">抗菌用药：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <span class="reactLeft">不良反应：</span>
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                        <span class="reactLeft">二重感染：</span>
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                        <span class="reactLeft">联合用药：</span>
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="text-align:center;">
+                                <td>药名</td>
+                                <td colspan="2">剂量用法</td>
+                                <td colspan="2">给药途径</td>
+                                <td colspan="2">起止时间</td>
+                                <td>目的</td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text" id="test12"></td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text" id="test13"></td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text"></td>
+                                <td colspan="2"><input type="text" id="test14"></td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">感染性疾病病程：</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">感染性疾病诊断依据:</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">病原学检查标本名称:</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">送检时间:</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">病原体名称:</td>
+                                <td colspan="8">
+                                    1、<input type="text" style="width:30%">
+                                    2、<input type="text" style="width:30%">
+                                    3、<input type="text" style="width:30%">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">药敏试验：<a class="layui-btn">检验报告</a></td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">科主任：</td>
+                                <td colspan="8">
+                                    <input type="text" style="width:20%">
+                                    <span class="reactLeft">报卡医生：<input type="text" style="width:20%"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">登记时间：</td>
+                                <td colspan="8">
+                                    <input type="text" style="width:20%" id="test15">
+                                    <span class="reactLeft">登记员：<input type="text" style="width:20%"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="layui-tab-item ">
+                    <!-- 手术切口 -->
+                    <div class="medrecord">
+                        <p class="word">手术切口调查表</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">手术切口调查表</h3>
+                    <div class="report_cont">
+                        <table id="Surgical"></table>
+                        <table class="infect_table">
+                            <tr>
+                                <td class="aigRig">姓名：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">性别：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">年龄：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">住院日期:</td>
+                                <td colspan="2"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">科室：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">床号：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">住院号：</td>
+                                <td><input type="text"></td>
+                                <td class="aigRig">出院日期:</td>
+                                <td colspan="2"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">体重：</td>
+                                <td colspan="8">
+                                    <input type="text" style="width:10%">KG
+                                    <span class="medical">联系电话：<input type="text" style="width:20%"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">入院诊断：</td>
+                                <td colspan="8">
+                                    <p>左小腿皮肤溃烂</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术名称：</td>
+                                <td colspan="3"><input type="text"></td>
+                                <td colspan="2">手术开始时间：</td>
+                                <td colspan="3"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术医生：</td>
+                                <td colspan="3">
+                                    <input type="text" style="width:25%">
+                                    <span class="medical">职称：<input type="text" style="width:25%"></span>
+                                </td>
+                                <td colspan="2">手术结束时间：</td>
+                                <td colspan="3"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">疾病转归：</td>
+                                <td colspan="8">
+                                    <div class="layui-form">
+                                        <input type="radio" name="normal" value="" title="治愈">治愈
+                                        <input type="radio" name="normal" value="" title="好转">好转
+                                        <input type="radio" name="normal" value="" title="无变化">无变化
+                                        <input type="radio" name="normal" value="" title="恶化">恶化
+                                        <input type="radio" name="normal" value="" title="死亡">死亡
+                                        <span class="medical">
+                                            与死亡关系：
+                                            <input type="radio" name="normal" value="" title="1直接">1直接
+                                            <input type="radio" name="normal" value="" title="2间接">2间接
+                                            <input type="radio" name="normal" value="" title="3无关">3无关
+                                        </span>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">手术类型：</td>
+                                <td colspan="8">
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">免诊</option>
+                                        <option value="">损伤</option>
+                                        <option value="">择期</option>
+                                    </select>
+                                    <span class="medical">
+                                        切口等级：
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">清洁</option>
+                                            <option value="">污染</option>
+                                            <option value=""> </option>
+                                        </select>
+                                    </span>
+                                    <span class="medical">切口个数：<input type="text" style="width:25%"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">术前外周血白细胞</td>
+                                <td colspan="8">
+                                    <span><input type="text" style="width: 10%">×10<sup>9</sup>/L</span>
+                                    <span class="layui-form medical">
+                                        植入物：
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="medical">
+                                        ASA（麻醉）评分:
+                                        <select name="" id="">
+                                            <option value="">Ⅰ</option>
+                                            <option value="">Ⅱ</option>
+                                            <option value="">Ⅲ</option>
+                                            <option value="">Ⅳ</option>
+                                            <option value="">Ⅴ</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">术前有无口服抗生素肠道准备:</td>
+                                <td colspan="8">
+                                    <span class="layui-form medical">
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <input type="radio" name="normal" value="" title="有">有
+                                    </span>
+                                    <span class="medical">
+                                        愈合情况：
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">甲</option>
+                                            <option value="">乙</option>
+                                            <option value="">丙</option>
+                                        </select>
+                                    </span>
+                                    <span class="medical">
+                                        麻醉方式：
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">全麻</option>
+                                            <option value="">复合麻</option>
+                                            <option value="">局麻</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">切口感染:</td>
+                                <td colspan="8">
+                                    <span class="layui-form medical">
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="medical">
+                                        感染类型
+                                        <select name="" id="">
+                                            <option value="">请选择</option>
+                                            <option value="">表浅切口</option>
+                                            <option value="">深部切口</option>
+                                            <option value="">器官、腔隙</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">术后诊断：</td>
+                                <td colspan="8"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">易感因素：</td>
+                                <td colspan="8" class="layui-form">
+                                    <input type="checkbox" name="" title="糖尿病" lay-skin="primary">
+                                    <input type="checkbox" name="" title="免疫抑制剂" lay-skin="primary">
+                                    <input type="checkbox" name="" title="激素" lay-skin="primary">
+                                    <input type="checkbox" name="" title="化疗" lay-skin="primary">
+                                    <input type="checkbox" name="" title="放弃" lay-skin="primary">
+                                    <input type="checkbox" name="" title="癌症" lay-skin="primary">
+                                    <input type="checkbox" name="" title="血液病" lay-skin="primary">
+                                    <input type="checkbox" name="" title="肝硬化" lay-skin="primary">
+                                    <input type="checkbox" name="" title="肾病" lay-skin="primary">
+                                    <input type="checkbox" name="" title="营养不良" lay-skin="primary">
+                                    <input type="checkbox" name="" title="新生儿" lay-skin="primary">
+                                    <input type="checkbox" name="" title="高龄>75岁" lay-skin="primary">
+                                    <input type="checkbox" name="" title="免疫功能低下" lay-skin="primary">
+                                    <input type="checkbox" name="" title="昏迷" lay-skin="primary">
+                                    <input type="checkbox" name="" title="长期卧床" lay-skin="primary">
+                                    <input type="checkbox" name="" title="透析" lay-skin="primary">
+                                    <input type="checkbox" name="" title="抗菌药物大量使用" lay-skin="primary">
+                                    <input type="checkbox" name="" title="切口延迟缝合" lay-skin="primary">
+                                    <input type="checkbox" name="" title="其它" lay-skin="primary">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">失血:</td>
+                                <td colspan="8" class="layui-form">
+                                    <input type="radio" name="normal" value="" title="无">无
+                                    <input type="radio" name="normal" value="" title="有">有
+                                    <input type="text" style="width: 10%">ml
+                                    <span class="medical">
+                                        输血：
+                                        <input type="radio" name="normal" value="" title="无">无
+                                        <input type="radio" name="normal" value="" title="有">有
+                                        <input type="text" style="width: 10%">ml
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr><td class="align" colspan="10">与手术切口相关抗生素使用情况（术前、术中、术后）</td></tr>
+                            <tr class="tableList_sy">
+                                <td>抗生素名称</td>
+                                <td>剂量</td>
+                                <td>单位</td>
+                                <td>用法</td>
+                                <td>途径</td>
+                                <td>起始时间</td>
+                                <td>截止时间</td>
+                                <td>目的</td>
+                                <td>联用</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">术前预防/治疗</option>
+                                        <option value="">术中治疗</option>
+                                        <option value="">术后预防/治疗</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">术前预防/治疗</option>
+                                        <option value="">术中治疗</option>
+                                        <option value="">术后预防/治疗</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">术前预防/治疗</option>
+                                        <option value="">术中治疗</option>
+                                        <option value="">术后预防/治疗</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">术前预防/治疗</option>
+                                        <option value="">术中治疗</option>
+                                        <option value="">术后预防/治疗</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td class="align" colspan="10">与切口感染有关的实验室资料</td>
+                            </tr>
+                            <tr class="tableList_sy">
+                                <td>标本类型</td>
+                                <td>送检日期</td>
+                                <td>检验方法</td>
+                                <td>涂片白细胞数</td>
+                                <td>病原学检验结果</td>
+                                <td>病原体</td>
+                                <td>药敏结果(有/无)</td>
+                                <td>抗菌药物</td>
+                                <td>抗菌药物</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">伤口分泌物</option>
+                                        <option value="">穿刺液</option>
+                                        <option value="">引流液</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="layui-input" id="test16"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">涂片</option>
+                                        <option value="">培养</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">阴性</option>
+                                        <option value="">阳性</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">有</option>
+                                        <option value="">无</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">敏感</option>
+                                        <option value="">不敏感</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">伤口分泌物</option>
+                                        <option value="">穿刺液</option>
+                                        <option value="">引流液</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="layui-input" id="test17"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">涂片</option>
+                                        <option value="">培养</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">阴性</option>
+                                        <option value="">阳性</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">有</option>
+                                        <option value="">无</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">敏感</option>
+                                        <option value="">不敏感</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">伤口分泌物</option>
+                                        <option value="">穿刺液</option>
+                                        <option value="">引流液</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="layui-input" id="test18"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">涂片</option>
+                                        <option value="">培养</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">阴性</option>
+                                        <option value="">阳性</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">有</option>
+                                        <option value="">无</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">敏感</option>
+                                        <option value="">不敏感</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">伤口分泌物</option>
+                                        <option value="">穿刺液</option>
+                                        <option value="">引流液</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="layui-input" id="test19"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">涂片</option>
+                                        <option value="">培养</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">阴性</option>
+                                        <option value="">阳性</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">有</option>
+                                        <option value="">无</option>
+                                    </select>
+                                </td>
+                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                        <option value="">敏感</option>
+                                        <option value="">不敏感</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aigRig">术后外科病发症:</td>
+                                <td colspan="8" class="layui-form">
+                                    <span>
+                                        引流
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        穿孔
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        瘘管
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        切口裂开
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        脂肪液化
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        深静脉血栓
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                    <span class="reactLeft">
+                                        手术引起院内感染
+                                        <input type="radio" name="normal" value="" title="是">是
+                                        <input type="radio" name="normal" value="" title="否">否
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>随访日期</td>
+                                <td colspan="8">
+                                    <input type="text" style="width:20%" id="test20">
+                                    <span>管理员：<input type="text" style="width:20%"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">CO中毒报卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">C O 中 毒 报 卡</h3>
+                    <div class="report_cont">
+                        <table id="Poisoning"></table>
+                        <div class="reportTable">
+                            <table class="posin_table">
+                                <tr>
+                                    <td colspan="3">卡片序号：<input type="text" class="addNum"></td>
+                                </tr>
+                                <tr class="layui-form">
+                                    <td>姓名：<input type="text"></td>
+                                    <td>
+                                        性别：
+                                        <input type="radio" name="normal" value="" title="男">男
+                                        <input type="radio" name="normal" value="" title="女">女
+                                    </td>
+                                    <td>年龄：<input type="text">岁</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">家住详细地址：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">出事地点：<input type="text"></td>
+                                    <td colspan="2">家属联系电话：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">诊断：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        中毒原因：
+                                        <textarea name="" id="" cols="70" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">中毒发生时间：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        临床表现：
+                                        <textarea name="" id="" cols="70" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        处理过程：
+                                        <textarea name="" id="" cols="70" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">报告地区：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">报告单位：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">报告人：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">报告时间：<input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">报告电话：<input type="text"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item">
+                    <div class="medrecord">
+                        <p class="word">高温中暑病例报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">高温中暑病例报告卡</h3>
+                    <div class="report_cont">
+                        <table id="HeatStroke"></table>
+                        <div class="layui-form align">
+                            <input type="radio" name="normal" title="初次报告">初次报告
+                            <input type="radio" name="normal" title="订正报告">订正报告
+                        </div>
+                        <table class="poison_table">
+                            <tr>
+                                <td>卡片编号：</td>
+                                <td colspan="5"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td>户口所在地：</td>
+                                <td colspan="5"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td>基本情况：</td>
+                                <td colspan="5"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr class="layui-form">
+                                <td>姓名：</td>
+                                <td><input type="text" class="addNum"></td>
+                                <td>
+                                    性别：
+                                    <input type="radio" name="normal" title="男">男
+                                    <input type="radio" name="normal" title="女">女
+                                </td>
+                                <td>年龄：</td>
+                                <td><input type="text" class="addNum">岁</td>
+                            </tr>
+                            <tr>
+                                <td>现住址：</td>
+                                <td colspan="5"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr class="layui-form">
+                                <td>中暑诊断：</td>
+                                <td colspan="5">
+                                    <input type="radio" name="normal" title="轻症中署">轻症中署
+                                    <input type="radio" name="normal" title="重症中暑：放射病">重症中暑：放射病
+                                    <input type="radio" name="normal" title="热痉挛">热痉挛
+                                    <input type="radio" name="normal" title="热衰竭">热衰竭
+                                    <input type="radio" name="normal" title="混合型">混合型
+                                </td>
+                            </tr>
+                            <tr class="layui-form">
+                                <td>患者情况：</td>
+                                <td colspan="5">
+                                    <input type="radio" name="normal" title="治疗中">治疗中
+                                    <input type="radio" name="normal" title="治愈">治愈
+                                    <input type="radio" name="normal" title="死亡">死亡
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>中署日期：</td>
+                                <td colspan="2"><input type="text" class="layui-input addNum" id="test21"></td>
+                                <td>治疗单位：</td>
+                                <td colspan="2"><input type="text" class="addNum"></td>
+                            </tr>
+                            <tr>
+                                <td>报告日期：</td>
+                                <td colspan="2"><input type="text" class="layui-input addNum" id="test22"></td>
+                                <td>报告人：</td>
+                                <td colspan="2"><input type="text" class="addNum"></td>
+                            </tr>
+                        </table>
+                        <div class="lastWord">
+                            <p>填卡说明：</p>
+                            <p>1.初次报告为病人诊断后的首次；订正报告指初次报告后患者被治愈，或出现死亡时的报告。 </p>
+                            <p>2.患者居住地以现状为准。</p>
+                            <p>3.中暑诊断标准：</p>
+                            <p class="inde">轻症中暑，临床表现为头昏、头痛、面色潮红、口渴、大量出汗、全身疲乏、心悸、脉搏快速、注意力不集中、动作不协调等症状，体温升高至38.5℃以上。 </p>
+                            <p class="inde">重症中暑：包括热射病、热痉挛、热衰竭三种类型，也可出现混合型。其中： </p>
+                            <p class="inde">热射病（包括日射病）亦称中暑性高热，其特点是在高温环境中突然发病，体温高达40℃以上，疾病早期大量出汗，继之“无汗”，可伴有皮肤干热及不同程度的意识障碍等。</p>
+                            <p class="inde">热痉挛主要表现为明显的肌痉挛，伴有收缩痛。好发于活动较多的四肢肌肉及腹肌等，尤以腓肠肌为著。常呈对称性。时而发作，时而缓解。患者意识清，体温一般正常。 </p>
+                            <p class="inde">热衰竭起病迅速，主要表现为头昏、头痛、多汗、口渴、恶心、呕吐，继而皮肤湿冷、血压下降、心律紊乱、轻度脱水、体温稍高或正常。</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">疑似职业病报告卡</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">疑 似 职 业 病 报 告 卡</h3>
+                    <div class="report_cont">
+                        <table id="Occupational"></table>
+                        <div class="occupText clearfix">
+                            <div class="occup_ fig fl">姓名：<input type="text"></div>
+                            <div class="occup_ fig fl">身份证号：<input type="text"></div>
+                            <div class="occup_ fl">
+                                <p>表号：卫统<input type="text">表</p>
+                                <p>制表机关：卫生部</p>
+                                <p>批准机关：国家统计局</p>
+                                <p>批准文号：国统制[<input type="text">]号</p>
+                                <p>有效期至：<input type="text">年</p>
+                                <p>联系电话：<input type="text"></p>
+                            </div>
+                        </div>
+                        <table class="poison_table newOccup">
+                            <tr>
+                                <td>卡片序号</td>
+                                <td><input type="text" class="occpNum"><input type="text" class="occpNum" style="margin-left:10px;"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    用人单位<br>
+                                    基本信息
+                                </td>
+                                <td>
+                                    <p>名称：<input type="text" class="occpNum"></p>
+                                    <p>组织机构代码:<input type="text" class="occpNum"></p>
+                                    <p>
+                                        通讯地址：<input type="text" class="occpNum">
+                                        邮编：<input type="text" class="occpNum">
+                                    </p>
+                                    <p>
+                                        联系人:<input type="text" class="occpNum">
+                                        电话：<input type="text" class="occpNum">
+                                    </p>
+                                    经济类型 :<input type="text" class="occpNum">
+                                    行业：<input type="text" class="occpNum">
+                                    <p class="layui-form" style="border-bottom: none;">
+                                        企业规模：<input type="radio" name="normal" title="1大型">1大型
+                                        <input type="radio" name="normal" title="2中型">2中型
+                                        <input type="radio" name="normal" title="3小型">3小型
+                                        <input type="radio" name="normal" title="4微型">4微型
+                                        <input type="radio" name="normal" title="5不详">5不详
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="layui-form">
+                                <td>
+                                    性别
+                                    <input type="radio" name="sex" title="男">男
+                                    <input type="radio" name="sex" title="女">女
+                                </td>
+                                <td>出生日期 <input type="text" class="occpNum" id="test23"></td>
+                            </tr>
+                            <tr>
+                                <td>疑似职业病名称 <input type="text" class="occpNum"></td>
+                                <td>可能接触的主要职业性有害因素:<input type="text" class="occpNum"></td>
+                            </tr>
+                            <tr>
+                                <td>统计工种 <input type="text" class="occpNum"></td>
+                                <td>专业工龄:<input type="text" class="occpNum" id="test24"></td>
+                            </tr>
+                            <tr>
+                                <td class="layui-form" colspan="2">
+                                    信息来源：<br>
+                                    <input type="radio" name="nor" title="职业健康检查">职业健康检查
+                                    <input type="radio" name="nor" title="职业病诊断">职业病诊断
+                                    <input type="radio" name="nor" title="门诊治疗">门诊治疗
+                                    <input type="radio" name="nor" title="住院治疗">住院治疗
+                                    <input type="radio" name="nor" title="职业病事故">职业病事故
+                                    其他：<input type="text" class="occpNum">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="occupLast clearfix">
+                            <div class="fl">
+                                报告单位：浙江省新华医院
+                                <p>盖章</p>
+                                <p>填表人电话：<input type="text" class="occpNum"></p>
+                            </div>
+                            <div class="fl">单位负责人：蔡宛如<!-- <input type="text" class="occpNum"> --></div>
+                            <div class="fl">
+                                <p>填表人：<input type="text" class="occpNum"></p>
+                                <p>填表日期：<input type="text" class="occpNum" id="test25"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-tab-item ">
+                    <div class="medrecord">
+                        <p class="word">肺结核转诊单</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <p>注：存根不用填写，介绍信保存后悔自动生成。</p>
+                    <div class="report_cont">
+                        <table id="referral"></table>
+                        <div class="refeCont">
+                            <h2 class="word">杭州市对新发肺结核病人实行免费查治肺结核病人就诊介绍信</h2>
+                            <div class="referNum clearfix">
+                                <div class="left fl">
+                                    <p>NO <input type="text"></p>
+                                    <p>杭州市肺结核转诊存根转<input type="text">医院</p>
+                                    <p>姓名：<input type="text"></p>
+                                    <p>性别：<input type="text">年龄：<input type="text"></p>
+                                    <p>电话：<input type="text"></p>
+                                    <p>初步诊断：<input type="text"></p>
+                                    <p>诊断单位：<input type="text"></p>
+                                    <p>初步医生：<input type="text"></p>
+                                    <p>初步日期：<input type="text" id="test27"></p>
+                                </div>
+                                <div class="right fl">
+                                    <p>NO <input type="text"></p>
+                                    <p>定点医院 <input type="text"></p>
+                                    <p>
+                                        病人<input type="text" style="width:12%;">
+                                        性别<input type="text" style="width:9%;">
+                                        年龄<input type="text" style="width:9%;">
+                                        电话<input type="text">
+                                    </p>
+                                    <p>
+                                        来我院就诊，经<input type="text">检查诊为<input type="text">
+                                    </p>
+                                    <p>今介绍来你院确诊治疗。望予接治。</p>
+                                    <p style="text-align:right;">医院 <input type="text"></p>
+                                    <p style="text-align:right">
+                                        医生签名 <input type="text">
+                                        日期<input type="text" id="test26">
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="align">本介绍信由杭州市疾控中心结防所印</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item  layui-show">
+                    <div class="medrecord">
+                        <p class="word">居民死亡医学证明（推断）书</p>
+                        <div class="rigBtn">
+                            <a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69e;</i>修改</a>
+                            <a class="layui-btn"><i class="iconfont">&#xe69d;</i>删除</a>
+                            <a class="layui-btn"><i class="iconfont print">&#xe61b;</i>打印</a>
+                        </div>
+                    </div>
+                    <h3 class="reportCard">疑 似 职 业 病 报 告 卡</h3>
+                    <div class="report_cont">
+                        <p>
+                            <span>浙江</span>省(自治区、直辖市) <span>杭州</span>  市(地区、州、盟) <span>拱墅 </span>	县(区、旗)
+                        </p>
+                        <div class="code clearfix">
+                            <p>行政区划代码<span>330105</span></p>
+                            <p>医院号<span>00119780</span></p>
+                            <p>编号<input type="text"></p>
+                        </div>
+                        <table class="infect_table">
+                            <tr>
+                                <td>死者姓名</td>
+                                <td>张嬷嬷</td>
+                                <td>性别</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">男</option>
+                                        <option value="">女</option>
+                                        <option value="">未知</option>
+                                    </select>
+                                </td>
+                                <td>民族</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">汉族</option>
+                                        <option value="">回族</option>
+                                    </select>
+                                </td>
+                                <td>国家或地区</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">中国</option>
+                                        <option value="">外国</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>有效身份证件类别</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">省份证</option>
+                                        <option value="">护照</option>
+                                    </select>
+                                </td>
+                                <td>证件号码</td>
+                                <td><input type="text"></td>
+                                <td>年龄</td>
+                                <td><input type="text"></td>
+                                <td>婚姻状况</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>出生日期</td>
+                                <td>1953-02-06</td>
+                                <td>文化程度</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">大学</option>
+                                        <option value="">小学</option>
+                                    </select>
+                                </td>
+                                <td>个人身份</td>
+                                <td colspan="3">
+                                    <select name="" id="">
+                                        <option value="">公务员</option>
+                                        <option value="">技术员</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>死亡日期</td>
+                                <td><input type="text" id="test28"></td>
+                                <td>死亡地点</td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">家中</option>
+                                        <option value="">不详</option>
+                                    </select>
+                                </td>
+                                <td>死亡时是否处于妊娠期或妊娠终止后42天内</td>
+                                <td class="layui-form" colspan="3">
+                                    <input type="radio" name="nor" title="是">是
+                                    <input type="radio" name="nor" title="否">否
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>生前工作单位</td>
+                                <td><input type="text"></td>
+                                <td>户籍地址</td>
+                                <td colspan="2"><input type="text"></td>
+                                <td>常住地址</td>
+                                <td colspan="3"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>可联系的家属姓名</td>
+                                <td><input type="text"></td>
+                                <td>联系电话</td>
+                                <td><input type="text"></td>
+                                <td>家属住址或工作单位</td>
+                                <td colspan="4"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>致死的主要疾病诊断</td>
+                                <td colspan="4">疾病名称（勿填症状体征）</td>
+                                <td colspan="3">发病至死亡大概间隔时间</td>
+                            </tr>
+                            <tr>
+                                <td>I. (a)直接死亡原因</td>
+                                <td colspan="4"><input type="text"></td>
+                                <td colspan="3"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td> (b)引起(a)的疾病或情况</td>
+                                <td colspan="4"><input type="text"></td>
+                                <td colspan="4"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>(c)引起(b)的疾病或情况</td>
+                                <td colspan="4"><input type="text"></td>
+                                <td colspan="4"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>(d)引起(c)的疾病或情况</td>
+                                <td colspan="4"><input type="text"></td>
+                                <td colspan="4"><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>生前主要疾病最高诊断单位 </td>
+                                <td colspan="3">
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </td>
+                                <td>生前主要疾病最高诊断依据</td>
+                                <td colspan="3">
+                                    <select name="" id="">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>医师签名</td>
+                                <td><input type="text" style="width: 50%;" disabled="disabled"><a class="layui-btn">签名</a></td>
+                                <td colspan="3">医疗卫生机构盖章 </td>
+                                <td colspan="3">填表日期 <input type="text" style="width: 50%;" id="test29"></td>
+                            </tr>
+                            <tr>
+                                <td>(以下由编码人员填写) 根本死亡原因</td>
+                                <td colspan="3"><input type="text"></td>
+                                <td>ICD编码</td>
+                                <td colspan="3"><input type="text"></td>
+                            </tr>
+                        </table>
+                        <p class="reportCard">死 亡 调 查 记 录</p>
+                        <table class="infect_table">
+                            <tr>
+                                <td class="dead" colspan="8">
+                                    <p>死者生前病史及症状体征： </p>
+                                    <textarea name="" id="" class="deadArea"></textarea>
+                                    <p class="deadP">以上情况属实，被调查者签字：<input type="text" style="width: 10%;"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>被调查者姓名</td>
+                                <td><input type="text"></td>
+                                <td>与死者关系</td>
+                                <td><input type="text"></td>
+                                <td>联系电话</td>
+                                <td><input type="text"></td>
+                                <td>联系地址或工作单位</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>死因推断</td>
+                                <td colspan="3"><input type="text"></td>
+                                <td>调查者签名</td>
+                                <td><input type="text"></td>
+                                <td>调查日期</td>
+                                <td colspan="3"><input type="text" id="test30"></td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+</body>
+
+<script>
+    layui.use(['table', 'element', 'laydate'], function () {
+        var table = layui.table;
+        var element = layui.element;
+        var laydate = layui.laydate;
+        table.render({ //table 表格
+            elem: '#periodTable'
+          , cols: [[
+           { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '卡片编号', align: 'center' }
+            , { field: 'city', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '报卡医生', align: 'center' }
+          ]]
+        });
+        table.render({ //table 表格
+            elem: '#acuteIncident'
+          , cols: [[
+            { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '卡片编号', align: 'center' }
+            , { field: 'city', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '报卡医生', align: 'center' }
+          ]]
+        });
+        table.render({ //table 表格
+            elem: '#poisoning'
+          , cols: [[
+            { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '卡片编号', align: 'center' }
+            , { field: 'city', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '报卡医生', align: 'center' }
+          ]]
+        });
+        table.render({ //table 表格
+            elem: '#tuberculosis'
+          , cols: [[
+            { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '登记号', align: 'center' }
+            , { field: 'city', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '报卡医生', align: 'center' }
+          ]]
+        });
+        table.render({ //医院感染病人报卡登记表
+            elem: '#infectious'
+          , cols: [[
+            { field: 'username', title: '编号', align: 'center' }
+            , { field: 'sex', title: '姓名', align: 'center' }
+            , { field: 'city', title: '住院号', align: 'center' }
+            , { field: 'sign', title: '性别', align: 'center' }
+            , { field: 'sign', title: '年龄', align: 'center' }
+            , { field: 'sign', title: '登记时间', align: 'center' }
+            , { field: 'sign', title: '报卡医生', align: 'center' }
+          ]]
+        });
+        table.render({ //手术切口
+            elem: '#Surgical'
+          , cols: [[
+            { field: 'username', title: '编号', align: 'center' }
+            , { field: 'sex', title: '姓名', align: 'center' }
+            , { field: 'city', title: '住院号', align: 'center' }
+            , { field: 'sign', title: '性别', align: 'center' }
+            , { field: 'sign', title: '年龄', align: 'center' }
+            , { field: 'sign', title: '随访日期', align: 'center' }
+            , { field: 'sign', title: '调查者', align: 'center' }
+          ]]
+        });
+
+        table.render({ //中毒报卡
+            elem: '#Poisoning'
+          , cols: [[
+            { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '卡片编号', align: 'center' }
+            , { field: 'sign', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '保卡医生', align: 'center' }
+          ]]
+        });
+
+        table.render({ //高温中暑报卡
+            elem: '#HeatStroke'
+         , cols: [[
+           { field: 'username', title: '姓名', align: 'center' }
+           , { field: 'sex', title: '卡片序号', align: 'center' }
+           , { field: 'sign', title: '报卡日期', align: 'center' }
+           , { field: 'sign', title: '保卡医生', align: 'center' }
+         ]]
+        });
+
+        table.render({ //职业病报卡
+            elem: '#Occupational'
+           , cols: [[
+             { field: 'username', title: '姓名', align: 'center' }
+             , { field: 'sex', title: '卡片编号', align: 'center' }
+             , { field: 'sign', title: '报卡日期', align: 'center' }
+             , { field: 'sign', title: '保卡医生', align: 'center' }
+           ]]
+        });
+        table.render({ //转诊单
+            elem: '#referral'
+          , cols: [[
+            { field: 'username', title: '姓名', align: 'center' }
+            , { field: 'sex', title: '卡片编号', align: 'center' }
+            , { field: 'sign', title: '报卡日期', align: 'center' }
+            , { field: 'sign', title: '保卡医生', align: 'center' }
+          ]]
+        });
+
+        laydate.render({
+            elem: '#test',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test1',
+            type: 'datetime'
+        })
+        laydate.render({
+            elem: '#test2',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test3',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test4',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test5',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test6',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test7',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test8',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test9',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test10',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test11',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test15',
+            type: 'datetime'
+        });
+
+        laydate.render({
+            elem: '#test12'
+           , type: 'datetime'
+           , range: true
+        });
+        laydate.render({
+            elem: '#test13'
+           , type: 'datetime'
+           , range: true
+        });
+        laydate.render({
+            elem: '#test14'
+           , type: 'datetime'
+           , range: true
+        });
+        laydate.render({
+            elem: '#test16',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test17',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test18',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test19',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test20',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test21',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test22',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test23',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test24'
+        });
+        laydate.render({
+            elem: '#test25'
+        });
+        laydate.render({
+            elem: '#test26'
+        });
+        laydate.render({
+            elem: '#test27'
+        });
+        laydate.render({
+            elem: '#test28'
+        });
+        laydate.render({
+            elem: '#test29',
+        });
+        laydate.render({
+            elem: '#test30'
+        });
+    })
+
+
+</script>
+</html>

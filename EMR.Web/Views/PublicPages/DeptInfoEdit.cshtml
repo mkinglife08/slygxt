@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "AI_DeptInfoEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<form class="layui-form" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">HIS序号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="HISID" data-id="HISID"  lay-maxlength="20" placeholder="HIS序号" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">科室名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DeptName" data-id="DeptName"  onblur='$("#SpellCode").val(pinyin.getCamelChars(this.value).substr(0, 6))' lay-verify="required" lay-maxlength="30" placeholder="请输入科室名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">拼音码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="SpellCode" id="SpellCode" data-id="SpellCode" lay-maxlength="6" placeholder="请输入拼音码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+          
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">自定义码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="CustomCode" id="CustomCode" data-id="CustomCode" placeholder="请输入自定义码" lay-maxlength="6" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">病区判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsInpatient" value="0" title="不是" checked="">不是
+                    <input type="radio" name="IsInpatient" value="1" title="是">是
+                </div>
+            </div>
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">作废判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsCance" value="0" title="正常" checked="">正常
+                    <input type="radio" name="IsCance" value="1" title="作废">作废
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注信息</label>
+                <div class="layui-input-inline">
+                    <textarea name="DeptNote" data-id="DeptNote" style="width:550px;" placeholder="请输入备注信息" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont icon-saves" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganSelect();
+    var DeptID = GetQueryString("DeptID");
+    if (DeptID != "") {
+        EWinsBase.json("api/Public/Deptinfo/GetInfoById", {
+            data: { "DeptID": DeptID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("input:radio[name='IsCance'][value='" + data.data["IsCance"] + "']").attr("checked", 'checked');
+                $("input:radio[name='IsInpatient'][value='" + data.data["IsInpatient"] + "']").attr("checked", 'checked');
+            },
+            error: function (error) {
+              
+            }
+        })
+    }
+    else
+    {
+        var ParentID = GetQueryString("ParentID");
+       
+    }
+
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit;
+        form.on('submit(sub)', function (data) {
+            data.field["DeptID"] = GetQueryString("DeptID");
+            data.field["ParentID"] = GetQueryString("ParentID");
+            EWinsBase.json("api/Public/DeptInfo/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            setTimeout(function () {
+                                var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                                var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;                                                               
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                                wind.refreshNode();//刷新树
+                                wind.refreshTable();//刷新表格 
+                            }, 900);
+                        }
+                    );
+                },
+                error: function (error) {
+                 
+                }
+            })
+           
+            return false;
+        });
+    })
+</script>

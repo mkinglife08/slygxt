@@ -1,0 +1,184 @@
+.none{ display: none; }
+.specialist{
+	padding:5px 1%;
+}
+.neurology{ position: relative; }
+.neurology .layuiN{
+	border:1px solid #3F88CF;
+	padding-left: 5px;
+}
+.neurText .neurWord{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+.neurology .area,.textarea{
+	width: 98%;
+	height: 100px;
+	padding:5px;
+	border-radius: 5px;
+} 
+.neurBtn #test{
+	border:1px solid #999;
+	border-radius: 5px;
+	height: 25px;
+	padding-left: 5px;
+	margin-left: 5px;
+}
+.neurList{
+	border: 1px solid #ccc;
+	padding:3px 5% 10% 5%;
+	position: absolute;
+	top: 23px;
+	left: 0;
+	background: #fff;
+	display: none;
+}
+.left{ margin-left:15px; }
+.neurList .neurFir{ margin-bottom:5px; }
+.neurList select{
+	border:1px solid #CCC;
+}
+.neurList input{
+	border:1px solid #CCC;
+	border-radius: 5px;
+	height: 25px;
+	padding-left: 5px;
+	width: 6%;
+}
+.neurList p{ margin: 3px 0; }
+.nuerCen{
+	width: 200px;
+	height: 200px;
+	border:1px solid #ccc;
+}
+.neurTable{
+	width: 100%;
+	border:1px solid #999;
+	text-align: center;
+}
+.neurTable tr{ border-bottom: 1px solid #999;height: 30px; }
+.neurTable tr td{ border-right:1px solid #999 ; }
+.cardiovascular{ background:#fff; }
+.cardTitle{
+	width: 96%;
+    height: 40px;
+    line-height: 40px;
+    background: #e6e6e6;
+    position: relative;
+    padding: 0 2%;
+}
+.carWord{ font-size: 18px; }
+.right{
+	position: absolute;
+	right: 10px;
+	top: 0;
+}
+.cardList{
+	border:1px solid #CCC;
+	width: 100%;
+	margin-top: 5px;
+}
+.cardList .cardUp,.cardCenter{ border-bottom:1px solid #ccc; }
+.cardList .cardUp .infor{ 
+	width: 100px;
+	height: 120px;
+	line-height: 120px;
+	text-align:center;
+	border-right: 1px solid #ccc;
+ }
+ .cardList .cardUp .cardArea{ 
+ 	height:90px;
+ 	width: 80%;
+ 	margin-top: 3px;
+ 	margin-left: 10px;
+}
+.cardCenter{ height:180px; }
+.cardCenter .infor{
+	height: 180px;
+	line-height: 180px;
+	 width: 100px;
+	 text-align:center;
+	border-right: 1px solid #ccc;
+}
+.cardTable{ 
+	text-align:center;
+	height:160px;
+	width: 80%; 
+	margin-left: 10px;
+	margin-top: 3px;
+
+}
+.cardTable tr,.eyeTable tr,.mack tr{ border:1px solid #ccc; }
+.cardTable tr td,.eyeTable tr td,.mack tr td{ border-right: 1px solid #ccc;  }
+.cardTable tr input,#test2,
+.eyeTest input,.gynaLat input,.last input,.mack tr td input,.childLast input{
+	border-radius: 5px;
+	padding:5px;
+	width: 20%;
+	outline: none;
+	height: 15px;
+	border:1px solid #666;
+}
+.next{ width:100px;line-height: 30px;text-align:center;border-right:1px solid #ccc }
+#test2{
+	margin-top: 3px;
+	margin-left: 10px;
+}
+.exam{
+	width: 100%;
+	height:278px;
+	border:1px solid #ccc;
+	margin-top: 10px;
+
+}
+.exam p{
+	width: 100px;
+	height: 100%;
+	line-height: 256px;
+	text-align:center;
+	border-right:1px solid #666;
+}
+.charRight{ margin-left: 10px;margin-top: 3px; }
+.eyeInfor{
+	width: 19%;
+}
+.eyeInfor p,.gynaLat p,.last p{ margin-top: 5px; }
+.eyeSec p{
+	float: left;
+	width: 18%;
+	margin-top: 10px;
+}
+.eyeTable{ 
+	width: 100%;
+	border:1px solid #ccc;
+	text-align:center;
+	margin-top: 5px;
+}
+.eyes .leftRig,.others{
+	margin: 15px 0;
+}
+.eyes .leftRig p{
+	width: 40%;
+}
+.gynaeInfor,.gyall,.addTable{ margin: 10px 0; }
+.gynaLat .gynaList{
+	width:30%;
+	text-align:right;
+}
+.gynaLat .gynaList input{ width: 50%; }
+.gyup{ 
+	width: 150px;
+	height: 150px;
+	border:1px solid #ccc;
+	margin-left: 10%;
+}
+.last{
+	text-align:right;
+}
+.mack{
+	width: 100%;
+	border:1px solid #CCC;
+}
+.mack td{ padding:0 5px;height: 40px; }
+.childLast{ text-align:right; }

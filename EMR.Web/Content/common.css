@@ -1,0 +1,205 @@
+/*编辑页上传照片*/
+.uploadPictures {
+    position: relative;
+}
+
+    .uploadPictures .uploadBtn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,.5);
+    }
+
+    .uploadPictures .uploadImg img {
+        height: 100%;
+    }
+
+
+/*按钮样式表*/
+.layui-nav-item .addActive {
+    background: #337ab7;
+    color: #fff !important;
+}
+
+.layui-form-select .layui-edge {
+    margin-top: 0px !important;
+}
+
+.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
+    background-color: #EAEFF5 !important;
+    color: #3F88CF !important;
+    font-weight: 600;
+}
+
+
+.choseBtn {
+    position: relative;
+}
+
+    .choseBtn .aList {
+        position: absolute;
+        left: 5px;
+        top: 0;
+    }
+
+    .choseBtn .icon_right, .icon_right, #icon_rights {
+        position: absolute;
+        right: 18px;
+        top: 2px;
+    }
+
+
+.my-btn-box .container .aList a {
+    color: #0A64A4;
+    margin: 0 2px;
+    padding: 8px 12px;
+    border-right: 1px solid #D3D3D3;
+}
+
+    .my-btn-box .container .aList a:hover {
+        background: #0A64A4;
+        border-radius: 5px;
+        color: #fff;
+        border-right: none;
+    }
+
+.my-btn-box .container .choseBtn .btn-add:hover i {
+    color: #fff;
+}
+
+.my-btn-box .container .choseBtn #btn-delete:hover i {
+    color: #fff;
+}
+
+.my-btn-box .container .aList #btn-delete {
+    border-right: none;
+    background: none;
+}
+
+    .my-btn-box .container .aList #btn-delete:hover {
+        background: #0A64A4 !important;
+    }
+
+.my-btn-box .container .choseBtn .aList .colorAdd {
+    color: #D2691E;
+}
+
+.my-btn-box .container .choseBtn .btn-edit {
+    color: #800000;
+}
+
+.my-btn-box .container .choseBtn .btn-role {
+    color: #696969;
+}
+
+.my-btn-box .container .choseBtn .btn-sysapp {
+    color: #31b0d5;
+}
+
+.my-btn-box .container .choseBtn .btn-refresh {
+    color: #008000;
+}
+
+.my-btn-box .container .choseBtn .btn-delete {
+    color: #FF0000;
+}
+
+.my-btn-box .container .choseBtn .btn-right {
+    color: #31b0d5;
+}
+
+/*用户管理-用户组*/
+.icon_lefts {
+    margin-right: 29px;
+}
+
+.index_search {
+    font-size: 15px;
+    margin-left: 29px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.searchBtn {
+    margin: -4px 0 0 11px;
+    padding: 0 8px;
+}
+
+
+/*抖动样式*/
+.m-animate-shake {
+    -webkit-animation: m-animate-shake 0.2s ease-in 0.2s infinite alternate;
+    -moz-animation: m-animate-shake 0.2s ease-in 0.2s infinite alternate;
+    -ms-animation: m-animate-shake 0.2s ease-in 0.2s infinite alternate;
+    -o-animation: m-animate-shake 0.2s ease-in 0.2s infinite alternate;
+    animation: m-animate-shake 0.2s ease-in 0.2s infinite alternate;
+    animation-fill-mode: initial;
+}
+
+@-webkit-keyframes m-animate-shake {
+    from {
+        -webkit-transform: rotate(13deg);
+        -moz-transform: rotate(13deg);
+        -ms-transform: rotate(13deg);
+        -o-transform: rotate(13deg);
+        transform: rotate(13deg);
+    }
+
+    to {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-13deg);
+        -moz-transform: rotate(-13deg);
+        -ms-transform: rotate(-13deg);
+        -o-transform: rotate(-13deg);
+        transform: rotate(-13deg);
+    }
+}
+
+@-moz-keyframes m-animate-shake {
+    from {
+        -webkit-transform: rotate(13deg);
+        -moz-transform: rotate(13deg);
+        -ms-transform: rotate(13deg);
+        -o-transform: rotate(13deg);
+        transform: rotate(13deg);
+    }
+
+    to {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-13deg);
+        -moz-transform: rotate(-13deg);
+        -ms-transform: rotate(-13deg);
+        -o-transform: rotate(-13deg);
+        transform: rotate(-13deg);
+    }
+}
+
+@-o-keyframes m-animate-shake {
+    from {
+        -webkit-transform: rotate(13deg);
+        -moz-transform: rotate(13deg);
+        -ms-transform: rotate(13deg);
+        -o-transform: rotate(13deg);
+        transform: rotate(13deg);
+    }
+
+    to {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-13deg);
+        -moz-transform: rotate(-13deg);
+        -ms-transform: rotate(-13deg);
+        -o-transform: rotate(-13deg);
+        transform: rotate(-13deg);
+    }
+}
+
+@keyframes m-animate-shake {
+    from {
+        left:1px;
+    }
+
+    to {
+        left:0px;
+    }
+}

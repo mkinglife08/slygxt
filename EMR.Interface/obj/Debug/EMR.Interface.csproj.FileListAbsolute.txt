@@ -1,0 +1,11 @@
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Interface\bin\Debug\EMR.Interface.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Interface\bin\Debug\EMR.Interface.pdb
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Interface\obj\Debug\EMR.Interface.csprojResolveAssemblyReference.cache
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Interface\obj\Debug\EMR.Interface.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Interface\obj\Debug\EMR.Interface.pdb
+C:\Code\院感系统\EMR.Interface\bin\Debug\EMR.Interface.dll
+C:\Code\院感系统\EMR.Interface\bin\Debug\EMR.Interface.pdb
+C:\Code\院感系统\EMR.Interface\obj\Debug\EMR.Interface.csprojAssemblyReference.cache
+C:\Code\院感系统\EMR.Interface\obj\Debug\EMR.Interface.csproj.CoreCompileInputs.cache
+C:\Code\院感系统\EMR.Interface\obj\Debug\EMR.Interface.dll
+C:\Code\院感系统\EMR.Interface\obj\Debug\EMR.Interface.pdb

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>护理记录</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">病情护理记录单</p>
+	        <div class="rigBtn">
+	        	<a class="layui-btn">添加</a>
+	            <a class="layui-btn">显示全部</a>
+	            <a class="layui-btn layui-btn-disabled">打印</a>
+	        </div>
+	 	</div>
+		<div class="nurContent">
+			<div class="nurTitle">
+				<div class="nursList">
+					<div class="nurUps">
+						<a class="firNum">2019-03-10<<</a>
+						<input type="text" class="textNum">
+						<a class="firNum">>>2019-03-12</a>
+						<ul class="uls">
+							<li>
+								<span class="number">1</span><span>2017-06-03</span>
+							</li>
+							<li>
+								<span class="number">2</span><span>2017-09-06</span>
+							</li>
+							<li>
+								<span class="number">3</span><span>2018-12-12</span>
+							</li>
+							<li>
+								<span class="number">4</span><span>2019-03-03</span>
+							</li>
+							<li>
+								<span class="number">5</span><span>2019-03-04</span>
+							</li>
+							<li>
+								<span class="number">6</span><span>2019-03-06</span>
+							</li>
+							<li>
+								<span class="number">7</span><span>2019-03-11</span>
+							</li>
+							<li></li>
+							<li class="lastLi">
+								<span class="numFir">1</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="nurDown clearfix">
+					<div class="temporary fl">
+						<p><i class="colorOn"></i>:暂存记录</p>
+						<p><i class="colorTw"></i>:刚修改/新记录</p>
+					</div>
+					<div class="record fr">
+						<select name="" id="">
+							<option value="">趋势图查看</option>
+						</select>
+						<select name="" id="">
+							<option value="">伤口护理</option>
+						</select>
+						<select name="" id="">
+							<option value="">跌倒护理</option>
+						</select>
+						<select name="" id="">
+							<option value="">PICC</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="recordForm">
+			<table class="tableList">
+				<tr>
+					<td>操作</td>
+					<td>时间</td>
+					<td>T℃</td>
+					<td>P 次/分</td>
+					<td>R 次/分</td>
+					<td>BP mmHg</td>
+					<td>spo2%</td>
+					<td>意识</td>
+					<td>
+						<p>瞳孔\对光反射</p>
+						<p><span class="left">左</span><span>右</span></p>
+					</td>
+					<td>
+						<p>入量</p>
+						<p><span span class="left">项目</span><span>ml</span></p>
+					</td>
+					<td>
+						<p>出量</p>
+						<p><span span class="left">项目</span><span>ml</span></p>
+					</td>
+					<td>基础护理</td>
+					<td>健康教育</td>
+					<td>病情观察及护理措施、效果</td>
+					<td>签名</td>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+							<li><a href="script:;">出入量统计</a></li>
+							<li><a href="script:;">编辑</a></li>
+							<li><a href="script:;">删除</a></li>
+							<li><a href="script:;" style="color: #32CD32">审签</a></li>
+						</ul>
+					</td>
+					<td></td>
+					<td style="background:#f3f3f3"></td>
+					<td></td>
+					<td style="background:#f2f2f2"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<div class="respoWord">
+				<div>
+					<b>备注：</b>
+					<span>意识：  瞳孔单位：mm  对光反射：</span>
+				</div>
+				<div>
+					<b>基础护理：</b>
+					<span>A、翻身 B、叩肺 C、抬臀 D、温水擦浴 E、会阴护理 F、口腔护理 G、外周静脉置管 H、更换留置针敷贴 I、更换肝素帽 J、雾化吸入 K、红光治疗 L、蓝光治疗 M、膀胱冲洗 N、松解袖带 O、更换SPO2指套位置 P、脐部护理 Q、更换吸氧管 R、更换引流瓶 S、更换减压装置 T、伤口换药 U、吸痰 V、检查约束部位 W、气切护理 X、更换床单 Y、拔除外置留置针 </span>
+				</div>
+				<div>
+					<b>健康教育：</b>
+					<span>A、  B、入院宣教：B1.住院环境 B2.经管医生责任护士 B3.安全防护 B4.生活起居指导 B5.情志调护 B6.饮食调护 B7.物品保管 B8.禁烟限酒 B9.探视、访客制度 B10.电器安全 B11.请假制度 C、合理体位及目的 D、检查注意事项 E、疾病知识 F、深呼吸、有效咳嗽 G、用药知识 H、吸氧目的注意事项 I、心电监护注意事项 J、管道目的注意事项 K、仪器目的注意事项 L、术前宣教：L1.术前备皮皮试用药 L2.手术大致过程 L3.床上大小便训练 L4.术前禁食禁饮目的 M、术后宣教：M1.术后合理体位 M2.止痛泵使用方法 M3.术后早期活动 M4.伤口保护 M5.恶化 N、术后体位训练 O、牵引目的注意事项 P、中药熏药注意事项 Q、饮食调护 R、出院宣教：R1.出院流程 R2.康复指导 S、两便调护 T、睡眠调护 U、情志调适 V、生活起居 W、适宜活动 X、高危情景的识别和应对 Y、症候护理指导：Y1.疼痛 Y2.发烧 Y3.其他 Z、饮食 IA、输血 IB活动 IC、腹腔穿刺 ID、胸穿刺</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导管评估</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div class="layui-form layAll">
+	        	<span>床号</span>
+				<!-- <select name="" id="">
+					<option value=""></option>
+				</select> -->
+				<input type="radio" name="normal" title="有记录">有记录
+				<input type="radio" name="normal" title="全部">全部
+				<span>姓名：<input type="text" class="newInput"></span>
+				<span>住院号：<input type="text" class="newInput"></span>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">添加</a>
+	            <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+	 	<div class="center">
+			<div class="marginTop">诊断<span class="lines">诊断结果</span></div>
+			<table class="tableList">
+				<tr>
+					<td colspan="3" rowspan="2">评分内容</td>
+					<td rowspan="2">分数</td>
+					<td colspan="5">评估日期（时间）</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4">感觉</td>
+					<td rowspan="4">对压迫有关的不是感觉能力</td>
+					<td>完全丧失</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>严重丧失</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>轻度丧失</td>
+					<td>3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>为受损害</td>
+					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4">潮湿</td>
+					<td rowspan="4">皮肤暴露于潮湿的程度</td>
+					<td>持久潮湿</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>十分潮湿</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>偶尔潮湿</td>
+					<td>3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>很少发生</td>
+					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4">活动</td>
+					<td rowspan="4">身体活动程度</td>
+					<td>卧床不起</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>局限于床上</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>偶尔步行</td>
+					<td>3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>经常步行</td>
+					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4">活动能力</td>
+					<td rowspan="4">改变和控制体位能力</td>
+					<td>完全不能</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>严重限制</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>轻度限制</td>
+					<td>3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>不受限</td>
+					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4">营养</td>
+					<td rowspan="4">通常摄食情况</td>
+					<td>恶劣</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>不足</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>适当</td>
+					<td>3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>良好</td>
+					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="4" colspan="2">潮湿</td>
+					<td>有</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>潜在危险</td>
+					<td>2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>无</td>
+					<td>3</td>
+					<td>2018-09-03</td>
+					<td>2018-09-03</td>
+					<td>2018-09-03</td>
+					<td>2018-09-03</td>
+					<td>2018-09-03</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td colspan="2" >总分</td>
+					<td>1</td>
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td colspan="2">评分者签名</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<div>
+				<p>备注：  1、病人入院或转入24小时内必须进行一次评估。  </p>
+ 				<p>2、病情改变（意识、肢体活动改变）由当班护士进行评估。 </p> 
+ 				<p>3、总分< 18分者需每周进行一次皮肤情况评估。  </p> 
+ 				<p>4、总分≤12分班班评估皮肤情况。 </p> 
+
+			</div>
+	 	</div>
+	</div>
+</body>
+
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+ });
+</script>
+</html>

@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "住院病人列表";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/hospitalBeds.css">
+
+<div class="home_content">
+    <div class="home_header">
+        <div class="select_box">
+            <select name="Group" id="Group">
+                <option value="1">本人</option>
+                <option selected="selected" value="5">本科室</option>
+                <option value="4">授权病人</option>
+            </select>
+            <select name="Status" id="Status">
+                <option selected="selected" value="1">在院</option>
+                <option value="2">已出院</option>
+                @*<option value="3">待归档</option>*@
+                <option value="4">已归档</option>
+                <option value="">全部</option>
+            </select>
+            <select name="KeywordType" id="KeywordType">
+                <option selected="selected" value="BedNumber">床号</option>
+                <option value="InpatientId">住院号</option>
+                <option value="Name">姓名</option>
+                <option value="IdCard">身份证</option>
+                <option value="EntryTime">住院时间</option>
+            </select>
+            <input type="text" autocomplete="off" id="keyword" placeholder="请输入要查询的内容" class="search_input">
+        </div>
+        <div class="home_search">
+            <a class="layui-btn" id="btQuery">
+                <i class="iconfont">&#xe6ac;</i>
+                查询
+            </a>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navLeft clearfix">
+            <p class='navIntr fl'>
+                (<span id="inpDpet"></span>) 共 <span class="num" id="inpNum">0</span> 个病人 <span id="inpStatus"></span>,
+            </p>
+            <p class='navbehalf fl'>
+                <span class="iconIll">△</span>表示病危,<span class="iconWas">※</span>表示病重
+            </p>
+            <div class='navnurs fl'>
+                <div class="navFir fl">
+                    <i class="backImg"></i><span>表示一级护理</span>
+                </div>
+                <div class="navSec fl">
+                    <i class="backImg"></i><span>表示一级护理</span>
+                </div>
+                <div class="navThir fl">
+                    <i class="backImg"></i><span>表示一级护理</span>
+                </div>
+            </div>
+        </div>
+        <div class="navRight">
+            <a class="layui-btn Switchview" onclick="ChangeView()"><i class="iconfont">&#xe7b4;</i>切换视图</a>
+            <a class="layui-btn" onclick="PrintBed()"><i class="iconfont print">&#xe6c9;</i>打印床位</a>
+        </div>
+    </div>
+</div>
+<div id="view1">
+    <table id="dateTable" lay-filter="dateTable"></table>
+</div>
+<div class="msk" id="view2" style="display:none;">
+
+</div>
+<!-- js -->
+<script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+<script type="text/javascript">
+    function ChangeView() {
+        if ($("#view2").css("display") == "none") {
+            $("#view2").css("display", "block");
+            $("#view1").css("display", "none");
+        }
+        else {
+            $("#view2").css("display", "none");
+            $("#view1").css("display", "block");
+        }
+    }
+
+
+    //获得用户信息
+    EWinsBase.json("api/Public/UserInfo/Get", {
+        data: { "UserID": NewGetQueryString("EMRIDSIGN") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            var user = data.data;
+            if (user.DpetList.length > 0) {
+                $("#inpDpet").html(user.DpetList[0].DeptName);                
+            }
+        }
+    });
+
+    // layui方法
+    layui.use(['table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery;
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: vipTable.getFullHeight() - 80  //容器高度
+            , cols: [[                  //标题栏
+                { checkbox: false, sort: false, fixed: false, space: true }
+                , { field: 'HealthCard', title: '健康卡号', align: 'center', hide: true }
+                , { field: 'InpatientId', title: '住院id', align: 'center', hide: true }
+                , { field: 'HomePageId', title: '病案首页ID', align: 'center', hide: true}
+                , { field: 'CurrentWardName', title: '病区', align: 'center' }
+                , { field: 'BedNumber', title: '病床号', align: 'center' }
+                , { field: 'Name', title: '姓名', align: 'center' }
+                , { field: 'Gender', title: '性别', align: 'center' }
+                , { field: 'InpatientId', title: '住院号', align: 'center' }
+                , { field: 'EntryTime', title: '入院时间', align: 'center', templet: "#EntryTime" }
+                , { field: 'Diagnosis', title: '入院诊断', align: 'center' }
+                , { field: 'VisitingName', title: '主治医师', align: 'center' }
+                , { field: 'LeaveTime', title: '出院时间', align: 'center', templet: "#LeaveTime" }
+                , { field: 'Report', title: '报告', align: 'center' }
+                , { field: 'MedicalRecordState', title: '归档状态', align: 'center', templet: "#MedicalRecordState" }
+                , { field: 'InpatientId', title: '操作', align: 'center', templet: "#operating" }
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/MedicalRecordHomePage/GetAllInpatient?token=' + EWinsBase.Token
+            , where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN"), CurrentWardID:NewGetQueryString("BQID") }//这里传参  向后台
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#inpNum").html(res.data.length);
+                $("#inpStatus").html($("#Status").find("option:selected").text());
+                var outHtml = "";
+                res.data.forEach(function (item, index) {
+                    outHtml += ('<a href="index?EMRIDSIGN=' + parent.GetQueryString("EMRIDSIGN") + '&SYSID=' + parent.GetQueryString("SYSID") + '&HealthCard=' + item.HealthCard + '&InpatientId=' + item.InpatientId + '" target="_blank"><li>');
+                    outHtml += ('    <div class="msk_header clearfix">');
+                    outHtml += ('        <h2 class="fl">' + item.BedNumber + '</h2>');
+                    outHtml += ('        <p class="fr">' + item.HealthCard + '</p>');
+                    outHtml += ('    </div>');
+                    outHtml += ('    <div class="msk_center clearfix">');
+                    outHtml += ('        <h1 class="fl">' + item.Name + '</h1>');
+                    outHtml += ('        <div class="img fr">');
+                    outHtml += ('            <img src="' + EWinsBase.__curHostAddress + 'Content/images/' + (item.Gender == "女" ? 'layd' : 'man') + '.png" alt="">');
+                    outHtml += ('        </div>');
+                    outHtml += ('    </div>');
+                    outHtml += ('    <div class="msk_last">');
+                    outHtml += ('        <p><span>医师：</span><span></span></p>');
+                    outHtml += ('        <p><span>入院：</span><span>' + item.EntryTime.ToString("yyyy-MM-dd") + '</span></p>');
+                    outHtml += ('        <p><span>诊断：</span><a class="diag_reslut" data-uk-tooltip="{pos:\'top\'}" title="">' + item.HealthCard + '</a></p>');
+                    outHtml += ('    </div>');
+                    outHtml += ('</li></a>');
+                });
+                $("#view2").html('<ul class="mskUls clearfix">' + outHtml + '</ul>');
+            }
+        });
+        //监听行单击事件（双击事件为：rowDouble）
+        table.on('rowDouble(dateTable)', function (obj) {
+            var data = obj.data;
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+            if (data.MedicalRecordState == "1" && data.AccessState == null) {
+                top.layui.layer.alert("此病例已归档，如需查阅请到【信息查询】- > 【病案查阅】中申请查阅，申请成功后即可查阅！", { time: false, btn: '确定' });
+            } else if (data.AccessState == 0) {
+                top.layui.layer.alert("此病例已归档，已申请查阅，申请成功后即可查阅！", { time: false, btn: '确定' });
+            } else if (EWinsBase.isNullOrEmpty(data.HomePageId)) {//如果没有HomePageId，则弹出患者信息编辑页
+                ShowWin('编辑患者信息', 'page/DoctorPages/PatientInfor?showtype=open&HealthCard=' + data.HealthCard + '&InpatientId=' + data.InpatientId, 1024, 500);
+            } else {
+                parent.InpatientClick(data.HealthCard, data.InpatientId);
+            }
+        });
+
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN"), CurrentWardID: NewGetQueryString("BQID")}//这里传参  向后台
+                , method: 'post'
+            });
+        });
+
+        //申请审阅
+        $(document).on('click', ".sqsy", function () {
+            var InpatientId = $(this).attr("data-id");
+            EWinsBase.json("api/Doctor/MedicalRecordHomePage/ApplicationReview", {
+                data: { "InpatientId": InpatientId },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            });
+        });
+
+
+
+    });
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+            where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN"), CurrentWardID: NewGetQueryString("BQID") }//这里传参  向后台
+            , method: 'post'
+        });
+    }
+
+
+</script>
+<script>
+    function PrintBed() {
+        var LODOP = getLodop();
+        if (LODOP.VERSION) {
+            LODOP.PRINT_INIT("床位打印");
+            var css = '<link href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css" rel="stylesheet"/><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/hospitalBeds.css"><div class="msk">';
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", css + document.getElementById("view2").innerHTML + "</div>");
+            LODOP.PREVIEW();
+        }
+    }
+
+</script>
+<script type="text/html" id="EntryTime">
+    {{ d.EntryTime?d.EntryTime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="LeaveTime">
+    {{ d.LeaveTime?d.LeaveTime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="MedicalRecordState">
+    {{ d.MedicalRecordState=="1"?"已归档":"未归档" }}
+</script>
+<script type="text/html" id="operating">
+    {{# if(d.MedicalRecordState=="1"){ }}
+    {{# if(d.AccessState==null){ }}
+    <a class="layui-btn sqsy" data-id="{{d.InpatientId}}">申请审阅</a>
+    {{# }else if(d.AccessState==0){ }}
+    <a class="layui-btn" data-id="{{d.InpatientId}}">审阅申请中</a>
+    {{# }else if(d.AccessState==1){ }}
+    <a class="layui-btn" data-id="{{d.InpatientId}}">审阅已通过</a>
+    {{# } }}
+    {{# } }}
+</script>

@@ -1,0 +1,272 @@
+﻿@{
+    ViewBag.Title = "FormEmrTemplateList";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-xs12 layui-col-sm2 layui-col-md2" style="border:1px solid #ccc; margin-top:5px;">
+        <!-- tree -->
+        <ul id="myZtree" class="ztree"></ul>
+    </div>
+    <div class="layui-col-xs12 layui-col-sm10 layui-col-md10">
+        <div class="my-btn-box">
+            @*当前节点：<span id="spCurNodeName"></span>*@
+            <input type="hidden" id="hdnParentId" />
+            <input type="hidden" id="hdnCurId" />
+            <input type="hidden" id="hdnCurRowId" value="" />
+        </div>
+        <!-- 工具集 -->
+
+        <div class="my-btn-box">
+            <div class="container">
+                <div class="choseBtn clearfix">
+                    <div class="icon_left aList fl">
+                        <a class="btn-add btn-default" id="btn-add">
+                            <i class="layui-icon colorAdd">&#xe61f;</i>添加
+                        </a>
+                        <a class="btn-add btn-default" id="btn-edit">
+                            <i class="iconfont btn-edit">&#xe74e;</i>编辑
+                        </a>
+                        <a class="layui-btn-danger radius btn-delect" id="btn-delete">
+                            <i class="layui-icon btn-delete">&#xe640;</i>删除
+                        </a>
+
+                    </div>
+                    <div class="icon_right fl" id="icon_right">
+                        <div class="layui-form-item fl">
+                            <label class="layui-form-label index_label">搜索条件</label>
+                            <div class="layui-input-block">
+                                <input type="text" autocomplete="off" id="keyword" placeholder="请输入名称" class="layui-input index_input">
+                            </div>
+                        </div>
+                        <a class="layui-btn mgl-20 fl" id="btQuery">
+                            <i class="iconfont">&#xe6ac;</i>
+                            查询
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="dateTable" lay-filter="dateTable"></div>
+    </div>
+</div>
+<!-- js -->
+<script type="text/javascript">
+    // layui方法
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable',                  //指定原始表格元素选择器（推荐id选择器）
+            height: vipTable.getFullHeight() - 60,    //容器高度
+            cols: [[                  //标题栏
+                { checkbox: true, sort: true, fixed: true, space: true },
+                { field: 'TemplateId', title: '模板序号', width: '90', align: 'center' },
+               // { field: 'OrganID', title: '机构序号', width: '90', align: 'center' },
+                { field: 'TemplateName', title: '模板名称', width: '150', align: 'center' },
+                { field: 'ParentTempName', title: '父模板', width: '150', align: 'center' },
+                { field: 'TemplateTypeName', title: '模板类型', width: '150', align: 'center' },
+                { field: 'ShareTypeName', title: '共享类型', width: '150', align: 'center' },
+                { field: 'DelName', title: '是否作废', width: '90', align: 'center' }
+                
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Public/FormEmrTemplate/GetList?token=' + EWinsBase.Token
+            //, where: { "ParentID": $("#hdnCurId").val(), "keyword": $("#keyword").val() } //lv:这里的查询条件是只在初始化的时候有用，查询请在reload里面构造where条件
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+            }
+        });
+        $("#myZtree").css("height", ($(window).height() - 30) + "px");
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.TemplateId);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //监听行双击事件
+        table.on('rowDouble(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.TemplateId);
+
+            ShowWin('修改结构化模板信息', 'page/PublicPages/FormEmrTemplateEdit?TemplateId=' + $("#hdnCurRowId").val(), 800, 600);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //添加按钮事件
+        $('#btn-add').on('click', function () {
+            ShowWin('添加结构化模板信息', 'page/PublicPages/FormEmrTemplateEdit?ParentId=' + $('#hdnCurId').val(), 800, 600)
+        });
+        //编辑按钮事件
+        $('#btn-edit').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin('修改结构化模板信息', 'page/PublicPages/FormEmrTemplateEdit?TemplateId=' + $("#hdnCurRowId").val(), 800, 600)
+        });
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //刷新按钮事件
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload({
+                where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //删除按钮事件
+        $('#btn-delete').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            layer.confirm('是否确认要删除该条信息？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/Public/FormEmrTemplate/Delete",
+                    type: "POST",
+                    data: { "TemplateId": $("#hdnCurRowId").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            layer.msg("删除成功", { icon: 6 });
+                            refreshNode();
+                            refreshTable();
+                        } else {
+                            layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+    // 生成一个模拟树
+    var createTree = function (node, level) {
+        EWinsBase.ajax({
+            url: "api/Public/FormEmrTemplate/GetTreeNode",
+            type: "POST",
+            cache: false,
+            async: false,//这里千万不能用异步
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                node = data.data;
+            }
+        });
+        return node;
+    };
+
+    var setting = {
+        async: {
+            enable: true,
+            url: getUrl
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeExpand: beforeExpand,
+            onClick: zTreeOnClick
+        }
+    };
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#myZtree"), setting, createTree());
+    });
+
+    function zTreeOnClick(event, treeId, treeNode) {       //第二步
+        $("#spCurNodeName").html(treeNode.name);
+        $("#hdnParentId").val(treeNode.pId);
+        $("#hdnCurId").val(treeNode.id);
+        layui.table.reload('dataCheck', {
+            where: { ParentID: treeNode.id, token: EWinsBase.Token }//这里传参  向后台
+            , method: 'post'
+            , page: { curr: 1 }
+        });
+    }
+    function getUrl(treeId, treeNode) {
+        if (treeNode) {
+            return EWinsBase.__curHostAddress + "api/Public/FormEmrTemplate/GetSingleTreeNode?token=" + EWinsBase.Token + "&ParentId=" + treeNode.id;
+        }
+    }
+    function beforeExpand(treeId, treeNode) {
+        if (!treeNode.isAjaxing) {
+            treeNode.times = 1;
+            ajaxGetNodes(treeNode, "refresh");
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+    function onAsyncSuccess(event, treeId, treeNode, msg) {
+        if (!msg || msg.length == 0) {
+            return;
+        }
+        var zTree = $.fn.zTree.getZTreeObj("myZtree"),
+            totalCount = treeNode.count;
+        if (treeNode.children.length < totalCount) {
+            setTimeout(function () { ajaxGetNodes(treeNode); }, 100);
+        } else {
+            treeNode.icon = "";
+            zTree.updateNode(treeNode);
+            zTree.selectNode(treeNode.children[0]);
+        }
+    }
+    function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
+        var zTree = $.fn.zTree.getZTreeObj("myZtree");
+        alert("异步获取数据出现异常。");
+        treeNode.icon = "";
+        zTree.updateNode(treeNode);
+    }
+    function ajaxGetNodes(treeNode, reloadType) {
+        var zTree = $.fn.zTree.getZTreeObj("myZtree");
+        if (reloadType == "refresh") {
+            //treeNode.icon = "/scripts/frame/ztree/zTreeStyle/img/loading.gif";
+            zTree.updateNode(treeNode);
+        }
+        zTree.reAsyncChildNodes(treeNode, reloadType, true);
+    }
+
+    function refreshNode() {
+        var zTree = $.fn.zTree.getZTreeObj("myZtree");
+        var node = zTree.getSelectedNodes()[0];
+        if (node)
+            ajaxGetNodes(node, "refresh");
+        else
+            $.fn.zTree.init($("#myZtree"), setting, createTree());
+    }
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+            where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+            , method: 'post'
+        });
+    }
+</script>

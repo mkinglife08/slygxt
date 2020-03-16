@@ -1,0 +1,113 @@
+.qualityControl{
+	margin:5px 0;
+}
+.qualityHeader{ 
+	padding-top: 11px;
+    padding-left: 13px;
+	margin:5px 0;
+    background:#f2f2f2;  
+}
+.layui-container { width:100%; }
+.qualityControl input[type='text']{
+	width:40%;
+	height:23px;
+	border:1px solid #ccc;
+	border-radius:3px;
+	padding-left:3px;
+}
+.qualityText{
+	float: left;
+	width:20%;
+}
+.qualityTe{ float:left;width:19%; }
+.summaryMed{
+	width:80%;
+}
+.testWord{ line-height:30px;text-indent:15px;}
+.summary input[type='text']{ width:60%!important; }
+.sumLeft{  width:30%;}
+.sumRight{ position: relative;width:40%; }
+.sumUls{
+	background: #fff;
+	border:1px solid #3F88CF;
+	width:300px;
+	height:200px;
+	position: absolute;
+	top: 29px;
+	left: 115px;
+	z-index: 1;
+	display: none;
+}
+.sumUls li{
+	border-bottom:1px solid #3F88CF;
+	height: 20px;
+	line-height: 20px;
+}
+.sumUls li .num{
+	width: 17px;
+    display: inline-block;
+    text-align: center;
+    border-right: 1px solid #ccc;
+}
+
+#start,#stop,#start1,#stop1,.timer{ width:100px!important; }
+.examination{
+	margin:6px 0;
+}
+.examination .inpList{
+	width: 65%;
+}
+.examination  p{
+	width: 9%;
+    text-align: center;
+    line-height: 9;
+}
+.qualityTable{
+    border:1px solid #ccc;
+    width:100%;
+    text-align: center;
+    margin:8px 0;
+}
+.qualityTable tr{ border-bottom:1px solid #ccc; }
+.qualityTable tr td{
+    border-right:1px solid #ccc;
+    padding:5px 0;
+    cursor: pointer;
+}
+.examination .inpList dd{
+	line-height: 25px;
+}
+.textList textarea{
+	width:99%;
+	border:1px solid #ccc;
+	padding:3px;
+	resize: none;
+
+}
+.none{ display: none; }
+.left,.right{ width:48%; }
+.marginTop{ margin:10px 0; }
+.article{
+	width:70%;
+	margin:0 auto;
+}
+.article-title{
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.article-cont{
+	line-height: 26px;
+	font-size:16px;
+	text-indent: 30px;
+	margin-bottom:30px;
+}
+.article-time{ 
+	text-align: right;
+	line-height: 30px;
+}
+.announcement .annountLef,.annountRig{width:48%;}
+.announcement .annountLef .leftInput{
+	width:80%;
+	height:25px;
+}

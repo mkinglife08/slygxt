@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>护理会诊</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div>
+	        	开始日期：<input type="text" class="JobNumber" id="test">
+				结束日期：<input type="text" class="JobNumber" id="test1">
+				<select name="" id="">
+					<option value="">会诊回复</option>
+				</select>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">查询</a>
+	        </div>
+	 	</div>
+	 	<div>
+			<p>请求他科会诊</p>
+	 		<table id="table"></table>
+			<p>回复他科请求</p>
+			<table id="demo"></table>
+	 	</div>
+	</div>
+</body>
+<script>
+layui.use(['laydate','table','form'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+ 	laydate.render({ 
+	  elem: '#test',
+	});
+	laydate.render({ 
+	  elem: '#test1',
+	});
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '类型',align:'center'}
+	      ,{field:'username', title: '姓名',align:'center'}
+	      ,{field:'sex', title: '床号',align:'center'}
+	      ,{field:'city', title: '邀请科室',align:'center'}
+	      ,{field:'city', title: '申请人',align:'center'}
+	      ,{field:'city', title: '邀请日期',align:'center'}
+	      ,{field:'city', title: '被邀请科室',align:'center'}
+	      ,{field:'city', title: '邀请专家',align:'center'}
+	      ,{field:'city', title: '回复日期',align:'center'}
+	      ,{field:'city', title: '状态',align:'center'}
+	      ,{field:'city', title: '操作',align:'center'}
+	    ]]
+	  });
+	table.render({
+	    elem: '#demo'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '类型',align:'center'}
+	      ,{field:'username', title: '姓名',align:'center'}
+	      ,{field:'sex', title: '床号',align:'center'}
+	      ,{field:'city', title: '邀请科室',align:'center'}
+	      ,{field:'city', title: '申请人',align:'center'}
+	      ,{field:'city', title: '邀请日期',align:'center'}
+	      ,{field:'city', title: '被邀请科室',align:'center'}
+	      ,{field:'city', title: '邀请专家',align:'center'}
+	      ,{field:'city', title: '回复日期',align:'center'}
+	      ,{field:'city', title: '状态',align:'center'}
+	      ,{field:'city', title: '操作',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

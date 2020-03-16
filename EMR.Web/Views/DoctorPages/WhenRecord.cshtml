@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>产时记录</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/PerinataPaper.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="medrecord">
+        <p class="word">产时记录</p>
+        <div class="rigBtn">
+             <a class="layui-btn">谈话记录</a>
+             <a class="layui-btn">保存</a>
+             <a class="layui-btn">打印</a>
+        </div>
+ 	</div>
+ 	<div class="contenter">
+		<table class="table double layui-form">
+			<tr>
+				<td>入分娩室时间：</td>
+				<td><input type="text" id="test1"></td>
+				<td>硫膜：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr >
+				<td>胎膜破方式:</td>
+				<td>
+					<input type="radio" name="normal" title="自破">自破
+					<input type="radio" name="normal" title="人工">人工
+					<input type="radio" name="normal" title="早破">早破
+				</td>
+				<td>后羊水</td>
+				<td>
+					<input type="radio" name="normal" title="清">清
+					<input type="radio" name="normal" title="Ⅰ">Ⅰ
+					<input type="radio" name="normal" title="Ⅱ">Ⅱ
+					<input type="radio" name="normal" title="Ⅲ">Ⅲ
+					<input type="radio" name="normal" title="臭">臭
+					数量约<input type="text" style="width:10%">ml
+					<input type="radio" name="dable" title="单胎">单胎
+					<input type="radio" name="dable" title="双胎">双胎
+				</td>
+			</tr>
+			<tr>
+				<td>宫缩开始：</td>
+				<td><input type="text" id="test2"></td>
+				<td>第一产程：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>宫口开全：</td>
+				<td><input type="text" id="test3"></td>
+				<td>第二产程：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>
+					<p>胎儿娩出：</p>
+					<p>胎儿娩出B:</p>
+				</td>
+				<td>
+					<p><input type="text" id="test4"></p>
+					<p><input type="text"></p>  
+				</td>
+				<td>第三产程：</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>胎盘娩出：</td>
+				<td><input type="text" id="test5"></td>
+				<td>总产程</td>
+				<td><input type="text"><a class="layui-btn">计算产程</a></td>
+			</tr>
+			<tr>
+				<td>娩出胎位：</td>
+				<td colspan="3" >
+					<input type="text">
+					<!-- <select name="" id="">
+						<option value="">LOA</option>
+					</select> -->
+					<span>分娩方式：</span>
+					<input type="radio" name="normal" title="自然分娩">自然分娩
+					<input type="radio" name="normal" title="产钳">产钳
+					<input type="radio" name="normal" title="臀位助产">臀位助产
+					<input type="radio" name="normal" title="其他">其他
+					<input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>娩出胎位B：</td>
+				<td colspan="3" >
+					<input type="text">
+					<!-- <select name="" id="">
+						<option value="">LOA</option>
+					</select> -->
+					<span>分娩方式：</span>
+					<input type="radio" name="normal" title="自然分娩">自然分娩
+					<input type="radio" name="normal" title="产钳">产钳
+					<input type="radio" name="normal" title="臀位助产">臀位助产
+					<input type="radio" name="normal" title="其他">其他
+					<input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="4">胎盘</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="left">
+					<input type="radio" name="normal" title="自然分娩">自然分娩
+					<input type="radio" name="normal" title="压迫娩出">压迫娩出
+					<input type="radio" name="normal" title="人工剥离">人工剥离
+					重量<input type="text" class="sot">克，
+					大小<input type="text" class="sot">X <input type="text" class="sot">X <input type="text" class="sot">cm<sup>3</sup>
+					钙化点 <input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="left">
+					<input type="radio" name="normal" title="完整">完整
+					<input type="radio" name="normal" title="不完整">不完整
+					<span>缺损：</span>
+					<input type="text" class="sot">X <input type="text" class="sot">X <input type="text" class="sot">cm，
+					粗糙：<input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="left">
+					<span>胎盘异常情况处理：</span><input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>胎膜：</td>
+				<td colspan="4">
+					<input type="radio" name="normal" title="完整">完整
+					<input type="radio" name="normal" title="不完整">不完整
+					<!-- <select name="" id=""></select> -->
+				</td>
+			</tr>
+			<tr>
+				<td>脐带：</td>
+				<td colspan="4">
+					长<input type="text" class="sot">cm
+					绕颈<input type="text" class="sot">圈
+					绕体<input type="text" class="sot">圈
+					其他<input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>新生儿B</td>
+				<td colspan="4">
+					<div>
+						<span>羊水性状：</span>
+						<input type="radio" name="normal" title="清">清
+						<input type="radio" name="normal" title="Ⅰ">Ⅰ
+						<input type="radio" name="normal" title="Ⅱ">Ⅱ
+						<input type="radio" name="normal" title="Ⅲ">Ⅲ
+						<input type="radio" name="normal" title="臭">臭
+						数量约<input type="text" class="sot">ml
+					</div>
+					<div>
+						<span>胎膜：</span>
+						<input type="radio" name="normal" title="完整">完整
+						<input type="radio" name="normal" title="不完整">不完整
+						<!-- <select name="" id=""></select> -->
+					</div>
+					<div>
+						<span>脐带：</span>
+						长<input type="text" class="sot">cm
+						绕颈<input type="text" class="sot">圈
+						绕体<input type="text" class="sot">圈
+						其他<input type="text">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>新生儿情况：</td>
+				<td colspan="4">
+					<div>
+						<!-- <select name="" id=""></select> -->
+						体重：<input type="text" class="sot">克
+						身高：<input type="text" class="sot">cm
+						Apgar:1分钟<input type="text" class="sot">分
+						5分钟：<input type="text" class="sot">分
+					</div>
+					<div>
+						<input type="radio" name="normal" title="足月">足月
+						<input type="radio" name="normal" title="早产">早产
+						<input type="radio" name="normal" title="死胎">死胎
+						<input type="radio" name="normal" title="死产">死产
+						<input type="radio" name="normal" title="死婴">死婴
+						畸形：<input type="text" class="sot">
+						<!-- <select name="" id=""></select> -->
+						<input type="checkbox" name="" title="vitk11mg肌注" lay-skin="primary">
+						<input type="checkbox" name="" title="乙肝疫苗10ug肌注" lay-skin="primary">
+					</div>
+					<div>
+						<span>吸吮力：</span>
+						<input type="radio" name="normal" title="强">强
+						<input type="radio" name="normal" title="弱">弱
+						<input type="radio" name="normal" title="未吸">未吸
+						<span>早吸吮：</span>
+						<input type="radio" name="normal" title="落实">落实
+						<input type="radio" name="normal" title="未落实">未落实
+					</div>
+					<div>
+						<input type="radio" name="normal">
+						1、送母婴同室病房
+						<input type="radio" name="normal">
+						2、因<input type="text">送新生儿病房
+						<input type="radio" name="normal">
+						3、因<input type="text">送外院
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>新生儿B情况：</td>
+				<td colspan="4">
+					<div>
+						<!-- <select name="" id=""></select> -->
+						体重：<input type="text" class="sot">克
+						身高：<input type="text" class="sot">cm
+						Apgar:1分钟<input type="text" class="sot">分
+						5分钟：<input type="text" class="sot">分
+					</div>
+					<div>
+						<input type="radio" name="normal" title="足月">足月
+						<input type="radio" name="normal" title="早产">早产
+						<input type="radio" name="normal" title="死胎">死胎
+						<input type="radio" name="normal" title="死产">死产
+						<input type="radio" name="normal" title="死婴">死婴
+						畸形：<input type="text" class="sot">
+						<!-- <select name="" id=""></select> -->
+						<input type="checkbox" name="" title="vitk11mg肌注" lay-skin="primary">
+						<input type="checkbox" name="" title="乙肝疫苗10ug肌注" lay-skin="primary">
+					</div>
+					<div>
+						<span>吸吮力：</span>
+						<input type="radio" name="normal" title="强">强
+						<input type="radio" name="normal" title="弱">弱
+						<input type="radio" name="normal" title="未吸">未吸
+						<span>早吸吮：</span>
+						<input type="radio" name="normal" title="落实">落实
+						<input type="radio" name="normal" title="未落实">未落实
+					</div>
+					<div>
+						<input type="radio" name="normal">
+						1、送母婴同室病房
+						<input type="radio" name="normal">
+						2、因<input type="text">送新生儿病房
+						<input type="radio" name="normal">
+						3、因<input type="text">送外院
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>会阴：</td>
+				<td colspan="4">
+					<div>
+						<input type="checkbox" name="" title="擦伤" lay-skin="primary">
+						<span class="none">
+							<input type="radio" name="normal" title="Ⅰ">Ⅰ
+							<input type="radio" name="normal" title="Ⅱ">Ⅱ
+							<input type="radio" name="normal" title="Ⅲ">Ⅲ
+						</span>
+						<input type="checkbox" name="" title="切开" lay-skin="primary">
+						<span class="none">
+							<input type="radio" name="normal" title="正中">正中
+							<input type="radio" name="normal" title="左侧">左侧
+							<input type="radio" name="normal" title="右侧">右侧
+						</span>
+						<input type="checkbox" name="" title="皮内缝合" lay-skin="primary" >
+						<input type="text" class="sot">针
+						<input type="checkbox" name="皮外缝合" title="" lay-skin="primary" >
+						<input type="text" class="sot">针
+					</div>
+					<div>
+						<input type="checkbox" name="" title="局部麻醉" lay-skin="primary" >
+						<input type="checkbox" name="" title="阻滞麻醉" lay-skin="primary" >
+						<span>会阴破裂</span>
+						<input type="radio" name="normal" title="有">有
+						<input type="radio" name="normal" title="无">无
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>手术指证：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>手术方式：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>诊断：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>补充记录：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td rowspan="3">产后出血：</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="left">
+					娩出前包括切开<input type="text" class="sot">ml
+					第三产程出血 <input type="text" class="sot">ml
+					产后2小时出血<input type="text" class="sot">ml
+					总计出血<input type="text" class="sot">ml
+					<a class="layui-btn">计算出血量</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="left">
+					<span>子宫收缩：</span>
+					<input type="radio" name="normal" title="良">良
+					<input type="radio" name="normal" title="欠佳">欠佳
+					<input type="radio" name="normal" title="差">差
+					<span>血压：</span><input type="text" class="sot">/<input type="text" class="sot">mmHg
+					脉搏<input type="text" class="sot">次/分
+				</td>
+			</tr>
+			<tr>
+				<td>清点：</td>
+				<td colspan="4">
+					<span>纱布：</span>
+					操作前（<input type="text" class="sot">）块，
+					操作中增加（<input type="text" class="sot">）块，
+					操作后（<input type="text" class="sot">）块，
+					<span>缝针：</span>
+					操作前（<input type="text" class="sot">）枚，
+					操作后（<input type="text" class="sot">）枚，
+				</td>
+			</tr>
+			<tr>
+				<td>接生者：</td>
+				<td colspan="4">
+					<input type="text" class="sot">/<input type="text" class="sot">
+					<span>核对者</span><input type="text">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5">产后两小时观察</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<table class="table">
+						<tr>
+							<td rowspan="2">时间</td>
+							<td rowspan="2">血压</td>
+							<td rowspan="2">脉搏</td>
+							<td colspan="2">子宫情况</td>
+							<td rowspan="2">阴道出血量ml</td>
+							<td rowspan="2">膀胱充盈度</td>
+							<td colspan="2">会阴情况</td>
+							<td rowspan="2"> 便意感</td>
+							<td rowspan="2">签名</td>
+							<td rowspan="2">操作</td>
+						</tr>
+						<tr>
+							<td>宫高</td>
+							<td>质地</td>
+							<td>渗血</td>
+							<td>水肿</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="4"><a class="layui-btn">新增观察</a></td>
+			</tr>
+			<tr>
+				<td>备注：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>送母婴同室时间：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>填表时间：</td>
+				<td colspan="4"><input type="text"></td>
+			</tr>
+			<tr>
+				<td>记录者：</td>
+				<td colspan="4">
+					<input type="text" class="sot">
+					<span>审签：</span>
+					<input type="text" class="sot">
+					<a class="layui-btn">进行审签</a>
+					<a class="layui-btn">取消审签</a>
+				</td>
+			</tr>
+		</table>
+ 	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+layui.use(['form','laydate'],function(){
+	var form = layui.form;
+	var laydate = layui.laydate;
+	laydate.render({
+	  elem: '#test1',
+	  type:'datetime' //指定元素
+	});
+	laydate.render({
+	  elem: '#test2',
+	  type:'datetime' //指定元素
+	});
+	laydate.render({
+	  elem: '#test3',
+	  type:'datetime' //指定元素
+	});
+	laydate.render({
+	  elem: '#test4',
+	  type:'datetime' //指定元素
+	});
+	laydate.render({
+	  elem: '#test5',
+	  type:'datetime' //指定元素
+	});
+})
+</script>
+</html>

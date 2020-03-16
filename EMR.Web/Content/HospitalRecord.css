@@ -1,0 +1,371 @@
+.historicist,.historInput{
+	width:30%;
+	height:28px;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+}
+.historInput{ padding-left:5px; }
+.symptoms{
+	border:1px solid #0A64A4;
+	padding:5px 10px;
+}
+.timer .timeInput,.timeSelet{
+	width:23%;
+	height:28px;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+	padding-left:5px;
+}
+.symList{
+	width:50%;
+	float:left;
+}
+.symList .fir{
+	margin-bottom:5px;
+}
+.layuiForm{
+	margin-left: 10px;
+    margin-top: 4px;
+}
+.generate .generate{
+	font-size: 17px;
+	height:30px;
+	line-height: 30px;
+	cursor: pointer;
+	text-align: center;
+
+}
+.gen{
+	width:90px;
+	height:26px;
+	text-align: center;
+	line-height: 26px;
+	border:1px solid #e6e6e6;
+	display: block;
+}
+.charLeft{
+	width: 16%;
+    height: 268px;
+    line-height: 39px;
+    border: 1px solid #e6e6e6;
+    border-right:none;
+}
+.charLeft .charWord{
+	width:100%;
+	text-align: center;
+}
+.charWord li{
+	margin-bottom: 10px;
+}
+.charRight{
+	width:82%;
+}
+.HistoReview,.personaHistory,.marrStatus,.diseaseSystem,.Members{
+	border:1px solid #0A64A4;
+	padding: 15px;
+}
+.HistoReview .pressure,.vaccination,.source,.geneticHis{
+	position: relative;
+}
+.itemLeft{
+	width:35%;
+}
+.HistoReview .itemRig,.genetNon{
+	width:50%;
+	position: absolute;
+	left: 30%;
+	top:0;
+}
+.vaccLeft{
+	width: 61%;
+}
+.vaccination .vaccRig{
+	width:40%;
+ 	position: absolute;
+	left: 55%;
+	top:0;
+}
+
+.HistoReview .time,.allergic,.symp,.drinkInput,.patientName{
+	width:10%;
+	height:26px;
+	border:1px solid #d2d2d2;
+	border-radius: 5px;
+	margin-left: 3px;
+	padding-left: 5px;
+}
+.souLef{ width:35%; }
+.souRig{
+	width:53%;
+	position: absolute;
+	left: 36%;
+	top:0;
+}
+.pastHistory{
+	margin:15px 0;
+}
+.layui-layedit{ height:227px; }
+.judgLeft {
+    width: 16%;
+    height: 268px;
+    line-height: 227px;
+    border: 1px solid #e6e6e6;
+    border-right: 0;
+}
+.charWord{
+	width:100%;
+	text-align: center;
+	color:#0094ff;
+	cursor: pointer;
+}
+.judgRg,.treatRg{
+	width:83%;
+}
+.sysText{
+	font-size:15px;
+	color:#0A64A4;
+	cursor: pointer;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	position: relative;
+}
+.triangle{
+	display: block;
+	width:0;
+    height:0;
+    border-width:8px 9px 0;
+    border-style:solid;
+    border-color:#0A64A4 transparent transparent;
+    position:absolute;
+    top:23px;
+    left:49%;
+}
+.systemReview .remind{
+	color:red;
+	padding:5px;
+	font-size: 18px;
+	width: 30%;
+	text-align: center;
+	margin-bottom: 10px;
+}
+/*个人史婚史*/
+
+.habit,.timeInput,.historPlay,.drinkHabit,.smkHabit,
+.contactHistory,.memberList,.memberListMo,.predisposition{
+	position: relative;
+}
+.habitLeft{
+	width:42%;
+}
+.habitRig,.drinkRig,.smokRig,.memberRig,.cause{
+	width:50%;
+	position: absolute;
+	top:0;
+	left:35%;
+}
+.drinkRig,.smokRig,.memberRig,.cause{ left: 42%; }
+.layui-form-label {
+    padding: 5px 15px;
+ }
+ .units{ 
+	position: absolute;
+	right:5px;
+	top: 6px;
+	font-size: 12px;
+	color:#666;
+ }
+.stopDrink, .stopSmok {
+    /*position: absolute;
+    left: 40%;
+    top: 0;*/
+    margin-top: -30px;
+    margin-left: 300px;
+}
+.record,.generate,.historyMarriage,.generateFamily,
+.laboratory,.pathological{ margin:10px 0; }
+
+.marrStatus{
+	/*width: 100%;*/
+	position: relative;
+}
+.marrStatus .marrList{ margin:5px 0 5px 5%; }
+.marrStatus .marry{
+	position: absolute;
+	left: 39%;
+	top: 18px;
+}
+.birth{
+	width: 10%;
+	height:26px;
+	border-radius: 5px;
+	border: 1px solid #d2d2d2;
+}
+/*婚育史*/
+.cause{ display: none; }
+.sister{
+	display: block;
+	line-height: 28px;
+}
+.chosePro{
+	width:50%;
+	position: absolute;
+	top:0;
+	left:35%;
+}
+.genetNon{ left:46%; }
+/*显示影藏*/
+.none{ display: none; }
+
+.phyUp{ margin-top:5px;}
+.physicList .phyUp .bascLine {
+	float: left;
+	width:33%;
+}
+.physicList .phyUp .bascLine .symptoms{
+	position: relative;
+}
+.physicList .phyUp .bascLine .unit{
+	position: absolute;
+	right:5px;
+	top:5px;
+	color:#333;
+	font-size:13px;
+}
+.skinList,.orginList,.neckList,.lungList,.heartList{
+	width:25%;
+	float:left;
+}
+.chestList,.abdomenList,.nervousList,.suppleList{
+	width:33%;
+}
+.vesList{ width:80%; }
+
+/*专科检查*/
+
+.examination{
+	width: 100%;
+	padding:20px;
+}
+.examination .examList{
+	border:1px solid #d2d2d2;
+	width: 40%;
+	margin:0 auto;
+	text-align: center;
+}
+.examination .examList li{
+	padding:8px 20px;
+	border-bottom:1px solid #d2d2d2;
+}
+.examination .examList .exFir{
+	background: #0A64A4;
+}
+.examination .examList .exFir a{ 
+	color:#fff;
+	font-size: 17px;
+ }
+ .examination .examList li:hover{
+ 	background:#EAEFF5;
+ 	font-weight: bold;
+ }
+.laboList {
+    width: 16%;
+    height: 188px;
+    padding-top: 80px;
+    border: 1px solid #e6e6e6;
+    border-right: none;
+}
+ .text{
+ 	font-size: 16px;
+    color: #0A64A4;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-bottom: 1px solid #0A64A4;
+    margin-top: 5px;
+ }
+
+.delGMS, .delYCB {
+    color: #0A64A4;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Operation span {
+    margin: auto 5px;
+    color: #0A64A4;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.layui-tab-title li {
+    border-right: 1px solid #ccc;
+}
+
+.layui-tab-card > .layui-tab-title .layui-this {
+    background-color: #fff;
+    border-top: 1px solid #0A64A4;
+}
+
+.layui-tab-item {
+    padding-bottom: 10%;
+}
+
+.layui-table-cell {
+    height: inherit;
+}
+
+.medrecord {
+    margin-bottom: 6px;
+}
+
+.diseaseList {
+    width: 130px;
+}
+
+#qtycjb {
+    height: 28px;   
+    border-radius: 5px;
+    padding-left: 3px;
+    border: none;
+    border: 1px solid #ccc;
+}
+/*入院记录打印*/
+.patient{
+	height:100%;
+}
+.basicList,.basiRight{ width:100%;line-height:25px;}
+
+.basicList p span,.basiRight span{ 
+	padding:0 2px;
+	margin-left:5px;
+}
+.basiSpan span{
+    display:block;
+    width:85%;
+     overflow:hidden;
+    text-overflow:ellipsis; 
+    white-space: nowrap;
+}
+.basiLeft{ 
+    width:30%;
+    margin-top: 5px;
+}
+.bastB{ width:10%;}
+.basRight{
+	width: 85%;
+}
+.basRight .rightList{
+	width:30%;
+    margin-bottom:15px;
+}
+.basicList .clearfix{
+	margin-bottom:5px;
+}
+.diagTable { 
+    width:100%;
+    border:1px solid #ccc;
+    text-align:center;
+}
+.diagTable tr{ border-bottom:1px solid #ccc}
+.diagTable tr td{ border-right:1px solid #ccc;padding:6px 0;}

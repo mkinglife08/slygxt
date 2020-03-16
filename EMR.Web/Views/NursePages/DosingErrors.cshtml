@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>给药错误</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="adverse">
+			<h3 class="align">护理安全事件--给药错误</h3>
+			<div class="marginTop wrong">
+				填报时间：<input type="text" id="test">-- <input type="text" id="test1"> 
+				病案号：<input type="text">
+				呈报人：<input type="text">
+				状态：<select name="" id="">
+					<option value="">未审阅</option>
+					</select>
+				<a class="layui-btn">查阅</a>
+			</div>
+			<table id="table"></table>
+		</div>
+	</div>
+
+</body>
+
+<script>
+layui.use(['form','laydate','table'], function(){
+  var form = layui.form;
+  var laydate = layui.laydate;
+  var table = layui.table;
+  laydate.render({
+    elem: '#test',
+  });
+  laydate.render({
+    elem: '#test1',
+  });
+  table.render({
+    elem: '#table'
+    // ,height: 312
+    // ,url: '/demo/table/user/' 
+    // ,page: true 
+    ,cols: [[ //表头
+      {field: 'id', title: '填报时间',align:'center'}
+      ,{field: 'username', title: '病人姓名',align:'center'}
+      ,{field: 'sex', title: '住院号',align:'center'}
+      ,{field: 'city', title: '呈报病区',align:'center'} 
+      ,{field: 'sign', title: '事件名称',align:'center'}
+      ,{field: 'experience', title: '呈报人',align:'center'}
+      ,{field: 'score', title: '护理部意见',align:'center'}
+      ,{field: 'classify', title: '审核',align:'center'}
+      ,{field: 'wealth', title: '查看',align:'center'}
+    ]]
+  });
+ 
+ });
+</script>
+</html>

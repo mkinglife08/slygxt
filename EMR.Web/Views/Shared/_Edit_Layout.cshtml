@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/layui/css")
+    @RenderSection("css", false)
+    @Scripts.Render("~/layui/js")
+    @Scripts.Render("~/ueditor/js")
+    @RenderSection("scripts", false)
+    <script src="~/Scripts/hanzitocode.js"></script>
+</head>
+<body class="">
+    <div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">
+        @RenderBody()
+    </div>
+</body>
+</html>

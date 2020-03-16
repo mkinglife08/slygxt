@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "保存模板";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/newOption.css">
+<style>
+    #action_subm{
+       width:98%!important;padding-right:1%
+    }
+</style>
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label">使用范围</label>
+                <div class="layui-input-block" id="divShareType">
+
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">一级分类</label>
+                <div class="layui-input-block">
+                    <select name="TemplateType" id="TemplateType" lay-verify="SelectRequired" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">二级分类</label>
+                <div class="layui-input-block">
+                    <input type="text" name="SecondType" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板名称</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" name="TemplateName" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='lastBtn'>
+        <button class="layui-btn" lay-submit="" lay-filter="sub">
+            <i class="iconfont icon-saves">&#xe688;</i>保存
+        </button>
+        <button class="layui-btn" onclick="ShowWinClose();">
+            <i class="iconfont">&#xe63e;</i>
+            关闭
+        </button>
+    </div>
+</form>
+<!--JS-->
+<script>
+    CreateRadiosFromCodeDict($("#divShareType"), "ShareType", "ShareType");
+    //初始化下拉框单选框（数据从字典获取）
+    CreateSelectOptionFromCodeDict($("#TemplateType"), "TemplateType");
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    if (GetQueryString("TemplateType") != "") {
+        $("#TemplateType").append("<option value=" + GetQueryString("TemplateType") + ">" + unescape(GetQueryString("TemplateTypeName")) + "</option>");
+        $("#TemplateType").val(GetQueryString("TemplateType")).trigger('change');
+    }
+    $("#TemplateType").attr("disabled", "disabled");
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.on('submit(sub)', function (data) {
+            var curParentWindowDocument = parent.document;
+            var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+            var wind;
+            if (cur_tab_index == 1)
+                wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+            else
+                wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+            wind.SaveTemplate(data.field);
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            return false;
+        });
+        form.render();
+    })
+</script>

@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>婴儿出生出院记录</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/PerinataPaper.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+    <style>
+        .addTed td:nth-child(n+1) {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+	<div class="medrecord">
+        <p class="word">婴儿出生出院记录</p>
+        <div class="rigBtn">
+             <a class="layui-btn">保存</a>
+             <a class="layui-btn">删除</a>
+             <a class="layui-btn">查看/打印</a>
+        </div>
+ 	</div>
+ 	<div class="perinatal">
+		<div class="perinatalCont">
+            <table class="table addTed layui-form">
+                <tr>
+                    <td colspan="2">婴儿出生记录</td>
+                </tr>
+                <tr>
+                    <td class="left" colspan="2">
+                        母亲姓名: <span>也摸摸</span>
+                        母亲年龄：<span>75岁</span>
+                        工种 :<span>人员</span>
+                        单位或地址：<span>无</span>
+                        电话：<span>1800000000</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left" colspan="2">
+                        <span>第<input type="text" class="tire">胎</span>
+                        <span>第<input type="text" class="tire">产</span>
+                        <span><input type="text" class="tire">周龄</span>
+                        <span>胎位：</span>
+                        <!-- <select>
+                    <option value="LOA">LOA</option>
+                    <option value="">LOT</option>
+                    <option value="">LOP</option>
+                    <option value="">ROA</option>
+                    <option value="">ROT</option>
+                    <option value="">ROP</option>
+                    <option value="">LSA</option>
+                    <option value="">LST</option>
+                    <option value="">LST</option>
+                    <option value="">LSP</option>
+                    <option value="">RST</option>
+                    <option value="">RSP</option>
+                    <option value="">LMA</option>
+                </select> -->
+                        <span>分娩方式</span><input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>婴儿出生时间：<input type="text" id="test" class="tire"></span>
+                        <span class="Bodylist">性别：</span><span>男</span>
+                        <span class="Bodylist">体重：</span><span>20</span>克
+                        <span class="Bodylist">身长：</span><span>50</span>厘米
+                    </td>
+                </tr>
+                <tr>
+                    <td>破膜：</td>
+                    <td class="layui-form left">
+                        <input type="radio" name="sex" value="人工" title="人工">人工
+                        <input type="radio" name="sex" value="自然" title="自然">自然
+                        <input type="text" class="tire">小时
+                        <input type="radio" name="sex" value="早破" title="早破">早破
+                        <input type="radio" name="sex" value="不明" title="不明">不明
+                    </td>
+                </tr>
+                <tr>
+                    <td>羊水：</td>
+                    <td class="layui-form">
+                        <input type="radio" name="sex" value="清" title="清">清
+                        <input type="radio" name="sex" value="浑浊" title="浑浊">浑浊
+                        <input type="radio" name="sex" value="发臭" title="发臭">发臭
+                        <input type="text" class="tire">
+                        过多<input type="text" class="tire">毫升
+                        过少<input type="text" class="tire">毫升
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="8">母亲妊娠并发症：</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>妊娠高血压综合征：</span>
+                        <input type="radio" name="sex" value="轻" title="轻">轻
+                        <input type="radio" name="sex" value="中" title="中">中
+                        <input type="radio" name="sex" value="重" title="重">重
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>妊娠晚期出血症、血液性疾病：</span>
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>肾：</span>
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>心：</span>
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>肝：</span>
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>代谢性疾病：</span>
+                        <span>甲亢：<input type="text" class="organs"></span>
+                        <span>糖尿病：<input type="text" class="organs"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span>其他：</span><input type="text" class="organs"></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">婴儿出生时APGAR评分</td>
+
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <table class="table">
+                            <tr>
+                                <td>特征</td>
+                                <td>0分</td>
+                                <td>1分</td>
+                                <td>2分</td>
+                                <td><a class="layui-btn">1分</a></td>
+                                <td><a class="layui-btn">5分</a></td>
+                            </tr>
+                            <tr>
+                                <td>心跳数（分钟）</td>
+                                <td>0无</td>
+                                <td>< 100</td>
+                                <td>> 100</td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                            <tr>
+                                <td>呼吸情况</td>
+                                <td>无</td>
+                                <td>浅 哭声小</td>
+                                <td>佳 哭声大</td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                            <tr>
+                                <td>肌肉张力</td>
+                                <td>松弛</td>
+                                <td>四肢屈曲</td>
+                                <td>四肢活动</td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                            <tr>
+                                <td>弹足底或鼻导管插鼻反应</td>
+                                <td>无</td>
+                                <td>蹙眉微动</td>
+                                <td>哭咳嚏</td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                            <tr>
+                                <td>皮肤颜色</td>
+                                <td>青紫苍白</td>
+                                <td>体红肢紫</td>
+                                <td>全身红</td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                            <tr>
+                                <td>总分数</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><input type="text" class="tire"></td>
+                                <td><input type="text" class="tire"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>产时母亲用药：</td>
+                    <td>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="催产素">
+                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="度冷丁">
+                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="安定">
+                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="硫酸镁">
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>胎心：</td>
+                    <td>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="快">
+                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="慢">
+                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="不规则">
+                        <input type="text" class="tire">次/分
+                        听不到胎心<input type="text" class="tire">分钟
+                        <!-- VNST <select name="" id="">
+                        <option value="">+</option>
+                        <option value="">-</option>
+                    </select>
+                NST <select name="" id="">
+                        <option value="">+</option>
+                        <option value="">-</option>
+                    </select> -->
+                        胎心率<input type="text" class="tire">
+                        基线 <input type="text" class="tire">
+                        <!-- CST <select name="" id="">
+                        <option value="">+</option>
+                        <option value="">-</option>
+                    </select> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>产时婴儿：</td>
+                    <td>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="吸羊水">
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>抢救措施：</td>
+                    <td>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="试管">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="充O2">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="洛贝林">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="硫酸氢钠">
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>脐带：</td>
+                    <td>
+                        绕颈<input type="text" class="tire">
+                        过长<input type="text" class="tire">厘米
+                        过短<input type="text" class="tire">厘米
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="帆状">
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>总过程：</td>
+                    <td>
+                        <input type="text" class="tire">小时
+                        <input type="text" class="tire">分
+                    </td>
+                </tr>
+                <tr>
+                    <td>胎盘：</td>
+                    <td>
+                        双胎胎盘<input type="text" class="tire">只
+                        <span>血管</span>
+                        <input type="radio" name="sex" value="是" title="是">是
+                        <input type="radio" name="sex" value="否" title="否">否
+                        单膜<input type="text" class="tire">层
+                        <span>双胎：</span>
+                        <input type="radio" name="sex" value="单卵" title="单卵">单卵
+                        <input type="radio" name="sex" value="双卵" title="双卵">双卵
+                    </td>
+                </tr>
+                <tr>
+                    <td>婴儿畸形异常记录：</td>
+                    <td><input type="text" class="organs"></td>
+                </tr>
+                <tr>
+                    <td>接生者：</td>
+                    <td><input type="text" class="organs"></td>
+                </tr>
+                <tr>
+                    <td>填表者：</td>
+                    <td>
+                        <span>
+                            签名：<input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">婴儿出院记录</td>
+                </tr>
+                <tr>
+                    <td>营养法：</td>
+                    <td>
+                        <input type="radio" name="sex" value="母乳" title="母乳">母乳
+                        <input type="radio" name="sex" value="混合喂养" title="混合喂养">混合喂养
+                        <input type="radio" name="sex" value="" title="人工喂养">人工喂养
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>脐带：</td>
+                    <td>
+                        <input type="radio" name="sex" value="脱落" title="脱落">脱落
+                        <input type="radio" name="sex" value="未脱" title="未脱">未脱
+                        <input type="radio" name="sex" value="" title="干燥">干燥
+                        <input type="radio" name="sex" value="" title="潮湿">潮湿
+                        <input type="text" class="tire">
+                    </td>
+                </tr>
+                <tr>
+                    <td>皮肤：</td>
+                    <td>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="正常">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="红丘疹">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="红臀">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="尿布疹">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="小脓包">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="糜烂">
+                        <input type="text" class="organs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>其他异常发现：</td>
+                    <td><input type="text" class="organs"></td>
+                </tr>
+                <tr>
+                    <td>乙肝疫苗接种日期：</td>
+                    <td>
+                        <input type="text" id="timed" class="tire" style="width: 18%">
+                        <span>
+                            签名：<input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="未中">
+                    </td>
+                </tr>
+                <tr>
+                    <td>卡介苗接种日期：</td>
+                    <td>
+                        <input type="text" id="timed" class="tire" style="width: 18%">
+                        <span>
+                            签名：<input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="未中">
+                    </td>
+                </tr>
+                <tr>
+                    <td>新生儿疾病筛选<br>采血日期：</td>
+                    <td>
+                        <input type="text" id="timed" class="tire" style="width: 18%">
+                        <span>
+                            签名：<input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="未采血原因">
+                    </td>
+                </tr>
+                <tr>
+                    <td>新生儿游泳：</td>
+                    <td>
+                        <input type="radio" name="sex" value="" title="否">否
+                        <input type="radio" name="sex" value="" title="是">是
+                    </td>
+                </tr>
+                <tr>
+                    <td>乙肝免疫球蛋白：</td>
+                    <td>
+                        <input type="radio" name="sex" value="" title="否">否
+                        <input type="radio" name="sex" value="" title="是">是
+                        <span>
+                            <input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>出院日期：</td>
+                    <td>
+                        <input type="text" id="outDate" style="width: 18%" class="tire">
+                        住院<input type="text" class="tire">天
+                        出院体重<input type="text" class="tire">克
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="未采血原因">
+                    </td>
+                </tr>
+                <tr>
+                    <td>转院、死亡日期：</td>
+                    <td>
+                        <input type="text" class="tire" id="deathDate" style="width: 14%">
+                        <span>
+                            <input type="text" class="tire" style="width:14%">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>签名：</td>
+                    <td>
+                        <span>
+                            <input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>出院小结：</td>
+                    <td><input type="text" class="organs"></td>
+                </tr>
+                <tr>
+                    <td>签名：</td>
+                    <td>
+                        <span>
+                            <input type="text" class="tire">
+                            <a class="layui-btn">签名</a><a class="layui-btn">取消签名</a>
+                        </span>
+                        <span>
+                            审签：<input type="text" class="tire">
+                            <a class="layui-btn">进行审签</a><a class="layui-btn">取消审签</a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+		</div>
+	</div>
+ 
+</body>
+
+<script>
+	 layui.use(['form','laydate','table'], function(){
+  		var form = layui.form;
+  		var laydate = layui.laydate;
+  		var table = layui.table;
+  		laydate.render({
+		    elem: '#test'
+		    ,type: 'datetime'
+		  });
+  		 
+		laydate.render({
+		    elem: '#timed'
+		    ,type: 'datetime'
+		  });
+		laydate.render({
+		    elem: '#outDate'
+		    ,type: 'datetime'
+		  });
+		laydate.render({
+		    elem: '#deathDate'
+		    ,type: 'datetime'
+		});
+		 
+
+  	});
+
+</script>
+</html>

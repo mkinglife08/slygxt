@@ -1,0 +1,860 @@
+﻿
+@{
+    ViewBag.Title = "环境检测结果详情";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group" method="post">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">
+                环境卫生学监测结果
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                </div>
+
+                @*<label class="layui-form-label cur_lable">评估人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="OPNAME" data-id="OPNAME" id="OPNAME" lay-maxlength="20" lay-verify="required" placeholder="请输入评估人" autocomplete="off" class="layui-input" />
+            </div>
+
+            <label class="layui-form-label cur_lable">评估日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="PROCTDATE" data-id="PROCTDATE" id="PROCTDATE" lay-maxlength="20" lay-verify="date" placeholder="请输入评估日期" autocomplete="off" class="layui-input" />
+            </div>*@
+
+            </div>
+
+            <input type="hidden" id="ENVID" name="ENVID" data-id="ENVID" />
+            <input type="hidden" id="DEPTID" name="DEPTID" data-id="DEPTID" />
+            <input type="hidden" id="DEPTNAME" name="DEPTNAME" data-id="DEPTNAME" />
+
+            <table id="tb_EnvDetail" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                <tr class="title_bt">
+                    <td style="width:10%;">申请单编号</td>
+                    <td style="width:10%;">申请单分类</td>
+                    <td style="width:10%;">申请科室</td>
+                    <td style="width:10%;">标本</td>
+                    <td style="width:10%;">细菌数量</td>
+                    <td style="width:10%;">结果</td>
+                    <td style="width:10%;">合格</td>
+                    <td style="width:10%;">备注</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_0">&nbsp;</td>
+                    <td class="col_1">&nbsp;</td>
+                    <td class="col_2">&nbsp;</td>
+                    <td class="col_3">&nbsp;</td>
+                    <td class="col_4">&nbsp;</td>
+                    <td class="col_5">&nbsp;</td>
+                    <td class="col_6">&nbsp;</td>
+                </tr>
+                <tr class="title_bt">
+                    <td colspan="2" class="col_0">送检日期： <input type="text" name="SJDATE" data-id="SJDATE" id="SJDATE" lay-maxlength="20" lay-verify="date" placeholder="请输入送检日期" autocomplete="off" class="layui-input" /></td>
+                    <td colspan="2" class="col_1">送检人：   <input type="text" name="SJREN" data-id="SJREN" id="SJREN" lay-maxlength="20" lay-verify="required" placeholder="请输入送检人" autocomplete="off" class="layui-input" /></td>
+                    <td colspan="2" class="col_3">检验者：<input type="text" name="JYZ" data-id="JYZ" id="JYZ" lay-maxlength="20" lay-verify="required" placeholder="请输入检验者" autocomplete="off" class="layui-input" /></td>
+                    <td colspan="2" class="col_5">报告日期：<input type="text" name="BGDATE" data-id="BGDATE" id="BGDATE" lay-maxlength="20" lay-verify="date" placeholder="请输入报告日期" autocomplete="off" class="layui-input" /></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });
+
+    //构建行 JSON 数据
+    var constructJson = [
+        {
+            "formType": "text",
+            "type": "text",
+            "name": "SQDBH",
+            "class": "layui-input",
+            "markid": "_" 
+        }, {
+            "formType": "select",
+            "type": "select",
+            "name": "SQDFL",
+            "class": "layui-input",
+            "markid": "_"
+        }, {
+            "formType": "text",
+            "type": "text",
+            "name": "SQKSNAME",
+            "class": "layui-input",
+            "markid": "_"
+        },
+        {
+            "formType": "text",
+            "type": "text",
+            "name": "BB",
+            "class": "layui-input",
+            "markid": "_"
+        },
+        {
+            "formType": "text",
+            "type": "text",
+            "name": "XJSL",
+            "class": "layui-input",
+            "markid": "_"
+        },
+        {
+            "formType": "text",
+            "type": "text",
+            "name": "JG",
+            "class": "layui-input",
+            "markid": "_"
+        },
+        {
+            "formType": "text",
+            "type": "text",
+            "name": "HG",
+            "class": "layui-input",
+            "markid": "_"
+        },
+        {
+            "formType": "textarea",
+            "type": "textarea",
+            "name": "BZ",
+            "class": "layui-textarea",
+            "markid": "_"
+        }
+    ];
+
+    $("#tb_EnvDetail tr[class!='title_bt']").each(function (row) {
+        $(this).find("td[class*='col_']").each(function (col, td) {
+            
+            //i,td的索引号（从0开始） v:td 对象
+            var tdCons = constructJson[col];
+
+            // debugger
+            if (tdCons.formType == "text") {
+                $("<input>", {
+                    type: tdCons.type,
+                    //id: tdCons.id,
+                    name: tdCons.name,
+                    class: tdCons.class,
+                    markid: tdCons.markid + row,
+                    formType: tdCons.formType
+                    // , 'lay-verify': (tdCons.formType == "date" ? tdCons.layVerify : '')
+                }).appendTo($(td));
+            } else if (tdCons.formType == "select") {
+                var select = $("<select>", {
+                    name: tdCons.name,
+                    id: tdCons.name + "_" + row,
+                    markid: tdCons.markid + row,
+                    class: "deletSele",
+                    placeholder: "请选择科室",
+                    'lay-verify': "SelectRequired",
+                    formType: tdCons.formType
+                });
+
+                select.append("<option value=''></option>");
+                select.append("<option value='空气培养'>空气培养</option>");
+                select.append("<option value='物表监测'>物表监测</option>");
+                select.append("<option value='医护人员手细菌'>医护人员手细菌</option>");
+                //$.each(tdCons.textValue, function (index, item) {
+                //    select.append("<option value='" + item.value + "'>" + item.text + "</option>");
+                //})
+                // console.log(select.html())
+                select.appendTo($(td));
+            } else if (tdCons.formType == "textarea") {
+                $("<textarea>", {
+                    type: tdCons.type,
+                    //id: tdCons.id,
+                    name: tdCons.name,
+                    placeholder: "请输入备注",
+                    class: tdCons.class,
+                    markid: tdCons.markid + row,
+                    formType: tdCons.formType
+                    // , 'lay-verify': (tdCons.formType == "date" ? tdCons.layVerify : '')
+                }).appendTo($(td));
+            }
+        });
+    });
+
+
+    for (i = 0; i <= 31; i++) {
+        EnvSel_1($("#SQDFL" + "_" + i), "0", {}, null);
+    }
+
+    //$.each(constructJson, function (index, item) { 
+    //    if (item.formType == "select") {
+    //        EnvSel_1($("#" + item.name), "0", {}, null);
+    //    } else {
+    //        return;
+    //    }
+    //});
+    //暂时保留 删除一行的按钮
+    $("#tb_EnvDetail").find("button").each(function () {
+        $(this).click(function () {
+            var lineNum = $(this).attr("id");
+            $("#_tr_" + lineNum).remove();
+        });
+    });
+
+    var ENVID = GetQueryString("ENVID");
+    if (ENVID != "" && ENVID != "undefined") {
+        $("#ENVID").val(ENVID);
+        EWinsBase.json("api/Infection/EnvironmentTest/GetEnvironmentTestSourceList", {
+            data: { "ENVID": ENVID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+
+                //EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);  //环境卫生学监测数据集合
+
+                var dataItem = data.data.Item1;
+                for (var i = 0; i < dataItem.length; i++) {
+                   // debugger
+                    var a = dataItem[i];
+                    var markid = "_" + i;
+                    $("#tb_EnvDetail").find("*[markid= '" + markid + "']").each(function (i, v) {
+                        //$.ParseDate(curdata)
+                        //debugger
+                        var dataName = $(v).attr("name");
+                        var formType = $(v).attr("formType");
+                        if (formType != "select") {
+                           // $(v).val((dataName == "DCRQ" ? $.ParseDate(a[dataName]) : a[dataName]));
+                            $(v).val(a[dataName]);
+                        } else {
+                           // console.log($(v).attr("markid")+"===="+"dataName:" + dataName + ",a[dataName]:" + a[dataName]);
+                            $(v).val(a[dataName]).trigger('change');
+                        }
+                    });
+                }
+
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item3);  //多重耐药菌隔离措施实体
+                //绑定科室
+                if (data.data.Item2 != null) {
+                    //绑定科室初始值
+                    data.data.Item2.forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#DpetID").val($(data.data.Item2).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+
+    //如果选择了日期，那么该列下的文本元素会被设置上非空验证，如果把日期数据清空了，那么该列内的数据都会制空
+    function addRemoveVerify(dateValue, prefix) {
+        if (dateValue != "") {
+            $("#tb_EnvDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").attr("lay-verify", "required");
+            });
+        } else {
+
+            $("#tb_EnvDetail tr").each(function () {
+                $(this).find("input[markid*= '" + prefix + "']").removeAttr("lay-verify");
+                var formItem = $(this).find("input[markid*= '" + prefix + "']");
+                if (formItem.attr("formType") != "select") {
+                    formItem.val("")
+                } else {
+                    formItem.val("").trigger('change');
+                }
+            });
+        }
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+ 
+        laydate.render({
+            elem: '#SJDATE',
+            type: 'date'
+        });
+        laydate.render({
+            elem: '#BGDATE',
+            type: 'date'
+        });
+
+         
+
+        //var totalScore = 100;
+        //$('input[type="radio"]').on("blur", function () {
+        //    var minuend = 0;
+        //    $('input[id*="BASIS"]').each(function () {
+        //        minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+        //    });
+        //    var score = (parseFloat(totalScore) - parseFloat(minuend));
+        //    $("#SUMSCORE").val(score);
+        //    $("#WIRTESCORE").val(score);
+        //});
+
+
+        form.on('radio(rdo)', function (data) {
+            var lineNum = $(data.elem).attr("id").replace(/[^0-9]/ig, "");  //获取的是单选框的ID，最后的数字对应行号。例如:kn0
+            var lineObj = $("#_tr_" + lineNum);
+            var fs = 0;
+            lineObj.find("input[type=radio]:checked").each(function () {
+                fs += parseFloat($(this).val());
+            });
+            $("#fz" + lineNum).val(fs);
+            //  form.render();
+        });
+
+
+
+        form.on('submit(sub)', function (data) {
+              
+            var envSource = "[";
+            var rowLength = $("#tb_EnvDetail tr[class!='title_bt']").length;   //获取数据行数量
+            
+            $("#tb_EnvDetail tr[class!='title_bt']").each(function (i,v) {
+                var sourceItem = "{";
+                var formItem = $(this).find("*[markid*= '_" + i + "']");
+                //formItem+="\""+form+"\""
+                var formItemLength = formItem.length;
+                formItem.each(function (j,v) {
+                    sourceItem += "\"" + $(this).attr("name") + "\"" + ":" + "\"" + $(this).val() + "\""
+                    if (j != (formItemLength - 1)) {
+                        sourceItem += ",";
+                    }
+                }); 
+                sourceItem += "}" 
+                if (i != (rowLength - 1)) {
+                    sourceItem += ",";
+                }
+                envSource += sourceItem;   
+            }); 
+            envSource += "]";
+             
+            var envModel = new Object();  //环境检测表
+            envModel.ENVID = $("#ENVID").val();
+            envModel.DEPTID = getMultiSelectVal("DpetID");
+            envModel.DEPTNAME = getMultiSelectText("DpetID");
+            envModel.SJDATE = $("#SJDATE").val();
+            envModel.SJREN = $("#SJREN").val();
+            envModel.JYZ = $("#JYZ").val();
+            envModel.BGDATE = $("#BGDATE").val();
+             
+
+            EWinsBase.json("api/Infection/EnvironmentTest/Save", {
+                data: {
+                    'envModel': envModel,
+                    'envSource': envSource
+                },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

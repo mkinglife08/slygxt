@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "添加病程记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/newOption.css">
+<style>
+    .layui-btn {
+        padding: 0 7px!important;
+    }
+    #divData {
+        background: #fff;
+        margin-bottom: -3px!important;
+    }
+    .submEdit{
+        width: 99%!important;
+        height: 430px!important;
+    }
+    .symes{ font-weight:normal;color:#666}
+    .left{ text-align:left;}
+    .rightTable td:nth-child(2n-1){ text-align:left;}
+</style>
+<form action="" class="layui-form">
+    <div id="action_subm" >
+        <div class="submEdit" style="">
+            <div class="medrecord">
+                <p class="word" id="PageTitle">主任医师代主治医师查房</p>
+                <div class="rigBtn">
+                    <a class="layui-btn">中草药导入</a>
+                    <a class="layui-btn">检查报告</a>
+                    <a class="layui-btn">检验报告</a>
+                    <a class="layui-btn" lay-submit="" lay-filter="sub">暂存</a>
+                    <a class="layui-btn" lay-submit="" lay-filter="sub">保存不返回</a>
+                    <a class="layui-btn" lay-submit="" lay-filter="sub" onclick="$('#isRoleBack').val(1)">保存并返回</a>
+                    <a class="layui-btn" onclick="ShowWinClose();">关闭</a>
+                    <input id="isRoleBack" type="hidden" value="" />
+                </div>
+            </div>
+            <div class="consultation clearfix">
+                <ul class="consultationUls fl">
+                    <li><span class="symes">科室：</span><span data-id="CurrentDeptID"></span></li>
+                    <li><span class="symes">病区：</span><span data-id="CurrentWardID"></span></li>
+                    <li><span class="symes">床号：</span><span data-id="BedNumber"></span></li>
+                    <li><span class="symes">住院号：</span><span data-id="InpatientId"></span></li>
+                    <li><span class="symes">病人姓名：</span><span data-id="Name"></span></li>
+                    <li><span class="symes">性别：</span><span data-id="Gender"></span></li>
+                    <li><span class="symes">年龄：</span><span data-id="Age"></span>岁</li>
+                </ul>
+                <p class="consuManage fr"><span>当前用户：</span><span id="CurUser">管理员</span></p>
+            </div>
+            <div class="contents">
+                    <table class="rightTable">
+                        <tr>
+                            <td colspan="4">2017-01-18 李医生 主治中医师查房</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="left">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="rightTable" style="margin-top:3px;">
+                        <tr>
+                            <td colspan="4" class="left">主任医师代主治医师查房</td>
+                        </tr>
+                        <tr id="trcfys">
+                            <td>查房医生</td>
+                            <td colspan="4"><select name="WardRoundUserId" id="WardRoundUserId" style="width:100%"></select></td>
+                        </tr>
+                        <tr>
+                            <td>备选项</td>
+                            <td colspan="4" class="left"><input type="checkbox" title="预留家属签名位置" id="FamilySignature" name="FamilySignature" value="1" lay-skin="primary"></td>
+                        </tr>
+                        <tr>
+                            <td>记录内容</td>
+                            <td>
+                                <textarea class="layui-textarea" id="RecordContent0" name="RecordContent0" style="display: none"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>书写医生</td>
+                            <td class="left"><input type="text" disabled="disabled" id="WardRoundUserName"></td>
+                        </tr>
+                        <tr>
+                            <td>书写时间</td>
+                            <td class="left"><input type="text" id="ProgressNoteTime" name="ProgressNoteTime" placeholder="请输入书写时间"></td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    CreateSelectOptionFromUser($("#WardRoundUserId"), { width: "100%!important" });
+    $("#PageTitle").html(GetQueryString("ProgressTypeName"));
+    $("#PageTitle2").html(GetQueryString("ProgressTypeName"));
+    $("#CurUser").html(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    $("#WardRoundUserName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    $("#ProgressNoteTime").val(CurentTime());
+    if (GetQueryString("ProgressTypeName").indexOf('查房') < 0)
+        $("#trcfys").css("display", "none");
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+
+    EWinsBase.json("api/Doctor/ProgressNote/GetAll", {
+        data: { "InpatientId": parent.GetQueryString("InpatientId"), "limit": 1 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            curData = data.data[0];
+            $("#lastTitle").html(curData.CreateTime.ToString("yyyy-MM-dd") + " " + (curData.CreatorName + "").replace("null", "") + " " + curData.ProgressTypeName);
+            RecordContent = JSON.parse(curData.RecordContent);
+            var ContentHtml = "";
+            if (RecordContent.length > 1) {
+                RecordContent.forEach(function (item, index) {
+                    if (item.Title != "")
+                        ContentHtml += "<p>" + ToUpper(index + 1) + "," + item.Title + "：</p>";
+                    if (item.Content != "")
+                        ContentHtml += "<div>" + item.Content + "</div>";
+                })
+            }
+            else
+                ContentHtml = item.Content;
+            $("#lastContent").html(ContentHtml);
+        }
+    })
+
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    })
+    if (GetQueryString("ProgressNoteId") != "")
+    {
+        EWinsBase.json("api/Doctor/ProgressNote/GetInfoById", {
+            data: { "ProgressNoteId": NewGetQueryString("ProgressNoteId") },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data["WardRoundUserId"] != null) {
+                    $("#WardRoundUserId").append("<option value=" + data.data["WardRoundUserId"] + ">" + data.data["WardRoundUserName"] + "</option>");
+                    $("#WardRoundUserId").val(data.data["WardRoundUserId"]).trigger('change');
+                }
+                $("input:checkbox[name='FamilySignature'][value='" + data.data["FamilySignature"] + "']").attr("checked", 'checked');
+                $("#ProgressNoteTime").val(data.data["ProgressNoteTime"]);
+                var RecordContent = JSON.parse(data.data.RecordContent);
+                $("#RecordContent0").html(RecordContent[0].Content)
+            }
+        })
+    }
+    layui.use(['layer', 'form', 'laydate', 'layedit'], function () { //独立版的layer无需执行这一句
+        var $ = layui.jquery,
+        layer = layui.layer,
+        form = layui.form,
+        layedit = layui.layedit,
+          laydate = layui.laydate;
+        laydate.render({
+            elem: '#ProgressNoteTime'
+           , type: 'datetime'
+        });
+        var RecordContent0 = layedit.build('RecordContent0', { height: 197 });
+
+        form.on('submit(sub)', function (data) {
+            data.field["RecordContent0"] = layedit.getContent(RecordContent0);
+            data.field["RecordContentTitle"] = "记录内容";
+            data.field["ProgressTypeId"] = GetQueryString("ProgressTypeId");
+            data.field["ProgressTypeName"] = GetQueryString("ProgressTypeName");
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");
+            EWinsBase.json("api/Doctor/ProgressNote/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            });
+            if ($('#isRoleBack').val() == 1)
+            {
+                RoleBack();
+            }
+            return false;
+        })
+    })
+
+    function RoleBack() {
+        var curParentWindowDocument = parent.document;
+        var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+        var wind;
+        if (cur_tab_index == 1)
+            wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+        else
+            wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+        wind.location.reload();
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    function ToUpper(num) {
+        var tmpnewchar = "";
+        switch (num + "") {
+            case "0": tmpnewchar = "零"; break;
+            case "1": tmpnewchar = "一"; break;
+            case "2": tmpnewchar = "二"; break;
+            case "3": tmpnewchar = "三"; break;
+            case "4": tmpnewchar = "四"; break;
+            case "5": tmpnewchar = "五"; break;
+            case "6": tmpnewchar = "六"; break;
+            case "7": tmpnewchar = "七"; break;
+            case "8": tmpnewchar = "八"; break;
+            case "9": tmpnewchar = "九"; break;
+        }
+        return tmpnewchar;
+    }
+</script>

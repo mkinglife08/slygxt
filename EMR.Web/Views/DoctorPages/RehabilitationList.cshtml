@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/rehabilitation.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+    <style>
+        .table{
+            width: 100%;
+            border:1px solid #ccc;
+        }
+        .table tr,td{
+            border:1px solid #ccc;
+            border-top:none;
+            border-left: none;
+            text-align:center;
+        }
+        .table td{
+            padding:3px 0;
+        }
+    </style>
+</head>
+<body>
+	<div class="rehabilit">
+		<div class="cont" style="width:800px;">
+			<p class="contP">
+				<a class="layui-btn">保存</a>
+				<a class="layui-btn">打印</a>
+			</p>
+			<div class="contInfor">
+				<h3>康复治疗记录单</h3>
+				<div class="contUls ">
+					<span>姓名<input type="text"></span>
+					<span>性别<input type="text"></span>
+					<span>年龄<input type="text"></span>
+					<span>病区<input type="text"></span>
+					<span>床号<input type="text"></span>
+					<span>住院号<input type="text"></span>
+				</div>
+				<p class="lastList"><span>诊断 </span>
+					<input type="text" class="lastFirst">
+				</p>
+				<table class="table layui-form">
+					<tr>
+						<td style="width: 10%">日期</td>
+						<td colspan="2" class="left"><input type="text"></td>
+					</tr>
+					<tr>
+						<td rowspan="3">康复内容</td>
+					</tr>
+					<tr>
+						<td style="width: 10%">运动训练</td>
+						<td class="left">
+							<p>
+								<input type="checkbox" name="" title="关节被动活动度" lay-skin="primary" >
+								<input type="checkbox" name="" title="关节松动" lay-skin="primary" >
+								<input type="checkbox" name="" title="全身肌肉增强" lay-skin="primary" >
+								<input type="checkbox" name="" title="抗痉挛" lay-skin="primary" >
+								<input type="checkbox" name="" title="全身耐力" lay-skin="primary" >
+							</p>
+							<p>
+								<input type="checkbox" name="" title="平衡功能" lay-skin="primary" >
+								<input type="checkbox" name="" title="协调能力" lay-skin="primary" >
+								<input type="checkbox" name="" title="减重步行训练" lay-skin="primary" >
+								<input type="checkbox" name="" title="矫形器轮椅宣教" lay-skin="primary" >
+								<input type="checkbox" name="" title="放松疗法" lay-skin="primary" >
+							</p>
+							<p>
+								<input type="checkbox" name="" title="牵引" lay-skin="primary" >
+								<input type="checkbox" name="" title="良肢摆放宣教" lay-skin="primary" >
+								<input type="checkbox" name="" title="转移训练" lay-skin="primary" >
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>食物训练</td>
+						<td class="left">
+							<p>
+								<input type="checkbox" name="" title="气压治疗" lay-skin="primary" >
+								<input type="checkbox" name="" title="红外线照射" lay-skin="primary" >
+								<input type="checkbox" name="" title="低频电脉冲" lay-skin="primary" >
+								<input type="checkbox" name="" title="电按摩热疗" lay-skin="primary" >
+								<input type="checkbox" name="" title="中药熏蒸治疗" lay-skin="primary" >
+							</p>
+							<p>
+								<input type="checkbox" name="" title="吞咽功能训练" lay-skin="primary" >
+								<input type="checkbox" name="" title="中频电脉冲" lay-skin="primary" ></p>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="4">作业疗法</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="left">
+							<input type="checkbox" name="" title="" lay-skin="primary" >
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="left">
+							<input type="checkbox" name="" title="" lay-skin="primary" >
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" name="" title="" lay-skin="primary" >
+						</td>
+						<td colspan="2"><span>签名：</span><input type="text"></td>
+					</tr>
+				</table>
+				<table class="table rehabilit">
+					<tr>
+						<td rowspan="3">日期</td>
+						<td rowspan="3">次数</td>
+						<td colspan="20">康复内容</td>
+						<td rowspan="3">作业疗法</td>
+						<td rowspan="3">操作</td>
+					</tr>
+					<tr>
+						<td colspan="13">运动疗法</td>
+						<td colspan="7">物理疗法</td>
+					</tr>
+					<tr>
+						<td>关节被动活动度</td>
+						<td>关节松动</td>
+						<td>全身肌力增强</td>
+						<td>抗痉挛</td>
+						<td>全身耐力</td>
+						<td>平衡功能</td>
+						<td>协调能力</td>
+						<td>减重步行训练</td>
+						<td>矫形器轮椅宣教</td>
+						<td>放松疗法</td>
+						<td>牵引</td>
+						<td>良肢摆放宣教</td>
+						<td>转移训练</td>
+						<td>气压治疗</td>
+						<td>红外线照射</td>
+						<td>低频电脉冲</td>
+						<td>电按摩热疗</td>
+						<td>中药熏蒸治疗</td>
+						<td>吞咽功能训练</td>
+						<td>中频电脉冲</td>
+					</tr>
+					
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+layui.use('form',function(){
+	var form = layui.form;
+})
+</script>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+			<span>科室</span>
+			<select name="" id="">
+				<option value="">全部</option>
+				<option value="">一病区</option>
+			</select>
+			<span>医疗组名</span>
+			<input type="text" style="width: 10%">
+			 <div class="rigBtn">
+	         	<a class="layui-btn">查询</a>
+	    	</div>
+		</div>
+		<table id="qualityTable">
+			
+		</table>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+layui.use(['laydate','table'],function () {
+	var laydate = layui.laydate;
+	var table = layui.table;
+	laydate.render({
+	  	elem:'#test',
+	});
+	laydate.render({
+	  	elem:'#test1',
+	});
+	table.render({ //table 表格
+	    elem: '#qualityTable'
+	    ,cols: [[
+		    ,{field:'sign', title: '小组序号',align:'center'}
+		    ,{field:'sign', title: '小组名称',align:'center'}
+		    ,{field:'sign', title: '所属科室',align:'center'}
+		    ,{field:'sign', title: '操作',align:'center'}
+	  	]]
+	  });
+})
+
+</script>
+</html>

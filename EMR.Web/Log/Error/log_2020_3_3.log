@@ -1,0 +1,4 @@
+==== 开始 2020/3/3 15:09:10(RawUrl:Error) =====保存信息失败！-------ORA-01400: 无法将 NULL 插入 ("WOWJOYEMR"."GI_SERIALINFO"."ORGINID")
+
+==== 开始 2020/3/3 15:17:16(RawUrl:Error) =====保存信息失败！-------ORA-01400: 无法将 NULL 插入 ("WOWJOYEMR"."BUS_RISKINFECTION_SOURCE"."SOURCEID")
+

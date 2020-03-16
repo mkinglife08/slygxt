@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+  <select id="Transfer.KeepWardLog.List">
+    select t.*,i.name InpatientName,i.HealthCard,olddept.deptname OldDeptName ,oldward.deptname OldWardName,currentdept.deptname CurrentDeptName,currentward.deptname CurrentWardName
+    from CD_TRANSFER t
+    left join CD_INPATIENT i on i.inpatientid=t.inpatientid
+    left join AI_DEPTINFO olddept on olddept.Deptid=t.olddeptid
+    left join AI_DEPTINFO oldward on oldward.Deptid=t.oldwardid
+    left join AI_DEPTINFO currentdept on currentdept.Deptid=t.currentdeptid
+    left join AI_DEPTINFO currentward on currentward.Deptid=t.currentwardid
+    <dynamic prepend=" where 1=1 ">
+      <isNotNullOrEmpty prepend=" and " property="Name">i.Name like '%#Name#%'</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Zyh">(i.InpatientId=:Zyh or i.HealthCard=:Zyh)</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="CurrentDeptID">t.CurrentDeptID=:CurrentDeptID</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="OldDeptID">t.OldDeptID=:OldDeptID</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="ConversionTimeStart">t.ConversionTime &gt; to_date('#ConversionTimeStart# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="ConversionTimeStop">t.ConversionTime &lt; to_date('#ConversionTimeStop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    order by ConversionTime desc
+  </select>
+</sqlMap>

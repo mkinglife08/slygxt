@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "住院病人列表";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/hospitalBeds.css">
+<style>
+</style>
+<div class="home_content">
+    <input type="hidden" id="hdnCurRowId" value="" />
+    <input type="hidden" id="hdnName" value="" />
+    <div class="home_header">
+        <div class="select_box">
+            <select name="Group" id="Group">
+                <option value="1">本人</option>
+                <option selected="selected" value="5">本科室</option>
+                <option value="4">授权病人</option>
+            </select>
+            <select name="Status" id="Status">
+                <option selected="selected" value="1">在院</option>
+                <option value="2">已出院</option>
+                @*<option value="3">待归档</option>*@
+                <option value="4">已归档</option>
+                <option value="">全部</option>
+            </select>
+            <select name="KeywordType" id="KeywordType">
+                <option selected="selected" value="BedNumber">床号</option>
+                <option value="InpatientId">住院号</option>
+                <option value="Name">姓名</option>
+                <option value="IdCard">身份证</option>
+                <option value="EntryTime">住院时间</option>
+            </select>
+            <input type="text" autocomplete="off" id="keyword" placeholder="请输入要查询的内容" class="search_input">
+        </div>
+        <div class="home_search">
+            @*<input type="text" autocomplete="off" id="keyword" placeholder="请输入要查询的内容" class="search_input" style="width:35%">*@
+            <a class="layui-btn" id="btQuery">
+                <i class="iconfont">&#xe6ac;</i>
+                查询
+            </a>
+            <a class="layui-btn" id="btBAQuery">
+                <i class="iconfont">&#xe70b;</i>
+                病案查询
+            </a>
+        </div>
+    </div>
+</div>
+<div id="view1">
+    <table id="dateTable" lay-filter="dateTable"></table>
+</div>
+<!-- js -->
+<script type="text/javascript">
+    // layui方法
+    layui.use(['table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery;
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: vipTable.getFullHeight() - 60   //容器高度
+            , cols: [[                  //标题栏
+                { checkbox: false, sort: false, fixed: false, space: true }
+                , { field: 'HealthCard', title: '健康卡号', width: '90', align: 'center', hide: true }
+                , { field: 'InpatientId', title: '住院id', width: '90', align: 'center', hide: true }
+                , { field: 'HomePageId', title: '病案首页ID', width: '90', align: 'center', hide: true }
+                , { field: 'MedicalRecordState', title: '病历状态', width: '90', align: 'center', templet: "#MedicalRecordState" }
+                , { field: 'BedNumber', title: '病床', width: '90', align: 'center' }
+                , { field: 'CurrentDeptName', title: '科室', width: '90', align: 'center' }
+                , { field: 'CurrentWardName', title: '病区', width: '90', align: 'center' }
+                , { field: 'InpatientId', title: '住院号', width: '120', align: 'center' }
+                , { field: 'Name', title: '姓名', width: '20%', align: 'center' }
+                , { field: 'EntryTime', title: '入院时间', width: '130', align: 'center', templet: "#EntryTime" }
+                , { field: 'LeaveTime', title: '出院时间', width: '130', align: 'center', templet: "#LeaveTime" }
+                , { field: 'ApplyAccessNumber', title: '审阅情况', width: '130', align: 'center', templet: "#ApplyAccess" }
+                , { field: 'InpatientId', title: '操作', width: '130', align: 'center', templet: "#operating" }
+
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/MedicalRecordHomePage/GetAllInpatient?token=' + EWinsBase.Token
+            , where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN"), CurrentWardID: NewGetQueryString("BQID")}//这里传参  向后台
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.InpatientId);
+            $("#hdnName").val(data.Name);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //编辑按钮事件
+        $('#btBAQuery').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin($("#hdnName").val() + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + $("#hdnCurRowId").val(), $(window).width() + 150, $(window).height() + 90);
+        });
+        //每行的病案查阅按钮
+        $('#view1').on('click', ".btIBAQuery", function () {
+            var InpatientId = $(this).attr("data-id");
+            ShowWin($("#hdnName").val() + '病历详情', 'page/PublicPages/MedrecordQuery?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + InpatientId, $(window).width() + 150, $(window).height() + 90);
+        });
+        //每行的审阅按钮
+        $('#view1').on('click', ".btnSY", function () {
+            var InpatientId = $(this).attr("data-id");
+            ShowWin($("#hdnName").val() + '的审阅申请，通过后1天内可查阅病案', 'page/DoctorPages/MedicalRecordAccessRecord?EMRIDSIGN=' + NewGetQueryString("EMRIDSIGN") + '&InpatientId=' + InpatientId, 500, 650);
+        });
+
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            var Status = $("#Status").val();//档案状态
+            tableIns.reload({
+                where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN"), CurrentWardID: NewGetQueryString("BQID")}//这里传参  向后台
+                , method: 'post'
+            });
+        });
+
+    });
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+             where: { keyword: $("#keyword").val(), KeywordType: $("#KeywordType").val(), Status: $("#Status").val(), SYSID: NewGetQueryString("SYSID"), Group: $("#Group").val(), UserID: NewGetQueryString("EMRIDSIGN") }//这里传参  向后台
+            , method: 'post'
+        });
+    }
+</script>
+<script type="text/html" id="EntryTime">
+    {{ d.EntryTime?d.EntryTime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="LeaveTime">
+    {{ d.LeaveTime?d.LeaveTime.ToString("yyyy-MM-dd"):"" }}
+</script>
+<script type="text/html" id="MedicalRecordState">
+    {{ d.MedicalRecordState=="1"?"已归档":"未归档" }}
+</script>
+<script type="text/html" id="MedicalRecordState">
+    {{ d.LeaveTime==""?"在院":"已出院" }}
+</script>
+<script type="text/html" id="operating">
+    <a class="layui-btn layui-btn-xs btIBAQuery" data-id="{{d.InpatientId}}"><i class="iconfont">&#xe70b;</i> 病案查阅</a>
+</script>
+<script type="text/html" id="ApplyAccess">
+    {{# if(d.ApplyAccessNumber==0){}}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled" data-id="{{d.InpatientId}}">审阅申请({{d.ApplyAccessNumber}})</a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-xs layui-btn-danger btnSY" data-id="{{d.InpatientId}}"><i class="iconfont">&#xe6de;</i> 审阅申请({{d.ApplyAccessNumber}})</a>
+    {{# } }}
+</script>

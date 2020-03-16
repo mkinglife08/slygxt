@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>吞咽功能障碍评定量表</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/rehabilitation.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+	
+</head>
+<body>
+	<div class="rehabilit">
+		<div class="cont">
+			<p class="contP">
+				<a class="layui-btn">清空</a>
+				<a class="layui-btn">保存</a>
+				<a class="layui-btn">打印</a>
+			</p>
+			<div class="contInfor">
+				<h3>吞咽功能障碍评定量表 </h3>
+				<div class="contUls clearfix">
+					<span>姓名：<input type="text"></span>
+					<span>病区：<input type="text"></span>
+					<span>床号：<input type="text"></span>
+					<span>住院号:<input type="text"></span>
+				</div>
+				<div class="layui-form">
+					<p>1.临床观察</p>
+					<div class="fir clearfix">
+						<div class="list">
+							<p>
+								<span>口腔：</span>
+								开合<input type="radio" name="normal" title="开合">
+								闭锁<input type="radio" name="normal" title="闭锁">
+							</p>
+							<p>
+								<span>舌部活动：</span>
+								灵活<input type="radio" name="normal" title="灵活">
+								不灵活<input type="radio" name="normal" title="不灵活">
+							</p>
+							<p>
+								<span>垂涎：</span>
+								有<input type="radio" name="normal" title="有">
+								无<input type="radio" name="normal" title="无">
+							</p>
+							<p>
+								<span>吞咽反射：</span>
+								阴性<input type="radio" name="normal" title="阴性">
+								阳性<input type="radio" name="normal" title="阳性">
+							</p>
+							<p>
+								<span>呕吐反射：</span>
+								阴性<input type="radio" name="normal" title="阴性">
+								阳性<input type="radio" name="normal" title="阳性">
+							</p>
+							<p>
+								<span>噎食：</span>
+								有<input type="radio" name="normal" title="有">
+								无<input type="radio" name="normal" title="无">
+							</p>
+							<p>
+								<span>食后呛咳：</span>
+								有<input type="radio" name="normal" title="有">
+								无<input type="radio" name="normal" title="无">
+							</p>
+						</div>
+						<div class="list">
+							<p>
+								<span>食物残渣：</span>
+								有<input type="radio" name="normal" title="有">
+								无<input type="radio" name="normal" title="无">
+							</p>
+							<p>
+								<span>发音：</span>
+								正常<input type="radio" name="normal" title="正常">
+								异常<input type="radio" name="normal" title="异常">
+							</p>
+							<p>
+								<span>食欲：</span>
+								正常<input type="radio" name="normal" title="正常">
+								下降<input type="radio" name="normal" title="下降">
+							</p>
+							<p>
+								<span>进食内容变化：</span>
+								正常<input type="radio" name="normal" title="正常">
+								改变<input type="radio" name="normal" title="改变">
+							</p>
+							<p>
+								<span>进食时间：</span>
+								正常<input type="radio" name="normal" title="正常">
+								延长<input type="radio" name="normal" title="延长">
+							</p>
+							<p>
+								<span>进食方式：</span>
+								正常<input type="radio" name="normal" title="正常">
+								改变<input type="radio" name="normal" title="改变">
+							</p>
+							<p>
+								<span>痰中食物残渣：</span>
+								有<input type="radio" name="normal" title="有">
+								无<input type="radio" name="normal" title="无">
+							</p>
+						</div>
+					</div>
+					<p>2.吞咽功能测试</p>
+					<div class="test">
+						<div class="word">
+							a.反复唾液吞咽测试：被检查者采取坐位，卧床时采取放松体位。检查者将手指放在被检查者的喉结及舌骨处，让其尽量反复吞咽，观察30s内喉结及舌骨随着吞咽运动越过手指，向前上方移动再复位的次数。高龄患者做3次即可。 
+						</div>
+						<p class="contP">
+							<input type="radio" name="normal" title="正常">正常
+							<input type="radio" name="normal" title="异常">异常
+						</p>
+						<div class="word">
+							饮水测试：让患者喝下两三口一茶匙水，如无问题，嘱患者取坐位，将30ml温水一口咽下，记录饮水情况： 
+							<p>
+								<input type="radio" name="normal" title="I、可一口喝完，无噎呛">I、可一口喝完，无噎呛
+							</p>
+							<p>
+								<input type="radio" name="normal" title="II、可分两次以上喝完，无噎呛">II、可分两次以上喝完，无噎呛
+							</p>
+							<p>
+								<input type="radio" name="normal" title="III、可一次喝完，但有噎呛">III、可一次喝完，但有噎呛
+							</p>
+							<p>
+								<input type="radio" name="normal" title="IV、分两次以上喝完，且有噎呛">IV、分两次以上喝完，且有噎呛
+							</p>
+							<p>
+								<input type="radio" name="normal" title="V、常常呛住，难以全部喝完">V、常常呛住，难以全部喝完
+							</p>
+							<div>结果：情况I，若5秒内喝完，为正常；超过5秒，则可疑有吞咽障碍；情况II也为可疑；情况III、IV、V则确定有吞咽障碍。</div>
+						</div>
+						<p>评定结果：</p>
+						<textarea name="" id="" cols="30" rows="8"></textarea>
+						<div class="clearfix">
+							<p class="fl">评定者：<input type="text"></p>
+							<p class="fr">日期：<input type="text" id="test"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+layui.use(['form','laydate'],function(){
+var form = layui.form;
+var laydate = layui.laydate;
+laydate.render({
+	  elem: '#test'//指定元素
+	});
+})
+</script>
+</html>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+  <select id="Inpatient.KeepWardLog.List" description="出入院情况">
+    select i.inpatientid,i.bednumber,i.healthcard,i.EntryTime,i.LeaveTime,i.Name,i.CurrentDeptID,i.conversiondept,d1.DEPTNAME currentdeptname,t.ConversionDept LastConversionDept
+    from CD_Inpatient i
+    Left join AI_DeptInfo d1 on d1.DEPTID=i.CurrentDeptID
+    Left join (SELECT t1.*,ROW_NUMBER() OVER(PARTITION BY inpatientid ORDER BY CONVERSIONTIME DESC) rn FROM CD_Transfer t1) t on t.inpatientid = i.inpatientid
+    <dynamic prepend=" where 1=1 ">
+      <isNotNullOrEmpty prepend=" and " property="DpetID">i.CurrentDeptID=:DpetID</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Name">i.Name like '%#Name#%'</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Zyh">(i.InpatientId=:Zyh or i.HealthCard=:Zyh)</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="EntryTimeStart">i.EntryTime &gt; to_date('#EntryTimeStart# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="EntryTimeStop">i.EntryTime &lt; to_date('#EntryTimeStop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="LeaveTimeStart">i.LeaveTime &gt; to_date('#LeaveTimeStart# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="LeaveTimeStop">i.LeaveTime &lt; to_date('#LeaveTimeStop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    order by i.EntryTime desc
+  </select>
+  <select id="Inpatient.MedicalRecordCheck.List" description="完整性核查">
+    select dept.deptname,i.name,i.inpatientid,i.healthcard
+    ,NVL2(hr.hospitalrecordid,'√','×') hashospitalrecord
+    ,NVL2(pn.progressnoteid,'√','×') hasprogressnotefirst
+    ,NVL2(f.formemrid,'√','×') hasconsent
+    ,NVL2(mrh.homepageid,'√','×') hashomepage
+    ,NVL2(ohr.outhospitalrecordid,'√','×') hasouthospitalrecord
+    from CD_INPATIENT i
+    left join AI_DEPTINFO dept on i.currentdeptid=dept.deptid
+    left join CD_HospitalRecord hr on hr.inpatientid=i.inpatientid
+    left join CD_ProgressNote pn on pn.inpatientid=i.inpatientid and pn.progresstypeid='50'
+    left join (select max(fe.formemrid) formemrid,fe.inpatientid from CD_FormEmr fe left join CD_FormEmrTemplate fet on fe.formid=fet.templateid where fet.templatetype='10'  group by fe.inpatientid ) f on f.inpatientid=i.inpatientid
+    left join CD_MedicalRecordHomePage mrh on mrh.inpatientid=i.inpatientid
+    left join CD_OuthospitalRecord ohr on ohr.inpatientid=i.inpatientid
+    <dynamic prepend=" where 1=1 ">
+    <isNotNullOrEmpty prepend=" and " property="DpetID">i.CurrentDeptID=:DpetID</isNotNullOrEmpty>
+    <isNotNullOrEmpty prepend=" and " property="Name">i.Name like '%#Name#%'</isNotNullOrEmpty>
+    <isNotNullOrEmpty prepend=" and " property="Zyh">(i.InpatientId=:Zyh or i.HealthCard=:Zyh)</isNotNullOrEmpty>
+    <isNotNullOrEmpty prepend=" and " property="LeaveTimeStart">i.LeaveTime &gt; to_date('#LeaveTimeStart# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    <isNotNullOrEmpty prepend=" and " property="LeaveTimeStop">i.LeaveTime &lt; to_date('#LeaveTimeStop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    order by i.LeaveTime desc
+  </select>
+  <select id="Inpatient.SummaryRecoMedial.List" description="检查总汇">
+    select i.inpatientid,dept.deptname,decode(i.MedicalState,'0','在院','1','预出院','2','出院','3','死亡') MedicalState,doctor1.username ReceptionDoctor,doctor2.username AttendingDoctor,i.bednumber,i.name,i.healthcard,i.entrytime
+    from Cd_Inpatient i
+    left join Ai_Deptinfo dept on dept.deptid=i.currentdeptid
+    left join GI_Userinfo doctor1 on doctor1.userid=i.ReceptionDoctorId
+    left join Gi_Userinfo doctor2 on doctor2.userid=i.AttendingDoctorId
+    <dynamic prepend=" where 1=1 ">
+      <isNotNullOrEmpty prepend=" and " property="DpetIDList">dept.deptid in (#DpetIDList#)</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Entrytime">i.entrytime &lt; to_date('#Entrytime# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    and MedicalState=0 and ParentsName is null
+    order by dept.deptid,i.bednumber asc
+  </select>
+</sqlMap>

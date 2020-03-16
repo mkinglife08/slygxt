@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "用户编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Scripts/zTree/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<script src="~/Scripts/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="~/Scripts/zTree/js/jquery.ztree.excheck.js"></script>
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm" >
+        <div class="submEdit">
+            <div class="layui-col-xs12 layui-col-sm2 layui-col-md2">
+                <!-- tree -->
+                <ul id="myZtree" class="ztree" style="width:300px;"></ul>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+<script>
+    PopupPageInit();
+    var ROLEID = GetQueryString("ROLEID");
+    //if (ROLEID != "") {
+    //    var result = EWinsBase.get("api/SystemSupport/role/GetRoleRight?ROLEID=" + ROLEID);
+    //    $("#divCheckList").html(result);
+    //}
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('submit(sub)', function (data) {
+            var role_funinfo_check = "";
+            var treeObj = $.fn.zTree.getZTreeObj("myZtree"),
+            nodes = treeObj.getCheckedNodes(true),
+            v = "";
+            for (var i = 0; i < nodes.length; i++) {
+                role_funinfo_check += nodes[i].id + ",";
+            }
+            data.field["RoleID"] = ROLEID;
+            data.field["role_funinfo_check"] = role_funinfo_check;
+            EWinsBase.ajax({
+                url: "api/SystemSupport/role/SaveRoleRight",
+                type: "POST",
+                data: data.field,
+                dataType: "json",
+                success: function (data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                }
+            });
+            return false;
+        });
+    })
+
+    // 生成一个模拟树
+    var createTree = function (node, level) {
+        EWinsBase.ajax({
+            url: "api/SystemSupport/FunInfo/GetRoleTreeNode",
+            type: "POST",
+            cache: false,
+            async: false,//这里千万不能用异步
+            data: { ROLEID: ROLEID },
+            dataType: "json",
+            success: function (data) {
+                node = data.data;
+            }
+        });
+        return node;
+    };
+
+    var setting = {
+        check: {
+            enable: true
+        }
+    };
+
+    function setCheck() {
+        var zTree = $.fn.zTree.getZTreeObj("myZtree"),
+        type = { "Y": "ps", "N": "ps" };
+        zTree.setting.check.chkboxType = type;
+    }
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#myZtree"), setting, createTree());
+        setCheck();
+    });
+</script>

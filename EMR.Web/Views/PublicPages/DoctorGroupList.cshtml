@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "DoctorGroupList";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+        <div class="my-btn-box">
+            @*当前节点：<span id="spCurNodeName"></span>*@
+            <input type="hidden" id="hdnParentId" />
+            <input type="hidden" id="hdnCurId" />
+            <input type="hidden" id="hdnCurRowId" value="" />
+        </div>
+        <!-- 工具集 -->
+
+        <div class="my-btn-box">
+            <div class="container">
+                <div class="choseBtn clearfix">
+                    <div class="icon_left aList fl">
+                        <a class="btn-add btn-default" id="btn-add">
+                            <i class="layui-icon colorAdd">&#xe61f;</i>添加
+                        </a>
+                        <a class="btn-add btn-default" id="btn-edit">
+                            <i class="iconfont btn-edit">&#xe74e;</i>编辑
+                        </a>
+                        <a class="layui-btn-danger radius btn-delect" id="btn-delete">
+                            <i class="layui-icon btn-delete">&#xe640;</i>停用
+                        </a>
+
+                    </div>
+                    <div class="icon_right fl" id="icon_right">
+                        <div class="layui-form-item fl">
+                            <label class="layui-form-label index_label">搜索条件</label>
+                            <div class="layui-input-block">
+                                <input type="text" autocomplete="off" id="keyword" placeholder="请输入名称" class="layui-input index_input">
+                            </div>
+                        </div>
+                        <a class="layui-btn mgl-20 fl" id="btQuery">
+                            <i class="iconfont">&#xe6ac;</i>
+                            查询
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="dateTable" lay-filter="dateTable"></div>
+    </div>
+</div>
+<!-- js -->
+<script type="text/javascript">
+        // layui方法
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , layer = layui.layer
+                , vipTable = layui.vip_table
+                , $ = layui.jquery;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable',                  //指定原始表格元素选择器（推荐id选择器）
+            height: vipTable.getFullHeight()-60,    //容器高度
+            cols: [[                  //标题栏
+                { checkbox: true, sort: true, fixed: true, space: true },
+                { field: 'DoctorGroupId', title: '医生分组id', width: '90', align: 'center', hide: true },
+                { field: 'GroupNum', title: '组号', width: '90', align: 'center' },
+                { field: 'GroupName', title: '组名', width: '90', align: 'center' },
+                { field: 'ChiefNum', title: '组长工号', width: '90', align: 'center' },
+                { field: 'ChiefName', title: '组长姓名', width: '120', align: 'center' },
+                { field: 'DeputyNum', title: '副组长工号', width: '150', align: 'center' },
+                { field: 'DeputyName', title: '副组长姓名', width: '150', align: 'center' },
+                { field: 'DeptName', title: '所属科室', width: '150', align: 'left' },
+               //{ field: 'DelName', title: '停用状态', width: '90', align: 'center' },
+                { field: 'Memo', title: '备注', width: '150', align: 'left' },
+
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Public/DoctorGroup/GetAll?token=' + EWinsBase.Token
+            //, where: { "ParentID": $("#hdnCurId").val(), "keyword": $("#keyword").val() } //lv:这里的查询条件是只在初始化的时候有用，查询请在reload里面构造where条件
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+            }
+        });
+        $("#myZtree").css("height", ($(window).height() - 30) + "px");
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.DoctorGroupId);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //监听行双击事件
+        table.on('rowDouble(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.DoctorGroupId);
+
+            ShowWin('修改医生分组信息', 'page/PublicPages/DoctorGroupEdit?DoctorGroupId=' + $("#hdnCurRowId").val(), 800, 300)
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //添加按钮事件
+        $('#btn-add').on('click', function () {
+            ShowWin('添加医生分组信息', 'page/PublicPages/DoctorGroupEdit', 800, 500)
+        });
+        //编辑按钮事件
+        $('#btn-edit').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin('修改医生分组信息', 'page/PublicPages/DoctorGroupEdit?DoctorGroupId=' + $("#hdnCurRowId").val(), 800, 300)
+        });
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //刷新按钮事件
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload({
+                where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //删除按钮事件
+        $('#btn-delete').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            layer.confirm('是否确认要删除该条信息？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/Public/DoctorGroup/Delete",
+                    type: "POST",
+                    data: { "DoctorGroupId": $("#hdnCurRowId").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            layer.msg("删除成功", { icon: 6 });
+                            refreshTable();
+                        } else {
+                            layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+            where: { ParentID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+        });
+    }
+</script>
+<script type="text/html" id="STOPDATE">
+    {{ d.STOPDATE.ToString("yyyy-MM-dd") }}
+</script>

@@ -1,0 +1,156 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="$(SolutionDir)\EMR.Data\bin\Debug\EMR.Data.dll" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="EMR.Data.Domain"#>
+<#@ import namespace="System.Text.RegularExpressions"#>
+<#@ output extension=".cs" #>
+<#@ parameter name="DataTypeMaps" type="System.Collections.Generic.Dictionary<string,string>" #>
+
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace EMR.Data.Models
+{  
+<#
+    PdmReader tables = new PdmReader("E://work//WOWJOY//EMR//Program//00.EMR//Document//设计//电子病历.pdm");
+    tables.InitData();
+	foreach(var pdmTable in tables.Tables)
+	{
+		var className= pdmTable.Code;
+		//if(ToUpper) className=className.ToUpper();
+#>
+    /// <summary>
+    ///<#=pdmTable.PackageName#> <#=pdmTable.Comment??pdmTable.Name#> 实体类
+    /// </summary>
+    [Serializable]
+	public partial class <#=className#>
+	{
+<#
+	foreach(var pdmColumn in pdmTable.Columns)
+	{
+		var propName = pdmColumn.Code;
+		var dispName = getCnName(pdmColumn.Name);
+		//if(ToUpper) propName=propName.ToUpper();
+		
+		    string csType = null;
+		    if(DataTypeMaps!=null)
+		    {
+		        DataTypeMaps.TryGetValue(className+"."+propName,out csType);
+		    }
+		    if(string.IsNullOrEmpty(csType))
+		    {	
+				csType=getCType(pdmColumn.DataType,!pdmColumn.Mandatory);
+		    }
+#>
+         /// <summary>
+         /// <#=getComment(pdmColumn)#>
+         /// </summary>
+		[Display(Name="<#=dispName#>")]
+<#
+		if(csType=="string")
+		{
+		var length=Regex.Match(pdmColumn.DataType,@"(?<=\()\d+").Value; 
+		 if(length=="")
+		  length="0";
+		  if(pdmColumn.DataType == "CLOB"){
+		  length = "20000";
+		  }
+#>
+		[StringLength(<#=length#>)]
+<#
+		} //end if
+#>
+		public virtual <#=csType#> <#=propName#> { get; set; }
+
+<#
+		} //end if
+#>
+	}
+<#
+	} // end foreach
+#>
+} 
+
+<#+
+
+string getCnName(string name) {
+		return Regex.Match(name,@"[\u4e00-\u9fa5]+").Value;
+	}
+	string getComment(ColumnInfo column) {
+		return column.Comment ?? getCnName(column.Name);
+	}
+	string getCType(string datatype,bool isnullable) {
+		var dbType=datatype.Split('(')[0].ToLower();
+		int size=0;
+		int xs=0;
+		var match=System.Text.RegularExpressions.Regex.Match(datatype, @"(\d+),?(\d*)");
+		if(match.Success){
+			size=int.Parse(match.Groups[1].Value);
+			int.TryParse(match.Groups[2].Value,out xs);
+		}
+		string sysType = "string";
+		switch (dbType)
+		{
+		    case "bigint":
+		        sysType = "long";
+		        break;
+		    case "smallint":
+		        sysType = "short";
+		        break;
+			case "integer":
+		    case "int":
+		        sysType = "int";
+		        break;
+		    case "uniqueidentifier":
+		        sysType = "Guid";
+		        break;
+		    case "smalldatetime":
+		    case "datetime":
+		    case "datetime2":
+		    case "date":
+		    case "time":
+		        sysType = "DateTime";
+		        break;
+		    case "float":
+		        sysType = "float";
+		        break;		    
+			case "double":
+		        sysType = "double";
+		        break;
+		    case "real":
+		        sysType = "float";
+		        break;
+		    case "number":
+		    case "numeric":
+			    if(xs > 0) sysType="double";
+			    else sysType = size >= 10 ? "long" : "int";
+		        break;
+		    case "smallmoney":
+		    case "decimal":
+		    case "money":
+		        sysType = "decimal";
+		        break;
+		    case "tinyint":
+		        sysType = "byte";
+		        break;
+		    case "bit":
+		        sysType = "bool";
+		        break;
+		    case "image":
+		    case "raw":
+		    case "blob":
+		    case "bfile":
+		    case "binary":
+		    case "varbinary":
+		    case "timestamp":
+		        sysType = "byte[]";
+		        break;
+		}
+		if(isnullable && sysType!="string" && sysType!="byte[]") sysType+="?";
+		return sysType;
+	}
+#>

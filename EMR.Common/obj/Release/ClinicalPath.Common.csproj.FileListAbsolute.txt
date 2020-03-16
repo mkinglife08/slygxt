@@ -1,0 +1,11 @@
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\ClinicalPath.Common.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\ClinicalPath.Common.pdb
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\ClinicalPath.Model.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\ICSharpCode.SharpZipLib.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\itextsharp.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\log4net.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\Newtonsoft.Json.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\bin\Release\ClinicalPath.Model.pdb
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\obj\Release\ClinicalPath.Common.csprojResolveAssemblyReference.cache
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\obj\Release\ClinicalPath.Common.dll
+E:\work\WOWJOY\EMR\Program\02.CP\Program\CP\ClinicalPath\ClinicalPath.Common\obj\Release\ClinicalPath.Common.pdb

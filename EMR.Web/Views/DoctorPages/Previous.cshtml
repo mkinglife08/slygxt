@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/PerinataPaper.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="contenter"> 
+		<div>
+			<select name="" id="">
+				<option value="">住院</option>
+				<option value="">门诊</option>
+			</select>
+			<a class="layui-btn">查询</a>
+		</div>
+		<table id="table"></table>
+	</div>
+</body>
+
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+ 
+  table.render({
+    elem: '#table'
+    // ,height: 312
+    // ,url: '/demo/table/user/' 
+    // ,page: true 
+    ,cols: [[ //表头
+      {field: 'id', title: "诊别",align:'center'}
+      ,{field: 'username', title: '看诊时间',align:'center'}
+      ,{field: 'sex', title: '看诊科别',align:'center'}
+      ,{field: 'city', title: '医师',align:'center'} 
+      ,{field: 'sign', title: '操作',align:'center',width:'50%'}
+      ,{field: 'experience', title: '操作',align:'center'}
+    ]]
+  })
+ });
+</script>
+</html>

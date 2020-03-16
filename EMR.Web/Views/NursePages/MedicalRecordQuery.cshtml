@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>病案查询</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div>
+	        	<span>
+	        		申请时间
+					<input type="text" id="test" class="JobNumber">-<input type="text" id="test1" class="JobNumber">
+				</span>
+				状态<select name="" id=""></select>
+				住院号：<input type="text" style="width:8%">
+				患者姓名：<input type="text" style="width:8%">
+
+
+				<select name="" id="">
+					<option value="">八病区</option>
+				</select>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">查询</a>
+	            <a class="layui-btn">打印</a>
+	            <a class="layui-btn">打印预览</a>
+	        </div>
+	 	</div>
+	 	<div>
+	 		<table id="table"></table>
+	 	</div>
+	</div>
+</body>
+<script>
+layui.use(['laydate','table','form'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+ 	laydate.render({ 
+	  elem: '#test',
+	  type: 'datetime'
+	});
+	laydate.render({ 
+	  elem: '#test1',
+	  type: 'datetime'
+	});
+	table.render({
+	    elem: '#table'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '申请时间',align:'center'}
+	      ,{field:'username', title: '住院号',align:'center'}
+	      ,{field:'sex', title: '患者姓名',align:'center'}
+	      ,{field:'city', title: '出院时间',align:'center'}
+	      ,{field:'city', title: '查询目的',align:'center'}
+	      ,{field:'city', title: '申请人',align:'center'}
+	      ,{field:'city', title: '查阅期限',align:'center'}
+	      ,{field:'city', title: '审核人',align:'center'}
+	      ,{field:'city', title: '状态',align:'center'}
+	      ,{field:'city', title: '操作',align:'center'}
+	    ]]
+	  });
+ });
+</script>
+</html>

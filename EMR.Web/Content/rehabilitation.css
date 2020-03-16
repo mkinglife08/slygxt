@@ -1,0 +1,56 @@
+.rehabilit{margin-top:15px;}
+.cont{ width:710px;margin: 0 auto; }
+.contP{ text-align: right;margin-bottom:10px; }
+.contInfor h3{
+	font-size:18px;
+	text-align: center;
+	line-height: 40px;
+}
+.contUls input,.lastList input,.rightP input{
+	border:none;
+	border-bottom:1px solid #999;
+	width:10%;
+	padding-left:3px;
+}
+.lastList .lastFirst{ width: 50% }
+.lastSec{ width:30%!important }
+.rightP{ text-align: right;line-height: 30px; }
+.rightP input{ width:20%; }
+.lastList{ margin:6px 0; }
+.list{float: left;width:48%;}
+.list span{ margin-right: 10px; }
+.test .word{ text-indent: 15px; }
+.test textarea,.infor{
+	width: 90%;
+	padding:2%;
+	border:1px solid #ccc;
+	margin: 5px;
+	resize: none;
+}
+.lastList p{ margin:15px 0;}
+.sheet input[type="text"]{
+	width:80%;
+	height:20px;
+	border:none;
+	background: #f2f2f2;
+	padding-left: 3px;
+}
+.table .wrong{
+	display: inline-block;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 3px;
+    background: red;
+    color: #fff;
+}
+.table .text{
+	width:90%;
+	resize: none;
+	padding:6px;
+}
+.left{text-align: left;}
+.left p{ line-height: 25px; margin-left: 5px;}
+

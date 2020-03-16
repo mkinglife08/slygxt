@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "死亡记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<style>
+    .cardTable td{ border-right:1px solid #999}
+    .liInput {
+        height: 20px;
+        border:none;
+        border-bottom: 1px solid #999;
+        padding: 0 10px;
+        border-radius:0;
+    }
+</style>
+<form class="layui-form" style="margin-bottom:400px;" action="" id="form1">
+    <div class="medrecord">
+        <p class="word">住院卡</p>
+        <div class="rigBtn">
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>暂存</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        </div>
+    </div>
+    <div class="hostpitalCard">
+        <div class="cardContent">
+            <div class="cardWord">
+                <p class="cardWordFir">住院卡</p>
+                <p class="cardWordSec"><span>十二病区</span><span>血管外科</span></p>
+            </div>
+            <div class="textWord">
+                <table class="cardTable">
+                    <thead class="thead">
+                        <tr>
+                            <td><span>姓名：</span><span data-id="Name"></span></td>
+                            <td><span>性别：</span><span data-id="Gender">男</span></td>
+                            <td><span>年龄：</span><span data-id="Age">73</span>岁</td>
+                            <td><span>住院号：</span><span data-id="InpatientId">00118839</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>出生地：</span><span data-id="BirthPlace">浙江杭州</span></td>
+                            <td><span>职业：</span><span data-id="Job">退休人员</span></td>
+                            <td colspan="2"><span>单位：</span><span data-id="Company">无</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>地址：</span><span data-id="AddressDetail">保密</span></td>
+                            <td colspan="3"><span>联系电话：</span><span data-id="Phone">1800000000</span></td>
+                            
+                        </tr>
+                    </thead>
+                </table>
+                <div class="outOfhost">
+                    <div class="outOfUp clearfix">
+                        <div class="outOfLeft fl">
+                            <p class="outLeWord fl">出院诊断</p>
+                            <ul class="outLeList fl" id="cyzd">
+                                <li>1.下肢深静脉血栓形成（左，后遗症)</li>
+                                <li>2.左小腿皮肤溃烂 </li>
+                                <li>3.高血压病 </li>
+                            </ul>
+                        </div>
+                        <ul class="outOfRig fl">
+                            <li>入院<span class="enterTime" data-id="EntryTime">2015年04月06日</span></li>
+                            <li>出院<span class="enterTime" data-id="LeaveTime">2015年04月06日</span></li>
+                            <li>住院天数<span class="enterTime" id="zyts">300天</span>天</li>
+                        </ul>
+
+                    </div>
+                    <div class="outOfDown clearfix">
+                        <div class="outOfLeft fl">
+                            <p class="outLeWord fl">出院诊断</p>
+                            <ul class="outLeLists fl"></ul>
+                        </div>
+                        <ul class="outOfRig fl">
+                            <li><span>诊断符合率</span><span>符合</span><span>不符</span><span>不肯定</span></li>
+                            <li><span>门诊与入院</span><span>符合</span><span>符合</span><span>不肯定</span></li>
+                            <li><span>入院与出院</span><span>不肯定</span><span>不肯定</span><span>不肯定</span></li>
+                            <li><span>术前与术后</span><span>不肯定</span><span>符合</span><span>不肯定</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="disease">
+                    <div class="layui-form-item">
+                        <span class="spWord">病发证</span>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required" class="layui-input" name="Complication" data-id="Complication">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="treatment">
+                <p style="font-weight:bold;">治疗简要</p>
+                <textarea name="BriefTreatment" id="BriefTreatment" data-id="BriefTreatment" cols="30" rows="10" class="treatArea"></textarea>
+            </div>
+            <div class="lastText">
+                <ul class="lastTextUls">
+                    <li>
+                        <p class="listFir">手术名称</p><p class="fl margin_lef">手术名称</p>
+                    </li>
+                    <li class="clearfix">
+                        <div class="incision border fl">
+                            <p class="listSec border fl">切口</p><p class="margin_lef fl">横切</p>
+                        </div>
+                        <div class="incisTime  fl">
+                            <p class="listSec border fl">手术时间</p><p class="margin_lef fl">2018-02-03</p>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="incision border fl">
+                            <p class="listSec border fl">愈合</p><p class="fl margin_lef">愈合</p>
+                        </div>
+                        <div class="incisTime fl">
+                            <p class="listSec border fl">愈合时间</p>
+                            <div class="fl ">
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="margin:0px;">
+                                        <input type="text" lay-verify="required" id="HealingTime" class="layui-input" name="HealingTime" data-id="HealingTime">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li>
+                        <p class="listFir">麻醉</p><p class="fl margin_lef">麻醉</p>
+                    </li>
+                    <li>
+                        <p class="listFir"><i style="color:red">*</i>术后并发症</p>
+                        <div class="postoperative">
+                            <div class="layui-form  margin_lef">
+                                <input type="checkbox" name="Complications" value="休克"  title="休克" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="出血"  title="出血" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="浓肿"  title="浓肿" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="裂缝"  title="裂缝" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="肺炎"  title="肺炎" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="败血症" title="败血症" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="其他"  title="其他" lay-skin="primary">
+                                <input type="checkbox" name="Complications" value="无"    title="无"   lay-skin="primary">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="outcome">
+                    <li class="clearfix">
+                        <p class="outcomeP fl border">疾病转归 </p>
+                        <ul class="outUls fl">
+                            <li></li>
+                            <li>
+                                <div class="layui-form">
+                                    <input type="checkbox" name="DiseaseOutCome" value="医嘱离院"  title="医嘱离院" lay-skin="primary">
+                                    <input type="checkbox" name="DiseaseOutCome" value="非医嘱离院" title="非医嘱离院" lay-skin="primary">
+                                    <input type="checkbox" name="DiseaseOutCome" value="死亡"      title="死亡"     lay-skin="primary">
+                                    <input type="checkbox" name="DiseaseOutCome" value="其他"      title="其他"     lay-skin="primary">
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <p class="fl margin_lef">
+                                    <span>医嘱转院 接收医院</span>
+                                    <input type="text" name="ReceivingHospital" data-id="ReceivingHospital" class="liInput">
+                                </p>
+                                <p class="fl margin_lef"><span>医嘱转社区 接收医院</span><input type="text" name="ReceivingCommunity" data-id="ReceivingCommunity" class="liInput"></p>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+            <p class="doctName"><span>医生签名:</span><span id="Creator" data-id="Creator">管理员</span></p>
+        </div>
+    </div>
+</form>
+
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+    }
+
+
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetBasicInpatientInfoById", {
+        data: { "HealthCard": NewGetQueryString("HealthCard") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    })
+
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            $("#zyts").html(DateDiff(data.data.EntryTime.ToString("yyyy-MM-dd"), data.data.LeaveTime.ToString("yyyy-MM-dd")));
+            data.data.EntryTime = data.data.EntryTime.ToString("yyyy年MM月dd日");
+            data.data.LeaveTime = data.data.LeaveTime.ToString("yyyy年MM月dd日");
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    })
+    //出院诊断
+    EWinsBase.json("api/Doctor/PatientDiagnosis/GetAll", {
+        data: { "InpatientId": NewGetQueryString("InpatientId"), DiagnosisType:3 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            var outhtml = "";
+            data.data.forEach(function (item, index) {
+                outhtml += '<li>' + index + '.' + item.DiagnosisName + '</li>'
+            });
+            $("#cyzd").html(outhtml)
+        }
+    })
+
+    EWinsBase.json("api/Doctor/InpatientCard/GetInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                data.data["Complications"] = "," + data.data["Complications"] + ',';
+                data.data["DiseaseOutCome"] = "," + data.data["DiseaseOutCome"] + ',';
+                $.each($("input:checkbox[name='Complications']"), function (i, item) {
+                    if (data.data["Complications"].indexOf("," + item.value + ',') > -1)
+                        item.checked = true;
+                    else
+                        item.checked = false;
+                });
+                $.each($("input:checkbox[name='DiseaseOutCome']"), function (i, item) {
+                    if (data.data["DiseaseOutCome"].indexOf("," + item.value + ',') > -1)
+                        item.checked = true;
+                    else
+                        item.checked = false;
+                });
+            }
+            else {
+                $("#Creator").html(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+            }
+        }
+    })
+
+    layui.use(['laydate', 'form'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        laydate.render({
+            elem: '#HealingTime'
+            , type: 'datetime'
+        });
+
+        form.on('submit(sub)', function (data) {
+            var temp = $('#form1').serialize();
+            temp += "&InpatientId=" + NewGetQueryString("InpatientId");
+            EWinsBase.json("api/Doctor/InpatientCard/SaveInfo", {
+                data: temp,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            })
+            return false;
+        });
+    })
+
+    function DateDiff(sDate,eDate) {    //sDate1和sDate2是xxxx-xx-xx格式
+        var sdate = new Date(sDate.replace(/-/g, "/"));
+        var now = new Date(eDate.replace(/-/g, "/"));
+        var days = now.getTime() - sdate.getTime();
+        var day = parseInt(days / (1000 * 60 * 60 * 24));
+        return day;
+    }
+</script>

@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "死亡记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<style>
+    .addTable{
+    margin:6px;
+    width:98%;
+    padding-bottom:30%;
+    }
+    .layui-textarea {
+    padding: 3px 3px;
+    border-left:none;
+    }
+.rightAnw .lineP{
+         width:80%;
+        border:1px solid #ccc;
+        height:25px;
+        border-radius:3px;
+        padding-left:5px;
+        margin-left: -19px;
+
+    }
+    .tdTable p{ line-height:30px;}
+    .tdTable input{ width:40%;}
+</style>
+<form class="layui-form" style="height:1000px;" action="">
+    <div style="margin-bottom:300px">
+        <div class="medrecord">
+            <p class="word">死亡记录</p>
+            <div class="rigBtn">
+                <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+            </div>
+        </div>
+        <div class="addTable" >
+            <div class="recordAll">
+                <div class="deathAllLeft clearfix" style="margin:10px 0;line-height:29px;">
+                    <div class="fl">
+                        <label class="spWord">入院时间</label>
+                        <div class="fl rightAnw" style="width:50%;">
+                            <input type="text" data-id="EntryTime" class="lineP" readonly/>
+                            <input type="hidden" name="DeathId" id="DeathId" data-id="DeathId" />
+                        </div>
+                    </div>
+                    <div class="fl">
+                        <span class="spWord">死亡时间</span>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required" id="DeathTime" class="layui-input" name="DeathTime" data-id="DeathTime" style="width:100%;margin-left: -19px;">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <table class="tdTable">
+                <tr>
+                    <td>
+                        <p class="outHostword">入院情况</p>
+                        <p><a class="layui-btn">检验报告</a></p>
+                        <p><a class="layui-btn">检查报告</a></p>
+                    </td>
+                    <td colspan="3">
+                        <textarea class="layui-textarea" id="HospitalizedCase"></textarea>
+                        <script type="text/javascript">
+                        UE.getEditor('HospitalizedCase', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="outHostword">诊治经过</td>
+                    <td colspan="3">
+                        <textarea class="layui-textarea" id="HospitalCourse"></textarea>
+                        <script type="text/javascript">
+                        UE.getEditor('HospitalCourse', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="outHostword">死亡原因</td>
+                    <td colspan="3">
+                        <textarea class="layui-textarea" id="DeathCause"></textarea>
+                        <script type="text/javascript">
+                        UE.getEditor('DeathCause', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>死亡诊断(中医)</p>
+                        <p><a class="layui-btn" onclick="AddNewDiagnosis(201)">死亡诊断(中医)</a></p>
+                    </td>
+                    <td colspan="3">
+                        <div class="enterHostAble" id="DiagnosisTable201" lay-filter="DiagnosisTable201"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>死亡诊断(西医)</p>
+                        <p><a class="layui-btn" onclick="AddNewDiagnosis(202)">死亡诊断(西医)</a></p>
+                    </td>
+                    <td colspan="3">
+                        <div class="enterHostAble" id="DiagnosisTable202" lay-filter="DiagnosisTable202"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>医生签名</td>
+                    <td><input type="text" lay-verify="required" id="Creator" data-id="Creator" class="layui-input writeInput" disabled></td>
+                    <td>记录日期</td>
+                    <td>
+                        <input type="text" lay-verify="required" id="UpdateTime" data-id="UpdateTime" value="" class="layui-input writeInput" disabled>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+    }
+
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            data.data.EntryTime = data.data.EntryTime.ToString("yyyy-MM-dd");
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    })
+    EWinsBase.json("api/Doctor/DeathRecord/GetInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#HospitalizedCase").val(HTMLDecode(data.data["HospitalizedCase"]));
+                $("#HospitalCourse").val(HTMLDecode(data.data["HospitalCourse"]));
+                $("#DeathCause").val(HTMLDecode(data.data["DeathCause"]));
+            }
+            else {
+                $("#Creator").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+                $("#UpdateTime").val(CurentTime());
+            }
+        }
+    })
+    layui.use(['table', 'layedit', 'laydate', 'element', "form"], function () {
+        var table = layui.table,
+  		layedit = layui.layedit,
+  		$ = layui.jquery,
+  		laydate = layui.laydate,
+  		form = layui.form;
+        laydate.render({
+            elem: '#UpdateTime'
+	    	, type: 'datetime'
+        });
+        laydate.render({
+            elem: '#DeathTime'
+	    	, type: 'datetime'
+        });
+
+        //入院诊断 2
+        table.render({
+            elem: '#DiagnosisTable201'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=201"
+            , page: false //开启分页
+            , cols: [[ //表头
+            { field: 'DiagnosisId', title: '序号', align: "center" }
+            , { field: 'DiagnosisFlag', title: '主', align: "center" }
+            , { field: 'DiagnosisName', title: '诊断名称,复制诊断', align: "center" }
+            , { field: 'DiagnosisTime', title: '诊断时间', align: "center", templet: "#DiagnosisTime1" }
+            , { field: 'RecordUserName', title: '书写医生', align: "center" }
+            ]]
+        })
+        //出院诊断 3
+        table.render({
+            elem: '#DiagnosisTable202'
+               , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=202"
+            //, cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                  { field: 'DiagnosisId', title: '序号', align: 'center' }
+                  , { field: 'DiagnosisName', title: '诊断', align: 'center' }
+                  , { field: 'AdmissionIllness', title: '入院情况', align: 'center' }
+                  , { field: 'ICDCode', title: 'ICD10', align: 'center' }
+                ]]
+        });
+
+        form.on('submit(sub)', function (data) {
+            data.field["DeathId"] = $("#DeathId").val();
+            data.field["DeathTime"] = $("#DeathTime").val();
+            data.field["InpatientId"] = GetQueryString("InpatientId");
+            data.field["HospitalizedCase"] = HTMLEncode($("#HospitalizedCase").val());
+            data.field["HospitalCourse"] = HTMLEncode($("#HospitalCourse").val());
+            data.field["DeathCause"] = HTMLEncode($("#DeathCause").val());
+            EWinsBase.json("api/Doctor/DeathRecord/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            })
+            return false;
+        });
+    })
+
+    function refreshTable() {
+        layui.table.reload("DiagnosisTable201", {
+            where: { InpatientId: NewGetQueryString("InpatientId"), token: EWinsBase.Token, DiagnosisType: 201 }//这里传参  向后台
+                , method: 'post'
+        });
+        layui.table.reload("DiagnosisTable202", {
+            where: { InpatientId: NewGetQueryString("InpatientId"), token: EWinsBase.Token, DiagnosisType: 202 }//这里传参  向后台
+                , method: 'post'
+        });
+    }
+    function AddNewDiagnosis(DiagnosisType) {
+        ShowWin('新增诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + "&DiagnosisType=" + DiagnosisType, 800, 600)
+    }
+</script>

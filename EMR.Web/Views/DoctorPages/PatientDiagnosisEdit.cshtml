@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "诊断编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/newOption.css">
+<style>
+    #action_subm{
+        width:98%!important;
+        padding:3px;
+        height: 546px!important;
+    }
+    .submEdit{ padding:3px;}
+</style>
+<form class="layui-form" id="form1" action="">
+     <div id="action_subm" style="">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label">诊断名称</label>
+                <div class="layui-input-block">
+                    <select name="ICDCode" id="ICDCode" class="deletSele" lay-verify="SelectRequired" placeholder="请选择诊断" multiple="multiple"></select>
+                    @*<input type="hidden" name="OperationCode" data-id="OperationCode" class="layui-input">*@
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">诊断名称补充</label>
+                <div class="layui-input-block">
+                    <input type="text" name="DiagnosisNameSupplement" id="DiagnosisNameSupplement" data-id="DiagnosisNameSupplement" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">确诊标志</label>
+                <div class="layui-input-block">
+                    <select name="DiagnosisFlag" id="DiagnosisFlag" lay-verify="SelectRequired" style="width:100%"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否主诊断</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="MainDiagnosis" id="MainDiagnosis" lay-skin="primary" title="是主诊断">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">诊断时间</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" name="DiagnosisTime" id="DiagnosisTime" data-id="DiagnosisTime" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序号</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" name="SortOrder" id="SortOrder" data-id="SortOrder" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='lastBtn'>
+        <button class="layui-btn" lay-submit="" lay-filter="sub">
+            <i class="iconfont icon-saves">&#xe688;</i>保存
+        </button>
+        <button type="button" class="layui-btn" onclick="ShowWinClose();">
+            <i class="iconfont">&#xe63e;</i>
+            关闭
+        </button>
+    </div>
+</form>
+<!--JS-->
+<script>
+    //初始化下拉框单选框（数据从字典获取）
+    CreateSelectOptionFromCodeDict($("#DiagnosisFlag"), "DiagnosisFlag");
+    CreateSelectOptionFromDiagnosis($("#ICDCode"), { width: "100%!important" }, 3);
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    var DiagnosisId = GetQueryString("DiagnosisId");
+    var tableId = GetQueryString("tableId");
+    if (DiagnosisId != "") {
+        EWinsBase.json("api/Doctor/PatientDiagnosis/GetInfoById", {
+            data: { "DiagnosisId": DiagnosisId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                if (data.data["DiagnosisFlag"] != null) {
+                    $("#DiagnosisFlag").append("<option value=" + data.data["DiagnosisFlag"] + ">" + data.data["DiagnosisFlagName"] + "</option>");
+                    $("#DiagnosisFlag").val(data.data["DiagnosisFlag"]).trigger('change');
+                }
+                if (data.data["ICDCode"] != null) {
+                    $("#ICDCode").append("<option value=" + data.data["ICDCode"] + ">" + data.data["DiagnosisName"] + "</option>");
+                    $("#ICDCode").val(data.data["ICDCode"]).trigger('change');
+                }
+                if (data.data["MainDiagnosis"] == "1") {
+                    $("#MainDiagnosis").prop("checked", true);
+                }
+            },
+            error: function (error) {
+            }
+        })
+    }
+    else {
+        $("#SortOrder").val(EWinsBase.simplifySyncJsonGet("api/Doctor/PatientDiagnosis/GetLastDISPLAYSORT", { InpatientId: NewGetQueryString("InpatientId"), DiagnosisType: NewGetQueryString("DiagnosisType") }).data);
+    }
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#DiagnosisTime'
+            , format: 'yyyy-MM-dd HH:mm:ss'
+            , value: new Date()
+        });
+
+        form.on('submit(sub)', function (data) {
+
+            data.field["DiagnosisType"] = NewGetQueryString("DiagnosisType");
+            data.field["DiagnosisId"] = NewGetQueryString("DiagnosisId");
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");
+            data.field["ICDCode"] = getMultiSelectVal("ICDCode");
+            data.field["DiagnosisName"] = getMultiSelectText("ICDCode");
+            data.field["MainDiagnosis"] = $("#MainDiagnosis").prop("checked") ? "1" : "0";//是否主诊断
+            EWinsBase.json("api/Doctor/PatientDiagnosis/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            //由于弹出框是顶层弹出的，所以必须获取到弹窗来源页的父窗口。
+                            //var cur_parent_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+                            //var curParentWindowDocument;
+                            //if (cur_parent_index == 1)
+                            //    curParentWindowDocument = $("#iframe", parent.document)[0].contentDocument;
+                            //else
+                            //    curParentWindowDocument = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentDocument;
+
+                            var curParentWindowDocument = parent.document;
+                            var cur_tab_index = $(curParentWindowDocument).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind;
+                            if (cur_tab_index == 1)
+                                wind = $("#iframe", curParentWindowDocument)[0].contentWindow;
+                            else
+                                wind = $("#tab_iframe_" + cur_tab_index, curParentWindowDocument)[0].contentWindow;
+                            if (tableId != "") {
+                                //如果表格的id传过来了，刷新父窗口的表格
+                                wind.layui.table.reload(tableId);
+                            } else {
+                                wind.refreshTable();
+                            }
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                }
+            })
+            return false;
+        });
+        form.render();
+    })
+</script>

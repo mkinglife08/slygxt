@@ -1,0 +1,1413 @@
+﻿
+<link rel="stylesheet" href="~/Content/specializedexam.css">
+<div class="examination">
+    <ul class="examList">
+        <li class="exFir"><a href="javascript:;">请选择专科检查类型</a></li>
+        <li><a href="javascript:;" data-class="examinations">普通专科检查 </a></li>
+        @*<li><a href="javascript:;" data-class="cardiovascular">心血管专科检查</a></li>
+            <li><a href="javascript:;" data-class="neurology">神经专科检查</a></li>
+            <li><a href="javascript:;" data-class="eyeTest">眼科专科检查</a></li>
+            <li><a href="javascript:;" data-class="gynaecology">妇科专科检查</a></li>
+            <li><a href="javascript:;" data-class="pediatric">儿科专科检查</a></li>*@
+    </ul>
+</div>
+<div class="specialist">
+    <!-- 普通专科检查 -->
+    <div class="examinations none">
+        <form class="layui-form" action="" id="fromExamination">
+            <div class="cardTitle">
+                <p class="carWord">普通专科检查</p>
+                <div class="right">
+                    <button class="layui-btn" lay-submit="" lay-filter="saveGSE"><i class="iconfont save">&#xe63b;</i>保存</button>
+                    <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                    <a class="layui-btn break">返回</a>
+                </div>
+            </div>
+            <div class="exam clearfix">
+                <p class="fl">检查内容</p>
+                <div class="charRight fl">
+                    <textarea class="layui-textarea" id="SpecialInspection" data-id="SpecialInspection" name="SpecialInspection"></textarea>
+                    <script type="text/javascript">
+                        UE.getEditor('SpecialInspection', { initialFrameWidth: "100%", initialFrameHeight: 200 });
+                    </script>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 神经内科检查 -->
+    <div class="neurology none">
+        <div class="layui-form layuiN">
+            <input type="checkbox" name="" title="结构化输入" lay-skin="primary">
+        </div>
+        <div class="neurText">
+            <p class="neurWord">神经内科专科检查</p>
+            <textarea class="area" name="PresentHistory"></textarea>
+        </div>
+        <div class="neurBtn">
+            <span>记录日期</span><input type="text" id="test">
+            <button class="layui-btn">修改</button>
+            <button class="layui-btn">查看/修改</button>
+            <button class="layui-btn">删除</button>
+            <a class="layui-btn break">返回</a>
+        </div>
+        <div class="neurList">
+            <div class="neurFir">
+                <span class="firSpan">
+                    语言：<select name="" id="">
+                        <option value="">清</option>
+                        <option value="">含糊</option>
+                    </select>
+                    <input type="text">
+                </span>
+                <span class="firSpan">
+                    <span>脑膜神经根刺激征：颈项强直：</span>
+                    <select name="" id="">
+                        <option value="">清</option>
+                        <option value="">含糊</option>
+                    </select>
+                    <input type="text">
+                </span>
+                <span class="firSpan">
+                    <span>Kerning征：</span>
+                    <select name="" id="">
+                        <option value="">清</option>
+                        <option value="">含糊</option>
+                    </select>
+                    <input type="text">
+                </span>
+                <span class="firSpan">
+                    <span>Lasegne征:</span>
+                    <select name="" id="">
+                        <option value="">清</option>
+                        <option value="">含糊</option>
+                    </select>
+                    <input type="text">
+                </span>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">颅神经 I.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        嗅觉，左：
+                        <select name="" id="">
+                            <option value="">清</option>
+                            <option value="">含糊</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">清</option>
+                            <option value="">含糊</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">颅神经II.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        视力，左：
+                        <select name="" id="">
+                            <option value="">丧失</option>
+                            <option value="">减退</option>
+                            <option value="">正常</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">丧失</option>
+                            <option value="">减退</option>
+                            <option value="">正常</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        眼底：
+                        <select name="" id="">
+                            <option value="">视盘水肿</option>
+                            <option value="">视盘充血</option>
+                            <option value="">正常</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        视野：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">III IV V.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        眼睑下垂 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        瞳孔 左：<input type="text">mm
+                        右 <input type="text">mm
+                        形状：<input type="text">
+                    </span>
+                    <p class="firSpan">
+                        <span>眼球突出内陷：</span>
+                        <select name="" id="">
+                            <option value="">无</option>
+                            <option value="">左侧突出</option>
+                            <option value="">右侧突出</option>
+                        </select>
+                        <input type="text">
+                    </p>
+                    <p class="firSpan">
+                        <span>光反射：直接：左</span>
+                        <select name="" id="">
+                            <option value="">灵敏</option>
+                        </select>
+                        <input type="text">
+                        <span>
+                            右：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span>
+                            间接：左：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span>
+                            右：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <p>
+                        <span>
+                            眼球运动：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span>
+                            眼球震颤：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span>
+                            复视：
+                            <select name="" id="">
+                                <option value="">灵敏</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">VI.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        面部感觉 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        角膜反射 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <p>
+                        <span class="firSpan">
+                            下颚运动：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            咀嚼肌力：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">VII.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        眼裂 左：
+                        <input type="text">mm
+                        右：<input type="text">mm
+                    </span>
+                    <span class="firSpan">
+                        鼻唇沟 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+
+
+                    <p>
+                        <span class="firSpan">
+                            口角 左：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            右：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            皱额 左：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            右：
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <span class="firSpan">
+                        闭眼 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        鼓腮：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        吹哨：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        牙齿：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">VIII.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        听力 左：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">IX.X.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        悬雍垂：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        软腭上提：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        发音：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        吞咽：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        咽反射：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">XI.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        肌力：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        胸锁乳突肌 左侧：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右侧：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        斜方肌 左侧：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        右侧：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                </div>
+            </div>
+            <div class="neurFir clearfix">
+                <p class="fl">XII.</p>
+                <div class="fl left">
+                    <span class="firSpan">
+                        舌位置 口内：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        伸舌：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        肌力：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <span class="firSpan">
+                        舌肌萎缩：
+                        <select name="" id="">
+                            <option value="">象限盲</option>
+                            <option value="">偏盲</option>
+                            <option value="">无缺损</option>
+                        </select>
+                        <input type="text">
+                    </span>
+                    <p>
+                        <span class="firSpan">
+                            舌肌纤维震颤:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            运动：姿势与步态:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            肌力 左:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            右:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <p>
+                        <span class="firSpan">
+                            肌张力 左:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            右:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            肌营养情况:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+
+                    </p>
+                    <p>
+                        <span class="firSpan">
+                            不自主运动:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            肌纤维震颤:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <p>
+                        <span class="firSpan">
+                            指鼻试验： 左:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            指鼻试验： 右:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            轮替动作： 左:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            指鼻试验： 右:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <p>
+
+                        <span class="firSpan">
+                            跟膝试验： 左:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            右:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                        <span class="firSpan">
+                            Romberg试验:
+                            <select name="" id="">
+                                <option value="">象限盲</option>
+                                <option value="">偏盲</option>
+                                <option value="">无缺损</option>
+                            </select>
+                            <input type="text">
+                        </span>
+                    </p>
+                    <div class="nuerSec clearfix">
+                        <div class="nuerCen fl"></div>
+                        <div class="fr">
+                            <p>
+                                <span class="firSpan">
+                                    深感觉 左:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                                <span class="firSpan">
+                                    右:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                            </p>
+                            <p>
+                                <span class="firSpan">
+                                    浅感觉 左:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                                <span class="firSpan">
+                                    右:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                            </p>
+                            <p>
+                                <span class="firSpan">
+                                    复合感觉 左:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                                <span class="firSpan">
+                                    右:
+                                    <select name="" id="">
+                                        <option value="">象限盲</option>
+                                        <option value="">偏盲</option>
+                                        <option value="">无缺损</option>
+                                    </select>
+                                    <input type="text">
+                                </span>
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <table class="neurTable">
+                <tr>
+                    <td>反射</td>
+                    <td>股二头肌</td>
+                    <td>股三头肌</td>
+                    <td>挠骨膜反</td>
+                    <td>踝</td>
+                    <td>膝</td>
+                    <td>腹壁上中下</td>
+                    <td>提睾</td>
+                    <td>髌阵挛</td>
+                    <td>踝阵挛</td>
+                    <td>Babinski征</td>
+                    <td>Hoffmann征</td>
+                </tr>
+                <tr>
+                    <td>左</td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                        <input type="text" style="width:30%;">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                        <input type="text" style="width:30%;">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>右</td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                        <input type="text" style="width:30%;">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                        <input type="text" style="width:30%;">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">+</option>
+                            <option value="">++</option>
+                            <option value="">+++</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <p>植物神经机能</p>
+                <textarea name="" id="" class="area"></textarea>
+                <p>其他</p>
+                <textarea name="" id="" class="area"></textarea>
+            </div>
+            <div class="neurBtn">
+                <span>记录日期</span><input type="text" id="test1">
+                <button class="layui-btn">暂存</button>
+                <button class="layui-btn">修改</button>
+                <a class="layui-btn">查看/修改</a>
+                <a class="layui-btn">返回</a>
+                <a class="layui-btn">删除</a>
+            </div>
+        </div>
+    </div>
+    <!-- 心血管专科检查 -->
+    <div class="cardiovascular none">
+        <div class="cardTitle">
+            <p class="carWord">心血管专科检查</p>
+            <div class="right">
+                <button class="layui-btn">保存</button><a class="layui-btn">查看/打印</a><a class="layui-btn break">返回</a>
+            </div>
+        </div>
+        <div class="cardList">
+            <div class="cardUp clearfix">
+                <p class="infor fl">补充说明</p>
+                <textarea name="" id="" class="cardArea fl"></textarea>
+            </div>
+            <div class="cardCenter clearfix">
+                <p class="infor fl">心浊音界</p>
+                <table class="cardTable fl">
+                    <tr>
+                        <td>右cm</td>
+                        <td>肋间</td>
+                        <td>左cm</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">左锁骨中线距前正中线<input type="text">cm</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="cardDown clearfix">
+                <p class="next fl">记录日期</p>
+                <input type="text" class="fl" id="test2">
+            </div>
+        </div>
+    </div>
+    <!-- 眼科专科检查 -->
+    <div class="eyeTest none">
+        <div class="cardTitle">
+            <p class="carWord">眼科专科检查</p>
+
+            <div class="right">
+                <a class="layui-btn">保存</a>
+                <a class="layui-btn">查看/打印</a>
+                <a class="layui-btn break">返回</a>
+            </div>
+        </div>
+        <div class="contents">
+            <div class="eyeCont clearfix">
+                <p class="eyeInfor fl">视力</p>
+                <div class="eyeInfor fl">
+                    <div class="clearfix">
+                        <p class="fl">远</p>
+                        <div class="fl" style="width: 90%;margin-left:10px;">
+                            <p>右眼（裸）<input type="text">（矫）</p>
+                            <p>左眼（裸）<input type="text">（矫）</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="eyeInfor fl">
+                    <p><input type="text">（/D）</p>
+                    <p><input type="text">（/D）</p>
+                </div>
+                <div class="eyeInfor fl">
+                    <div class="fl">
+                        <p class="fl">近</p>
+                        <div class="fl" style="width: 90%;margin-left: 10px;">
+                            <p>右眼（裸）<input type="text">（矫）</p>
+                            <p>左眼（裸）<input type="text">（矫）</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="eyeInfor fl">
+                    <p><input type="text">（/D）</p>
+                    <p><input type="text">（/D）</p>
+                </div>
+            </div>
+            <div class="eyeSec clearfix">
+                <p>光定位：</p>
+                <p>右眼<input type="text"></p>
+                <p>左眼<input type="text"></p>
+            </div>
+            <div class="eyeSec clearfix">
+                <p>眼压：</p>
+                <p>右眼<input type="text">mmHg</p>
+                <p>左眼<input type="text">mmHg</p>
+            </div>
+        </div>
+        <table class="eyeTable">
+            <tr>
+                <td>检查内容/眼别</td>
+                <td>右 眼 </td>
+                <td>左 眼 </td>
+            </tr>
+            <tr>
+                <td>眼睑</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>泪 器</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>眼 肌</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>眼 位</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>突 眼</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>眼 眶</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>结 膜</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>角 膜</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>巩 膜</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>前 房 </td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>房 角</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>虹 膜</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>瞳 孔</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>晶 体 </td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>玻璃体</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+        <div class="eyes">
+            <div class="leftRig clearfix">
+                <p class="fl">右眼 <input type="text"></p>
+                <p class="fl">左眼 <input type="text"></p>
+            </div>
+            <p class="others">其他 <input type="text" style="width: 80%;"></p>
+            <p>日期 <input type="text" id="test3"></p>
+        </div>
+    </div>
+    <!-- 妇科检查 -->
+    <div class="gynaecology none">
+        <div class="cardTitle">
+            <p class="carWord">妇科检查</p>
+            <div class="right">
+                <button class="layui-btn">保存</button>
+                <a class="layui-btn">查看/打印</a>
+                <a class="layui-btn break">返回</a>
+            </div>
+        </div>
+        <div class="gynaCont">
+            <div class="gynaeInfor">
+                <p>检查情况</p>
+                <textarea name="" id="" class="textarea"></textarea>
+            </div>
+            <div class="gynaLat">
+                <p>妇科检查</p>
+                <div class="gyall clearfix">
+                    <div class="gynaList fl">
+                        <p>外阴：<input type="text"></p>
+                        <p>阴道：<input type="text"></p>
+                        <p>宫颈：<input type="text"></p>
+                        <p>子宫：<input type="text"></p>
+                        <p>附件：<input type="text"></p>
+                        <p>其他：<input type="text"></p>
+                    </div>
+                    <div class="gyup fl">上传图片</div>
+                </div>
+            </div>
+            <div class="last">
+                <p>
+                    医生签名<input type="text" disabled="disabled" style="width:7%">
+                    <a class="layui-btn">签名</a>
+                </p>
+                <p>日期<input type="text" id="test4" style="width:14%"></p>
+
+            </div>
+        </div>
+    </div>
+    <!-- 儿科检查 -->
+    <div class="pediatric none">
+        <div class="cardTitle">
+            <p class="carWord">儿科检查</p>
+            <div class="right">
+                <button class="layui-btn">保存</button>
+                <a class="layui-btn">查看/打印</a>
+                <a class="layui-btn break">返回</a>
+            </div>
+        </div>
+        <div class="addTable">
+            <table class="mack">
+                <tr>
+                    <td>哭声</td>
+                    <td><input type="text"></td>
+                    <td>面色</td>
+                    <td><input type="text"></td>
+                    <td>皮肤弹性</td>
+                    <td><input type="text"></td>
+                    <td>水肿</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>前  囟：</td>
+                    <td class="layui-form">
+                        <input type="radio" name="nor" title="闭">闭
+                        <input type="radio" name="nor" title="未闭">未闭
+                        (<input type="text" style="width:9%">x <input type="text" style="width:9%">）cm
+                        <input type="radio" name="nor" title="平">平
+                        <input type="radio" name="nor" title="凸">凸
+                        <input type="radio" name="nor" title="凹">凹
+                    </td>
+                    <td>头围：</td>
+                    <td><input type="text">cm</td>
+                    <td>胸围：</td>
+                    <td><input type="text">cm</td>
+                    <td>腹壁皮下脂肪：</td>
+                    <td><input type="text">cm</td>
+                </tr>
+                <tr>
+                    <td>眼球活动:</td>
+                    <td><input type="text"></td>
+                    <td colspan="1">瞳孔大小</td>
+                    <td colspan="3">
+                        左 <input type="text">MM
+                        右 <input type="text">MM
+
+                    </td>
+                    <td>对光反应</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>腹壁反射 </td>
+                    <td><input type="text"></td>
+                    <td>提睾反射</td>
+                    <td><input type="text"></td>
+                    <td>毕脱班</td>
+                    <td colspan="3"><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>其他</td>
+                    <td colspan="8">
+                        <textarea name="" id="demo" style="display: none"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <p class="childLast">
+                医师：<input type="text" disabled="disabled" style="width:8%">
+                <a class="layui-btn">签名</a>
+                记录日期：<input type="text" id="test5" style="width:8%">
+            </p>
+
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var InpatientId = NewGetQueryString("InpatientId");
+    if (InpatientId != "") {
+        //根据病人id获取病历信息
+        EWinsBase.json("api/Doctor/HospitalRecord/GetInfoByInpatientId", {
+            data: { "InpatientId": InpatientId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    //如果存在该病人的入院记录
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                    //绑定富文本框的内容需要反转义
+                    UE.getEditor("SpecialInspection").setContent(HTMLDecode(data.data["SpecialInspection"]));
+                    //$("#SpecialInspection").val(HTMLDecode(data.data["SpecialInspection"]));//反转义普通专科检查
+
+                } else {
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+    }
+
+    layui.use(['table', 'layedit', 'laydate', 'element', 'form'], function () {
+        var table = layui.table,
+            layedit = layui.layedit,
+            $ = layui.jquery,
+            laydate = layui.laydate,
+            form = layui.form;
+
+        laydate.render({
+            elem: '#test'
+        });
+        laydate.render({
+            elem: '#test1'
+        });
+        laydate.render({
+            elem: '#test2'
+        });
+        laydate.render({
+            elem: '#test3'
+        });
+        laydate.render({
+            elem: '#test4'
+        });
+        laydate.render({
+            elem: '#test5'
+        });
+        //var SpecialInspectionIndex = layedit.build('SpecialInspection', { height: 100 })
+        //var demo = layedit.build('demo', { height: 196 })
+
+        $(document).on("click", ".specialist .break", function () {
+            $(".specialist >div").hide();
+            $(".examination").show();
+        });
+        //保存普通专科检查
+        form.on('submit(saveGSE)', function (data) {
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");//病人id
+            if (data.field["SpecialInspection"] != undefined) { data.field["SpecialInspection"] = HTMLEncode($("#SpecialInspection").val()); }//普通专科检查
+            EWinsBase.json("api/Doctor/HospitalRecord/Save", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            layer.confirm('是否跳到下一步操作？', function (index) {
+                                //获取lay-id对应的值
+                                var layid = $(".layui-this").next("li").attr("lay-id");
+                                if (layid != undefined) {
+                                    element.tabChange('tabs', layid); //切换到下一节
+                                }
+                                layer.close(index);
+                            });
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        });
+
+    })
+    //点击打印跳转到打印页面
+    $(document).on('click', ".print", function () {
+        window.location.href = EWinsBase.__curHostAddress + 'page/DoctorPages/HospitalRecord';
+    });
+
+    //专科检查
+    $(document).on("click", ".examList li a", function () {
+        var examclass = $(this).attr("data-class");
+        $("." + examclass).show();
+        $(".examination").hide();
+        //$(".examListContent").load("SpecializedExam", { "InpatientId": InpatientId }, function () {
+        //    $("." + examclass).show();
+        //    $(".examination").hide();
+        //});
+
+    });
+</script>

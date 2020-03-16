@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/rehabilitation.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+    <style>
+        .table{
+    width: 100%;
+    border:1px solid #ccc;
+}
+.table tr,td{
+    border:1px solid #ccc;
+    border-top:none;
+    border-left: none;
+    text-align:center;
+}
+.table td{
+    padding:3px 0;
+}
+    </style>
+</head>
+<body>
+	<div class="rehabilit">
+		<div class="cont" style="width:800px;">
+			<p class="contP">
+				<a class="layui-btn">保存</a>
+				<a class="layui-btn">打印</a>
+			</p>
+			<div class="contInfor">
+				<h3>治疗记录单</h3>
+				<div class="contUls">
+					<span>科室<input type="text"></span>
+					<span>床号<input type="text"></span>
+					<span>姓名<input type="text"></span>
+					<span>性别<input type="text"></span>
+					<span>住院号<input type="text"></span>
+				</div>
+				<div class="lastList">
+					<span>诊断<input type="text" class="lastFirst"></span>
+					<span>治疗项目<input type="text" class="lastSec"></span>
+				</div>
+				<table class="table sheet">
+					<tr>
+						<td>日期</td>
+						<td>治疗时间</td>
+						<td>签名</td>
+						<td>日期</td>
+						<td>治疗时间</td>
+						<td>签名</td>
+					</tr>
+					<tr>
+						<td><span class="wrong">x</span><input type="text" id="test"></td>
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+						<td><input type="text" id="test1"></td>
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+					</tr>
+					<tr>
+						<td><span class="wrong">x</span><input type="text" id="test2"></td>
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+						<td><input type="text" id="test3"></td>
+						<td><input type="text"></td>
+						<td><input type="text"></td>
+					</tr>
+					<tr>
+						<td rowspan="3">康复评估</td>
+					</tr>
+					<tr>
+						<td colspan="5"><textarea name="" id="" cols="30" rows="6" class="text"></textarea></td>
+					</tr>
+					<tr><td colspan="5">签名<input type="text" style="width:20%"></td></tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</body>
+<script>
+layui.use('laydate',function(){
+	var laydate = layui.laydate;
+	laydate.render({
+	  elem: '#test'//指定元素
+	});
+	laydate.render({
+	  elem: '#test1'//指定元素
+	});
+})
+
+</script>
+</html>

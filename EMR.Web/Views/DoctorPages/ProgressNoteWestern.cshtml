@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "西医首次病程记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<a href="~/Views/DoctorPages/ProgressNoteWestern.cshtml"></a>
+<style>
+    .addTable{
+        margin:6px;
+        width:98%;
+        padding-bottom:30%;
+    }
+    .tdTable p{ line-height:30px;}
+    .tdTable input{ width:40%;}
+</style>
+<form class="layui-form" id="form1" action="">
+    <div class="medrecord">
+        <p class="word">西医首次病程记录</p>
+        <div class="rigBtn">
+            <a class="layui-btn" id="SaveTemplate"><i class="iconfont staging">&#xe640;</i>另存为模板</a>
+            <a class="layui-btn" id="ImportTemplate"><i class="iconfont imports">&#xe605;</i>导入模板</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont staging">&#xe689;</i>暂存</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+            <a class="layui-btn" id="ReturnBack" style="display:none;" onclick="ReturnBackUrl()">返回</a>
+            <input type="hidden" id="ProgressNoteId" data-id="ProgressNoteId" name="ProgressNoteId" />
+        </div>
+    </div>
+    <div class="addTable">
+        <table class="tdTable">
+            <tr>
+                <td>
+                    <p>病例特点</p>
+                    <p><a class="layui-btn">检查报告</a></p>
+                    <p><a class="layui-btn">检查报告</a></p>
+                    <p><a class="layui-btn">生命体征导入</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="RecordContent0" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>判断依据</td>
+                <td colspan="3"><textarea class="layui-textarea" id="RecordContent1" style="display: none"></textarea></td>
+            </tr>
+            <tr>
+                <td>鉴别诊断</td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="RecordContent2" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>初步诊断</td>
+                <td colspan="3">
+                    <div id="DiagnosisTable2" lay-filter="DiagnosisTable2"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>诊疗计划</td>
+                <td colspan="3"><textarea class="layui-textarea" id="RecordContent3" style="display: none"></textarea></td>
+            </tr>
+            <tr>
+                <td>书写医生</td>
+                <td><input type="text" disabled class="layui-input writeInput" id="WardRoundUserName"></td>
+                <td>书写时间</td>
+                <td>
+                    <input type="text" lay-verify="required" id="ProgressNoteTime" name="ProgressNoteTime" placeholder="请输入书写时间" class="layui-input writeInput">
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+<script>
+    $("#WardRoundUserName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    if (GetQueryString("FromUrl") != "") {
+        $("#ReturnBack").css("display", "");
+    }
+    $("#ProgressNoteTime").val(CurentTime());
+    EWinsBase.json("api/Doctor/ProgressNote/GetAll", {
+        data: { "InpatientId": parent.GetQueryString("InpatientId"), "ProgressTypeId": 50, "limit": 1 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (!EWinsBase.isNullOrEmpty(data.data)) {
+                var curData = data.data[0];
+                if (curData) {
+                    var RecordContent = JSON.parse(curData.RecordContent);
+                    $("#RecordContent0").html(RecordContent[0].Content)
+                    $("#RecordContent1").html(RecordContent[1].Content)
+                    $("#RecordContent2").html(RecordContent[2].Content)
+                    $("#RecordContent3").html(RecordContent[3].Content)
+                    $("#ProgressNoteId").val(curData.ProgressNoteId);
+                    $("#ProgressNoteTime").val(curData.ProgressNoteTime);
+                }
+            }
+        }
+    })
+    layui.use(['table', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        var table = layui.table,
+        layedit = layui.layedit,
+        $ = layui.jquery,
+        laydate = layui.laydate;
+
+        //入院诊断 2
+        table.render({
+            elem: '#DiagnosisTable2'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=2"
+            , page: false //开启分页
+            , cols: [[ //表头
+            { field: 'DiagnosisId', title: '序号', align: "center" }
+            , { field: 'DiagnosisFlag', title: '主', align: "center" }
+            , { field: 'DiagnosisName', title: '诊断名称,复制诊断', align: "center" }
+            , { field: 'DiagnosisTime', title: '诊断时间', align: "center", templet: "#DiagnosisTime1" }
+            , { field: 'RecordUserName', title: '书写医生', align: "center" }
+            ]]
+        })
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(DiagnosisTable2)', function (obj) {
+            var data = obj.data;
+            ShowWin('修改诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + '&DiagnosisId=' + data.DiagnosisId + "&DiagnosisType=2", 800, 600)
+        });
+        laydate.render({
+            elem: '#ProgressNoteTime'
+            , type: 'datetime'
+        });
+
+        //构建一个默认的编辑器
+        var RecordContent0 = layedit.build('RecordContent0', { height: 199 }); //病例特点
+        var RecordContent1 = layedit.build('RecordContent1', { height: 199 }); //判断依据
+        var RecordContent2 = layedit.build('RecordContent2', { height: 199 }); //鉴别诊断
+        var RecordContent3 = layedit.build('RecordContent3', { height: 199 }); //诊疗计划
+
+        //编辑器外部操作
+        //var active = {
+        //    content: function () {
+        //        alert(layedit.getContent(index)); //获取编辑器内容
+        //    }
+        //  , text: function () {
+        //      alert(layedit.getText(index)); //获取编辑器纯文本内容
+        //  }
+        //  , selection: function () {
+        //      alert(layedit.getSelection(index));
+        //  }
+        //};
+
+        $('.site-demo-layedit').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        form.on('submit(sub)', function (data) {
+            data.field["RecordContent0"] = layedit.getContent(RecordContent0);
+            data.field["RecordContent1"] = layedit.getContent(RecordContent1);
+            data.field["RecordContent2"] = layedit.getContent(RecordContent2);
+            data.field["RecordContent3"] = layedit.getContent(RecordContent3);
+            data.field["RecordContentTitle"] = "病例特点,判断依据,鉴别诊断,诊疗计划";
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");
+            data.field["ProgressTypeId"] = "50";
+            data.field["ProgressTypeName"] = "西医首次病程记录";
+            EWinsBase.json("api/Doctor/ProgressNote/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 } );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            });
+        });
+        window.SaveTemplate = function (data) {
+            data["RecordContent0"] = layedit.getContent(RecordContent0);
+            data["RecordContent1"] = layedit.getContent(RecordContent1);
+            data["RecordContent2"] = layedit.getContent(RecordContent2);
+            data["RecordContent3"] = layedit.getContent(RecordContent3);
+            data["RecordContentTitle"] = "病例特点,判断依据,鉴别诊断,诊疗计划";
+            SaveTemplate2(data)
+        };
+
+        window.ImportTemplate = function (data) {
+            var RecordContentTitle = ("病例特点,判断依据,鉴别诊断,诊疗计划").split(',');
+            data.forEach(function (item, index) {
+                RecordContentTitle.forEach(function (item2, index2) {
+                    if (item.Title == item2) {
+                        $("#RecordContent" + index2).html(item.Content);
+                        layedit.build("RecordContent" + index2, { height: 199 });
+                    }
+                })
+            })
+        };
+    })//TemplateType, TemplateName,ShareType,SecondType
+    $("#SaveTemplate").on("click", function () {
+        ShowWin('另存为模板', 'page/DoctorPages/SaveTemplate?TemplateType=1&TemplateTypeName=' + escape("首次病程记录"), 800, 500)
+    });
+    $("#ImportTemplate").on("click", function () {
+        ShowWin('另存为模板', 'page/DoctorPages/ImportTemplate?TemplateType=1&TemplateTypeName=' + escape("首次病程记录"), 1030, 620)
+    });
+
+    function ReturnBackUrl() {
+        if (GetQueryString("FromUrl") != "") {
+            location.href = GetQueryString("FromUrl");
+        }
+    }
+    function SaveTemplate2(data) {
+        EWinsBase.json("api/Doctor/ProgressNote/SaveTemplate", {
+            data: data,
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                layer.msg(data.msg, { time: 1000 });
+            },
+        });
+    }
+</script>
+<script type="text/html" id="DiagnosisTime1">
+    {{ d.DiagnosisTime.ToString("yyyy-MM-dd") }}
+</script>

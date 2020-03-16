@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="newAdd">
+		<div class="medrecord">
+			<span>上报科室</span>
+			<select name="" id="">
+				<option value="">全部</option>
+				<option value="">一病区</option>
+			</select>
+			 <div class="rigBtn">
+	         	<a class="layui-btn">删除</a>
+	         	<a class="layui-btn">保存</a>
+	         	<a class="layui-btn">打印</a>
+	         	<a class="layui-btn">关闭</a>
+	    	</div>
+		</div>	
+		<table class="qualityTable">
+			<tr>
+				<td>病人姓名</td>
+				<td><input type="text"></td>
+				<td>性别</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>年龄</td>
+				<td><input type="text"></td>
+				<td>住院号</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>时间</td>
+				<td><input type="text" id="test"></td>
+				<td>地点</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>参加人员</td>
+				<td colspan="3"><input type="text"></td>
+			</tr>
+			<tr class="layui-form">
+				<td colspan="4">
+					<input type="checkbox" title="医疗争议事件讨论" lay-skin="primary">
+					<input type="checkbox" title="医疗安全事件讨论" lay-skin="primary">
+					<input type="checkbox" title="医疗安全学习" lay-skin="primary">
+				</td>
+			</tr>
+			<tr>
+				<td>诊断</td>
+				<td colspan="3"><input type="text"></td>
+			</tr>
+
+			<tr>
+				<td>病史摘要</td>
+				<td colspan="3"><textarea name="" id=""></textarea></td>
+			</tr>
+			<tr>
+				<td>事件经过题目</td>
+				<td colspan="3"><textarea name="" id=""></textarea></td>
+			</tr>
+			<tr>
+				<td>当事医生评价/学习内容</td>
+				<td colspan="3"><textarea name="" id=""></textarea></td>
+			</tr>
+			<tr>
+				<td>科室讨论及整改措施</td>
+				<td colspan="3"><textarea name="" id=""></textarea></td>
+			</tr>
+			<tr>
+				<td>记录人</td>
+				<td></td>
+				<td>科主任</td>
+				<td><input type="text"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+layui.use(['laydate','form'],function () {
+	var laydate = layui.laydate;
+	var form = layui.form;
+	laydate.render({
+	  	elem:'#test',
+	});
+})
+
+</script>
+</html>

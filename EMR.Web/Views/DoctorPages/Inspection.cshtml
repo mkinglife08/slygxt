@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/PerinataPaper.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="reportQuery">
+		<div class="reports">
+			<span>送检日期</span>
+			<input type="text" id="test">- <input type="text" id="test1">
+			床号<input type="text">
+			姓名<input type="text">
+      <a class="layui-btn">查询报告</a>
+      <a class="layui-btn">查询异常</a>
+		</div>
+		<p>送检情况：</p>
+		<table id="table"></table>
+		<div class="nextPor">
+			<div>
+          <p>送检情况：</p>
+          <div class="inspectResult">
+             <div class="inspectList">
+                  <span>检验报告</span>
+                  <span>背景色含义：</span>
+                  <span><i class="colorPiece fir"></i>超出三级警戒范围</span>
+                  <span><i class="colorPiece sec"></i>超出二级警戒范围</span>
+                  <span><i class="colorPiece thir"></i>超出一级警戒范围</span>
+                  <span><i class="colorPiece four"></i>非常规数据</span>
+             </div>
+          </div>
+        </div>
+
+		</div>
+	</div>
+</body>
+<script>
+layui.use(['form','laydate','table'], function(){
+  var form = layui.form;
+  var laydate = layui.laydate;
+  var table = layui.table;
+  laydate.render({
+    elem: '#test',
+  });
+  laydate.render({
+    elem: '#test1',
+  });
+  table.render({
+    elem: '#table'
+    // ,height: 312
+    // ,url: '/demo/table/user/' 
+    // ,page: true 
+    ,cols: [[ //表头
+      {type:"checkbox"}
+      ,{field: 'id', title: "类别",align:'center'}
+      ,{field: 'username', title: '姓名',align:'center'}
+      ,{field: 'sex', title: '编号',align:'center'}
+      ,{field: 'city', title: '检查项目',align:'center',width:'50%'} 
+      ,{field: 'sign', title: '审核医生',align:'center'}
+      ,{field: 'experience', title: '审核时间',align:'center'}
+    ]]
+  })
+ });
+</script>
+</html>

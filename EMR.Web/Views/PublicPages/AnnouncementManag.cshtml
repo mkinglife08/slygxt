@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "公告管理";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+@section css{
+<link href="~/Content/reset.css" rel="stylesheet">
+<link href="~/Content/qualityControl.css" rel="stylesheet">
+}
+<div class="qualityControl">
+    <div class="medrecord">
+        <p class="word">公告管理</p>
+        <div class="rigBtn">
+            <a class="layui-btn" id="release">发布</a>
+        </div>
+    </div>
+    <table class="qualityTable layui-form" id="TableAnnouncement">
+        <tr>
+            <td><input type="checkbox" title="" name="" lay-skin="primary">全选</td>
+            <td>标题</td>
+            <td>发布时间</td>
+            <td>修改</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" title="" name="" lay-skin="primary"></td>
+            <td style="text-align:left" class="left"><a>新华医院</a></td>
+            <td>2019-05-01</td>
+            <td>
+                <a class="layui-btn">修改</a>
+                <a class="layui-btn">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+    layui.use(['laydate', 'table', 'element', 'form', 'layer'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , laydate = layui.laydate
+            , element = layui.element
+            , $ = layui.jquery
+            , excel = layui.excel;
+
+        TableAnnouncement = table.render({
+            elem: '#TableAnnouncement'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: $(window).height() - 130    //容器高度
+            , cols: [[                  //标题栏
+                { field: '', title: '全选', width: '100', align: 'center' }
+                , { field: 'bednumber', title: '标题', width: '300', align: 'center' }
+                , { field: 'healthcard', title: '发布时间', width: '120', align: 'center' }
+                , { field: 'name', title: '修改', width: '120', align: 'center' }
+            ]]
+            , id: 'TableAnnouncement'
+            , url: EWinsBase.__curHostAddress + 'api/Public/KeepWardLog/GetAdmissionList?token=' + EWinsBase.Token
+            //, where: { DpetID: $("#DpetID1").val(), Start: $("#start1").val(), Stop: $("#stop1").val(), Zyh: $("#zyh1").val(), Name: $("#Name1").val() }//这里传参  向后台
+            , method: 'post'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+            }
+        });
+
+    })
+
+</script>

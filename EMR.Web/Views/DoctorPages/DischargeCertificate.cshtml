@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "出院记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<form class="layui-form" action="" style="margin-bottom:300px;">
+    <div class="medrecord">
+        <p class="word">出院证</p>
+        <div class="rigBtn">
+            @*<a class="layui-btn">注意事项导入</a>*@
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        </div>
+    </div>
+    <div class="discuss">
+        <table class="disTable">
+            <tr>
+                <td style="width:75px;">姓名：</td>
+                <td ><span data-id="Name"></span></td>
+                <td>性别：</td>
+                <td ><span data-id="Gender"></span></td>
+                <td>年龄：</td>
+                <td ><span data-id="Age"></span></td>
+                <td>入院时间：</td>
+                <td colspan="3"><span data-id="EntryTime"></span></td>
+                <td>出院时间：</td>
+                <td colspan="3"><span data-id="DischargeTime">2018年09月03日</span></td>
+            </tr>
+            <tr>
+                <td>单位：</td>
+                <td colspan="11" style="text-align:left"><span data-id="Company"></span></td>
+            </tr>
+            <tr>
+                <td>诊断：</td>
+                <td colspan="11" style="text-align:left"><span data-id="Diagnosis"></span></td>
+            </tr>
+            <tr>
+                <td>建议：</td>
+                <td colspan="11">
+                    <textarea name="Proposal" id="Proposal" data-id="Proposal" rows="10" class="textarea"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="clearfix" style="margin-top:5px;">
+            <p class="discharge">医院盖章</p>
+            <p class="discharge">医生签字：<span id="Creator" data-id="Creator">管理员</span></p>
+        </div>
+
+    </div>
+</form>
+<script>
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (NewGetQueryString("OnlyView") == "true") {
+        $(".rigBtn").hide();
+    }
+
+
+    CreateSelectOptionFromUser($("#AuthorizedPersonID"), { width: "100%!important" });
+    
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            data.data.EntryTime = data.data.EntryTime.ToString("yyyy年MM月dd日");
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    })
+
+    EWinsBase.json("api/Doctor/OuthospitalCard/GetInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+
+                if (data.data["AuthorizedPersonID"] != null) {
+                    $("#AuthorizedPersonID").append("<option value=" + data.data["AuthorizedPersonID"] + ">" + data.data["AuthorizedPersonName"] + "</option>");
+                    $("#AuthorizedPersonID").val(data.data["AuthorizedPersonID"]).trigger('change');
+                }
+            }
+            else
+            {
+                $("#Creator").html(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+            }
+        }
+    })
+
+    layui.use(['laydate', "form"], function () {
+        var laydate = layui.laydate,
+            form = layui.form;
+        laydate.render({
+            elem: '#AuthorizedPersonTime',
+            type: 'datetime'
+        });
+        form.on('submit(sub)', function (data) {
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");
+            data.field["Proposal"] = $("#Proposal").val();
+            EWinsBase.json("api/Doctor/OuthospitalCard/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            })
+            return false;
+        });
+
+    })
+
+</script>

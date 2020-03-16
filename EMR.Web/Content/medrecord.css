@@ -1,0 +1,329 @@
+.layui-input{
+    height:28px;
+    line-height: 28px;
+}
+.layui-form-label{
+   width:80px;
+}
+.layui-form-item{ margin-bottom:0; }
+.layui-form-radio {
+    line-height: 28px;
+    margin: 6px -12px 0 0;
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 0;
+}
+.spWord{
+    display: block;
+    width: 83px;
+    float: left;
+    margin-left: 24px;
+}
+
+.medrecord .word{
+    font-size:16px;
+}
+.medrecord .rigBtn{
+    position:absolute;
+    right:15px;
+    top:0;
+}
+.medInfor{
+    width:100%;
+    margin-top:5px;
+}
+.medInfor .text{
+    font-size:16px;
+    color:#0094ff;
+    width:100%;
+    padding-bottom:5px;
+    padding-left: 15px;
+    border-bottom:1px solid #0094ff;
+}
+.medContent{ margin-top:5px; }
+.medContent .choseSele,.marriage,
+.nationality,.diagList .hospitalWay,.bloodYype{
+   width: 62%;
+    height:28px;
+    border:1px solid #e6e6e6;
+    border-radius: 5px;
+}
+.diagList,.infor_host,.deparHost,.person,.qualInfor{
+    margin-top:5px;
+}
+.outHost{
+   width: 22%;
+    height: 30px;
+    line-height: 30px;
+   position: relative;
+}
+.outHost .layui-unselect{
+    width: 66%;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.outHost span{
+    font-size:12px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.outHost .layui-form-select .layui-edge{
+    right: 7px;
+    top: 14px;
+}
+
+/*病案首页打印*/
+.medrecordPrin{
+    padding:0 10px 2% 10px;
+}
+.print_all,.print_others{  border:1px solid #666; margin-top: 10px;padding: 0 5px;}
+.medrecordPrin .print_title{
+    width: 100%;
+    height:87px;
+    border-bottom: 1px solid #666;
+}
+.medrecordPrin .print_title .zheHost{
+    font-size:13px;
+    color:#000;
+    text-align:center;
+}
+.medrecordPrin .print_title h3{
+    color:#666;
+    font-size:16px;
+    text-align:center;
+    margin-top:10px;
+}
+.print_list p{
+    float:left;
+    width: 23%;
+    margin-top: 10px;
+}
+.b_bottom{ border-bottom:1px solid #ccc; }
+.print_patientInfor div,.condition{ margin-bottom:10px; }
+/*.condition{ border-bottom:1px solid #ccc; }*/
+.print_patientInfor p,.condition p,.print_out p{
+    float: left;
+    color:#000;
+    font-weight: bold;
+}
+.print_fir p{ width: 19%; }
+.print_sec p{ width: 23% }
+.print_thir p{ width:30%;}
+.print_fif p,.condition p,.print_out p,.report_left,.mainLeft{ width: 50%; }
+.print_patientInfor span,.condition span,
+.print_signature span,.print_out span,
+.print_sis span,.prinUp span,.rescue{
+    border-bottom: 1px solid #666;
+    color: #333;
+    font-weight: normal;
+    padding:0 10px;
+}
+.print_signature p{
+    color:#000;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+}
+.print_others .symsTable{
+    width:100%;
+}
+.print_word{ 
+    font-size:16px;
+    color:#000;
+    margin-left: 51%;
+}
+.print_sis{  font-size: 15px;}
+.prinUp p,.prinDow p{ line-height: 30px; }
+
+/*报卡*/
+.layui-input{ border:1px solid #ccc; }
+
+.layui-tab-content .reportCard{
+    font-size: 17px;
+    height: 36px;
+    line-height: 36px;
+    text-align:center;
+}
+.report_cont{
+    background: #fff;
+    padding:1% 1% 3% 1%;
+}
+.report_border { 
+    border-bottom:1px solid #666;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.report_Infor{ 
+    font-size: 14px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+ }
+ .diagLabel{
+    width:163px;
+ }
+ .diagSpan,.nosis,.tuberText{
+    width: 4%;
+    height: 25px;
+    line-height: 25px;
+    padding-left: 5px;
+    border-radius: 5px;
+    margin:0 5px;
+    border:1px solid #ccc;
+ }
+.diagInput,.nosis{ width: 50%; }
+.align{ text-align:center; }
+.report_Lef { width:50% }
+.judgment_table{ width:80%; margin-top: 10px}
+.judgment_table,.judgment_table tr td,.poison_table tr td,.infect_table tr td,.reportTable .posin_table tr td{
+    border:1px solid #999;
+}
+.judgment_table tr,.poison_table tr,.infect_table tr{ 
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 30px;
+    text-align:center;
+ }
+ .judgment_table tr .addNum,.poison_table tr .addNum,.infect_table tr input{
+    height: 80%;
+    width: 92%;
+    border:none;
+    background-color: #f2f2f2;
+    padding-left: 5px;
+ }
+ .interval{
+    height: 30px;
+    line-height: 30px;
+ }
+ .report_History{
+    border:1px solid #ccc;
+    padding:5px;
+ }
+  .report_History .text{ background: #EAEFF5; }
+
+.lastWord p,.poison_Rig p,.tuber p{ line-height: 30px; }
+.poison_Rig p .diagSpan{ width: 30% }
+.poison_table{ 
+    width: 100%;
+    margin:10px 0; 
+    border:1px solid #ccc;
+}
+.poison_table tr{ text-align:left; }
+.spray{
+    margin:0 10px;
+}
+.textArea{ margin-top:2px; padding:5px;width:90%;background: #EAEFF5; }
+.poison_end{ margin-left: 30%; }
+.seal{
+    border:none;
+    width: 15%;
+    height: 25px;
+    padding-left: 5px;
+    border-bottom:1px solid #666;
+    background:#f2f2f2;
+}
+/*肺外结核病例*/
+.tuberText{ width:10%; }
+.secLeft{ width:50%; }
+.idCard{ width:35%;}
+.medical { margin-left: 5%; }
+.calculation{ width:23%; }
+.noFound{ width:90%; }
+.drugTest{ width:30%;}
+.infect_table{ width:100%; border:1px solid #ccc; }
+.infect_table tr{ text-align:left; }
+.reactLeft{ margin-left: 15px; }
+.layui-form p{ width: 100%;line-height: 30px; }
+.aigRig{ text-align:right; }
+.tableList_sy td{ text-align:center; }
+/*中毒报卡*/
+.reportTable .posin_table{
+    border:1px solid #000;
+    margin:0 auto;
+    line-height: 30px;
+}
+.reportTable .posin_table tr td{
+    padding:0 10px;
+}
+.posin_table tr input{
+    height: 71%;
+    width: 61%;
+    border: none;
+    background-color: #f2f2f2;
+    padding-left: 5px;
+}
+.posin_table tr textarea{
+    padding:6px;
+    margin-top: 5px;
+    vertical-align:middle;
+}
+.lastWord{
+    width: 600px;
+    margin:0 auto;
+}
+.inde{ text-indent: 27px; }
+/*职业病*/
+
+.occupText p{
+    line-height: 30px;
+}
+.occupText .occup_{
+    width: 33%;
+}
+.occupText .occup_ input{
+    border:none;
+    background: #f2f2f2;
+    height: 20px;
+    padding-left: 5px;
+    width:50%;
+}
+.fig{ vertical-align: middle;}
+.occpNum{
+    width:30%;
+    border:none;
+    background: #f2f2f2;
+    height: 24px;
+    padding-left: 5px;
+}
+.newOccup p{
+    line-height: 30px;
+    border-bottom: 1px solid #999;
+}
+.occupLast div{
+    width: 33%;
+}
+.occupLast div p{ line-height: 40px; }
+.refeCont .word{
+    font-size: 20px;
+    text-align:center;
+}
+.referNum p{
+    line-height: 30px;
+}
+.referNum .left,.right{
+    width:46%;
+}
+.referNum input,.code input{
+    border:none;
+    border-bottom: 1px solid #000;
+    background:#f2f2f2;
+    height: 25px;
+    padding-left: 5px;
+}
+.code p{
+    width: 30%;
+    float: left;
+    margin:5px 0;
+}
+.dead .deadArea{
+    height: 80px;
+    width: 90%;
+    margin-left: 10px;
+    padding-left:5px;
+}
+.deadP{
+    text-align:right;
+    height:30px;
+}

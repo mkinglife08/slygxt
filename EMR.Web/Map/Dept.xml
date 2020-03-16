@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap>
+  <select id="Dept.KeepWardLog.List">
+    select dept.Deptname,dept.deptid
+    ,(select count(1) from CD_Inpatient i1 left join CD_MedicalRecordHomePage m1 on i1.inpatientid=m1.inpatientid where m1.LmminenceGrave=1 and i1.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i1.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i1.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) wzs
+    ,(select count(1) from CD_Inpatient i2  where i2.currentdeptid=dept.deptid
+    <dynamic prepend=" ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i2.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i2.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) yybr
+    ,(select count(1) from CD_Inpatient i3 where i3.AdmissionDept=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i3.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i3.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) rybr
+    ,(select count(1) from CD_TRANSFER t1 left join CD_INPATIENT i4 on t1.inpatientid=i4.inpatientid where t1.currentdeptid=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i4.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i4.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) tkzr
+    ,(select count(1) from CD_Inpatient i5 where (i5.LeaveDept=dept.deptid or (i5.LeaveTime is not null and i5.CurrentDeptID=dept.deptid))
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i5.LeaveTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i5.LeaveTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) cybr
+    ,(select count(1) from CD_Inpatient i6 left join CD_MedicalRecordHomePage m2 on i6.inpatientid=m2.inpatientid where m2.LmminenceGrave=1 and i6.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i6.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i6.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) zy
+    ,(select count(1) from CD_Inpatient i7 left join CD_MedicalRecordHomePage m3 on i7.inpatientid=m3.inpatientid where m3.LmminenceGrave=2 and i7.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i7.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i7.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) hz
+    ,(select count(1) from CD_Inpatient i8 left join CD_MedicalRecordHomePage m4 on i8.inpatientid=m4.inpatientid where m4.LmminenceGrave=3 and i8.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i8.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i8.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) wy
+    ,(select count(1) from CD_Inpatient i9 left join CD_MedicalRecordHomePage m5 on i9.inpatientid=m5.inpatientid where m5.LmminenceGrave=4 and i9.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i9.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i9.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) sw
+    ,(select count(1) from CD_Inpatient i10 left join CD_MedicalRecordHomePage m6 on i10.inpatientid=m6.inpatientid where m6.LmminenceGrave=5 and i10.CurrentDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i10.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i10.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) qt
+    ,(select count(1) from CD_TRANSFER t2 left join CD_INPATIENT i11 on t2.inpatientid=i11.inpatientid where t2.OldDeptID=dept.deptid
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="Start">i11.EntryTime &gt; to_date('#Start# 00:00:00','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+      <isNotNullOrEmpty prepend=" and " property="Stop">i11.EntryTime &lt; to_date('#Stop# 23:59:59','yyyy-mm-dd hh24:mi:ss')</isNotNullOrEmpty>
+    </dynamic>
+    ) zcbr
+    from AI_DEPTINFO dept where dept.isinpatient=0 and IsCance=0
+    <dynamic prepend="  ">
+      <isNotNullOrEmpty prepend=" and " property="DeptID">dept.deptid=#DeptID#</isNotNullOrEmpty>
+    </dynamic>
+  </select>
+</sqlMap>

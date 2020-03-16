@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~Content/reset.css">
+	<link rel="stylesheet" href="~Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">病情护理记录单</p>
+			<div class="startStop">
+				<span>起止时间：</span>
+				<input type="text" id="start">-
+				<input type="text" id="ending">
+			</div>
+	        <div class="rigBtn">
+	        	<a class="layui-btn">查询</a>
+	            <a class="layui-btn">趋势图</a>
+	            <a class="layui-btn layui-btn-disabled">编辑</a>
+	            <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+	 	<table id="glucose"></table>
+	</div>
+</body>
+<script>
+layui.use(['form','laydate','table'], function(){
+  var form = layui.form;
+  var laydate = layui.laydate;
+  var table = layui.table;
+ 	laydate.render({ 
+	  elem: '#start',
+	  type: 'datetime'
+	});
+   	laydate.render({ 
+	  elem: '#ending',
+	  type: 'datetime'
+	});
+	table.render({
+	    elem: '#glucose'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '测定时间', sort: true}
+	      ,{field:'username', title: '测定结果'}
+	      ,{field:'sex', title: '备注'}
+	      ,{field:'city', title: '测定者'}
+	    ]]
+	  });
+ });
+</script>
+
+</html>

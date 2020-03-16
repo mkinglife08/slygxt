@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "DoctorGroupEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label">分组组号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="GroupNum" data-id="GroupNum" lay-maxlength="20" placeholder="请输入分组组号" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">分组名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="GroupName" data-id="GroupName" lay-verify="required" lay-maxlength="20" placeholder="请输入分组名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">组长</label>
+                <div class="layui-input-inline">
+                    <select name="ChiefId" id="ChiefId" class="deletSele" lay-verify="SelectRequired" data-placeholder="请选择组长"></select>
+                </div>
+                <label class="layui-form-label">副组长</label>
+                <div class="layui-input-inline">
+                    <select name="DeputyId" id="DeputyId" class="deletSele" lay-verify="SelectRequired" data-placeholder="请选择副组长"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" data-placeholder="请选择科室">
+                        <option value="" selected>全部</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+<!--JS-->
+<script>
+    //初始化下拉框单选框（数据从字典获取）
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0");
+    //组长下拉框 获取用户信息
+    var data = {};
+    data["UserType"] = 0;
+    GetUserSelect($("#ChiefId"));
+    //副组长下拉框 获取用户信息
+    GetUserSelect($("#DeputyId"));
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+
+    var DoctorGroupID = GetQueryString("DoctorGroupId");
+    if (DoctorGroupID != "") {
+        EWinsBase.json("api/Public/DoctorGroup/GetInfoById", {
+            data: { "DoctorGroupID": DoctorGroupID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#DeputyId").val(data.data["DeputyId"]).trigger('change');
+                $("#DpetID").val(data.data["DpetID"]).trigger('change');
+                $("#ChiefId").val(data.data["ChiefId"]).trigger('change');
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        form.on('submit(sub)', function (data) {
+            data.field["DoctorGroupID"] = GetQueryString("DoctorGroupID") + "";
+            data.field["ChiefNum"] = $('#ChiefId').find("option:selected").data("UserCode");
+            data.field["ChiefName"] = $('#ChiefId').find("option:selected").text();
+            data.field["DeputyNum"] = $('#DeputyId').find("option:selected").data("UserCode");
+            data.field["DeputyName"] = $('#DeputyId').find("option:selected").text();
+            data.field["DeptName"] = $('#DpetID').find("option:selected").text();
+            EWinsBase.json("api/Public/DoctorGroup/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            wind.refreshTable();
+
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        });
+        form.render();
+    })
+</script>

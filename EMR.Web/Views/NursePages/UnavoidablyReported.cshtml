@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>心脏介入记录</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+	<style>
+	.left{ width:188px; }
+	</style>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div class="layui-form layAll">
+	        	<span>床号</span>
+				<!-- <select name="" id="">
+					<option value=""></option>
+				</select> -->
+				<input type="radio" name="normal" title="有记录">有记录
+				<input type="radio" name="normal" title="全部">全部
+				<span>姓名：<input type="text" class="newInput"></span>
+				<span>住院号：<input type="text" class="newInput"></span>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">添加</a>
+	            <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+	 	<div class="marginTop">
+	 		<p class="marginTop">基本信息</p>
+			<table class="tableList">
+				<tr>
+					<td>姓名</td>
+					<td><input type="text"></td>
+					<td>性别</td>
+					<td><input type="text"></td>
+					<td>床号</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>住院序号</td>
+					<td><input type="text"></td>
+					<td>年龄</td>
+					<td><input type="text"></td>
+					<td>科室</td>
+					<td><input type="text"></td>
+				</tr>
+				<tr>
+					<td>入院时间</td>
+					<td><input type="text"></td>
+					<td>诊断</td>
+					<td colspan="3" class="left" ><input type="text" style="width:80%"></td>
+				</tr>
+				<tr>
+					<td class="left" colspan="6">难免压疮申报</td>
+				</tr>
+				<tr>
+					<td>Branden评分</td>
+					<td colspan="6"><input type="text">分 <a>查看</a></td>
+				</tr>
+			</table>
+			<p class="marginTop">压疮报告</p>
+			<table class="tableList layui-form">
+				<tr>
+					<td>压疮来源</td>
+					<td >
+						<input type="radio" name="normal" title="家中">家中
+						<input type="radio" name="normal" title="外院">外院
+						<input type="radio" name="normal" title="养老院">养老院
+						<input type="radio" name="normal" title="他科带入">他科带入
+						<input type="radio" name="normal" title="科内新发生">科内新发生
+					</td>
+					<td>发生时间</td>
+					<td><input type="text" id="test"></td>
+				</tr>
+				<tr>
+					<td>附加</td>
+					<td colspan="4">
+						<input type="checkbox" name="" lay-skin="primary" title="">
+						<span>
+							<input type="checkbox" name="" lay-skin="primary" title="科内新发生">科内新发生
+							发生时间 <input type="text" id="test1">
+						</span>
+					</td>
+				</tr>
+			</table>
+			<p class="marginTop">护理措施</p>
+			<table id="table"></table>
+			<p class="marginTop">皮肤情况</p>
+			<table id="demo"></table>
+			<p class="marginTop">签名部分</p>
+			<table class="tableList">
+				<tr>
+					<td>护士签名</td>
+					<td><input type="text"></td>
+					<td>审签</td>
+					<td><input type="text"><a class="layui-btn">签名</a></td>
+					<td>责任组长/护士长审签</td>
+					<td><input type="text"><a class="layui-btn">签名</a></td>
+				</tr>
+				<tr>
+					<td>申报日期</td>
+					<td colspan="5"><input type="text" id="test2"></td>
+				</tr>
+				<tr>
+					<td colspan="6" class="left">
+						<div>①皮肤护理   <span class="reds" >A</span>使用中性温和的清洁剂清洁身体皮肤<span class="reds">B</span>使用皮肤保护膜及保护粉<span class="reds">C</span>保持床单位、衣物清洁、平整 <span class="reds">D</span>使用吸收垫或干燥垫控制潮湿，及时更换
+          				<span class="reds">E</span>使用乳液维持皮肤滋润<span class="reds">F</span>正确摆放位置，预防管道压迫 </div>
+						<div>
+							②位体与活动 <span class="reds">A</span>定期翻身或更换体位<span class="reds">B</span>建立翻身卡C侧卧位< 30°C <span class="reds">D</span>床位抬高< 30°C <span class="reds">E</span>坐轮椅至少每15-30分钟抬臀一次<span class="reds">F</span>指导执行肢体主动被动运动 
+						</div>
+						<div>
+							③辅助用品  <span class="reds">A</span>骨凸部位予保护<span class="reds">B</span>足部避免受压<span class="reds">C</span>使用软枕、翻身垫及其他辅助物支托 <span class="reds">D</span>使用特殊床垫(如气垫床、悬浮床、翻身床)<span class="reds">E</span>使用辅助器具(移动板、翻身单)搬运病人 </div>
+						<div>④敷料使用  <span class="reds">A</span>使用水胶体敷料如溃疡贴、安普贴等<span class="reds">B</span>使用泡沫类敷料<span class="reds">C</span>其他敷料或产品
+						</div>
+						⑤患者及家属健康教育<span class="reds">A</span>指导压疮防护目的及方法<span class="reds">B</span>指导翻身、肢体活动及防护用品使用方法<span class="reds">C</span>注意营养摄入 
+					</td>
+				</tr>
+			</table>
+	 	</div>
+	</div>
+</body>
+<script>
+layui.use(['form','laydate','table'], function(){
+  var form = layui.form;
+  var laydate = layui.laydate;
+  var table = layui.table;
+  laydate.render({
+    elem: '#test',
+    type:"datetime" //指定元素
+  });
+  laydate.render({
+    elem: '#test1',
+    type:"datetime" //指定元素
+  });
+  laydate.render({
+    elem: '#test2',
+    type:"datetime" //指定元素
+  });
+  table.render({
+    elem: '#table'
+    // ,height: 312
+    // ,url: '/demo/table/user/' 
+    // ,page: true 
+    ,cols: [[ //表头
+      {field: 'id', title: '时间',align:'center'}
+      ,{field: 'username', title: '皮肤护理',align:'center'}
+      ,{field: 'sex', title: '位体与活动',align:'center'}
+      ,{field: 'city', title: '辅助用品',align:'center'} 
+      ,{field: 'sign', title: '辅料使用',align:'center'}
+      ,{field: 'experience', title: '患者及家属健康教育',align:'center'}
+      ,{field: 'score', title: '其他',align:'center'}
+      ,{field: 'classify', title: '签名',align:'center'}
+      ,{field: 'wealth', title: '操作',align:'center'}
+    ]]
+  });
+  table.render({
+    elem: '#demo'
+    // ,height: 312
+    // ,url: '/demo/table/user/' 
+    // ,page: true 
+    ,cols: [[ //表头
+      {field: 'id', title: '时间',align:'center'}
+      ,{field: 'username', title: '目前皮肤情况（描述部位、大小、程度、性质）',align:'center'}
+      ,{field: 'sex', title: '签名',align:'center'}
+      ,{field: 'sex', title: '操作',align:'center'}
+    ]]
+  });
+ });
+</script>
+</html>

@@ -1,0 +1,548 @@
+﻿
+@{
+    ViewBag.Title = "医院感染风险评分表";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div style="width:100%;height:60px; text-align:center;font-size:26px;font-weight:bold; line-height:60px;">
+                2020年树兰（杭州）医院感染风险评分表
+            </div>
+             
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                </div>
+
+                <label class="layui-form-label cur_lable">评估人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OPNAME" data-id="OPNAME" id="OPNAME" lay-maxlength="20" lay-verify="required" placeholder="请输入评估人" autocomplete="off" class="layui-input" />
+                </div>
+
+                <label class="layui-form-label cur_lable">评估日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="PROCTDATE" data-id="PROCTDATE" id="PROCTDATE" lay-maxlength="20" lay-verify="required|date" placeholder="请输入评估日期" autocomplete="off" class="layui-input" />
+                </div>
+
+            </div>
+
+            <input type="hidden" id="RISKID" name="RISKID" data-id="RISKID" />
+            <input type="hidden" id="DEPTID" name="DEPTID" data-id="DEPTID" />
+            <input type="hidden" id="DEPTNAME" name="DEPTNAME" data-id="DEPTNAME" />
+            <input type="hidden" id="SUMSCORE" name="SUMSCORE" data-id="SUMSCORE" />
+
+
+            <table id="tb_riskDetail" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+
+                <thead>
+                    <tr>
+                        <th rowspan="3" valign="center" style="width:8%;"><p align="center"><strong>分类</strong></p></th>
+                        <th rowspan="3" valign="center" style="width:16%;"><p align="center"><strong>内容</strong></p></th>
+                        <th rowspan="3" valign="center" style="width:6%;"><p align="center"><strong>权重系数</strong></p></th>
+                        <th colspan="5" valign="center" style="width:4%;"><p align="center"><strong>发生可能性</strong></p> </th>
+                        <th colspan="5" valign="center" style="width:4%;"><p align="center"><strong>后果严重程度或损失</strong></p> </th>
+                        <th colspan="5" valign="center" style="width:4%;"><p align="center"><strong>当前体系</strong></p></th>
+                        <th rowspan="3" valign="center" style="width:4%;"><p align="center"><strong>分值</strong></p></th>
+                        <th rowspan="3" valign="center" style="width:4%;"><p align="center"><strong>操作</strong></p></th>
+                    </tr>
+                    <tr>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>大</strong></p> </th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>较大</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>小</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>罕见</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>无</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>重大</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>严重</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>较轻</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>轻微</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>极少</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>无</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>差</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>一般</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>好</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>完备</strong></p></th>
+                    </tr>
+                    <tr>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>8</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>6</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>4</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>2</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>0</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>5</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>4</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>3</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>2</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>1</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>5</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>4</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>3</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>2</strong></p></th>
+                        <th valign="center" style="width:4%;"><p align="center"><strong>1</strong></p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--动态生成tr td-->
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    var tb = $("#tb_riskDetail");
+
+    //构建30行
+    for (var i = 0; i < 30; i++) {
+        var $tdFl = $("<td valign='center' style='width:8%;'></td>"); //创建分类
+        //$tdName.html("<input name=\'teams[" + tempRow + "].uname\' value=\'\'/>"); //html把序号放到了第一个td里面
+        $tdFl.html("<input type='text' class='layui-input' id='FLMC" + i + "' name='FLMC" + i + "' data-id='FLMC' />");
+
+        var $tdNr = $("<td valign='center' style='width:16%;'></td>"); //创建内容
+        $tdNr.html("<textarea placeholder=\"内容\" class=\"layui-textarea\" data-id='NR' id='NR" + i + "'  name='NR" + i + "'></textarea>");
+
+        var $tdQz = $("<td valign='center' style='width:6%;'></td>"); //创建权重
+        $tdQz.html("<input type='text' class='layui-input' id='QZ" + i + "' name='QZ" + i + "' data-id='QZ' />");
+        //background:rgb(168,64,123);  background:rgb(88,104,199);   background:rgb(156,66,39) ;
+        var $tdKn8 = $("<td valign='center' style='width:4%;'></td>"); //创建可能性8
+        $tdKn8.html("<input type=\"radio\" data-id='KNX' id='kn" + i + "' name='kn" + i + "' value=\"8\" title=\"8\" lay-filter=\"rdo\" ><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdKn6 = $("<td valign='center' style='width:4%;'></td>"); //创建可能性6
+        $tdKn6.html("<input type=\"radio\" data-id='KNX' id='kn" + i + "' name='kn" + i + "' value=\"6\" title=\"6\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdKn4 = $("<td valign='center' style='width:4%; '></td>"); //创建可能性4
+        $tdKn4.html("<input type=\"radio\" data-id='KNX' id='kn" + i + "' name='kn" + i + "' value=\"4\" title=\"4\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdKn2 = $("<td valign='center' style='width:4%; '></td>"); //创建可能性2
+        $tdKn2.html("<input type=\"radio\" data-id='KNX' id='kn" + i + "' name='kn" + i + "' value=\"2\" title=\"2\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdKn0 = $("<td valign='center' style='width:4%; '></td>"); //创建可能性0
+        $tdKn0.html("<input type=\"radio\" data-id='KNX' id='kn" + i + "' name='kn" + i + "' value=\"0\" title=\"0\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdYzss5 = $("<td valign='center' style='width:4%;'></td>"); //创建严重损失5
+        $tdYzss5.html("<input type=\"radio\" data-id='HGSS' id='yzss" + i + "' name='yzss" + i + "' value=\"5\" title=\"5\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdYzss4 = $("<td valign='center' style='width:4%;'></td>"); //创建严重损失4
+        $tdYzss4.html("<input type=\"radio\" data-id='HGSS' id='yzss" + i + "' name='yzss" + i + "' value=\"4\" title=\"4\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdYzss3 = $("<td valign='center' style='width:4%;'></td>"); //创建严重损失3
+        $tdYzss3.html("<input type=\"radio\" data-id='HGSS' id='yzss" + i + "' name='yzss" + i + "' value=\"3\" title=\"3\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdYzss2 = $("<td valign='center' style='width:4%;'></td>"); //创建严重损失2
+        $tdYzss2.html("<input type=\"radio\" data-id='HGSS' id='yzss" + i + "' name='yzss" + i + "' value=\"2\" title=\"2\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdYzss1 = $("<td valign='center' style='width:4%;'></td>"); //创建严重损失1
+        $tdYzss1.html("<input type=\"radio\" data-id='HGSS' id='yzss" + i + "' name='yzss" + i + "' value=\"1\" title=\"1\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdDqtx5 = $("<td valign='center' style='width:4%;'></td>"); //创建当前体系5
+        $tdDqtx5.html("<input type=\"radio\" data-id='DQTX' id='dqtx" + i + "' name='dqtx" + i + "' value=\"5\" title=\"5\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdDqtx4 = $("<td valign='center' style='width:4%;'></td>"); //创建当前体系4
+        $tdDqtx4.html("<input type=\"radio\" data-id='DQTX' id='dqtx" + i + "' name='dqtx" + i + "' value=\"4\" title=\"4\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdDqtx3 = $("<td valign='center' style='width:4%;'></td>"); //创建当前体系3
+        $tdDqtx3.html("<input type=\"radio\" data-id='DQTX' id='dqtx" + i + "' name='dqtx" + i + "' value=\"3\" title=\"3\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdDqtx2 = $("<td valign='center' style='width:4%;'></td>"); //创建当前体系2
+        $tdDqtx2.html("<input type=\"radio\" data-id='DQTX' id='dqtx" + i + "' name='dqtx" + i + "' value=\"2\" title=\"2\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+        var $tdDqtx1 = $("<td valign='center' style='width:4%;'></td>"); //创建当前体系1
+        $tdDqtx1.html("<input type=\"radio\" data-id='DQTX' id='dqtx" + i + "' name='dqtx" + i + "' value=\"1\" title=\"1\" lay-filter=\"rdo\"><div class=\"layui-unselect layui-form-radio\"><i class=\"layui-anim layui-icon\"></i></div>");
+
+        var $tdFz = $("<td valign='center' style='width:4%;'></td>"); //创建分值
+        $tdFz.html("<input type='text' class='layui-input' id='fz" + i + "' name='fz" + i + "' data-id='FZ' />");
+
+        var $tdCz = $("<td valign='center' style='width:4%;'></td>"); //创建操作
+        $tdCz.html("<button type=\"button\" class=\"layui-btn layui-btn-danger layui-btn-xs\" id='" + i + "' lay-event=\"del\">删除</button>");
+
+        var $tr = $("<tr id=\'_tr_" + i + "\'></tr>");// 创建tr，将td放置到tr中
+        $tr.append($tdFl);
+        $tr.append($tdNr);
+        $tr.append($tdQz);
+        $tr.append($tdKn8);
+        $tr.append($tdKn6);
+        $tr.append($tdKn4);
+        $tr.append($tdKn2);
+        $tr.append($tdKn0);
+        $tr.append($tdYzss5);
+        $tr.append($tdYzss4);
+        $tr.append($tdYzss3);
+        $tr.append($tdYzss2);
+        $tr.append($tdYzss1);
+        $tr.append($tdDqtx5);
+        $tr.append($tdDqtx4);
+        $tr.append($tdDqtx3);
+        $tr.append($tdDqtx2);
+        $tr.append($tdDqtx1);
+        $tr.append($tdFz);
+        $tr.append($tdCz);
+        tb.append($tr);
+    }
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "240px!important" });
+
+     
+    $("#tb_riskDetail").find("button").each(function () {
+        $(this).click(function () {
+            var lineNum = $(this).attr("id");
+            $("#_tr_" + lineNum).remove();
+        });
+    }); 
+    
+
+    var RISKID = GetQueryString("RISKID");
+    if (RISKID != "" && RISKID != "undefined") {
+        $("#RISKID").val(RISKID);
+        EWinsBase.json("api/Infection/RiskInfection/GetRiskInfectionSourceList", {
+            data: { "RISKID": RISKID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                 
+                //EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item1);  //感染风险评分数据集合
+                var tr_length = $("#tb_riskDetail tr[id*='_tr_']").length;
+                var dataItem = data.data.Item1;
+                for (var i = 0; i < dataItem.length; i++) {
+                    $("#_tr_" + i).find("#FLMC" + i).val(dataItem[i].FLMC);
+                    $("#_tr_" + i).find("#NR" + i).val(dataItem[i].NR);
+                    $("#_tr_" + i).find("#QZ" + i).val(dataItem[i].QZ);
+
+                    $("#_tr_" + i).find("[name= 'kn" + i + "']").each(function () {
+                        if ($(this).val() == dataItem[i].KNX)
+                        {
+                            $(this).attr("checked","checked");
+                        }
+                    });
+
+                    $("#_tr_" + i).find("[name= 'yzss" + i + "']").each(function () {
+                        if ($(this).val() == dataItem[i].HGSS) {
+                            $(this).attr("checked", "checked");
+                        }
+                    });
+
+                    $("#_tr_" + i).find("[name= 'dqtx" + i + "']").each(function () {
+                        if ($(this).val() == dataItem[i].DQTX) {
+                            $(this).attr("checked", "checked");
+                        }
+                    });
+
+                    $("#_tr_" + i).find("#fz" + i).val(dataItem[i].FZ);
+
+                }
+
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data.Item3);  //感染风险评分实体
+                //绑定科室
+                if (data.data.Item2 != null) {
+                    //绑定科室初始值
+                    data.data.Item2.forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#DpetID").val($(data.data.Item2).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table','laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#PROCTDATE', type: 'date'
+        });
+
+        var totalScore = 100;
+        $('input[type="radio"]').on("blur", function () {
+            var minuend = 0;
+            $('input[id*="BASIS"]').each(function () {
+                minuend += parseFloat(($(this).val() == "" ? 0 : $(this).val()));
+            });
+            var score = (parseFloat(totalScore) - parseFloat(minuend));
+            $("#SUMSCORE").val(score);
+            $("#WIRTESCORE").val(score);
+        });
+
+        $("#tb_riskDetail tr[id*='_tr_']").find("input[type=radio]").on("click", function () {
+            alert($(this).attr("id"))
+        });
+
+        form.on('radio(rdo)', function (data) {
+            var lineNum = $(data.elem).attr("id").replace(/[^0-9]/ig, "");  //获取的是单选框的ID，最后的数字对应行号。例如:kn0
+            var lineObj = $("#_tr_" + lineNum); 
+            var fs = 0;
+            lineObj.find("input[type=radio]:checked").each(function () {
+                fs += parseFloat($(this).val());
+            });
+            $("#fz" + lineNum).val(fs);
+          //  form.render();
+        });
+         
+
+
+        form.on('submit(sub)', function (data) {
+            var res = "[";
+            var tr_length = $("#tb_riskDetail tr[id*='_tr_']").length;
+            $("#tb_riskDetail tr[id*='_tr_']").each(function (j) {
+
+                var flmc = $(this).find("input[id*='FLMC']");
+                var flmcKey = flmc.attr("data-id"); var flmcVal = flmc.val();
+                var nr = $(this).find("textarea[id*='NR']");
+                var nrKey = nr.attr("data-id"); var nrVal = nr.val();
+                var qz = $(this).find("input[id*='QZ']");
+                var qzKey = qz.attr("data-id"); var qzVal = qz.val();
+                res += "{" + "\"" + flmcKey + "\"" + ":" + "\"" + flmcVal + "\"" + "," + "\"" + nrKey + "\"" + ":" + "\"" + nrVal + "\"" + "," + "\"" + qzKey + "\"" + ":" + "\"" + qzVal + "\"" + ","
+
+                var kn = $(this).find("input[id*='kn']:checked");
+                var knKey = kn.attr("data-id");
+                var knVal = "";
+                if (kn.length != 0) {
+                    knVal = kn.val();
+                } else {
+                    kn = $(this).find("input[id*='kn']"); knKey = kn.attr("data-id");
+                    knVal = "";
+                }
+                res += "\"" + knKey + "\"" + ":" + "\"" + knVal + "\"" + ",";
+
+                var RISK = "RISKID";
+                var RISKVAL = $("#RISKID").val();
+                res += "\"" + RISK + "\"" + ":" + "\"" + RISKVAL + "\"" + ",";
+
+                var yzss = $(this).find("input[id*='yzss']:checked");
+                var yzssKey = yzss.attr("data-id");
+                var yzssVal = "";
+                if (yzss.length != 0) {
+                    yzssVal = yzss.val();
+                } else {
+                    yzss = $(this).find("input[id*='yzss']"); yzssKey = yzss.attr("data-id");
+                    yzssVal = "";
+                }
+                res += "\"" + yzssKey + "\"" + ":" + "\"" + yzssVal + "\"" + ",";
+
+                var dqtx = $(this).find("input[id*='dqtx']:checked");
+                var dqtxKey = dqtx.attr("data-id");
+                var dqtxVal = "";
+                if (dqtx.length != 0) {
+                    dqtxVal = dqtx.val();
+                } else {
+                    dqtx = $(this).find("input[id*='dqtx']");
+                    dqtxKey = dqtx.attr("data-id");
+                    dqtxVal = "";
+                }
+                res += "\"" + dqtxKey + "\"" + ":" + "\"" + dqtxVal + "\"" + ",";
+
+                var fz = $(this).find("input[id*='fz']");
+                var fzKey = fz.attr("data-id"); var fzVal = fz.val();
+                res += "\"" + fzKey + "\"" + ":" + "\"" + fzVal + "\"" + "}";
+                if ((j + 1) != tr_length) {
+                    res += ",";
+                }
+            });
+            res += "]"
+            debugger
+            var riskInfection = new Object();  //感染风险表
+            riskInfection.RISKID = $("#RISKID").val();
+            riskInfection.DEPTID = getMultiSelectVal("DpetID");
+            riskInfection.DEPTNAME = getMultiSelectText("DpetID");
+            riskInfection.OPNAME = $("#OPNAME").val();
+            riskInfection.PROCTDATE = $("#PROCTDATE").val();
+            riskInfection.SUMSCORE = $("#SUMSCORE").val(); 
+
+            EWinsBase.json("api/Infection/RiskInfection/Save", {
+                data: {
+                    'riskModel': riskInfection,
+                    'riskSource': res
+                },
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+</script>
+
+

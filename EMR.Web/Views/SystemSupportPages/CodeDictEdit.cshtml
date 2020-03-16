@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "数据字典编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<form class="layui-form" action="" >
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">字典编码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DictCode" data-id="DictCode" lay-verify="required" lay-maxlength="20" placeholder="请输入代码字典编码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">中文名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DictName" data-id="DictName" onblur='$("#SpellCode").val(pinyin.getCamelChars(this.value).substr(0, 6))' lay-verify="required" lay-maxlength="30" placeholder="请输入字典中文名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">英文名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DictNameEN" data-id="DictNameEN"  lay-maxlength="50" placeholder="请输入字典英文名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">显示排序</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DisplaySort" id="DisplaySort" data-id="DisplaySort" lay-verify="number" placeholder="请输入显示排序序号" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">拼音码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="SpellCode" id="SpellCode" data-id="SpellCode" lay-maxlength="6" placeholder="请输入拼音码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">自定义码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="CustomCode" data-id="CustomCode" placeholder="请输入自定义码" lay-maxlength="6" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">对应编码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="TheCode" data-id="TheCode" placeholder="请输入对应编码" lay-maxlength="20" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">末级判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="ISLast" value="0" title="不是末级" checked="">不是末级
+                    <input type="radio" name="ISLast" value="1" title="末级">末级
+                </div>
+                <label class="layui-form-label">作废判别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsCance" value="0" title="正常" checked="">正常
+                    <input type="radio" name="IsCance" value="1" title="作废">作废
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="请输入备注" name="Note" data-id="Note" lay-maxlength="500" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont icon-saves" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+         </div>
+    </div>
+</form>
+<script src="~/Scripts/hanzitocode.js"></script>
+<script>
+    $('#OrganID').select2();
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganList();
+    var DICTID = GetQueryString("DictID");
+    if (DICTID != "") {
+        EWinsBase.json("api/SystemSupport/codedict/GetInfoById", {
+            data: { "DICTID": DICTID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("input:radio[name='IsCance'][value='" + data.data["IsCance"] + "']").attr("checked", 'checked');
+                $("input:radio[name='ISLast'][value='" + data.data["ISLast"] + "']").attr("checked", 'checked');
+                $("#OrganID").val(data.data["OrganID"]).trigger('change'); 
+            },
+            error: function (error) {
+                //window.location.reload();
+                //alert(22);
+            }
+        })
+    }
+    else
+    {
+        var PARENTID = GetQueryString("ParentID");
+        if (PARENTID != "" && PARENTID != "0")
+            $("input:radio[name='ISLast'][value=1]").attr("checked", 'checked');
+        $("#DisplaySort").val(EWinsBase.simplifySyncJsonGet("api/SystemSupport/codedict/GetLastDISPLAYSORT", { PARENTID: PARENTID }).data);
+    }
+    
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit;
+        form.on('submit(sub)', function (data) {
+            data.field["DictID"] = GetQueryString("DictID");
+            data.field["ParentID"] = GetQueryString("ParentID");
+            EWinsBase.json("api/SystemSupport/codedict/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();//刷新表格
+                            wind.refreshNode();//刷新树
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //alert(22);
+                }
+            })
+            // 获得frame索引
+            return false;
+        });
+    })
+</script>

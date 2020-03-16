@@ -1,0 +1,152 @@
+/*login*/
+.login_header .login-body {
+    width:100%;
+    height:100%;
+    background: url("../../content/images/login-back.jpg") no-repeat;
+    position:absolute;
+    top:0;
+    left:0;
+    
+    
+}
+   .login_header .login-body .login-center{
+    width: 50%;
+    height: 450px;
+    background:#fff;
+    border-radius:1%;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    padding:0;
+
+}
+
+@media screen and (min-width:1500px){
+    .login_header .login-body .login-center{
+         width: 70%;
+    }
+}
+@media screen and (min-width:1400px) and (max-width:1500px){
+    .login_header .login-body .login-center{
+         width: 74%;
+    }
+}
+@media screen and (min-width:1300px) and (max-width:1400px){
+    .login_header .login-body .login-center{
+          width: 76%;
+    }
+}
+
+@media screen and (min-width:1200px) and (max-width:1300px){
+    .login_header .login-body .login-center{
+          width: 78%;
+    }
+}
+@media screen and (min-width:1100px) and (max-width:1200px){
+    .login_header .login-body .login-center{
+          width: 82%;
+    }
+}
+@media screen and (min-width:1000px) and (max-width:1100px){
+    .login_header .login-body .login-center{
+          width: 86%;
+    }
+}
+@media screen and (min-width:900px) and (max-width:1000px){
+    .login_header .login-body .login-center{
+          width: 80%;
+    }
+}
+.allPic{
+    width:100%;
+    padding-top:58px;
+}
+.login-main{width:47%; } 
+.allPic .newLeft{
+    width:41%;
+    border-right: 2px solid #ccc;
+    padding-left:40px;
+}
+.allPic .newLeft .hostpital .login_icons{
+    width:50px;
+    height:50px;
+
+}
+.allPic .newLeft .hostpital .login_icons img{
+    width:100%;
+    height:100%;
+}
+.allPic .newLeft .hostpital .host_word {
+    height:50px;
+    line-height:50px;
+    margin-left:1%;
+    font-size:30px;
+    color:#3080CC;
+    font-weight:bold;
+}
+.allPic .newLeft  .center-img{
+    width: 73%;
+    height: 296px;
+}
+.allPic .newLeft  .center-img img{
+    height:100%;
+    width:100%;
+
+}
+
+.login_header .login-body .login-center .center-img img{
+   width:100%;
+   height:100%;
+}
+.login_header .login-main{
+    width:45%;
+}
+
+.login_header .login-main .username,.password, .in_btn{
+    width:70.2%;
+    height:44px;
+    margin-top:6.3%;
+    border:1px solid #ccc;
+    border-radius:3%;
+    position:relative;
+    
+}
+.login_header .login-main .in_btn{
+    background:#307FCC;
+}
+.login-main .username .login-icon,.password .login-icon{
+    width:5%;
+    height:23px; 
+    margin:2.5% 3%;
+    border-right:2px solid #ccc;
+    padding-right:10px;
+}
+.login-main .username .text,.password .past{
+    height: 41px;
+    width: 84%;
+    line-height:44px;
+    border:none;
+    position:absolute;
+    position: absolute;
+    left: 15%;
+    top: 0;
+}
+.login-main .username .login-icon img,.password img{
+    width:100%;
+    height:100%;
+}
+.layui-elip{
+    font-size:30px;
+    color:#307FCC;
+    font-weight:bold;
+
+}
+.textbtn .user{
+    position: absolute;
+    top: 28%;
+    left: 15%;
+    color:#666;
+}

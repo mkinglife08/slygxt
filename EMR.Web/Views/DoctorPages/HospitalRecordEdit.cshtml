@@ -1,0 +1,2417 @@
+﻿@{
+    ViewBag.Title = "HospitalRecordEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/HospitalRecord.css">
+}
+
+<div class="HospitalRecord" style="padding-bottom:11%">
+    <div class="layui-tab layui-tab-card" lay-filter="tabs" style="padding-bottom:10%;">
+        <ul class="layui-tab-title">
+            <li class="layui-this" lay-id="11">主诉、现病史</li>
+            <li lay-id="22">既往史、系统回顾</li>
+            <li lay-id="33">个人史、婚育史、家族史</li>
+            <li lay-id="44">体格检查</li>
+            <li lay-id="55">专科检查</li>
+            <li lay-id="66">辅助检查</li>
+            <li lay-id="77">诊断</li>
+        </ul>
+        <div class="layui-tab-content">
+            <!-- 现病史 -->
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form" action="" id="form1">
+                    <div class="medrecord">
+                        <div class="rigBtn">
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="cache" disabled="disabled"><i class="iconfont staging">&#xe689;</i>暂存</button>
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="sub" disabled="disabled"><i class="iconfont save">&#xe63b;</i>保存</button>
+                            <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                            <button class="layui-btn layui-btn-disabled cz del" disabled="disabled"><i class="iconfont delete">&#xe61b;</i>删除整份病历</button>
+                        </div>
+                    </div>
+                    <div class="record">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">记录医师</label>
+                            <div class="layui-input-block">
+                                <input id="UpdaterName" name="UpdaterName" data-id="UpdaterName" type="text" lay-verify="required" class="layui-input" disabled readonly>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">记录日期</label>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" id="RecordTime" name="RecordTime" data-id="RecordTime" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">病史陈述者</label>
+                            <div class="layui-input-block" style="width:60%;">
+                                <select name="Narrator" id="Narrator" data-id="Narrator" class="historicist">
+                                    <option value="本人">本人</option>
+                                    <option value="患者家属">患者家属</option>
+                                    <option value="本人及患者家属">本人及患者家属</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-block">
+                                <input type="text" class="historInput" id="NarratorSupplement" name="NarratorSupplement" data-id="NarratorSupplement" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="symptom clearfix">
+                        <div class="symList">
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="乏力" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="呕吐" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="腹胀" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="恶心" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="屎黄" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="symList">
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="纳差" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="眼黄" lay-skin="primary">
+                                </div>
+                                <p class="timer fl">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="泄柏油样便" lay-skin="primary">
+                                </div>
+                                <p class="timer fl" style="width:65%">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="fir clearfix">
+                                <div class="layui-form layuiForm fl">
+                                    <input type="checkbox" name="" title="咖啡色液体" lay-skin="primary">
+                                </div>
+                                <p class="timer fl" style="width:65%">
+                                    <span class="timerWord">时间</span>
+                                    <input type="text" class="timeInput">
+                                    <select name="" id="" class="timeSelet">
+                                        <option value="">年</option>
+                                        <option value="">月</option>
+                                        <option value="">天</option>
+                                        <option value="">小时</option>
+                                        <option value="">分钟</option>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="generate">
+                        <p class="sysText" id="generateChiefComplaint">生成主诉<span class="triangle"></span></p>
+                        <div class="layui-form-item">
+                            <span class="gen">主诉</span>
+                            <div class="layui-input-block">
+                                <input type="text" lay-verify="required" id="ChiefComplaint" name="ChiefComplaint" data-id="ChiefComplaint" class="layui-input" style="margin-top: -28px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="characterList clearfix">
+                        <div class="charLeft fl">
+                            <ul class="charWord">
+                                <li>现病史</li>
+                                <li><a class="layui-btn">检验报告</a></li>
+                                <li><a class="layui-btn">检查报告</a></li>
+                            </ul>
+                        </div>
+                        <div class="charRight fl">
+                            <textarea class="layui-textarea" id="PresentHistory" name="PresentHistory" data-id="PresentHistory" ></textarea>
+                            <script type="text/javascript">
+                                UE.getEditor('PresentHistory', {initialFrameWidth: "90%",initialFrameHeight: 200});
+                            </script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 既往史、系统回顾 -->
+            <div class="layui-tab-item">
+                <form class="layui-form" action="" id="form2">
+                    <div class="medrecord">
+                        <div class="rigBtn">
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="cache" disabled="disabled"><i class="iconfont staging">&#xe689;</i>暂存</button>
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="sub" disabled="disabled"><i class="iconfont save">&#xe63b;</i>保存</button>
+
+                            <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                        </div>
+                    </div>
+                    <div class="HistoReview">
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">患者过去体质</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="hzgqtz" value="良好" title="良好" checked="checked">良好
+                                    <input type="radio" name="hzgqtz" value="一般" title="一般">一般
+                                    <input type="radio" name="hzgqtz" value="较差" title="较差">较差
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">疾病史:</label>
+                            </div>
+                            <div class="pressure jbs">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">高血压</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="gxy" value="有" title="有">有
+                                        <input type="radio" name="gxy" value="无" title="无" checked="checked">无
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure jbs">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">糖尿病</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="tnb" value="有" title="有">有
+                                        <input type="radio" name="tnb" value="无" title="无" checked="checked">无
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure jbs">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">心脏病</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="xzb" value="有" title="有">有
+                                        <input type="radio" name="xzb" value="无" title="无" checked="checked">无
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure jbs">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">肾病史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="jbs" value="有" title="有">有
+                                        <input type="radio" name="jbs" value="无" title="无" checked="checked">无
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure jbs">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">其他</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="jbsqt" value="有" title="有">有
+                                        <input type="radio" name="jbsqt" value="无" title="无" checked="checked">无
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">传染病史:</label>
+                            </div>
+                            <div class="pressure crb">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">肺结核</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="fjh" value="有" title="有">有
+                                        <input type="radio" name="fjh" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="fjh" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure crb">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">病毒性肝炎</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="bdxgy" value="有" title="有">有
+                                        <input type="radio" name="bdxgy" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="bdxgy" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure crb">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">其他传染病</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="qtcrb" value="有" title="有">有
+                                        <input type="radio" name="qtcrb" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="qtcrb" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">预防接种史:</label>
+                            </div>
+                            <div class="vaccination">
+                                <div class="layui-form-item vaccLeft">
+                                    <label class="layui-form-label">疫苗接种史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="ymjz" value="按国家规定接种" title="按国家规定接种" checked="checked">按国家规定接种
+                                        <input type="radio" name="ymjz" value="不详" title="不详">不详
+                                        <input type="radio" name="ymjz" value="无" title="无">无
+                                        <input type="radio" name="ymjz" value="其他情况" title="其他情况">其他情况
+                                    </div>
+                                </div>
+                                <div class="layui-form-item vaccRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="source">
+                                <div class="layui-form-item souLef">
+                                    <label class="layui-form-label">过敏史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="gms" value="有" title="有">有
+                                        <input type="radio" name="gms" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="gms" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="souRig none">
+                                    <span>时间</span><input type="text" class="time" id="txtGMStime">
+                                    <span>过敏源名称</span><input type="text" class="allergic" id="txtGMSname">
+                                    <span>症状</span><input type="text" class="symp" id="txtGMSzz">
+                                    <a class="layui-btn" id="btnAddGMS">添加</a>
+                                </div>
+                            </div>
+                            <div class="source none" id="divGMlist">
+                                <div class="layui-form-item souLef" style="margin-left: 110px;">
+                                    <table class="layui-hide" id="tabGMS" lay-filter="test"></table>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">手术史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="sss" value="有" title="有">有
+                                        <input type="radio" name="sss" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="sss" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">外伤史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="wss" value="有" title="有">有
+                                        <input type="radio" name="wss" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="wss" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">输血史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="sxs" value="有" title="有">有
+                                        <input type="radio" name="sxs" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="sxs" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">中毒史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="zds" value="有" title="有">有
+                                        <input type="radio" name="zds" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="zds" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">长期用药</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="yys" value="有" title="有">有
+                                        <input type="radio" name="yys" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="yys" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pressure qy">
+                                <div class="layui-form-item itemLeft">
+                                    <label class="layui-form-label">可能成瘾药物</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="kyy" value="有" title="有">有
+                                        <input type="radio" name="kyy" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="kyy" value="不详" title="不详">不详
+                                    </div>
+                                </div>
+                                <div class="layui-form-item itemRig none">
+                                    <label class="layui-form-label">描述：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">其他:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="otherHistoReview" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pastHistory">
+                        <p class="sysText" id="generatePreviousHistory">生成既往史<span class="triangle"></span></p>
+                        <div class="judgment clearfix">
+                            <div class="judgLeft fl">
+                                <p class="charWord">既往史</p>
+                            </div>
+                            <div class="judgRg fl">
+                                <textarea class="layui-textarea" id="PreviousHistory" name="PreviousHistory" data-id="PreviousHistory"></textarea>
+                                <script type="text/javascript">
+                                    UE.getEditor('PreviousHistory', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diseaseSystem">
+                        <div class="layui-form">
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">头颅五官：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[sl]" lay-skin="primary" title="视力障碍">
+                                    <input type="checkbox" name="like1[el]" lay-skin="primary" title="耳聋">
+                                    <input type="checkbox" name="like1[em]" lay-skin="primary" title="耳鸣">
+                                    <input type="checkbox" name="like1[yy]" lay-skin="primary" title="眩晕">
+                                    <input type="checkbox" name="like1[bcx]" lay-skin="primary" title="鼻出血">
+                                    <input type="checkbox" name="like1[yt]" lay-skin="primary" title="压痛">
+                                    <input type="checkbox" name="like1[yycx]" lay-skin="primary" title="牙龈出血">
+                                    <input type="checkbox" name="like1[yht]" lay-skin="primary" title="咽喉痛">
+                                    <input type="checkbox" name="like1[yysy]" lay-skin="primary" title="声音嘶哑">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">呼吸系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[ks]" lay-skin="primary" title="咳嗽">
+                                    <input type="checkbox" name="like1[kt]" lay-skin="primary" title="咳痰">
+                                    <input type="checkbox" name="like1[kx]" lay-skin="primary" title="咳血">
+                                    <input type="checkbox" name="like1[xt]" lay-skin="primary" title="胸痛">
+                                    <input type="checkbox" name="like1[hxkn]" lay-skin="primary" title="呼吸困难">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">循环系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[xj]" lay-skin="primary" title="心悸">
+                                    <input type="checkbox" name="like1[qd]" lay-skin="primary" title="气短">
+                                    <input type="checkbox" name="like1[fg]" lay-skin="primary" title="发绀">
+                                    <input type="checkbox" name="like1[xqqt]" lay-skin="primary" title="心前区痛">
+                                    <input type="checkbox" name="like1[dzhx]" lay-skin="primary" title="端坐呼吸">
+                                    <input type="checkbox" name="like1[yj]" lay-skin="primary" title="晕厥">
+                                    <input type="checkbox" name="like1[xzsz]" lay-skin="primary" title="下肢水肿">
+                                    <input type="checkbox" name="like1[xyzg]" lay-skin="primary" title="血压增高">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">消化系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[syjt]" lay-skin="primary" title="食欲减退">
+                                    <input type="checkbox" name="like1[ex]" lay-skin="primary" title="恶心">
+                                    <input type="checkbox" name="like1[ot]" lay-skin="primary" title="呕吐">
+                                    <input type="checkbox" name="like1[ox]" lay-skin="primary" title="呕血">
+                                    <input type="checkbox" name="like1[tykn]" lay-skin="primary" title="吞咽困难">
+                                    <input type="checkbox" name="like1[ft]" lay-skin="primary" title="腹痛">
+                                    <input type="checkbox" name="like1[fz]" lay-skin="primary" title="腹胀">
+                                    <input type="checkbox" name="like1[fx]" lay-skin="primary" title="腹泻">
+                                    <input type="checkbox" name="like1[bx]" lay-skin="primary" title="便血">
+                                    <input type="checkbox" name="like1[bm]" lay-skin="primary" title="便秘">
+                                    <input type="checkbox" name="like1[hz]" lay-skin="primary" title="黄疸">
+                                    <input type="checkbox" name="like1[pfsy]" lay-skin="primary" title="皮肤瘙痒">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">泌尿生殖系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[nj]" lay-skin="primary" title="尿急">
+                                    <input type="checkbox" name="like1[np]" lay-skin="primary" title="尿频">
+                                    <input type="checkbox" name="like1[nt]" lay-skin="primary" title="尿痛">
+                                    <input type="checkbox" name="like1[nx]" lay-skin="primary" title="血尿">
+                                    <input type="checkbox" name="like1[nn]" lay-skin="primary" title="脓尿">
+                                    <input type="checkbox" name="like1[rnn]" lay-skin="primary" title="乳糜尿">
+                                    <input type="checkbox" name="like1[ynzd]" lay-skin="primary" title="夜尿增多">
+                                    <input type="checkbox" name="like1[ymhz]" lay-skin="primary" title="颜面红肿">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">造血系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[cb]" lay-skin="primary" title="苍白">
+                                    <input type="checkbox" name="like1[fl]" lay-skin="primary" title="乏力">
+                                    <input type="checkbox" name="like1[tyyh]" lay-skin="primary" title="头昏眼花">
+                                    <input type="checkbox" name="like1[pfcxd]" lay-skin="primary" title="皮肤出血点">
+                                    <input type="checkbox" name="like1[yb]" lay-skin="primary" title="瘀斑">
+                                    <input type="checkbox" name="like1[lbjzd]" lay-skin="primary" title="淋巴结肿大">
+                                    <input type="checkbox" name="like1[gpzd]" lay-skin="primary" title="肝脾肿大">
+                                    <input type="checkbox" name="like1[bux]" lay-skin="primary" title="鼻出血">
+                                    <input type="checkbox" name="like1[yycx]" lay-skin="primary" title="齿龈出血">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">内分泌系统及代谢：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[fyjx]" lay-skin="primary" title="发育畸形">
+                                    <input type="checkbox" name="like1[ax]" lay-skin="primary" title="矮小">
+                                    <input type="checkbox" name="like1[dexzbh]" lay-skin="primary" title="第二性征变化">
+                                    <input type="checkbox" name="like1[xggb]" lay-skin="primary" title="性格改变">
+                                    <input type="checkbox" name="like1[bj]" lay-skin="primary" title="闭经">
+                                    <input type="checkbox" name="like1[mr]" lay-skin="primary" title="泌乳">
+                                    <input type="checkbox" name="like1[fp]" lay-skin="primary" title="肥胖">
+                                    <input type="checkbox" name="like1[yyza]" lay-skin="primary" title="营养障碍">
+                                    <input type="checkbox" name="like1[dy]" lay-skin="primary" title="多饮">
+                                    <input type="checkbox" name="like1[ds]" lay-skin="primary" title="多食">
+                                    <input type="checkbox" name="like1[dn]" lay-skin="primary" title="多尿">
+                                    <input type="checkbox" name="like1[syqx]" lay-skin="primary" title="视野缺损">
+                                    <input type="checkbox" name="like1[pfsscz]" lay-skin="primary" title="皮肤色素沉着">
+                                    <input type="checkbox" name="like1[mffbyc]" lay-skin="primary" title="毛发分布异常">
+                                    <input type="checkbox" name="like1[jr]" lay-skin="primary" title="巨人">
+                                    <input type="checkbox" name="like1[xgggb]" lay-skin="primary" title="性功能改变">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">肌肉及骨关节系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[gjzaxx]" lay-skin="primary" title="关节红、肿、热、痛和活动障碍现象">
+                                    <input type="checkbox" name="like1[gjjx]" lay-skin="primary" title="关节畸形">
+                                    <input type="checkbox" name="like1[jzjx]" lay-skin="primary" title="脊柱畸形">
+                                    <input type="checkbox" name="like1[xdza]" lay-skin="primary" title="运动障碍">
+                                    <input type="checkbox" name="like1[zjws]" lay-skin="primary" title="肌肉萎缩">
+                                    <input type="checkbox" name="like1[szwl]" lay-skin="primary" title="四肢无力">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">神经系统：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[tt]" lay-skin="primary" title="头痛">
+                                    <input type="checkbox" name="like1[jyljt]" lay-skin="primary" title="记忆力减退">
+                                    <input type="checkbox" name="like1[yyza]" lay-skin="primary" title="语言障碍">
+                                    <input type="checkbox" name="like1[ydzagjyc]" lay-skin="primary" title="运动障碍感觉异常">
+                                    <input type="checkbox" name="like1[th]" lay-skin="primary" title="瘫痪">
+                                    <input type="checkbox" name="like1[cc]" lay-skin="primary" title="抽搐">
+                                    <input type="checkbox" name="like1[ja]" lay-skin="primary" title="惊厥">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" pane="">
+                                <label class="layui-form-label diseaseList">精神状态：</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like1[hj]" lay-skin="primary" title="幻觉">
+                                    <input type="checkbox" name="like1[wx]" lay-skin="primary" title="妄想">
+                                    <input type="checkbox" name="like1[dxlza]" lay-skin="primary" title="定向力障碍">
+                                    <input type="checkbox" name="like1[qxyc]" lay-skin="primary" title="情绪异常">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="systemReview">
+                        <p class="sysText" id="generateSystemReview">生成系统回顾<span class="triangle"></span></p>
+                        <div class="remind">提醒：5年以上住院医师可不书写</div>
+                        <div class="treatment clearfix">
+                            <div class="judgLeft fl">
+                                <p class="charWord">系统回顾</p>
+                            </div>
+                            <div class="treatRg fl">
+                                <textarea class="layui-textarea" id="SystemReview" name="SystemReview" data-id="SystemReview"></textarea>
+                                <script type="text/javascript">
+                                    UE.getEditor('SystemReview', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 家族史 婚史 -->
+            <div class="layui-tab-item ">
+                <form class="layui-form" action="" id="form3">
+                    <div class="medrecord">
+                        <div class="rigBtn">
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="cache" disabled="disabled"><i class="iconfont staging">&#xe689;</i>暂存</button>
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="sub" disabled="disabled"><i class="iconfont save">&#xe63b;</i>保存</button>
+
+                            <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                        </div>
+                    </div>
+                    <div class="personaHistory">
+                        <div class="layui-form">
+                            <div class="clearfix ltext">
+                                <div class="fl" style="width:33.3%">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">出生地</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="txtcsd" class="layui-input" data-id="BirthPlace">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fl" style="width:33.3%">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">职业</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="txtzy" class="layui-input" data-id="Job">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="fl" style="width:33.3%">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">学历</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="txtxl" class="layui-input" data-id="Education">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item ltext">
+                                <label class="layui-form-label">成长经历地</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="txtczjld" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="clearfix ltext">
+                                <div class="fl" style="width:50%">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">居住较长地</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="txtjzjcd" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fl" style="width:50%">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">时间</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="txtjzcj" class="layui-input timeInput">
+                                            <span class="units">年</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="habit">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">有无疫区居留史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="yqjls" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="yqjls" value="有" title="有">有
+                                    </div>
+                                </div>
+                                <div class="layui-form-item habitRig none">
+                                    <label class="layui-form-label">描述</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="txtyqjls">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="historPlay">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">冶游史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="lys" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="lys" value="有" title="有">有
+                                    </div>
+                                </div>
+                                <div class="layui-form-item habitRig none">
+                                    <label class="layui-form-label">描述</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="txtlys">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="drinkHabit">
+                                <div class="layui-form-item habitLefts">
+                                    <label class="layui-form-label">饮酒习惯</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="yjxg" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="yjxg" value="有" title="有">有
+                                    </div>
+                                </div>
+
+                                <div class="drinkRig none">
+                                    <span>酒类</span><input type="text" class="drinkInput" id="txtyjxgpl">
+                                    <span>每天</span><input type="text" class="drinkInput" id="txtyjxgjl">ml
+                                    <span>已饮</span><input type="text" class="drinkInput" id="txtyjxgsj">年
+                                    <div class="layui-form-item stopDrink">
+                                        <div class="layui-input-block">
+                                            <input type="radio" name="jj" value="已戒" title="已戒">已戒
+                                            <input type="radio" name="jj" value="未戒" title="未戒" checked="checked">未戒
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="smkHabit">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">吸烟习惯</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="xyxg" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="xyxg" value="有" title="有">有
+                                    </div>
+                                </div>
+                                <div class="smokRig none">
+                                    <span>种类</span><input type="text" class="drinkInput" id="txtxyxgpl">
+                                    <span>每天</span><input type="text" class="drinkInput" id="txtxyxgjl">支
+                                    <span>已吸</span><input type="text" class="drinkInput" id="txtxyxgsj">年
+                                    <div class="layui-form-item stopSmok">
+                                        <div class="layui-input-block">
+                                            <input type="radio" name="jy" value="已戒" title="已戒">已戒
+                                            <input type="radio" name="jy" value="未戒" title="未戒" checked="checked">未戒
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contactHistory">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">长期工业粉尘、毒物及放射性物质接触史</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="gfdfjcs" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="gfdfjcs" value="有" title="有">有
+                                    </div>
+                                </div>
+                                <div class="layui-form-item habitRig none">
+                                    <label class="layui-form-label">描述</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="txtgfdfjcs">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contactHistory">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">婚姻关系</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="hygx" value="和睦" title="和睦" checked="checked">和睦
+                                        <input type="radio" name="hygx" value="不和睦" title="不和睦">不和睦
+                                        <input type="radio" name="hygx" value="未婚" title="未婚">未婚
+                                    </div>
+                                </div>
+                                <div class="layui-form-item habitRig none">
+                                    <label class="layui-form-label">描述</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="txthygx">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="GenHistory">
+                        <p class="sysText" id="generatePersonalHistory">生成个人史<span class="triangle"></span></p>
+                        <div class="generate clearfix">
+                            <div class="judgLeft fl">
+                                <p class="charWord">个人史</p>
+                            </div>
+                            <div class="treatRg fl">
+                                <textarea class="layui-textarea" id="PersonalHistory" name="PersonalHistory" data-id="PersonalHistory"></textarea>
+                                <script type="text/javascript">
+                                    UE.getEditor('PersonalHistory', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="marrStatus">
+                        <div class="layui-form marrList">
+                            <span>婚姻状况</span><input type="text" class="drinkInput" readonly id="Marital" data-id="Marital" name="Marital">
+                            <span>结婚年龄</span><input type="text" class="drinkInput" id="jhnl">岁
+                            <div class="layui-form-item marry">
+                                <label class="layui-form-label">配偶体况</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="potk" value="体健" title="体健" checked="checked">体健
+                                    <input type="radio" name="potk" value="不健康" title="不健康">不健康
+                                    <input type="radio" name="potk" value="死亡" title="死亡">死亡
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">生育情况</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="boy" name="boy" value="" class="birth">子
+                                <input type="text" id="girl" name="girl" value="" class="birth">女
+                            </div>
+                        </div>
+                    </div>
+                    <div class="childbearing">
+                        <p class="sysText" id="generateObstericalHistory">生成婚育史<span class="triangle"></span></p>
+                        <div class="historyMarriage clearfix">
+                            <div class="judgLeft fl">
+                                <p class="charWord">生成婚育史</p>
+                            </div>
+                            <div class="treatRg fl">
+                                <textarea class="layui-textarea" id="ObstericalHistory" name="ObstericalHistory" data-id="ObstericalHistory"></textarea>
+                                <script type="text/javascript">
+                                    UE.getEditor('ObstericalHistory', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Members">
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label>家庭成员的其他疾病:</label>
+                            </div>
+                            <div class="memberList fmst">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">父亲:</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="fqst" value="体健" title="体健" checked="checked">体健
+                                        <input type="radio" name="fqst" value="其他疾病" title="其他疾病">其他疾病
+                                        <input type="radio" name="fqst" value="已故" title="已故">已故
+                                    </div>
+                                </div>
+                                <div class="layui-form-item memberRig none jbmc">
+                                    <label class="layui-form-label">疾病名称</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="fqjbmc">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item cause none sy">
+                                    <label class="layui-form-label">死因</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="fqsy">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="memberListMo fmst">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label">母亲:</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="mqst" value="体健" title="体健" checked="checked">体健
+                                        <input type="radio" name="mqst" value="其他疾病" title="其他疾病">其他疾病
+                                        <input type="radio" name="mqst" value="已故" title="已故">已故
+                                    </div>
+                                </div>
+                                <div class="layui-form-item memberRig none jbmc">
+                                    <label class="layui-form-label">疾病名称</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="mqjbmc">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item cause none sy">
+                                    <label class="layui-form-label">死因</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="mqsy">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item clearfix">
+                                <span class="sister fl">兄弟姐妹健康状况：</span>
+                                <input type="text" class="layui-input fl" style="width:30%" id="xdst" value="良好">
+                            </div>
+                            <div class="geneticHis">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label" style="width:140px;padding-left:0px;">家族中有无遗传病史：</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="jzycs" value="无" title="无" class="fl" checked="checked">无
+                                        <input type="radio" name="jzycs" value="有" title="有" class="fl">有
+                                    </div>
+                                </div>
+                                <div class="genetNon none">
+                                    <span>名称</span><input type="text" class="patientName" id="txtYCBName">
+                                    <span>与患者关系</span><input type="text" class="patientName" id="txtYCBGX">
+                                    <a class="layui-btn" id="btnAddYCB">添加</a>
+                                </div>
+                            </div>
+                            <div class="source none" id="divYCBlist">
+                                <div class="layui-form-item souLef" style="margin-left: 110px;">
+                                    <table class="layui-hide" id="tabYCB" lay-filter="test"></table>
+                                </div>
+                            </div>
+                            <div class="predisposition">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label" style="width:140px;padding-left:0px;">有无遗传倾向的疾病：</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="ycqx" value="无" title="无" class="fl" checked="checked">无
+                                        <input type="radio" name="ycqx" value="有" title="有" class="fl">有
+                                    </div>
+                                </div>
+                                <div class="layui-form patList none">
+                                    @*<div class="layui-form-item clearfix" pane="">*@
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="like1[gxy]" lay-skin="primary" title="高血压">
+                                        <input type="checkbox" name="like1[xyb]" lay-skin="primary" title="血液病">
+                                        <input type="checkbox" name="like1[xc]" lay-skin="primary" title="哮喘">
+                                        <input type="checkbox" name="like1[tf]" lay-skin="primary" title="痛风">
+                                        <input type="checkbox" name="like1[tnb]" lay-skin="primary" title="糖尿病">
+                                        <input type="checkbox" name="like1[dx]" lay-skin="primary" title="癫痫">
+                                        <input type="checkbox" name="like1[fp]" lay-skin="primary" title="肥胖">
+                                        <input type="checkbox" name="like1[xtfyyc]" lay-skin="primary" title="先天发育异常">
+                                        <input type="checkbox" name="like1[jsb]" lay-skin="primary" title="精神病">
+                                        <input type="checkbox" name="like1[jsb]" lay-skin="primary" title="其他">
+                                        <input type="text" id="qtycjb" style="display:none">
+                                    </div>
+                                    @*</div>*@
+                                </div>
+                            </div>
+                            <div class="contactHistory">
+                                <div class="layui-form-item habitLeft">
+                                    <label class="layui-form-label" style="width:140px;padding-left:0px;">有无类似疾病史：</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="lsjb" value="无" title="无" checked="checked">无
+                                        <input type="radio" name="lsjb" value="有" title="有">有
+                                    </div>
+                                </div>
+                                <div class="layui-form-item habitRig none">
+                                    <label class="layui-form-label">描述</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" id="txtlsjb">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">其他:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" class="layui-input" style="width:85%" id="txtjzsqt">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="familyHistory">
+                        <p class="sysText" id="generateFamilyHistory">生成家族史<span class="triangle"></span></p>
+                        <div class="generateFamily clearfix">
+                            <div class="judgLeft fl">
+                                <p class="charWord">家族史</p>
+                            </div>
+                            <div class="treatRg fl">
+                                <textarea class="layui-textarea" id="FamilyHistory" name="FamilyHistory" data-id="FamilyHistory"></textarea>
+                                <script type="text/javascript">
+                                    UE.getEditor('FamilyHistory', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 体格检查 -->
+            <div class="layui-tab-item ">
+                <form class="layui-form" action="" id="form4">
+                    <div class="medrecord">
+                        <div class="rigBtn">
+                            <a class="layui-btn cz" id="ImportVitalSigns"><i class="iconfont imports">&#xe605;</i>导入生命体征</a>
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="saveHPR" disabled="disabled"><i class="iconfont save">&#xe63b;</i>保存</button>
+
+                            <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                        </div>
+                    </div>
+                    <div class="physicalCheck">
+                        <div class="physicList">
+                            <div class="phyUp">
+                                <h2 class="word">一般情况:</h2>
+                                <div class="basc clearfix">
+                                    <div class="bascLine">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">意识</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Conscious" name="Conscious" data-id="Conscious" value="清晰">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">体位</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Position" name="Position" data-id="Position" value="自动">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">体温</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" id="Degree" name="Degree" data-id="Degree" value="36.5">
+                                                <span class="unit">℃</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">合作</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Cooperation" name="Cooperation" data-id="Cooperation" value="查体合作">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bascLine">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">脉搏</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" id="Pulse" name="Pulse" data-id="Pulse" value="78">
+                                                <span class="unit">次/分</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">病容</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="SicklyLook" name="SicklyLook" data-id="SicklyLook" value="安静">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">血压</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" style="width:49%;display: inline-block;" id="SystolicPressure" name="SystolicPressure" data-id="SystolicPressure" value="147">/
+                                                <input type="text" lay-verify="required" class="layui-input symptom" style="width:49%;display: inline-block;" id="DiastolicPressure" name="DiastolicPressure" data-id="DiastolicPressure" value="80">
+                                                <span class="unit">mm/Hg</span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="bascLine">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">呼吸</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" id="Breathe" name="Breathe" data-id="Breathe" value="19">
+                                                <span class="unit">次/分</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">体重</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" id="Weight" name="Weight" data-id="Weight" value="49">
+                                                <span class="unit">kg</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">身高</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input symptom" id="Height" name="Height" data-id="Height" value="170">
+                                                <span class="unit">cm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skin">
+                                <h2 class="word">皮肤，黏膜：</h2>
+                                <div class="clearfix">
+                                    <div class="skinList  fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">色泽</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Color" name="Color" data-id="Color" value="正常">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="skinList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">水肿</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Edema" name="Edema" data-id="Edema" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="skinList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">皮疹</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Rash" name="Rash" data-id="Rash" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="skinList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">出血</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Bleeding" name="Bleeding" data-id="Bleeding" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Superficial">
+                                <h2 class="word">浅表淋巴结:</h2>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">症状</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" class="layui-input" id="LymphNode" name="LymphNode" data-id="LymphNode" value="全身或局部浅表淋巴结无肿大">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="organs">
+                                <h2 class="word">头部及其器官:</h2>
+                                <div class="clearfix">
+                                    <div class="orginList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">外形</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="HeadShape" name="HeadShape" data-id="HeadShape" value="无畸形、肿块或压痛">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">结膜</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Conjunctiva" name="Conjunctiva" data-id="Conjunctiva" value="无充血">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">鼻通气</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="NasalVentilation" name="NasalVentilation" data-id="NasalVentilation" value="畅">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="orginList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">口腔黏膜</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="OralMucosa" name="OralMucosa" data-id="OralMucosa" value="无破溃">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">巩膜</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Sclera" name="Sclera" data-id="Sclera" value="无黄染">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">副鼻窦压痛</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="ParanasalSinusTenderness" name="ParanasalSinusTenderness" data-id="ParanasalSinusTenderness" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="orginList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">扁桃体</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Tonsil" name="Tonsil" data-id="Tonsil" value="无肿大">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">气管位置</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="TrachealPosition" name="TrachealPosition" data-id="TrachealPosition" value="居中">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">听力粗侧</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="ListeningRoughTest" name="ListeningRoughTest" data-id="ListeningRoughTest" value="正常">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="orginList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">瞳孔</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Pupil" name="Pupil" data-id="Pupil" value="等大等圆，Ф0.3cm">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">乳突压痛</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="MastoidTenderness" name="MastoidTenderness" data-id="MastoidTenderness" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="neck">
+                                <h2 class="word">颈部:</h2>
+                                <div class="clearfix">
+                                    <div class="neckList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">软硬度</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Softness" name="Softness" data-id="Softness" value="软">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="neckList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">气管位置</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="TrachealPosition" name="TrachealPosition" data-id="TrachealPosition" value="居中">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="neckList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">甲状腺</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Thyroid" name="Thyroid" data-id="Thyroid" value="无肿大">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="neckList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">颈静脉</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="JugularVein" name="JugularVein" data-id="JugularVein" value="无怒张">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="chest">
+                                <h2 class="word">胸部:</h2>
+                                <div class="clearfix">
+                                    <div class="chestList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">外形</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="ChestShape" name="ChestShape" data-id="ChestShape" value="对称无畸形">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chestList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">肋间隙</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="RibGap" name="RibGap" data-id="RibGap" value="无增减">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chestList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">乳房</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Breast" name="Breast" data-id="Breast" value="正常">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="lung">
+                                <h2 class="word">肺脏:</h2>
+                                <div class="clearfix">
+                                    <div class="lungList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">呼吸运动</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="BreathingMovement" name="BreathingMovement" data-id="BreathingMovement" value="不受限">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lungList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">叩诊音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="PercussionSound" name="PercussionSound" data-id="PercussionSound" value="清音">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lungList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">呼吸音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="BreathingSound" name="BreathingSound" data-id="BreathingSound" value="正常">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lungList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">啰音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Rales" name="Rales" data-id="Rales" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="heart">
+                                <h2 class="word">心脏:</h2>
+                                <div class="clearfix">
+                                    <div class="heartList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">心率</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="HeartRate" name="HeartRate" data-id="HeartRate" value="75">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="heartList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">心律</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="HeartRhythm" name="HeartRhythm" data-id="HeartRhythm" value="齐">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="heartList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">心音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="HeartSounds" name="HeartSounds" data-id="HeartSounds" value="正常">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="heartList">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">杂音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Noise" name="Noise" data-id="Noise" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="vessels">
+                                <h2 class="word">血管:</h2>
+                                <div class="clearfix">
+                                    <div class="vesList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">周围血管征</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="PeripheralVascularSign" name="PeripheralVascularSign" data-id="PeripheralVascularSign" value="阴性">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="abdomen">
+                                <h2 class="word">腹部:</h2>
+                                <div class="clearfix">
+                                    <div class="abdomenList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">外形</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="AbdominalShape" name="AbdominalShape" data-id="AbdominalShape" value="平坦">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">压痛</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Tenderness" name="Tenderness" data-id="Tenderness" value="无">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">肝脏</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Liver" name="Liver" data-id="Liver" value="肋下未及">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">胆囊</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Gallbladder" name="Gallbladder" data-id="Gallbladder" value="Gallbladder">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="abdomenList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">脾脏</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Spleen" name="Spleen" data-id="Spleen" value="肋下未及">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">肾区叩痛</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="KidneyAreaPercussionPain" name="KidneyAreaPercussionPain" data-id="KidneyAreaPercussionPain" value="无">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">蠕动波</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="PeristalticWave" name="PeristalticWave" data-id="PeristalticWave" value="无">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">反跳痛</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="ReboundTenderness" name="ReboundTenderness" data-id="ReboundTenderness" value="无">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="abdomenList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">肠鸣音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="BowelSounds" name="BowelSounds" data-id="BowelSounds" value="正常">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">腹壁紧张度</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="AbdominalWallTension" name="AbdominalWallTension" data-id="AbdominalWallTension" value="软">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">包块</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="AbdominalMass" name="AbdominalMass" data-id="AbdominalMass" value="无">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">移动性浊音</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="MobileDullness" name="MobileDullness" data-id="MobileDullness" value="阴性">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="genital">
+                                <h2 class="word">外生殖器:</h2>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">症状</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" class="layui-input" id="ExternalGenitalia" name="ExternalGenitalia" data-id="ExternalGenitalia" value="未检">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="genital">
+                                <h2 class="word">直肠、肛门:</h2>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">症状</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" class="layui-input" id="RectumAnus" name="RectumAnus" data-id="RectumAnus" value="未检">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="genital">
+                                <h2 class="word">四肢、脊柱:</h2>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">症状</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" class="layui-input" id="Spine" name="Spine" data-id="Spine" value="脊柱无畸形，四肢无形态异常">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nervous">
+                                <h2 class="word">神经系统:</h2>
+                                <div class="clearfix">
+                                    <div class="nervousList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">肌张力</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="MuscleTension" name="MuscleTension" data-id="MuscleTension" value="无增减">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">Babinski征</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="BabinshisSign" name="BabinshisSign" data-id="BabinshisSign" value="阴性">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nervousList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">四肢肌力</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="LimbMuscleStrength" name="LimbMuscleStrength" data-id="LimbMuscleStrength" value="5级">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">其他</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="Other" name="Other" data-id="Other" value="无">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nervousList fl">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">膝腱反射</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" lay-verify="required" class="layui-input" id="KneeTendonReflex" name="KneeTendonReflex" data-id="KneeTendonReflex" value="生理反射存在、病理反射未引出">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 专科检查 -->
+            <div class="layui-tab-item" lay-filter="exam">
+
+                    <div class="examListContent"></div>
+            </div>
+            <!-- 辅助检查-->
+            <div class="layui-tab-item">
+                <form class="layui-form" action="" id="form6">
+                    <div class="medrecord">
+                        <p class="word">辅助检查</p>
+                        <div class="rigBtn">
+                            <button class="layui-btn layui-btn-disabled cz" lay-submit="" lay-filter="sub" disabled="disabled"><i class="iconfont save">&#xe63b;</i>保存</button>
+
+                            <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                        </div>
+                    </div>
+                    <div class="laboratory clearfix">
+                        <div class="laboList fl">
+                            <ul class="charWord">
+                                <li>实验室检查</li>
+                                <li><a class="layui-btn">检查报告</a></li>
+                            </ul>
+                        </div>
+                        <div class="treatRg fl">
+                            <textarea class="layui-textarea" id="LaboratoryExamination" name="LaboratoryExamination" data-id="LaboratoryExamination"></textarea>
+                            <script type="text/javascript">
+                                UE.getEditor('LaboratoryExamination', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="specialInspect clearfix">
+                        <div class="laboList fl">
+                            <ul class="charWord">
+                                <li>特殊检查</li>
+                                <li><a class="layui-btn">检查报告</a></li>
+                            </ul>
+                        </div>
+                        <div class="treatRg fl">
+                            <textarea class="layui-textarea" id="SpecialExamination" name="SpecialExamination" data-id="SpecialExamination"></textarea>
+                            <script type="text/javascript">
+                                UE.getEditor('SpecialExamination', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="pathological clearfix">
+                        <div class="laboList fl">
+                            <ul class="charWord">
+                                <li>病理检查</li>
+                                <li><a class="layui-btn">检查报告</a></li>
+                            </ul>
+                        </div>
+                        <div class="treatRg fl">
+                            <textarea class="layui-textarea" id="PathologicalExamination" name="PathologicalExamination" data-id="PathologicalExamination"></textarea>
+                            <script type="text/javascript">
+                                UE.getEditor('PathologicalExamination', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="others clearfix">
+                        <div class="laboList fl">
+                            <p class="charWord">其他检查</p>
+                        </div>
+                        <div class="treatRg fl">
+                            <textarea class="layui-textarea" id="OtherContent" name="OtherContent" data-id="OtherContent"></textarea>
+                            <script type="text/javascript">
+                                UE.getEditor('OtherContent', { initialFrameWidth: "90%", initialFrameHeight: 200 });
+                            </script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 诊断-->
+            <div class="layui-tab-item">
+                <div class="medrecord">
+                    <p class="word">诊断</p>
+                    <div class="rigBtn">
+                        @*<a class="layui-btn"><i class="iconfont save">&#xe63b;</i>保存</a>*@
+
+                        <a class="layui-btn print"><i class="iconfont">&#xe61b;</i>查看/打印</a>
+                        <input type="hidden" id="hdnCurRowId" value="" />
+                    </div>
+                </div>
+                <div class="primaryDiag">
+                    <p class="text">初步诊断 <a class="layui-btn" onclick="AddNewDiagnosis(0,'primaryDiag')">添加补充诊断</a></p> 
+                    <table class="layui-hide" id="primaryDiag" lay-filter="Diag"></table>
+                </div>
+                <div class="correctDiag">
+                    <p class="text">修正诊断 <a class="layui-btn" onclick="AddNewDiagnosis(1,'correctDiag')">添加补充诊断</a></p>
+                    <table class="layui-hide" id="correctDiag" lay-filter="Diag"></table>
+                </div>
+                <div class="supplementDiag">
+                    <p class="text">补充诊断 <a class="layui-btn" onclick="AddNewDiagnosis(2,'supplementDiag')">添加补充诊断</a></p>
+                    <table class="layui-hide" id="supplementDiag" lay-filter="Diag"></table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+
+    //病人id
+    var InpatientId = NewGetQueryString("InpatientId");
+    var MedicalRecordState = "0";//是否归档，默认0 归档
+    if (InpatientId != "") {
+        //根据病人id获取病历信息
+        EWinsBase.json("api/Doctor/HospitalRecord/GetInfoByInpatientId", {
+            data: { "InpatientId": InpatientId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    //如果存在该病人的入院记录
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+
+                    //绑定富文本框的内容需要反转义
+                    $("#PresentHistory").val(HTMLDecode(data.data["PresentHistory"]));//反转义现病史
+                    $("#PreviousHistory").val(HTMLDecode(data.data["PreviousHistory"]));//反转义既往史
+                    $("#SystemReview").val(HTMLDecode(data.data["SystemReview"]));//反转义系统回顾
+                    $("#PersonalHistory").val(HTMLDecode(data.data["PersonalHistory"]));//反转义个人史
+
+                    $("#LaboratoryExamination").val(HTMLDecode(data.data["LaboratoryExamination"]));//反转义实验室检查
+                    $("#SpecialExamination").val(HTMLDecode(data.data["SpecialExamination"]));//反转义特殊检查
+                    $("#PathologicalExamination").val(HTMLDecode(data.data["PathologicalExamination"]));//反转义病理检查
+                    $("#OtherContent").val(HTMLDecode(data.data["OtherContent"]));//反转义其他检查
+
+                } else {
+                    //如果不存在该病人的入院记录
+                    $("#UpdaterName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));//登陆账号为记录医师
+                    $("#RecordTime").val(currentTime());//提交日期
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+        //获取病人实体
+        EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+            data: { "InpatientId": NewGetQueryString("InpatientId") },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                MedicalRecordState = data.data["MedicalRecordState"];
+                //判断是否归档，未归档，启用按钮
+                if (MedicalRecordState != "1") {
+                    $("button.cz").removeAttr("disabled");
+                    $("button.cz").removeClass("layui-btn-disabled");                    
+                }
+            }
+        });
+        //根据病人id获取体格检查
+        EWinsBase.json("api/Doctor/HospitalPhysicalRxam/GetInfoByInpatientId", {
+            data: { "InpatientId": InpatientId },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    //如果存在该病人的入院记录
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+    }
+    //导入生命体征
+    $(document).on("click", "#ImportVitalSigns", function () {
+        //根据病人id获取体格检查
+        EWinsBase.json("Scripts/VitalSigns.json", {
+            data: {  },
+            type: "GET",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data != null) {
+                    //如果存在该病人的入院记录
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+    });
+    //病史陈述者
+    $(document).on("change", "#Narrator", function () {
+        $("#NarratorSupplement").css("display", ($(this).val() == "其他" ? "inline" : "none"));
+    });
+    //添加新的诊断
+    function AddNewDiagnosis(DiagnosisType, tableId) {
+        ShowWin('新增诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + "&DiagnosisType=" + DiagnosisType + "&tableId=" + tableId, 853, 590)
+    }
+    //重载table
+    function refreshTable() {
+        layui.table.reload("primaryDiag");
+        layui.table.reload("correctDiag");
+        layui.table.reload("primaryDiag");
+    }
+    layui.use(['table', 'layedit', 'laydate', 'element', 'form'], function () {
+        var table = layui.table,
+            layedit = layui.layedit,
+            $ = layui.jquery,
+            laydate = layui.laydate,
+            element = layui.element, //Tab的切换功能，切换事件监听等，需要依赖element模块
+            form = layui.form;
+        form.render();
+        laydate.render({
+            elem: '#RecordTime'
+            , type: 'datetime'
+            , format: 'yyyy-MM-dd HH:mm:ss'
+            , value: new Date()
+        });
+        //给下拉框配置select2
+        $("select").select2();
+        $("select").siblings(".select2").css("cssText", "width:40%!important");
+        //过敏
+        table.render({
+            elem: '#tabGMS'
+            , page: false //开启分页
+            , cols: [[ //表头
+                { field: 'time', title: '时间', align: 'center' }
+                , { field: 'name', title: '过敏源名称', align: 'center' }
+                , { field: 'zz', title: '症状', align: 'center' }
+                , { field: 'experience', title: '操作', align: 'center' }
+            ]]
+        });
+        //添加过敏
+        $(".HistoReview").on("click", "#btnAddGMS", function () {
+            var gmstime = $("#txtGMStime").val();
+            var gmsname = $("#txtGMSname").val();
+            var gmszz = $("#txtGMSzz").val();
+            if (gmszz == "") {
+                layer.msg("症状不能为空", { time: 2000 });
+            } else {
+                $("#divGMlist").show();
+                //点击添加按钮时，新添一行
+                var oldData = [];
+                if (table.cache["tabGMS"] != undefined) { oldData = table.cache["tabGMS"] }
+                var data1 = { "time": gmstime, "name": gmsname, "zz": gmszz, "experience": "<span class=\"delGMS\">删除</span>" };
+                oldData.push(data1);
+                table.reload('tabGMS', { data: oldData });
+            }
+        });
+        //移除过敏
+        $(".HistoReview #divGMlist").on("click", ".delGMS", function () {
+            var data_index = $(this).parents("tr").eq(0).attr('data-index');
+            var oldData = table.cache["tabGMS"];
+            oldData.splice(data_index, 1);
+            table.reload('tabGMS', { data: oldData });
+        });
+        //遗传病
+        table.render({
+            elem: '#tabYCB'
+            , page: false //开启分页
+            , cols: [[ //表头
+                { field: 'mc', title: '遗传病名称', align: 'center' }
+                , { field: 'gx', title: '与患者关系', align: 'center' }
+                , { field: 'experience', title: '操作', align: 'center' }
+            ]]
+        });
+        //添加遗传病
+        $(".Members").on("click", "#btnAddYCB", function () {
+            var ycbname = $("#txtYCBName").val();
+            var ycbgx = $("#txtYCBGX").val();
+            $("#divYCBlist").show();
+            //点击添加按钮时，新添一行
+            var oldData = [];
+            if (table.cache["tabYCB"] != undefined) { oldData = table.cache["tabYCB"] }
+            var data1 = { "mc": ycbname, "gx": ycbgx, "experience": "<span class=\"delYCB\">删除</span>" };
+            oldData.push(data1);
+            table.reload('tabYCB', { data: oldData });
+        });
+        //移除遗传病
+        $(".Members #divYCBlist").on("click", ".delYCB", function () {
+            var data_index = $(this).parents("tr").eq(0).attr('data-index');
+            var oldData = table.cache["tabYCB"];
+            oldData.splice(data_index, 1);
+            table.reload('tabYCB', { data: oldData });
+        });
+
+
+        //***********诊断开始
+        //初步诊断 0
+        table.render({
+            elem: '#primaryDiag'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=0"
+            , page: false //开启分页
+            , cols: [[ //表头
+                { type: 'checkbox' }
+                , { field: 'DiagnosisId', title: '序号', align: 'center', width: 75 }
+                , { field: 'MainDiagnosis', title: '主诊断', align: 'center', width: 75, templet:"#MainDiagnosis"}
+                , { field: 'InpatientName', title: '用户名', align: 'center' }
+                , { field: 'DiagnosisName', title: '诊断名称', align: 'center' }
+                , { field: 'DiagnosisNameSupplement', title: '诊断名称补充', align: 'center' }
+                , { field: 'DiagnosisTime', title: '诊断时间', align: 'center', templet: "#DiagnosisTime" }
+                , { field: 'DiagnosisFlagName', title: '确诊标志', align: 'center', width: 90 }
+                , { field: 'RecordUserName', title: '书写医生', align: 'center' }
+                , { field: 'Operation', title: '操作', align: 'center', width: 300, templet: "#DiagnosisOperation"}
+            ]]
+        });
+        //修正诊断 1
+        table.render({
+            elem: '#correctDiag'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=1"
+            , page: false //开启分页
+            , cols: [[ //表头
+                { type: 'checkbox' }
+                , { field: 'DiagnosisId', title: '序号', align: 'center', width: 75 }
+                , { field: 'MainDiagnosis', title: '主诊断', align: 'center', width: 75, templet: "#MainDiagnosis" }
+                , { field: 'InpatientName', title: '用户名', align: 'center' }
+                , { field: 'DiagnosisName', title: '诊断名称', align: 'center' }
+                , { field: 'DiagnosisNameSupplement', title: '诊断名称补充', align: 'center' }
+                , { field: 'DiagnosisTime', title: '诊断时间', align: 'center', templet: "#DiagnosisTime" }
+                , { field: 'DiagnosisFlagName', title: '确诊标志', align: 'center', width: 90 }
+                , { field: 'RecordUserName', title: '书写医生', align: 'center' }
+                , { field: 'Operation', title: '操作', align: 'center', width: 300, templet:"#DiagnosisOperation"}
+            ]]
+        });
+        //补充诊断 2
+        table.render({
+            elem: '#supplementDiag'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=2"
+            , page: false //开启分页
+            , cols: [[ //表头
+                { type: 'checkbox' }
+                , { field: 'DiagnosisId', title: '序号', align: 'center', width: 75 }
+                , { field: 'MainDiagnosis', title: '主诊断', align: 'center', width: 75, templet: "#MainDiagnosis" }
+                , { field: 'InpatientName', title: '用户名', align: 'center' }
+                , { field: 'DiagnosisName', title: '诊断名称', align: 'center' }
+                , { field: 'DiagnosisNameSupplement', title: '诊断名称补充', align: 'center' }
+                , { field: 'DiagnosisTime', title: '诊断时间', align: 'center', templet: "#DiagnosisTime" }
+                , { field: 'DiagnosisFlagName', title: '确诊标志', align: 'center', width: 90 }
+                , { field: 'RecordUserName', title: '书写医生', align: 'center' }
+                , { field: 'Operation', title: '操作', align: 'center', width: 300, templet: "#DiagnosisOperation"}
+            ]]
+        });
+
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('rowDouble(Diag)', function (obj) {
+            var data = obj.data;
+            var tableId = layui.$(obj.tr).parents('.layui-table-view').attr('lay-id');//获得table的id
+            ShowWin('修改诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + data.InpatientId + '&DiagnosisId=' + data.DiagnosisId + "&DiagnosisType=" + data.DiagnosisType + "&tableId=" + tableId, 853, 590)
+        });
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(Diag)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.DiagnosisId);
+            layui.$(obj.tr).parents(".layui-tab-item").find("tr").removeClass('layui-table-click');
+            //标注选中样式
+            obj.tr.addClass('layui-table-click');
+        });
+        //监听操作按钮
+        table.on('tool(Diag)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            var tableId = layui.$(obj.tr).parents('.layui-table-view').attr('lay-id');//获得table的id
+            switch (layEvent) {
+                case "edit":
+                    ShowWin('修改诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + data.InpatientId + '&DiagnosisId=' + data.DiagnosisId + "&DiagnosisType=" + data.DiagnosisType + "&tableId=" + tableId, 853, 590);
+                    break;
+                case "del":
+                    layer.confirm('是否确认要删除该条信息？', function (index) {
+                        EWinsBase.ajax({
+                            url: "api/Doctor/PatientDiagnosis/Delete",
+                            type: "POST",
+                            data: { "DiagnosisId": data.DiagnosisId},
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    layer.msg("删除成功", { icon: 6 });
+                                    layui.table.reload(tableId);//重载表格
+                                } else {
+                                    layer.msg("删除失败", { icon: 5 });
+                                }
+                            }
+                        });
+                    });
+                    break;
+                case "up":
+                    EWinsBase.ajax({
+                        url: "api/Doctor/PatientDiagnosis/Order",
+                        type: "POST",
+                        data: { "DiagnosisId": data.DiagnosisId ,"orderType":"up"},
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                layui.table.reload(tableId);//重载表格
+                            } else {
+                                layer.msg("排序失败", { icon: 5 });
+                            }
+                        }
+                    });
+                    break;
+                case "down":
+                    EWinsBase.ajax({
+                        url: "api/Doctor/PatientDiagnosis/Order",
+                        type: "POST",
+                        data: { "DiagnosisId": data.DiagnosisId, "orderType": "down" },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                layui.table.reload(tableId);//重载表格
+                            } else {
+                                layer.msg("排序失败", { icon: 5 });
+                            }
+                        }
+                    });
+                    break;
+            }
+        });
+        //**********诊断结束
+
+        //编辑器外部操作
+        var active = {
+            content: function () {
+            }
+            , text: function () {
+            }
+            , selection: function () {
+            }
+        };
+        $('.site-demo-layedit').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+        //主诉，单击生成主诉按钮
+        $(document).on("click", "#generateChiefComplaint", function () {
+            var longcc = "";//填时间的长主诉
+            var shortcc = "";//没有填时间的短主诉
+            //遍历主诉选项
+            $(".symptom .layui-form input:checked").each(function (i) {
+                var ccName = $(this).attr("title");//主诉标题
+                var ccTimer = $(this).parent().next("p").find(".timeInput").val();//主诉时间
+                var ccTimerUnit = $(this).parent().next("p").find(".timeSelet").find("option:selected").text();//主诉时间单位
+                if (ccTimer == "") { shortcc += ccName + "、"; }//时间为空为短主诉
+                else { longcc += ccName + ccTimer + ccTimerUnit + ","; }//时间不为空为长主诉
+            });
+            if (shortcc == "" && longcc != "") { longcc = longcc.substr(0, longcc.length - 1); }//去字符串逗号
+            if (shortcc !== "") { shortcc = shortcc.substr(0, shortcc.length - 1); }//去字符串顿号
+            $("#ChiefComplaint").val(longcc + shortcc);//先展示长主诉，再展示短主诉
+        });
+        //既往史显示描述
+        $(".HistoReview,.personaHistory,.Members").on("click", ".layui-form-radio", function () {
+            var text = $(this).find("div").html();
+            if (text == "有" || text == "其他情况" || text == "不和睦") {
+                $(this).parent().parent().siblings(".itemRig,.vaccRig,.souRig,.habitRig,.smokRig,.drinkRig,.genetNon,.patList").show();
+            }
+        });
+        //既往史，单击生成既往史内容
+        $(document).on("click", "#generatePreviousHistory", function () {
+            var jws = "";
+            //1.患者过去体质
+            jws += "患者过去体质" + $('.HistoReview input:radio[name="hzgqtz"]:checked').val() + "。<br/>";
+            //2.病史
+            var jbs = "";
+            $(".HistoReview .jbs input:radio:checked").each(function (i) {
+                var zt = $(this).val();
+                if (zt == "有") {
+                    var title = $(this).parent().prev("label").html();
+                    var text = $(this).parent().parent().next("div").find("input").val();
+                    text = text == "" ? "" : "为" + text;
+                    jbs += "<b>" + zt + title + "病史" + text + "</b>，";
+                }
+            });
+            jws += jbs == "" ? "" : "疾病史情况：" + jbs.substr(0, jbs.length - 1) + "。<br/>";
+            //3.传染病史
+            var crby = "";
+            var crbw = "";
+            $(".HistoReview .crb input:radio:checked").each(function (i) {
+                var zt = $(this).val();
+                var title = $(this).parent().prev("label").html();
+                var text = $(this).parent().parent().next("div").find("input").val();
+                text = text == "" ? "" : "为" + text;
+                if (zt == "有") {
+                    crby += "<b>" + zt + title + "病史" + text + "</b>，";
+                } else if (zt == "无") {
+                    crbw += zt + title + "病史,";
+                }
+            });
+            crb = crby + crbw;
+            jws += crb == "" ? "" : "传染病病史情况：" + crb.substr(0, crb.length - 1) + "。<br/>";
+            //4.疫苗接种史
+            var ymjz = $('.HistoReview input:radio[name="ymjz"]:checked').val();
+            var ymjztext = $('.HistoReview input:radio[name="ymjz"]').parent().parent().next("div").find("input").val();
+            switch (ymjz) {
+                case "按国家规定接种": jws += "按国家规定接种疫苗。<br/>"; break;
+                case "不详": jws += "疫苗接种史不详。<br/>"; break;
+                case "无": jws += "无疫苗接种史。<br/>"; break;
+                case "其他情况": jws += "有其他疫苗接情况" + (ymjztext == "" ? "" : "为" + ymjztext) + "。<br/>"; break;
+            }
+            //5.其他既往史
+            var qty = "";
+            var qtw = "";
+            $(".HistoReview .qy input:radio:checked").each(function (i) {
+                var zt = $(this).val();
+                var title = $(this).parent().prev("label").html();
+                var text = $(this).parent().parent().next("div").find("input").val();
+                text = text == "" ? "" : "为" + text;
+                if (zt == "有") {
+                    qty += "<b>" + zt + title + text + "</b>、";
+                } else if (zt == "无") {
+                    qtw += zt + title + "、";
+                }
+            });
+            if (qty !== "") { qty = qty.substr(0, qty.length - 1); jws += qty + "。" }//去字符串顿号
+            if (qtw !== "") { qtw = qtw.substr(0, qtw.length - 1); jws += qtw + "。<br/>" }//去字符串顿号
+            //6.其他情况
+            var other = $("#otherHistoReview").val();
+            if (other != "") { jws += "其他既往史情况：" + other + "<br/>"; }
+            //7.过敏
+            var GMSData = table.cache["tabGMS"];
+            var gms = "";
+            if (GMSData != undefined) {
+                jQuery.each(GMSData, function (i, n) {
+                    gms += n.time + "有" + n.name + "过敏史症状为" + n.zz + ",";
+                });
+                if (gms !== "") { gms = gms.substr(0, gms.length - 1); jws += gms + "。<br/>" }//去字符串逗号
+            }
+            UE.getEditor('PreviousHistory').setContent(jws);
+        });
+        //系统回顾生成内容
+        $(document).on("click", "#generateSystemReview", function () {
+            var hg = "";
+            $(".diseaseSystem label.diseaseList").each(function () {
+                var text = "<b>" + $(this).html() + "</b>";
+                $(this).parent().find("input:checkbox").each(function () {
+                    if ($(this).prop("checked")) {
+                        text += "<b>有" + $(this).attr("title") + "</b>,";
+                    } else {
+                        text += "无" + $(this).attr("title") + "，";
+                    }
+                });
+                hg += text.substr(0, text.length - 1) + "。<br>";
+            });
+            UE.getEditor('SystemReview').setContent(hg);
+        });
+        //个人史
+        $(document).on("click", "#generatePersonalHistory", function () {
+            var text = "";
+            text += $("#txtcsd").val() == "" ? "" : "出生于" + $("#txtcsd").val() + ",";
+            text += $("#txtzy").val() == "" ? "" : "职业为" + $("#txtzy").val() + ",";
+            text += $("#txtxl").val() == "" ? "" : $("#txtxl").val() + "学历,";
+            text += $("#txtczjld").val() == "" ? "" : "成长于" + $("#txtczjld").val() + ",";
+            text += $("#txtjzjcd").val() == "" ? "" : "长期居住于" + $("#txtjzjcd").val() + ($("#txtjzcj").val() == "" ? "" : $("#txtjzcj").val() + "年时间。");
+            text += "<br/>";
+            if ($('.personaHistory input:radio[name="yqjls"]:checked').val() == "有") {
+                text += "有疫区居留史" + ($("#txtyqjls").val() == "" ? "" : ",情况：" + $("#txtyqjls").val()) + ";<br/>";
+            } else {
+                text += "无疫区居留史;<br/>"
+            }
+            if ($('.personaHistory input:radio[name="lys"]:checked').val() == "有") {
+                text += "有冶游史" + ($("#txtlys").val() == "" ? "" : ",情况：" + $("#txtlys").val()) + ";<br/>";
+            } else {
+                text += "无冶游史;<br/>"
+            }
+            if ($('.personaHistory input:radio[name="yjxg"]:checked').val() == "有") {
+                text += "有饮酒习惯" + ($("#txtyjxgpl").val() == "" ? "" : ",饮" + $("#txtyjxgpl").val()) + ($("#txtyjxgjl").val() == "" ? "" : ",每天饮" + $("#txtyjxgjl").val() + "ml") + ($("#txtyjxgsj").val() == "" ? "" : ",已饮" + $("#txtyjxgsj").val() + "年") + "," + $('.personaHistory input:radio[name="jj"]:checked').val() + "<br/>";
+
+            } else {
+                text += "无饮酒习惯;<br/>"
+            }
+            if ($('.personaHistory input:radio[name="xyxg"]:checked').val() == "有") {
+                text += "有吸烟习惯" + ($("#txtxyxgpl").val() == "" ? "" : ",吸" + $("#txtxyxgpl").val()) + ($("#txtxyxgjl").val() == "" ? "" : ",每天吸" + $("#txtxyxgjl").val() + "支") + ($("#txtxyxgsj").val() == "" ? "" : ",已吸" + $("#txtxyxgsj").val() + "年") + "," + $('.personaHistory input:radio[name="jy"]:checked').val() + "<br/>";
+
+            } else {
+                text += "无吸烟习惯;<br/>"
+            }
+            if ($('.personaHistory input:radio[name="gfdfjcs"]:checked').val() == "有") {
+                text += "有长期工业粉尘、毒物及放射性物质接触史" + ($("#txtgfdfjcs").val() == "" ? "" : ",情况：" + $("#txtgfdfjcs").val()) + ";<br/>";
+            } else {
+                text += "无长期工业粉尘、毒物及放射性物质接触史;<br/>"
+            }
+            if ($('.personaHistory input:radio[name="hygx"]:checked').val() == "不和睦") {
+                text += "婚姻关系不和睦" + ($("#txthygx").val() == "" ? "" : ",情况：" + $("#txthygx").val()) + ";<br/>";
+            } else {
+                text += "婚姻关系" + $('.personaHistory input:radio[name="hygx"]:checked').val() + ";<br/>"
+            }
+            UE.getEditor('PersonalHistory').setContent(text);
+        });
+        //婚育史
+        $(document).on("click", "#generateObstericalHistory", function () {
+            var text = $("#Marital").val();
+            if ($("#jhnl").val() != "") { text +=","+ $("#jhnl").val() + "岁结婚。" }
+            var potk = $('.marrStatus input:radio[name="potk"]:checked').val();
+            switch (potk) {
+                case "体健": text += ",配偶身体健康。"; break;
+                case "不健康": text += ",配偶身体不健康。"; break;
+                case "死亡": text += ",配偶已死亡。"; break;
+            }
+            if ($("#boy").val() != "" || $("#girl").val() != "") {
+                text += "育有" + ($("#boy").val() != "" ? $("#boy").val() + "子" : "") + ($("#girl").val() != "" ? $("#girl").val() + "女" : "")
+
+            }
+            UE.getEditor('ObstericalHistory').setContent(text);
+        });
+        //父母身体状况
+        $('.Members').on("click", '.fmst .layui-anim', function () {
+            var text = $(this).siblings("div").html();
+            switch (text) {
+                case "体健": $(this).parents(".fmst").find(".jbmc,.sy").hide(); break;
+                case "其他疾病": $(this).parents(".fmst").find(".jbmc").show(); $(this).parents(".fmst").find(".sy").hide(); break;
+                case "已故": $(this).parents(".fmst").find(".jbmc").hide(); $(this).parents(".fmst").find(".sy").show(); break;
+            }
+        });
+        //有无遗传倾向的疾病 其他
+        $('.patList').on("click", '.layui-form-checkbox', function () {
+            var text = $(this).find("span").html();
+            if (text == "其他") { $("#qtycjb").show(); }
+        });
+        //家族史
+        $(document).on("click", "#generateFamilyHistory", function () {
+            var text = "";
+            var fqst = $('input:radio[name="fqst"]:checked').val();
+            switch (fqst) {
+                case "体健": text += "父亲身体健康。"; break;
+                case "其他疾病": text += "父亲患有" + ($("#fqjbmc").val() == "" ? "疾病" : $("#fqjbmc").val()) + "。"; break;
+                case "已故": text += "父亲" + ($("#fqsy").val() == "" ? "已故" : "因" + $("#fqsy").val()) + "已去世。"; break;
+            }
+            var mqst = $('input:radio[name="mqst"]:checked').val();
+            switch (mqst) {
+                case "体健": text += "母亲身体健康。"; break;
+                case "其他疾病": text += "母亲患有" + ($("#mqjbmc").val() == "" ? "疾病" : $("#mqjbmc").val()) + "。"; break;
+                case "已故": text += "母亲" + ($("#mqsy").val() == "" ? "已故" : "因" + $("#mqsy").val()) + "已去世。"; break;
+            }
+            text += $("#xdst").val() == "" ? "" : "兄弟姐妹身体健康状态" + $("#xdst").val() + "。";
+            //遗传病史
+            text += "<br/>";
+            var YCBData = table.cache["tabYCB"];
+            var ycb = "";
+            if (YCBData != undefined) {
+                jQuery.each(YCBData, function (i, n) {
+                    ycb += "患者的" + n.gx + "有" + n.mc + "遗传病史,";
+                });
+                if (ycb !== "") { ycb = ycb.substr(0, ycb.length - 1); text += ycb + "。<br/>" }//去字符串逗号
+            }
+            //有无遗传倾向的疾病
+            if ($('input:radio[name="ycqx"]:checked').val() == "有") {
+                var ycqx = "";
+                $(".patList").find("input:checkbox:checked").each(function () {
+                    if ($(this).attr("title") != "其他") {
+                        ycqx += $(this).attr("title") + ",";
+                    } else {
+                        ycqx += $("#qtycjb").val() == "" ? "" : $("#qtycjb").val() + ",";
+                    }
+                });
+                if (ycqx.length > 0) {
+                    text += "有遗传倾向疾病包括" + ycqx.substr(0, ycqx.length - 1) + "。<br/>";
+                }
+            }
+            //有无类似疾病史
+            if ($('input:radio[name="lsjb"]:checked').val() == "有") {
+                text += $("#txtlsjb").val() == "" ? "" : "有类型疾病史，症状为：" + $("#txtlsjb").val() + "。";
+            }
+            //家族史其他
+            if ($("#txtjzsqt").val() != "") {
+                text += "其他情况：" + $("#txtjzsqt").val();
+            }
+            UE.getEditor('FamilyHistory').setContent(text);
+        });
+
+        //保存
+        function save(data, recordState) {
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");//病人id
+            data.field["Updater"] = NewGetQueryString("EMRIDSIGN");//申请医生id
+            data.field["RecordState"] = recordState;//0:暂存，1:保存
+
+
+            if (data.field["PresentHistory"] != undefined) { data.field["PresentHistory"] = HTMLEncode($("#PresentHistory").val()); }//现病史
+            if (data.field["PreviousHistory"] != undefined) { data.field["PreviousHistory"] = HTMLEncode($("#PreviousHistory").val()); }//既往史
+            if (data.field["SystemReview"] != undefined) { data.field["SystemReview"] = HTMLEncode($("#SystemReview").val()); } //系统回顾
+            if (data.field["PersonalHistory"] != undefined) { data.field["PersonalHistory"] = HTMLEncode($("#PersonalHistory").val()); }//个人史
+            if (data.field["ObstericalHistory"] != undefined) { data.field["ObstericalHistory"] = HTMLEncode($("#ObstericalHistory").val()); }//婚姻史
+            if (data.field["FamilyHistory"] != undefined) { data.field["FamilyHistory"] = HTMLEncode($("#FamilyHistory").val()); }//家族史
+
+            if (data.field["LaboratoryExamination"] != undefined) { data.field["LaboratoryExamination"] = HTMLEncode($("#LaboratoryExamination").val()); }//实验室检查
+            if (data.field["SpecialExamination"] != undefined) { data.field["SpecialExamination"] = HTMLEncode($("#SpecialExamination").val()); }//特殊检查
+            if (data.field["PathologicalExamination"] != undefined) { data.field["PathologicalExamination"] = HTMLEncode($("#PathologicalExamination").val()); }//病理检查
+            if (data.field["OtherContent"] != undefined) { data.field["OtherContent"] = HTMLEncode($("#OtherContent").val()); }//家族史
+
+
+
+            EWinsBase.json("api/Doctor/HospitalRecord/Save", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            layer.confirm('是否跳到下一步操作？', function (index) {
+                                //获取lay-id对应的值
+                                var layid = $(".layui-this").next("li").attr("lay-id");
+                                if (layid != undefined) {
+                                    element.tabChange('tabs', layid); //切换到下一节
+                                }
+                                layer.close(index);
+                            });
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        }
+        //监听选项卡切换-------------------------------------------暂时只使用普通专科examinations
+        element.on('tab', function (data) {
+            if ($(this).attr("lay-id") == "55") {
+                var examclass = "examinations";
+                if ($(".examListContent").html() == "") {
+                    $(".examListContent").load("SpecializedExam", { "InpatientId": InpatientId }, function () {
+                        $("." + examclass).show();
+                        $(".examination").hide();
+                        //如果归档，保存按钮变灰
+                        if (MedicalRecordState == "1") {
+                            $(this).find("button.layui-btn").attr("disabled", true);
+                            $(this).find("button.layui-btn").addClass("layui-btn-disabled");
+                        }
+                    });
+                }
+            }
+        });
+
+
+        //提交
+        form.on('submit(sub)', function (data) {
+            return save(data, 1);
+        });
+        //暂存
+        form.on('submit(cache)', function (data) {
+            return save(data, 0);
+        });
+        //保存体格检查
+        form.on('submit(saveHPR)', function (data) {
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");//病人id
+            data.field["Updater"] = NewGetQueryString("EMRIDSIGN");//申请医生id
+            EWinsBase.json("api/Doctor/HospitalPhysicalRxam/Save", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            layer.confirm('是否进入到下一步操作？', function (index) {
+                                //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+                                var layid = $(".layui-this").next("li").attr("lay-id");
+                                if (layid != undefined) {
+                                    element.tabChange('tabs', layid); //切换到：用户管理
+                                }
+                                layer.close(index);
+                            });
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        });
+
+        //删除
+        $(document).on('click', ".rigBtn .del", function (data) {
+            var InpatientId = NewGetQueryString("InpatientId");//病人id
+            layer.confirm('是否确认要删除该病历？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/Doctor/HospitalRecord/Delete",
+                    type: "POST",
+                    data: { "InpatientId": InpatientId },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            layer.msg("删除成功", { icon: 6 }, function () {
+                                window.location.href = EWinsBase.__curHostAddress + 'page/DoctorPages/HospitalRecordType';
+                            });
+                        } else {
+                            layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+
+            return false;
+        });
+        //点击打印跳转到打印页面
+        $(document).on('click', ".print", function () {
+            window.location.href = EWinsBase.__curHostAddress + 'page/DoctorPages/HospitalRecord';
+        });
+    });
+
+
+
+
+</script>
+<script type="text/html" id="DiagnosisTime">{{ d.DiagnosisTime.ToString("yyyy-MM-dd") }}</script>
+<script type="text/html" id="DiagnosisOperation">
+    <div class="Operation">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="up">上移</a>
+        <a class="layui-btn layui-btn-xs" lay-event="down">下移</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </div>
+</script>
+<script type="text/html" id="MainDiagnosis">
+    {{# if(d.MainDiagnosis=="1"){ }}
+    <i class="iconfont">&#xe7f6;</i>
+    {{#  }  }}
+</script>
+

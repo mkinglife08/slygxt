@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "外科手消毒操作评分标准列表";
+    Layout = "~/Views/Shared/_List_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs12 layui-col-sm10 layui-col-md10">
+
+        <!-- 工具集 -->
+        <input id="hdnCurRowId" type="hidden" />
+        <div class="my-btn-box">
+            <div class="container">
+                <div class="choseBtn clearfix">
+                    <div class="icon_left aList fl">
+                        <a class="btn-add btn-default" id="btn-add">
+                            <i class="layui-icon colorAdd">&#xe61f;</i>添加
+                        </a>
+                        <a class="btn-add btn-default" id="btn-edit">
+                            <i class="iconfont btn-edit">&#xe74e;</i>编辑
+                        </a>
+                        <a class="layui-btn-danger radius btn-delect" id="btn-delete">
+                            <i class="layui-icon btn-delete">&#xe640;</i>删除
+                        </a>
+
+                        <input type="hidden" id="hdnCurRowId" value="" />
+                    </div>
+                    <div class="icon_right fl" id="icon_right">
+                        <div class="layui-form-item fl">
+                            <label class="layui-form-label index_label">搜索条件</label>
+                            <div class="layui-input-block">
+                                <input type="text" autocomplete="off" id="keyword" placeholder="请输入组织机构名称" class="layui-input index_input">
+                            </div>
+                        </div>
+                        <a class="layui-btn mgl-20 fl" id="btQuery">
+                            <i class="iconfont">&#xe6ac;</i>
+                            查询
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="dateTable" lay-filter="dateTable"></div>
+    </div>
+</div>
+<!-- js -->
+<script type="text/javascript">
+        // layui方法
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , layer = layui.layer
+                , vipTable = layui.vip_table
+                , $ = layui.jquery;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable',                  //指定原始表格元素选择器（推荐id选择器）
+            height: vipTable.getFullHeight()-60,    //容器高度
+            //height:'full-200',
+            cols: [[                  //标题栏
+                { checkbox: true, sort: true, fixed: true, space: true },
+                { field: 'DISID', title: 'ID', width: '90', align: 'center' },
+                { field: 'DEPTNAME', title: '科室名称', width: '90', align: 'center' },
+                { field: 'OPNAME', title: '操作者', width: '150', align: 'left' },
+                { field: 'PRONAME', title: '职业', width: '150', align: 'left' },
+                { field: 'PROCTOR', title: '监考人', width: '150', align: 'left' },
+                { field: 'PROCTDATE', title: '考核日期', width: '150', align: 'left', templet: "#PROCTDATE"  },
+                { field: 'SUMSCORE', title: '得分', width: '150', align: 'left' },
+                { field: 'XZRYMC', title: '填写人', width: '150', align: 'left' },
+                { field: 'XZRQ', title: '填写日期', width: '200', align: 'left', templet: "#XZRQ" }
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress +'api/Infection/DisInfection/GetAllDisInfection?token='+EWinsBase.Token
+            //, where: { "PARENTID": $("#hdnCurId").val(), "keyword": $("#keyword").val() } //lv:这里的查询条件是只在初始化的时候有用，查询请在reload里面构造where条件
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                //加载表格后进行初始化
+                EWinsBase.ValidateToken(res);
+                $("#hdnCurRowId").val("");
+            }
+        });
+
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(dateTable)', function (obj) {
+            var data = obj.data;
+            $("#hdnCurRowId").val(data.DISID);
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+
+        //监听行双击事件
+        table.on('rowDouble(dateTable)', function (obj) {
+            var data = obj.data;
+            ShowWin('查看外科手消毒操作', 'page/InfectionPages/DisInfectionDetail?DISID=' + data.DISID, $(window).width() + 150, $(window).height() + 90)
+            //标注选中样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+        //添加按钮事件
+        $('#btn-add').on('click', function () {
+            ShowWin('添加外科手消毒操作', 'page/InfectionPages/DisInfectionDetail?DISID=' + $('#hdnCurId').val(), $(window).width() + 150, $(window).height() + 90)
+        });
+        //编辑按钮事件
+        $('#btn-edit').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            ShowWin('修改外科手消毒操作', 'page/InfectionPages/DisInfectionDetail?DISID=' + $("#hdnCurRowId").val(), $(window).width() + 150, $(window).height() + 90)
+        });
+
+
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { PARENTID: $("#hdnCurId").val(), keyword: $("#keyword").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //刷新按钮事件
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload({
+                where: { PARENTID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+        //删除按钮事件
+        $('#btn-delete').on('click', function () {
+            if ($("#hdnCurRowId").val() == "") {
+                layer.msg("请选择要操作的行", { icon: 5 });
+                return;
+            }
+            layer.confirm('是否确认要删除该条信息？', function (index) {
+                EWinsBase.ajax({
+                    url: "api/Infection/DisInfection/Delete",
+                    type: "POST",
+                    data: { "DISID": $("#hdnCurRowId").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            layer.msg("删除成功", { icon: 6 });
+                            refreshTable();
+                        } else {
+                            layer.msg("删除失败", { icon: 5 });
+                        }
+                    }
+                });
+            });
+        });
+
+    });
+
+
+
+    //刷新按钮事件
+    function refreshTable() {
+        layui.table.reload("dataCheck", {
+            where: { PARENTID: $("#hdnCurId").val(), keyword: $("#keyword").val(), token: EWinsBase.Token }//这里传参  向后台
+                , method: 'post'
+        });
+    }
+</script>
+<script type="text/html" id="PROCTDATE">
+    {{ d.PROCTDATE?d.PROCTDATE.ToString("yyyy-MM-dd hh:mm"):"" }}
+</script>
+
+<script type="text/html" id="XZRQ">
+    {{ d.XZRQ?d.XZRQ.ToString("yyyy-MM-dd hh:mm"):"" }}
+</script>

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ConsultationPop";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+<div id="divMsgBox">
+    <ul class="layui-timeline" style="padding-left:10px;" id="MsgLine">
+       
+    </ul>
+</div>
+<!-- js -->
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script type="text/javascript" src="~/Scripts/vip_comm.js"></script>
+<script type="text/javascript" src="~/Scripts/vip_nav.js"></script>
+<script type="text/javascript" src="~/Scripts/EMRBase.js"></script>
+<script>
+    layui.use(['layer', 'element'], function () {
+        // 操作对象
+        var layer = layui.layer
+        , element = layui.element;
+    });
+</script>
+<script type="text/javascript" src="~/Scripts/EWins.Base.js"></script>
+<script type="text/javascript">
+    EWinsBase.json("api/Doctor/Consultation/GetApplyConsultationByUser", {
+        type: "POST",
+       // data: { userid: GetQueryString("EMRIDSIGN"), SYSID: GetQueryString("SYSID"), FUNLEVEL: 1 },
+        dataType: "json",
+        success: function (config, data) {
+           
+            if (data.code == 0) {
+                var data = data.data;
+                var outhtml = "";
+                //无法多级，多级样式不一样
+                if (data) {
+                    data.forEach(function (item, i) {
+                            outhtml += ' <li class="layui-timeline-item">';
+                            if (item.ConsultationType == "1") {
+                                outhtml += '<i class="layui-icon layui-timeline-axis layui-bg-red">&#xe756;</i>';
+                            } else {
+                                outhtml += '<i class="layui-icon layui-timeline-axis"></i>';
+                            }
+                            outhtml += '<div class="layui-timeline-content layui-text">';
+                            outhtml += '<span class="layui-timeline-title">' + EWinsBase.formatData(item.ApplyTime, "yyyy-MM-dd hh:mm:ss"); + '</span>';
+                            outhtml += '<a href="#" onclick="ShowList()">' + item.ApplyDepartName + item.ApplyDoctorName + '医生请你对病人' + item.InpatientName + '(住院号：' + item.InpatientCode + '）进行会诊</a>';
+                            outhtml += '</div> </li>';
+                      
+                    });
+                }
+                $("#MsgLine").html(outhtml);
+                if (layui.element)
+                    layui.element.init();
+            }
+        }
+    });
+    function ShowList() {
+        ShowWin('会诊单', 'page/DoctorPages/ConsultationList?Id=', 1024, 600)
+    }
+</script>

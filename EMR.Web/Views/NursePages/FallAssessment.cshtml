@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跌倒评估</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/nursedocuments.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <div class="layui-form layAll">
+	        	<span>床号</span>
+				<!-- <select name="" id="">
+					<option value=""></option>
+				</select> -->
+				<input type="radio" name="normal" title="有记录">有记录
+				<input type="radio" name="normal" title="全部">全部
+				<span>姓名：<input type="text" class="newInput"></span>
+				<span>住院号：<input type="text" class="newInput"></span>
+	        </div>
+	        <div class="rigBtn">
+	            <a class="layui-btn">添加</a>
+	            <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+	 	<div class="center">
+			<div class="marginTop">诊断<span class="lines">诊断结果</span></div>
+			<table class="tableList">
+				<tr>
+					<td rowspan="2">评估内容</td>
+					<td rowspan="2">评分标准</td>
+					<td colspan="7">评估日期</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>跌倒历史</td>
+					<td>没有=0 有=25</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>超过一个医学诊断</td>
+					<td>没有=0 有=15</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>是有助行工具</td>
+					<td>没有需要=0 完全卧床=0<br>护士扶持=0 拐杖/手杖=15<br>四脚叉=15 依扶家具=30
+					</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+					<td>2018-09-15</td>
+				</tr>
+				<tr>
+					<td>静脉输入 </td>
+					<td>没有=0 有=20 </td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>步态  </td>
+					<td>正常=0 卧床=0 <br> 轮椅=0蹒跚=20 <br>失调=20  </td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>精神状态 </td>
+					<td>了解自己的能力=0 <br>高估自己的能力=15<br>忘记自己限制=15 </td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td rowspan="9">危险因子（可多选</td>
+					<td>意识障碍=1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>意识障碍=1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>视力障碍=1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>活动障碍、肢体偏瘫=3 </td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>年龄（≥65岁）=1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>体能虚弱=3</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>头晕、眩晕、体位性低血压=2</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>服用影响意识或活动的药物=1 <br>
+					A:散瞳剂  B:镇静安眠剂  <br>
+					C:降压利尿剂  D:镇挛抗癫剂  <br>
+					E:麻醉止痛剂  
+					</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>住院中无家人或其他人员陪伴=1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td colspan="2">总分</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td colspan="2">预防措施</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td colspan="2">评分者签名</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</table>
+			<div class="marginTop">
+				注：1、病人入院或转入24小时内。2、病情改变（意识、肢体活动改变）由负责人员评估，每周重新评估一次。病人情况有变，随时重新评估，调整计划。评估总分≥50分或危险因子总分≥4分，需列为护理问题——高危性伤害/跌倒。 
+    			<div>注：预防措施 1、竖立“小心跌倒”标记 2、向病人解释及鼓励请他人协助； 3、上床栏； 4、向家人解释病人有跌倒危险和预防措施，请家人尽量陪伴病人； 5、呼叫铃放在病人可触及的位置；6、评估环境及清理障碍物； 7、提供合适的助行器及确定病人懂得正确使用手杖； 8、提供合适的助行器及确定病人懂得正确使用助行架；9、按需要协助病人如厕：扶行往厕所； 10、按需要协助病人如厕：便盆/尿壶；11、按需要协助病人如厕：其他安排； 12、评估病人现用药物的效果及副作用；13、给予约束衣：肢体约束带； 14、给予约束衣：安全背心；15、给予约束衣：大约束衣； </div>
+			</div>
+	 	</div>
+	</div>
+</body>
+<script>
+layui.use(['laydate','table','form'], function(){
+  var laydate = layui.laydate;
+  var table = layui.table;
+  var form = layui.form;
+
+ });
+</script>
+</html>

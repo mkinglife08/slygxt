@@ -1,0 +1,16 @@
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EMR.Data.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EMR.Data.pdb
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EMR.Core.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EntityFramework.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EntityFramework.SqlServer.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\Oracle.ManagedDataAccess.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\ServiceStack.Interfaces.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\ServiceStack.Redis.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\ServiceStack.Text.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\ServiceStack.Common.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EMR.Core.pdb
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EntityFramework.xml
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\bin\Release\EntityFramework.SqlServer.xml
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\obj\Release\EMR.Data.csprojResolveAssemblyReference.cache
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\obj\Release\EMR.Data.dll
+E:\work\WOWJOY\EMR\Program\00.EMR\Program\EMR\EMR.Data\obj\Release\EMR.Data.pdb

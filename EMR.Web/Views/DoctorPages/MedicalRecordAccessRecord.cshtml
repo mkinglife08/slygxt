@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "病历审阅记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<div id="action_subm">
+    <div class="icon_lefts fr">
+        <div class="layui-form-item fl">
+            <label class="index_search">搜索条件</label>
+            <div class="layui-input-block">
+                <input type="text" autocomplete="off" id="keyword" placeholder="申请人姓名" class="layui-input" style="margin-top: -34px;">
+            </div>
+        </div>
+        <a class="layui-btn mgl-20  searchBtn fl" id="btQuery">
+            <i class="iconfont">&#xe6ac;</i>
+            查询
+        </a>
+    </div>
+    <div class="submEdit">
+        <div id="dateTable" lay-filter="dateTable"></div>
+    </div>
+    <div class="lastBtn">
+        <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>审核通过选中的申请</button>
+        <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+    </div>
+</div>
+<script>
+    PopupPageInit();
+    var InpatientId = NewGetQueryString("InpatientId");
+    layui.use(['table', 'form', 'vip_table'], function () {
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , vipTable = layui.vip_table;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+            , height: vipTable.getFullHeight() - 103    //容器高度
+            , cols: [[
+                { type: 'checkbox' }
+                , { field: 'ApplyUserID', title: '申请人ID', width: '90', align: 'center' }
+                , { field: 'ApplyUserName', title: '申请人姓名', width: '150', align: 'center' }
+                , { field: 'ApplyDate', title: '申请时间', width: '150', align: 'left', templet: "#ApplyDate" }
+            ]]
+            , id: 'dataCheck'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/MedicalRecordHomePage/GetApplicationReviewList?InpatientId=' + InpatientId + '&token=' + EWinsBase.Token
+            , method: 'get'
+            , page: true
+            , limits: [mylimit, 50, 100, 150]
+            , limit: mylimit
+            , loading: false
+            , done: function (res, curr, count) {
+                EWinsBase.ValidateToken(res);
+            }
+        });
+
+        //查询按钮事件
+        $('#btQuery').on('click', function () {
+            tableIns.reload({
+                where: { keyword: $("#keyword").val() }//这里传参  向后台
+                , method: 'post'
+            });
+        });
+
+
+        form.on('submit(sub)', function (data) {
+            var user_access_check = "";
+            var checkStatus = table.checkStatus('dataCheck');
+            $(checkStatus.data).each(function (i, item) {
+                user_access_check += item.AccessID + ",";
+            });
+            data.field["InpatientId"] = InpatientId;
+            data.field["user_access_check"] = user_access_check;
+            EWinsBase.ajax({
+                url: "api/Doctor/MedicalRecordHomePage/SaveApplicationReview",
+                type: "POST",
+                data: data.field,
+                dataType: "json",
+                success: function (data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document);
+                            if (wind.length > 0) { wind[0].contentWindow.refreshTable(); }
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                }
+            });
+            return false;
+        });
+    });
+    
+</script>
+<script type="text/html" id="ApplyDate">
+    {{ d.ApplyDate?d.ApplyDate.ToString("yyyy-MM-dd"):"" }}
+</script>

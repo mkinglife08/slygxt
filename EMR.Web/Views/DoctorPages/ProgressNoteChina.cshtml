@@ -1,0 +1,244 @@
+﻿@{
+    ViewBag.Title = "中医首次病程记录";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/courseRecord.css">
+<style>
+    .addTable {
+        margin: 6px;
+        width: 98%;
+        padding-bottom: 30%;
+    }
+
+    .tdTable p {
+        line-height: 30px;
+    }
+
+    .tdTable input {
+        width: 26%;
+    }
+</style>
+<form class="layui-form" id="form1" action="">
+    <div class="medrecord">
+        <p class="word">中医首次病程记录</p>
+        <div class="rigBtn">
+            <a class="layui-btn" id="SaveTemplate">另存为模板</a>
+            <a class="layui-btn" id="ImportTemplate">导入模板</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont staging">&#xe689;</i>暂存</a>
+            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+        </div>
+    </div>
+    <div class="addTable">
+        <table class="tdTable">
+            <tr>
+                <td>
+                    <p>病例特点</p>
+                    <p><a class="layui-btn">检验报告</a></p>
+                    <p><a class="layui-btn">检查报告</a></p>
+                    <p><a class="layui-btn">生命体征导入</a></p>
+                </td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" id="RecordContent0" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>中医辨病辨证依据</td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" name="RecordContent1" id="RecordContent1" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>中医鉴别诊断</td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" name="RecordContent2" id="RecordContent2" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>西医诊断依据</td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" name="RecordContent3" id="RecordContent3" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>西医鉴别诊断</td>
+                <td colspan="3">
+                    <textarea class="layui-textarea" name="RecordContent4" id="RecordContent4" style="display: none"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>初步诊断中医</td>
+                <td colspan="3">
+                    <table class="layui-hide" id="DiagnosisTable1" lay-filter="DiagnosisTable1"></table>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>初步诊断西医</td>
+                <td colspan="3"><table class="layui-hide" id="DiagnosisTable2" lay-filter="DiagnosisTable2"></table></td>
+            </tr>
+            <tr>
+                <td>诊疗计划</td>
+                <td colspan="3"><textarea class="layui-textarea" name="RecordContent5" id="RecordContent5" style="display: none"></textarea></td>
+            </tr>
+            <tr>
+                <td>书写医生</td>
+                <td><input type="text" disabled class="layui-input writeInput" id="WardRoundUserName"></td>
+                <td>书写时间</td>
+                <td>
+                    <input type="text" lay-verify="required" id="ProgressNoteTime" name="ProgressNoteTime" placeholder="请输入书写时间" class="layui-input writeInput">
+                </td>
+            </tr>
+        </table>
+     </div>
+</form>
+<script>
+    $("#WardRoundUserName").val(cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    $("#ProgressNoteTime").val(CurentTime());
+    EWinsBase.json("api/Doctor/ProgressNote/GetAll", {
+        data: { "InpatientId": parent.GetQueryString("InpatientId"), "ProgressTypeId": 50, "limit": 1 },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (!EWinsBase.isNullOrEmpty(data.data)) {
+                var curData = data.data[0];
+                if (curData) {
+                    var RecordContent = JSON.parse(curData.RecordContent);
+                    $("#RecordContent0").html(RecordContent[0].Content)
+                    $("#RecordContent1").html(RecordContent[1].Content)
+                    $("#RecordContent2").html(RecordContent[2].Content)
+                    $("#RecordContent3").html(RecordContent[3].Content)
+                }
+            }
+        }
+    })
+    layui.use(['table', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        var table = layui.table,
+        layedit = layui.layedit,
+        $ = layui.jquery,
+        laydate = layui.laydate;
+
+        //入院诊断 2
+        table.render({
+            elem: '#DiagnosisTable1'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=10000007"
+            , page: false //开启分页
+            , cols: [[ //表头
+            { field: 'DiagnosisId', title: '序号', align: "center" }
+            , { field: 'DiagnosisFlag', title: '主', align: "center" }
+            , { field: 'DiagnosisName', title: '诊断名称,复制诊断', align: "center" }
+            , { field: 'DiagnosisTime', title: '诊断时间', align: "center", templet: "#DiagnosisTime1" }
+            , { field: 'RecordUserName', title: '书写医生', align: "center" }
+            ]]
+        })
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(DiagnosisTable1)', function (obj) {
+            var data = obj.data;
+            ShowWin('修改诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + '&DiagnosisId=' + data.DiagnosisId + "&DiagnosisType=10000007", 800, 600)
+        });
+        //入院诊断 2
+        table.render({
+            elem: '#DiagnosisTable2'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=2"
+            , page: false //开启分页
+            , cols: [[ //表头
+            { field: 'DiagnosisId', title: '序号', align: "center" }
+            , { field: 'DiagnosisFlag', title: '主', align: "center" }
+            , { field: 'DiagnosisName', title: '诊断名称,复制诊断', align: "center" }
+            , { field: 'DiagnosisTime', title: '诊断时间', align: "center", templet: "#DiagnosisTime1" }
+            , { field: 'RecordUserName', title: '书写医生', align: "center" }
+            ]]
+        })
+        //监听行单击事件（单击事件为：rowDouble）
+        table.on('row(DiagnosisTable2)', function (obj) {
+            var data = obj.data;
+            ShowWin('修改诊断', 'page/DoctorPages/PatientDiagnosisEdit?InpatientId=' + NewGetQueryString("InpatientId") + '&DiagnosisId=' + data.DiagnosisId + "&DiagnosisType=2", 800, 600)
+        });
+
+        laydate.render({
+            elem: '#ProgressNoteTime'
+            , type: 'datetime'
+        });
+
+        //构建一个默认的编辑器
+        var RecordContent0 = layedit.build('RecordContent0', { height: 199 }); //病例特点
+        var RecordContent1 = layedit.build('RecordContent1', { height: 199 }); //判断依据
+        var RecordContent2 = layedit.build('RecordContent2', { height: 199 }); //鉴别诊断
+        var RecordContent3 = layedit.build('RecordContent3', { height: 199 }); //诊疗计划
+        var RecordContent4 = layedit.build('RecordContent4', { height: 199 });//西医鉴别诊断
+        var RecordContent5 = layedit.build('RecordContent5', { height: 199 }); //西医诊断依据
+
+        $('.site-demo-layedit').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        form.on('submit(sub)', function (data) {
+            data.field["RecordContent0"] = layedit.getContent(RecordContent0);
+            data.field["RecordContent1"] = layedit.getContent(RecordContent1);
+            data.field["RecordContent2"] = layedit.getContent(RecordContent2);
+            data.field["RecordContent3"] = layedit.getContent(RecordContent3);
+            data.field["RecordContent4"] = layedit.getContent(RecordContent4);
+            data.field["RecordContent5"] = layedit.getContent(RecordContent5);
+            data.field["RecordContentTitle"] = "病例特点,中医辨病辨证依据,中医鉴别诊断,西医诊断依据,西医鉴别诊断,诊疗计划";
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");
+            data.field["ProgressTypeId"] = "50";
+            data.field["ProgressTypeName"] = "中医首次病程记录";
+            EWinsBase.json("api/Doctor/ProgressNote/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 });
+                }
+            });
+        });
+        window.SaveTemplate = function (data) {
+            data["RecordContent0"] = layedit.getContent(RecordContent0);
+            data["RecordContent1"] = layedit.getContent(RecordContent1);
+            data["RecordContent2"] = layedit.getContent(RecordContent2);
+            data["RecordContent3"] = layedit.getContent(RecordContent3);
+            data["RecordContent4"] = layedit.getContent(RecordContent4);
+            data["RecordContent5"] = layedit.getContent(RecordContent5);
+            data["RecordContentTitle"] = "病例特点,中医辨病辨证依据,中医鉴别诊断,西医诊断依据,西医鉴别诊断,诊疗计划";
+            SaveTemplate2(data)
+        };
+        window.ImportTemplate = function (data) {
+            var RecordContentTitle = ("病例特点,中医辨病辨证依据,中医鉴别诊断,西医诊断依据,西医鉴别诊断,诊疗计划").split(',');
+            data.forEach(function (item, index){
+                RecordContentTitle.forEach(function (item2, index2) {
+                    if (item.Title == item2) {
+                        $("#RecordContent" + index2).html(item.Content);
+                        layedit.build("RecordContent" + index2, { height: 199 });
+                    }
+                })
+            })
+        };
+    });
+
+    $("#SaveTemplate").on("click", function () {
+        ShowWin('另存为模板', 'page/DoctorPages/SaveTemplate?TemplateType=1&TemplateTypeName=' + escape("首次病程记录"), 800, 500)
+    });
+    $("#ImportTemplate").on("click", function () {
+        ShowWin('另存为模板', 'page/DoctorPages/ImportTemplate?TemplateType=1&TemplateTypeName=' + escape("首次病程记录"), 1030, 620)
+    });
+    function SaveTemplate2(data) {
+        EWinsBase.json("api/Doctor/ProgressNote/SaveTemplate", {
+            data: data,
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                layer.msg(data.msg, { time: 1000 });
+            },
+        });
+    }
+    
+</script>
+<script type="text/html" id="DiagnosisTime1">
+    {{ d.DiagnosisTime.ToString("yyyy-MM-dd") }}
+</script>
+

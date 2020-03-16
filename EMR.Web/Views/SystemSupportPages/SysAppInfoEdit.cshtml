@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "系统模块编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" data-id="OrganID" lay-verify="required" placeholder="请选择组织机构代码" lay-filter="aihao">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label cur_lable">系统模块名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="SYSName" data-id="SYSName" lay-verify="required" lay-maxlength="100" placeholder="请输入系统模块名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">默认标题</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="DefaultTitle" data-id="DefaultTitle" lay-maxlength="100" placeholder="请输入默认标题" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label cur_lable">默认页面</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="defaultPage" data-id="defaultPage" lay-maxlength="100" placeholder="请输入默认页面" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">系统模块简称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ShortName" data-id="ShortName" lay-maxlength="10" placeholder="请输入系统模块简称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">是否作废</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="IsCance" value="1" title="作废">作废
+                    <input type="radio" name="IsCance" value="0" title="正常" checked="">正常
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">系统模块图标</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <div class="layui-upload-list uploadImg">
+                            <img id="image" src="~/Content/images/upload_img.png"
+                                 width="100" style="cursor: pointer;" />
+                            <input id="picture_upload" name="file" type="file" onchange="upload_cover(this)"
+                                   style="position: absolute; left: 0px; top: 0px; width: 100px; height: 100px; opacity: 0; cursor: pointer;" />
+                            <input type="hidden" value="" name="SYSICON" id="SYSICON" data-id="SYSICON" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">系统模块说明</label>
+                <div class="layui-input-inline">
+                    <textarea name="SYSNote" data-id="SYSNote" placeholder="请输入系统模块说明" autocomplete="off" style="width:570px;"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<!--JS-->
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script>
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    $('#OrganID').select2();
+    var SYSID = GetQueryString("SYSID");
+    GetOrganList();
+    function upload_cover(obj) {
+        ajax_upload(obj, "SysAppInfo", SYSID, function (data) { //function(data)是上传图片的成功后的回调方法
+            $('#image').attr('src', __curHostAddress + data.data); //给<input>的src赋值去显示图片
+            $('#SYSICON').val(data.data);
+        });
+    }
+    if (SYSID != "") {
+        EWinsBase.json("api/SystemSupport/sysappinfo/GetInfoById", {
+            data: { "SYSID": SYSID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data["SYSICON"] != "" && data.data["SYSICON"] != null) {
+                    $("#image").attr("src", __curHostAddress + data.data["SYSICON"]);
+                }
+                $("input:radio[name='IsCance'][value='" + data.data["IsCance"] + "']").attr("checked", 'checked');
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+    else {
+        $("#OrganID").val(cookie.GetEMRUserCookie("api_token", "OrganID")).trigger('change');
+    }
+    layui.use(['form', 'upload', 'layedit'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit;
+        form.on('submit(sub)', function (data) {
+            data.field["SYSID"] = GetQueryString("SYSID") + "";
+            EWinsBase.json("api/SystemSupport/sysappinfo/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            // 获得frame索引
+            return false;
+        });
+    })
+</script>

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/nursedocuments.css">
+</head>
+<body>
+	<div class="nurdocument">
+		<div class="medrecord">
+	        <p class="word">导管评估</p>
+	        <div class="rigBtn">
+	            <a class="layui-btn">本科记录</a>
+	        </div>
+	 	</div>
+	 	<table id="assessment"></table>
+	 </div>
+</body>
+<script src="~/Scripts/layui/layui.js"></script>
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+	table.render({
+	    elem: '#assessment'
+	    // ,url:'/demo/table/user/'
+	    ,cols: [[
+	      {field:'id', title: '编号'}
+	      ,{field:'username', title: '导管名称'}
+	      ,{field:'sex', title: '部位'}
+	      ,{field:'city', title: '置管日期'}
+	      ,{field:'city', title: '是否拔管'}
+	      ,{field:'city', title: '登记表'}
+	      ,{field:'city', title: '查看详情'}
+	    ]]
+	  });
+ });
+</script>
+</html>

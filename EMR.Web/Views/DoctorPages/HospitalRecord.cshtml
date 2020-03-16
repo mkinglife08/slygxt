@@ -1,0 +1,542 @@
+﻿@{
+    ViewBag.Title = "HospitalRecordEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/HospitalRecord.css">
+}
+<style>
+    .bx{border:1px solid red;}
+    html{width:99%;}
+</style>
+
+<div class="medrecord">
+    <p class="word">入院记录</p>
+    <div class="rigBtn">
+        <a class="layui-btn" href="HospitalRecordEdit"><i class="iconfont edit">&#xe69e;</i>编辑</a>
+        @*<a class="layui-btn">打印修正诊断</a>*@
+        <a class="layui-btn" onclick="printFace()"><i class="iconfont print">&#xe61b;</i>打印</a>
+    </div>
+</div>
+<!-- 内容 -->
+<div id="idFace">
+<div class="patient"   style="padding-bottom:32%;">
+    <div class="basicInfor" style="padding:0 1%;" >
+        <p class="text" style="text-align: center;">入院记录</p>
+        <div class="basicList">
+            <div class="clearfix">
+                <div class="basiLeft fl" style="width:36%">
+                    <div><b>姓名：</b><span data-id="Name"></span></div>
+                    <div><b>出生地：</b><span id="BirthPlace-province">浙江</span>省（区、市）<span id="BirthPlace-city">杭州</span>市<span id="BirthPlace-area"></span>县</div>
+                    <div><b>婚姻：</b><span data-id="Marital"></span></div>
+                    <div><b>病史陈述者：</b><span data-id="Narrator"></span></div>
+                </div>
+                <div class="basiLeft fl " style="width:32%">
+                    <div><b>性别：</b><span data-id="Gender"></span></div>
+                    <div><b>职业：</b><span data-id="Job"></span></div>
+                    <div><b>联系地址：</b><span data-id="ContactPlace"></span></div>
+                    
+                </div>
+                <div class="basiLeft fl">
+                    <div><b>出生日期：</b><span id="BirthDate-year"></span>年<span id="BirthDate-month"></span>月<span id="BirthDate-day"></span>日</div>
+                    <div><b>民族：</b><span data-id="Ethnic"></span></div>
+                    <div><b>入院日期：</b><span data-id="EntryTime-year">2015</span>年<span data-id="EntryTime-month">03</span>月<span data-id="EntryTime-day">08</span>日<span data-id="EntryTime-hour">12</span>时 </div>
+                </div>
+            </div>
+            <div class="basiRight">
+                <div class="basiSpan">
+                    <div class="clearfix">
+                        <b class="fl">主　诉：</b><span data-id="ChiefComplaint" class="fl"></span>
+                    </div>
+                    <div class="clearfix"><b class="fl">现病史：</b><span data-id="PresentHistory" class="fl"></span></div>
+                    <div class="clearfix"><b class="fl">既往史：</b><span data-id="PreviousHistory" class="fl"></span></div>
+                    <div class="clearfix"><b class="fl">系统回顾：</b><span data-id="SystemReview" class="fl"></span></div>
+                    <div class="clearfix"><b class="fl">个人史：</b><span data-id="PersonalHistory" class="fl"></span></div>
+                    <div class="clearfix"><b class="fl">婚育史：</b><span data-id="ObstericalHistory" class="fl"></span></div>
+                    <div class="clearfix"><b class="fl">家族史：</b><span data-id="FamilyHistory" class="fl"></span></div>
+                </div>
+            </div>
+        </div>
+        <p class="text">体 格 检 查</p>
+        <div class="basicList">
+            <div class="clearfix">
+                <b class="bastB fl">一 般　情 况：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>意识：<span data-id="Conscious"></span></p>
+                        <p>体位：<span data-id="Position"></span></p>
+                        <p>脉搏：<span data-id="Pulse"></span>次/分</p>
+                        <p>病容：<span data-id="SicklyLook"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>体重：<span data-id="Degree"></span>kg</p>
+                        <p>血压：<span data-id="SystolicPressure"></span>/<span data-id="DiastolicPressure"></span>mmHg</p>
+                        <p>身高：<span data-id="Height"></span>cm</p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>呼吸：<span data-id="Breathe"></span>次/分</p>
+                        <p>体温：<span data-id="Degree"></span>℃</p>
+                        <p>合作：<span data-id="Cooperation"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">皮 肤、黏 膜：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>色泽：<span data-id="Color"></span></p>
+                        <p>水肿：<span data-id="Edema"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>皮疹：<span data-id="Rash"></span></p>
+                        <p>出血：<span data-id="Bleeding"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">浅 表淋巴 结：</b>
+                <div class="basRight fl">
+                    <div><span data-id="LymphNode"></span></div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">头部及其器官：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>外形：<span data-id="HeadShape"></span></p>
+                        <p>结膜：<span data-id="Conjunctiva"></span></p>
+                        <p>鼻通气：<span data-id="NasalVentilation"></span></p>
+                        <p>口腔黏膜：<span data-id="OralMucosa"></span></p>
+                       
+                    </div>
+                    <div class="rightList fl">
+                        <p>副鼻窦压痛：<span data-id="ParanasalSinusTenderness"></span></p>
+                        <p>扁 桃 体：<span data-id="Tonsil"></span></p>
+                        <p>听力粗测：<span data-id="ListeningRoughTest"></span></p>
+                        
+                    </div>
+                    <div class="rightList fl">
+                        <p>巩膜：<span data-id="Sclera"></span></p>
+                        <p>瞳　　孔：<span data-id="Pupil"></span></p>
+                        <p>乳突压痛：<span data-id="MastoidTenderness"></span></p>
+                    </div>
+                  </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">颈　　　　部：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>软硬度：<span data-id="Softness"></span></p>
+                        <p>颈静脉：<span data-id="JugularVein"></span></p>
+
+                    </div>
+                    <div class="rightList fl">
+                        <p>气管位置：<span data-id="TrachealPosition"></span></p>
+                        <p>甲状腺：<span data-id="Thyroid"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">胸　　　　部：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>外形：<span data-id="ChestShape"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>乳房：<span data-id="Breast"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>肋间隙：<span data-id="RibGap"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">肺　　　　脏：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>呼吸运动：<span data-id="BreathingMovement"></span></p>
+                        <p>叩诊音：<span data-id="PercussionSound"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>呼吸音：<span data-id="BreathingSound"></span></p>
+                        <p>啰音：<span data-id="Rales"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">心　　　　脏：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>心率：<span data-id="HeartRate"></span>次/分</p>
+                        <p>杂音：<span data-id="Noise"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>心律：<span data-id="HeartRhythm"></span></p>
+                        <p>心音：<span data-id="HeartSounds"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">血　　　　管：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>周围血管征<span data-id="PeripheralVascularSign"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">腹　　　　部：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>外形：<span data-id="AbdominalShape"></span></p>
+                        <p>压痛：<span data-id="Tenderness"></span></p>
+                        <p>肝脏：<span data-id="Liver"></span></p>
+                        <p>胆囊：<span data-id="Gallbladder"></span></p>
+                        <p>脾脏：<span data-id="Spleen"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>蠕动波：<span data-id="PeristalticWave"></span></p>
+                        <p>反跳痛：<span data-id="ReboundTenderness"></span></p>
+                        <p>肠鸣音：<span data-id="BowelSounds"></span></p>
+                        <p>腹壁紧张度： <span data-id="AbdominalWallTension"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>肾区叩痛：<span data-id="KidneyAreaPercussionPain"></span></p>
+                        <p>包块：<span data-id="AbdominalMass"></span></p>
+                        <p>移动性浊音：<span data-id="MobileDullness"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">外 生　殖 器：</b>
+                <div class="basRight fl">
+                    <div class="rightList">
+                        <p><span data-id="ExternalGenitalia"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">直 肠、肛 门：</b>
+                <div class="basRight fl">
+                    <div class="rightList">
+                        <p><span data-id="RectumAnus"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">四 肢、脊 柱：</b>
+                <div class="basRight fl">
+                    <div class="rightList">
+                        <p><span data-id="Spine"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <b class="bastB fl">神 经　系 统：</b>
+                <div class="basRight fl">
+                    <div class="rightList fl">
+                        <p>肌张力： <span data-id="MuscleTension"></span></p>
+                        <p>Babinski征 ：<span data-id="BabinshisSign"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>膝腱反射：<span data-id="KneeTendonReflex"></span></p>
+                        <p>其他：<span data-id="Other"></span></p>
+                    </div>
+                    <div class="rightList fl">
+                        <p>四肢肌力；<span data-id="LimbMuscleStrength"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text">补充及专科情况：</p>
+        <div class="basicList">
+            <div class="clearfix" data-id="SpecialInspection">
+            </div>
+        </div>
+        <p class="text">辅助检查：</p>
+        <div class="basicList">
+            <div class="clearfix LaboratoryExamination">
+                <b class="bastB fl">实验室检查：</b>
+                <div class="basRight fl" data-id="LaboratoryExamination">
+                </div>
+            </div>
+            <div class="clearfix SpecialExamination">
+                <b class="bastB fl">特殊检查：</b>
+                <div class="basRight fl" data-id="SpecialExamination">
+                </div>
+            </div>
+            <div class="clearfix PathologicalExamination">
+                <b class="bastB fl">病理检查：</b>
+                <div class="basRight fl" data-id="PathologicalExamination">
+                </div>
+            </div>
+            <div class="clearfix OtherContent">
+                <b class="bastB fl">其他检查：</b>
+                <div class="basRight fl" data-id="OtherContent">
+                </div>
+            </div>
+        </div>
+        <div class="primaryDiag">
+            <p class="text">初步诊断：</p>
+            <table id="primaryDiag" class="diagTable" border="1" style="text-align:center;width:100%;border-color: #ccc">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>主诊断</td>
+                        <td>诊断名称</td>
+                        <td>诊断名称补充</td>
+                        <td>诊断时间</td>
+                        <td>确诊标志</td>
+                        <td>书写医生</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="correctDiag">
+            <p class="text">修正诊断：</p>
+            <table id="correctDiag" class="diagTable" border="1" style="text-align:center;width:100%;border-color:#ccc">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>主诊断</td>
+                        <td>诊断名称</td>
+                        <td>诊断名称补充</td>
+                        <td>诊断时间</td>
+                        <td>确诊标志</td>
+                        <td>书写医生</td>
+                    </tr>
+                </thead>
+                <tbody>              
+                </tbody>
+            </table>
+        </div>
+        <div class="supplementDiag">
+            <p class="text">补充诊断：</p>
+            <table id="supplementDiag" class="diagTable" border="1" style="text-align:center;width:100%;border-color: #ccc">
+                <thead>
+                    <tr>
+                        <td>序号</td>
+                        <td>主诊断</td>
+                        <td>诊断名称</td>
+                        <td>诊断名称补充</td>
+                        <td>诊断时间</td>
+                        <td>确诊标志</td>
+                        <td>书写医生</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+ </div>
+<script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+<script>
+    layui.use(['table', 'form', 'laydate'], function () {
+        var form = layui.form;
+        var table = layui.table;
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test16'
+            , type: 'datetime'
+            , range: '到'
+            , format: 'yyyy-M-d / H:m:s'
+        });
+        laydate.render({
+            elem: '#test5'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#test31'
+            , type: 'datetime'
+        });
+    });
+    //打印
+    function printFace() {
+        var LODOP = getLodop();
+        if (LODOP.VERSION) {
+            LODOP.PRINT_INIT("入院记录打印");
+
+            var css = "";            
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/reset.css" />';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/medrecord.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/common.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/style.css">';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css"/>';
+            css += '<link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/iconfont/iconfont.css">';
+
+            var aheadDiv = '<div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">' +
+                '<div class="medrecordPrin">' +
+                '<div class="print_all">';
+
+
+            var html = document.getElementById("idFace").innerHTML;
+
+            
+            //LODOP.ADD_PRINT_URL(30, 20, 746, "95%", location.href + "?print=face");
+            //LODOP.SET_PRINT_STYLEA(0, "HOrient", 3);
+            //LODOP.SET_PRINT_STYLEA(0, "VOrient", 3);
+            //		LODOP.SET_SHOW_MODE("MESSAGE_GETING_URL",""); //该语句隐藏进度条或修改提示信息
+            //		LODOP.SET_SHOW_MODE("MESSAGE_PARSING_URL","");//该语句隐藏进度条或修改提示信息
+
+
+            //LODOP.ADD_PRINT_TEXT('20', '420', '600', '50', "555555");
+            //LODOP.SET_PRINT_STYLEA(1, "ItemType", 1);
+            //LODOP.SET_PRINT_STYLEA(1, "FontSize", 14);
+            //LODOP.SET_PRINT_STYLEA(1, "Bold", 1);
+            //LODOP.ADD_PRINT_TEXT('900', '660', '200', '22', "第#页/共&页");
+            //LODOP.SET_PRINT_STYLEA(2, "ItemType", 2);
+            //LODOP.SET_PRINT_STYLEA(2, "HOrient", 1);
+            //LODOP.ADD_PRINT_HTM('50', '45', '500', '80%', document.getElementById(printodiv).innerHTML + "");
+
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "98%", css + document.getElementById("idFace").innerHTML + "");
+
+            LODOP.PREVIEW();
+        }
+    }
+    //获取病人实体
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            var EntryTime = data.data["EntryTime"];
+            $("#EntryTime-year").html(EntryTime.ToString("yyyy"));
+            $("#EntryTime-month").html(EntryTime.ToString("MM"));
+            $("#EntryTime-day").html(EntryTime.ToString("dd"));
+        }
+    });
+    //获得病人基本信息
+    EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetBasicInpatientInfoById", {
+        data: { "HealthCard": NewGetQueryString("HealthCard") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                var BirthPlace = data.data["BirthPlace"].split(',');//出生地
+                var BirthDate = data.data["BirthDate"];//出生时间
+                $("#BirthPlace-province").html(BirthPlace[0]);
+                $("#BirthPlace-city").html(BirthPlace[1]);
+                $("#BirthPlace-area").html(BirthPlace[2]);
+                $("#BirthDate-year").html(BirthDate.ToString("yyyy"));
+                $("#BirthDate-month").html(BirthDate.ToString("MM"));
+                $("#BirthDate-day").html(BirthDate.ToString("dd"));
+            }
+        }
+    });
+    //根据病人id获取病历信息
+    EWinsBase.json("api/Doctor/HospitalRecord/GetInfoByInpatientId", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                if (data.data["Narrator"] == "其他") { data.data["Narrator"] = data.data["NarratorSupplement"]; }//病程陈述者未其他的时候，现在其他陈述者
+                data.data["PresentHistory"] = HTMLDecode(data.data["PresentHistory"]);//现病史
+                data.data["PreviousHistory"] = HTMLDecode(data.data["PreviousHistory"]);//既往史
+                data.data["SystemReview"] = HTMLDecode(data.data["SystemReview"]);//系统回顾
+                data.data["PersonalHistory"] = HTMLDecode(data.data["PersonalHistory"]);//个人史
+                data.data["ObstericalHistory"] = HTMLDecode(data.data["ObstericalHistory"]);//婚育史
+                data.data["FamilyHistory"] = HTMLDecode(data.data["FamilyHistory"]);//家族史
+
+                data.data["SpecialInspection"] = HTMLDecode(data.data["SpecialInspection"]);//普通专科检查
+
+                data.data["LaboratoryExamination"] = HTMLDecode(data.data["LaboratoryExamination"]);//实验室检查
+                data.data["SpecialExamination"] = HTMLDecode(data.data["SpecialExamination"]);//特殊检查
+                data.data["PathologicalExamination"] = HTMLDecode(data.data["PathologicalExamination"]);//病理检查
+                data.data["OtherContent"] = HTMLDecode(data.data["OtherContent"]);//其他检查
+
+
+                //如果存在该病人的入院记录
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+
+            }
+        },
+        error: function (error) {
+
+        }
+    });
+    //根据病人id获取体格检查
+    EWinsBase.json("api/Doctor/HospitalPhysicalRxam/GetInfoByInpatientId", {
+        data: { "InpatientId": NewGetQueryString("InpatientId") },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                //如果存在该病人的入院记录
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            }
+        },
+        error: function (error) {
+
+        }
+    });
+    //初步诊断
+    EWinsBase.json("api/Doctor/PatientDiagnosis/GetAll", {
+        data: { "InpatientId": NewGetQueryString("InpatientId"),"DiagnosisType":"0","page":"1","limit":"10" },
+        type: "GET",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                $(data.data).each(function (i, n) {
+                    var html = "<tr><td>" + (i + 1) + "</td><td>" + (n.MainDiagnosis == "1" ? '是' : '') + "</td><td>" + n.DiagnosisName + "</td><td>" + n.DiagnosisNameSupplement + "</td><td>" + n.DiagnosisTime.ToString("yyyy-MM-dd") + "</td><td>" + n.DiagnosisFlagName + "</td><td>" + (n.RecordUserESign == null ? n.RecordUserName : '<img src="/' + n.RecordUserESign + '" width="100" />') + "</td></tr>";
+                    $("#primaryDiag tbody").append(html);
+                });
+            }
+        }
+    });
+    //修正诊断
+    EWinsBase.json("api/Doctor/PatientDiagnosis/GetAll", {
+        data: { "InpatientId": NewGetQueryString("InpatientId"), "DiagnosisType": "1", "page": "1", "limit": "10" },
+        type: "GET",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                $(data.data).each(function (i, n) {
+                    var html = "<tr><td>" + (i + 1) + "</td><td>" + (n.MainDiagnosis == "1" ? '是' : '') + "</td><td>" + n.DiagnosisName + "</td><td>" + n.DiagnosisNameSupplement + "</td><td>" + n.DiagnosisTime.ToString("yyyy-MM-dd") + "</td><td>" + n.DiagnosisFlagName + "</td><td>" + (n.RecordUserESign == null ? n.RecordUserName : '<img src="/' + n.RecordUserESign + '" width="100" />') + "</td></tr>";
+                    $("#correctDiag tbody").append(html);
+                });
+            }
+        }
+    });
+    //补充诊断
+    EWinsBase.json("api/Doctor/PatientDiagnosis/GetAll", {
+        data: { "InpatientId": NewGetQueryString("InpatientId"), "DiagnosisType": "2", "page": "1", "limit": "10" },
+        type: "GET",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            if (data.data != null) {
+                $(data.data).each(function (i, n) {
+                    var html = "<tr><td>" + (i + 1) + "</td><td>" + (n.MainDiagnosis == "1" ? '是' : '') + "</td><td>" + n.DiagnosisName + "</td><td>" + n.DiagnosisNameSupplement + "</td><td>" + n.DiagnosisTime.ToString("yyyy-MM-dd") + "</td><td>" + n.DiagnosisFlagName + "</td><td>" + (n.RecordUserESign == null ? n.RecordUserName : '<img src="/' + n.RecordUserESign + '" width="100" />') + "</td></tr>";
+                    $("#supplementDiag tbody").append(html);
+                });
+            }
+        }
+    });
+</script>
+<script type="text/html" id="DiagnosisTime">
+    {{ d.DiagnosisTime.ToString("yyyy-MM-dd") }}
+</script>
+<script type="text/html" id="MainDiagnosis">
+    {{# if(d.MainDiagnosis=="1"){ }}
+    <i class="iconfont">&#xe7f6;</i>
+    {{#  }  }}
+</script>
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>

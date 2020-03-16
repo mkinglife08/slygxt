@@ -1,0 +1,264 @@
+﻿
+@{
+    ViewBag.Title = "UserInfoEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/doctorIndex.css">
+
+<form class="layui-form" id="form1" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label cur_lable">组织机构代码</label>
+                <div class="layui-input-inline">
+                    <select name="OrganID" id="OrganID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择组织机构代码">
+                        <option value="0">请选择组织机构代码</option>
+                    </select>
+                </div>
+                <label class="layui-form-label cur_lable">用户编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="UserCode" data-id="UserCode" lay-verify="required" lay-maxlength="20" placeholder="请输入用户编号" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">HIS编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="HISCode" data-id="HISCode" lay-maxlength="20" placeholder="请输入HIS编号" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">用户名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="UserName" data-id="UserName" lay-verify="required" lay-maxlength="20" placeholder="请输入用户名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">职务</label>
+                <div class="layui-input-inline">
+                    <select name="Job" id="Job" class="deletSele" lay-verify="SelectRequired" placeholder="请选择职务"></select>
+                </div>
+                <label class="layui-form-label">职务级别</label>
+                <div class="layui-input-inline">
+                    <select name="JobLevel" id="JobLevel" class="deletSele" lay-verify="SelectRequired" placeholder="请选择职务级别"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户职称</label>
+                <div class="layui-input-inline">
+                    <select name="UserPosition" id="UserPosition" class="deletSele" lay-verify="SelectRequired" placeholder="请选择职务"></select>
+                </div>
+                <label class="layui-form-label">用户人员性别</label>
+                <div class="layui-input-inline" id="divUserSex">
+                    <input type="radio" name="UserSex" value="1" title="男">男
+                    <input type="radio" name="UserSex" value="2" title="女">女
+                    <input type="radio" name="UserSex" value="3" title="保密">保密
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户照片</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <div class="layui-upload-list uploadImg">
+                            <img id="imageUser" src="~/Content/images/upload_img.png"
+                                 width="100" style="cursor: pointer;" />
+                            <input id="picture_upload_User" name="file" type="file" onchange="upload_coverUser(this)"
+                                   style="position: absolute; left: 0px; top: 0px; width: 100px; height: 100px; opacity: 0; cursor: pointer;" />
+                            <input type="hidden" value="" name="UserPhoto" id="UserPhoto" data-id="UserPhoto" />
+                        </div>
+                    </div>
+                </div>
+                <label class="layui-form-label">电子签名</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <div class="layui-upload-list uploadImg">
+                            <img id="imageESign" src="~/Content/images/upload_img.png" width="100" style="cursor: pointer;" />
+                            <input id="picture_upload_ESign" name="file" type="file" onchange="upload_coverESign(this)" style="position: absolute; left: 0px; top: 0px; width: 100px; height: 100px; opacity: 0; cursor: pointer;" />
+                            <input type="hidden" value="" name="ESign" id="ESign" data-id="ESign" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+
+                <label class="layui-form-label" id="labPASSWORD">登录密码</label>
+                <div class="layui-input-inline" id="divPASSWORD">
+                    <input type="text" name="PassWord" id="PassWord" data-id="PassWord" lay-maxlength="20"  placeholder="请输入登录密码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">科室</label>
+                <div class="layui-input-inline">
+                    <select name="DpetID" id="DpetID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择科室"></select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">病区</label>
+                <div class="layui-input-inline">
+                    <select name="InpatientID" id="InpatientID" class="deletSele" lay-verify="SelectRequired" placeholder="请选病区" multiple="multiple"></select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">医疗组</label>
+                <div class="layui-input-inline">
+                    <select name="MedicalID" id="MedicalID" class="deletSele" lay-verify="SelectRequired" placeholder="请选择用户组" multiple="multiple"></select>
+                </div>
+            </div>
+        </div>
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+<!--JS-->
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script>
+    //初始化下拉框单选框（数据从字典获取）
+    //职务下拉框单选框
+    CreateSelectOptionFromCodeDict($("#Job"), "Job");
+    //职务级别下拉框单选框
+    CreateSelectOptionFromCodeDict($("#JobLevel"), "JobLevel");
+    //用户职称下拉框单选框
+    CreateSelectOptionFromCodeDict($("#UserPosition"), "Position");
+    //用户性别单选按钮
+    CreateRadiosFromCodeDict($("#divUserSex"), "UserSex", "Sex");
+    //科室下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#DpetID"), "0", { width: "540px!important" });
+    //病区下拉框多选框
+    CreateSelectOptionFromDeptInfo($("#InpatientID"), "1", { width: "540px!important" });
+    //医疗组下拉框多选框
+    CreateSelectOptionFromDoctorGroup($("#MedicalID"), { width: "540px!important" });
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    //初始化组织机构代码下拉框
+    GetOrganSelect();
+
+    //用户照片
+    function upload_coverUser(obj) {
+        ajax_upload(obj, "User", NewGetQueryString("UserID"), function (data) { //function(data)是上传图片的成功后的回调方法\
+            $('#imageUser').attr('src', __curHostAddress + data.data + "?" + Math.round(Math.random() * 100)); //给<input>的src赋值去显示图片
+            $('#UserPhoto').val(data.data);
+        });
+    }
+    //电子签名
+    function upload_coverESign(obj) {
+        ajax_upload(obj, "ESign", NewGetQueryString("UserID"), function (data) { //function(data)是上传图片的成功后的回调方法\
+            console.log(data);
+            $('#imageESign').attr('src', __curHostAddress + data.data + "?" + Math.round(Math.random() * 100)); //给<input>的src赋值去显示图片
+            $('#ESign').val(data.data);
+        });
+    }
+
+    var UserID = NewGetQueryString("UserID");
+    if (UserID != "") {
+        EWinsBase.json("api/Public/UserInfo/Get", {
+            data: { "UserID": UserID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                //用户照片
+                if (data.data["UserPhoto"] != "" && data.data["UserPhoto"] != null) { $("#imageUser").attr("src", __curHostAddress + data.data["UserPhoto"]); }
+                //电子签名
+                if (data.data["ESign"] != "" && data.data["ESign"] != null) { $("#imageESign").attr("src", __curHostAddress + data.data["ESign"]); }
+
+                //性别
+                $("input:radio[name='UserSex'][value='" + data.data["UserSex"] + "']").attr("checked", 'checked');
+
+                //密码
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+                $("#labPASSWORD").css("display", "none");
+                $("#divPASSWORD").css("display", "none");
+                $("#PassWord").attr("lay-verify", "");
+
+                $("#PASSWORD").val("");
+                $("#OrganID").val(data.data["OrganID"]).trigger('change');
+                
+                //绑定职务
+                if (data.data["Job"] != null) {
+                    //绑定职务初始值
+                    $("#Job").append("<option value=" + data.data["Job"] + ">" + data.data["JobName"] + "</option>");
+                    $("#Job").val(data.data["Job"]).trigger('change');
+                }
+                //绑定职务级别
+                if (data.data["JobLevel"] != null) {
+                    //绑定职务级别初始值
+                    $("#JobLevel").append("<option value=" + data.data["JobLevel"] + ">" + data.data["JobLevelName"] + "</option>");
+                    $("#JobLevel").val(data.data["JobLevel"]).trigger('change');
+                }
+                //绑定用户职称
+                if (data.data["UserPosition"] != null) {
+                    //绑定用户职称初始值
+                    $("#UserPosition").append("<option value=" + data.data["UserPosition"] + ">" + data.data["UserPositionName"] + "</option>");
+                    $("#UserPosition").val(data.data["UserPosition"]).trigger('change');
+                }
+                //绑定科室
+                if (data.data["DpetList"] != null) {
+                    //绑定科室初始值
+                    data.data["DpetList"].forEach(function (item, index) { $("#DpetID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>");});
+                    $("#DpetID").val($(data.data["DpetList"]).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+                //绑定病区
+                if (data.data["InpatientList"] != null) {
+                    //绑定病区初始值
+                    data.data["InpatientList"].forEach(function (item, index) { $("#InpatientID").append("<option value=" + item.DeptID + ">" + item.DeptName + "</option>"); });
+                    $("#InpatientID").val($(data.data["InpatientList"]).map(function () { return this.DeptID }).get()).trigger('change');
+                }
+                //绑定医疗组
+                if (data.data["MedicalList"] != null) {
+                    //绑定医疗组初始值
+                    data.data["MedicalList"].forEach(function (item, index) { $("#MedicalID").append("<option value=" + item.DoctorGroupId + ">" + item.GroupName + "</option>"); });
+                    $("#MedicalID").val($(data.data["MedicalList"]).map(function () { return this.DoctorGroupId }).get()).trigger('change');
+                }
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        form.on('submit(sub)', function (data) {
+            ;
+            data.field["UserID"] = GetQueryString("UserID") + "";
+            data.field["DpetID"] = getMultiSelectVal("DpetID");
+            data.field["InpatientID"] = getMultiSelectVal("InpatientID");
+            data.field["MedicalID"] = getMultiSelectVal("MedicalID");
+
+            EWinsBase.json("api/Public/UserInfo/Save", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id');
+
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document);
+                            if (wind.length > 0) { wind[0].contentWindow.refreshTable(); }
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+        });
+        form.render();
+    });
+
+
+ 
+
+</script>

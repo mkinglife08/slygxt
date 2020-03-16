@@ -1,0 +1,139 @@
+.fl{
+	float:left;
+}
+.fr{ float:right; }
+.clearfix:after{
+	content:'';
+	height:0;
+	display: block;
+	clear:both;
+	visibility: hidden;
+}
+.nav{
+	width:100%;
+	height:50px;
+	background: #0A64A4;
+}
+.layui-body{
+	margin-left: 5px;
+}
+.layui-nav-item .addActive {
+    background: #3388E1;
+    color: #fff !important;
+}
+/*表头*/
+
+.first{ margin-left:5px;}
+
+.header_log{
+    background:#fff;
+    margin-bottom:10px;
+    box-shadow: 1px 2px 9px 0px #ccc;
+    padding: 5px 0 7px 10px;
+}
+.logUls{
+     width: 100%;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
+}
+.logUls li {
+    float: left;
+    width:12%;
+    font-size:14px;
+}
+.logUls li span{
+    color:#666;
+}
+.logUls li span,p{ float:left}
+.logUls li p{  
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    color:#000;
+    cursor:pointer;
+    font-weight:600;
+}
+/*.logUls li p:hover{
+   width: auto;
+}*/
+
+.userList{
+	width:10%;
+}
+.userList .listCont{
+	padding:5px 0;
+	font-size:13px;
+}
+.userList .listCont .userName{
+	width: 60%;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    padding-left: 4px;
+    margin:-5px 0 0 5px;
+}
+.userList .listCont dd{
+	color:#666;
+	margin-left:2px;
+	margin-top: 1px;
+	max-width: 61%;
+	white-space:nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+
+}
+.userList .listCont dt,.userList .listCont dd{
+	float:left;
+}
+
+
+
+/*表头结束*/
+
+/*病程记录*/
+.coRecord{
+	width:100%;
+	height:40px;
+	background: #f2f2f2;
+	margin-top: 8px;
+	position: relative;
+	border-bottom:1px solid #e6e6e6;
+}
+.coRecord .coWord{
+	font-size: 16px;
+	color:#000;
+	position: absolute;
+	left:5px;
+	top: 8px;
+}
+.coRecord .coSearch{
+	position: absolute;
+	right:25px;
+	top: 5px;
+} 
+.coRecord .coSearch .seaInput .word{
+	font-size: 14px;
+	color:#666;
+}
+.coRecord .coSearch .seaInput .text{
+	width:68%;
+	height:30px;
+	padding-left:5px;
+	outline: none;
+	border:1px solid #e6e6e6;
+	border-radius:5px;
+}
+.coRecord .coSearch .coBtn .layui-btn{
+	height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+}
+/*病程记录结束*/
+
+.layui-timeline-title{ font-size: 14px; }
+
+.my-body iframe {
+    width:100%;height:100%;border:none; outline:none;
+}

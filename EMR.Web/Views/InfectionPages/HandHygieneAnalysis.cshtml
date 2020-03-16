@@ -1,0 +1,519 @@
+﻿
+@{
+    ViewBag.Title = "手卫生依从性及正确性现场调查数据分析";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+
+@{
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*body {
+            padding: 0 100px;
+        }*/
+
+        .demo {
+            width: 100%; /* 600px;*/
+            margin: 40px auto;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 14px;
+            color: #444;
+        }
+
+        table {
+            *border-collapse: collapse; /* IE7 and lower */
+            border-spacing: 0;
+            width: 100%;
+        }
+        /*========bordered table========*/
+        .bordered {
+            border: solid #ccc 1px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 0 1px 1px #ccc;
+            -moz-box-shadow: 0 1px 1px #ccc;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+            .bordered tr {
+                -o-transition: all 0.1s ease-in-out;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -ms-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+                .bordered .highlight,
+                .bordered tr:hover {
+                    background: #fbf8e9;
+                }
+
+            .bordered td,
+            .bordered th {
+                /*border-left: 1px solid #ccc;   
+                border-top: 1px solid #ccc;*/
+                border-left: 1px solid #000;
+                border-top: 1px solid #000;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ebf3fc, endColorstr=#dce9f9)";
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+
+                .bordered td:first-child,
+                .bordered th:first-child {
+                    border-left: none;
+                }
+
+                .bordered th:first-child {
+                    -moz-border-radius: 6px 0 0 0;
+                    -webkit-border-radius: 6px 0 0 0;
+                    border-radius: 6px 0 0 0;
+                }
+
+                .bordered th:last-child {
+                    -moz-border-radius: 0 6px 0 0;
+                    -webkit-border-radius: 0 6px 0 0;
+                    border-radius: 0 6px 0 0;
+                }
+
+            .bordered tr:last-child td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .bordered tr:last-child td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+        /*----------------------*/
+        .zebra td,
+        .zebra th {
+            padding: 10px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .zebra .alternate,
+        .zebra tbody tr:nth-child(even) {
+            background: #f5f5f5;
+            -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+        }
+
+        .zebra th {
+            text-align: left;
+            text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
+            background-image: linear-gradient(top, #f5f5f5, #eee);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f5f5f5, endColorstr=#eeeeee)";
+        }
+
+            .zebra th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+
+            .zebra th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+
+        .zebra tfoot td {
+            border-bottom: 0;
+            border-top: 1px solid #fff;
+            background-color: #f1f1f1;
+        }
+
+            .zebra tfoot td:first-child {
+                -moz-border-radius: 0 0 0 6px;
+                -webkit-border-radius: 0 0 0 6px;
+                border-radius: 0 0 0 6px;
+            }
+
+            .zebra tfoot td:last-child {
+                -moz-border-radius: 0 0 6px 0;
+                -webkit-border-radius: 0 0 6px 0;
+                border-radius: 0 0 6px 0;
+            }
+
+            /*td底部加粗*/
+        .tdBlod {
+            border-bottom:2px solid #000;
+        }
+        .zxsj td {
+            border-bottom:1px solid #000;
+        }
+    </style>
+}
+
+<form class="layui-form" action="" lay-filter="component-form-group">
+    <div id="action_subm">
+        <div class="submEdit">
+              
+             
+            <table id="tb_HandHygiAnalysis" width="100%" border="1" cellspacing="0" cellpadding="0" class="bordered">
+                <tr>
+                    <td rowspan="2" class="col_0" style="width:14%;border-bottom:2px solid #000;">时段</td>
+                    <td rowspan="2" class="col_0" style="width:6%;border-bottom:2px solid #000;">编号</td>
+                    <td rowspan="2" class="col_1" style="width:8%;border-bottom:2px solid #000;">姓名</td>
+                    <td rowspan="2" class="col_2" style="width:6%;border-bottom:2px solid #000;border-right:2px solid #000;">职业</td>
+
+                    <td colspan="3" class="col_3" style="border-right:2px solid #000;">接触病人前</td>
+                    <td colspan="3" class="col_4" style="border-right:2px solid #000;">接触病人后</td>
+                    <td colspan="3" class="col_5" style="border-right:2px solid #000;">接触清洁、无菌物品前</td>
+                    <td colspan="3" class="col_6" style="border-right:2px solid #000;">接触病人周围环境后</td>
+                    <td colspan="3" class="col_6" style="border-right:2px solid #000;"><span class="col_6" style="width:10%;">接触污物（摘手套）后</span></td>
+                    <td colspan="3" class="col_6"  style='border-right:2px solid #000;'>配餐前</td>
+                </tr>
+                <tr id="title">
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">消</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;">洗</td>
+                    <td class="col_3" style="width:2.6%;border-bottom:2px solid #000;border-right:2px solid #000;">未</td>
+                </tr>
+                  
+                <tr>
+                    <td colspan="2" class="col_0" style="width:14%;">本次科室共调查：</td>
+                    <td class="col_1" style="width:8%; background-color:rgb(146,208,80);">医生</td>
+                    <td class="col_2" style="width:8%; background-color:rgb(146,208,80);" id="ysrs">0</td>
+                    <td class="col_3" style="width:2.6%;">&nbsp;</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(155,154,230);">护士</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(155,154,230);" id="hsrs">0</td>
+                    <td class="col_3" style="width:2.6%;">&nbsp;</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(169,208,142);">医技</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(169,208,142);" id="yjrs">0</td>
+                    <td class="col_3" style="width:2.6%;">&nbsp;</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(255,217,102);">工人</td>
+                    <td class="col_3" style="width:2.6%;background-color:rgb(255,217,102);" id="grrs">0</td>
+                    <td colspan="9" class="col_3" style="width:2.6%;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="col_0" style="width:14%;">操作</td>
+                    <td colspan="4" class="col_0" style="width:6%;">调查总数</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;">医生执行人数</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;">护士执行人数</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;">医技执行人数</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;">工人执行人数</td>
+                    <td rowspan="2" class="col_3" style="width:2.6%;">洗手例次数</td>
+                    <td rowspan="2" class="col_3" style="width:2.6%;">总例次数</td>
+                    <td rowspan="2" class="col_3" style="width:2.6%;">依从性</td>
+                    <td rowspan="2" class="col_3" style="width:2.6%;">&nbsp;</td>
+                    <td rowspan="2" class="col_3" style="width:2.6%;">&nbsp;</td>
+                </tr>
+                <tr id="opStatis">  <!--操作统计-->
+                    <td class="col_0" style="width:6%;">医生</td>
+                    <td class="col_0" style="width:6%;">护士</td>
+                    <td class="col_0" style="width:6%;">医技</td>
+                    <td class="col_0" style="width:6%;">工人</td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">消</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">洗</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">未</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">消</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">洗</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">未</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">消</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">洗</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">未</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">消</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">洗</span></td>
+                    <td class="col_3" style="width:2.6%;"><span class="col_3" style="width:2.6%;">未</span></td>
+                </tr>
+               
+
+                <tr>
+                    <td class="col_0" style="width:14%;">洗手例次数</td>
+                    <td colspan="4" class="col_0" style="width:6%;"   id="xslc_z">&nbsp;aa</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xslc_ys">&nbsp;bb</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xslc_hs">&nbsp;cc</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xslc_yj">&nbsp;dd</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xslc_gr">&nbsp;ee</td>
+                    <td colspan="5" rowspan="3" class="col_3" style="width:2.6%;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0" style="width:14%;">总例次数</td>
+                    <td colspan="4" class="col_0" style="width:6%;"   id="zlc_z">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="zlc_ys">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="zlc_hs">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="zlc_yj">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="zlc_gr">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col_0" style="width:14%;">洗手依从性</td>
+                    <td colspan="4" class="col_0" style="width:6%;"  id="xsycx_z">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xsycx_ys">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xsycx_hs">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xsycx_yj">&nbsp;</td>
+                    <td colspan="3" class="col_3" style="width:2.6%;" id="xsycx_gr">&nbsp;</td>
+                </tr>
+            </table>
+
+</div>
+
+        <div class="lastBtn"> 
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    var tb = $("#tb_HandHygiAnalysis");
+
+    var HANDID = GetQueryString("HANDID");
+    if (HANDID != "" && HANDID != "undefined") {
+       // $("#HANDID").val(HANDID);
+        EWinsBase.json("api/Infection/HandHygiene/GetHandHygiAnalysisSourceList", {
+            data: { "HANDID": HANDID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                //debugger
+                var groupedHandHygi = data.data.Item1; //获取分组后的数据
+
+              // <tr><td>时间段</td><td>1序号</td><td>姓名</td><td rowspan="2">护士（职业）</td><td>col_1（消）</td><td>洗</td><td>未</td><td>col_2（消）</td><td>洗</td><td>未</td><td>col_3（消）</td><td>洗</td><td>未</td><td>col_4（消）</td><td>洗</td><td>未</td><td>col_5（消）</td><td>洗</td><td>未</td><td>col_6（消）</td><td>未</td></tr>
+                var trHtml = "";
+                $.each(groupedHandHygi, function (i, v) { 
+                    var d = v.handhygiene_source;
+                    if (v.zy == "医生") {
+                        $("#ysrs").html(v.currentSum);
+                    }
+                    if (v.zy == "护士") {
+                        $("#hsrs").html(v.currentSum);
+                    }
+                    if (v.zy == "医技") {
+                        $("#yjrs").html(v.currentSum);
+                    }
+                    if (v.zy == "工人") {
+                        $("#grrs").html(v.currentSum);
+                    }
+                    //console.log(v.zy+":"+d.length);
+                    $.each(d, function (j, vv) {
+
+                        var tdBlodCss = "";
+                        if (j == d.length - 1)
+                        {
+                            tdBlodCss = "tdBlod";
+                        }
+
+                        trHtml += "<tr>";
+                        var tdStr = "";
+                        if (j == 0) { 
+                            tdStr = "<td rowspan=" + "\"" + v.currentSum + "\"" + " style='border-bottom:2px solid #000;border-right:2px solid #000;'>" + v.zy + "</td >";
+                        } 
+                        trHtml += "<td class=" + tdBlodCss+">" + EWinsBase.formatData(vv.SJDONE, "yyyy-MM-dd hh:mm:ss") + "-" + EWinsBase.formatData(vv.SJDTWO, "yyyy-MM-dd hh:mm:ss") + "</td>"
+                       // trHtml += "<td>abc</td>"
+                            + " <td class=" + tdBlodCss + ">" + (j + 1) + "</td> <td class=" + tdBlodCss +">" + vv.XM + "</td> " + tdStr
+                            + " <td class=" + tdBlodCss + ">" + (vv.JCBRQ == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.JCBRQ == "洗" ? "√" : "  ") + "</td><td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.JCBRQ == "未" ? "√" : " ")+"</td>"
+                            + " <td class=" + tdBlodCss + ">" + (vv.JCBRH == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.JCBRH == "洗" ? "√" : " ") + "</td> <td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.JCBRH == "未" ? "√" : " ") + "</td>"
+                            + " <td class=" + tdBlodCss + ">" + (vv.JCWJWPQ == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.JCWJWPQ == "洗" ? "√" : " ") + "</td> <td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.JCWJWPQ == "未" ? "√" : " ") + "</td>"
+                            + " <td class=" + tdBlodCss + ">" + (vv.JCBRHJH == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.JCBRHJH == "洗" ? "√" : " ") + "</td> <td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.JCBRHJH == "未" ? "√" : " ") + "</td>"
+                            + " <td class=" + tdBlodCss + ">" + (vv.JCWWH == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.JCWWH == "洗" ? "√" : " ") + "</td> <td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.JCWWH == "未" ? "√" : " ") + "</td>"
+                            + " <td class=" + tdBlodCss + ">" + (vv.PCQ == "消" ? "√" : " ") + "</td><td class=" + tdBlodCss + ">" + (vv.PCQ == "洗" ? "√" : " ") + "</td> <td style='border-right:2px solid #000;' class=" + tdBlodCss + ">" + (vv.PCQ == "未" ? "√" : " ") + "</td>";
+
+                        trHtml += "</tr>";
+                    });
+                });
+
+                $("#title").after(trHtml);
+
+                var opItemArr = ['接触病人前', '接触病人后', '无菌操作前', '接触病人周围环境后', '接触污物（摘手套）后', '配餐前', '总数'];
+                var opTrHtml = "";
+                var b = data.data.Item2; //调查总数		 
+                var c = data.data.Item3; // 医生，护士，医技，工人分别执行数量
+                $.each(opItemArr, function (i, v) {
+                    var cusMark = "item";
+                    if (i == opItemArr.length - 1)
+                    {
+                        cusMark = "total";
+                    }
+                    opTrHtml += "<tr class='zxsj' trMark='" + cusMark+"'>";
+                    opTrHtml += "<td>" + v + "</td>";
+                    opTrHtml += "<td>" + b[i].ys + "</td>" + "<td>" + b[i].hs + "</td>" + "<td>" + b[i].yj + "</td>" + "<td>" + b[i].gr + "</td>";
+
+                    var ysop = c[0].opList[i];  //医生操作：消洗未
+                    opTrHtml += "<td class='x' tdMark='ys'>" + ysop.x + "</td><td class='xx' tdMark='ys'>" + ysop.xx + "</td><td class='w' tdMark='ys'>" + ysop.w + "</td>";
+                    var hsop = c[1].opList[i];  //护士操作：消洗未
+                    opTrHtml += "<td class='x' tdMark='hs'>" + hsop.x + "</td><td class='xx' tdMark='hs'>" + hsop.xx + "</td><td class='w' tdMark='hs'>" + hsop.w + "</td>";
+                    var yjop = c[2].opList[i];  //医技术操作：消洗未
+                    opTrHtml += "<td class='x' tdMark='yj'>" + yjop.x + "</td><td class='xx' tdMark='yj'>" + yjop.xx + "</td><td class='w' tdMark='yj'>" + yjop.w + "</td>";
+                    var grop = c[3].opList[i];  //工人操作：消洗未
+                    opTrHtml += "<td class='x' tdMark='gr'>" + grop.x + "</td><td class='xx' tdMark='gr'>" + grop.xx + "</td><td class='w' tdMark='gr'>" + grop.w + "</td>";
+                    opTrHtml += " <td class='xslc'>洗手例次</td> <td class='zls'>总例次</td> <td class='ycx'>依从性</td> <td>-</td> <td>-</td>";
+
+                    opTrHtml += "<tr>";
+                });
+                $("#opStatis").after(opTrHtml);
+                 
+                $("#tb_HandHygiAnalysis").find("tr[class='zxsj']").each(function () {
+                    var sumX = 0;  //每个操作类别 消 数字总和
+                    var sumXX = 0; //每个操作类别 洗 数字总和
+                    var sumW = 0;  //每个操作类别 未 数字总和
+
+                    $.each($(this).find("td[class='x']"), function (i, td) {
+                        sumX += parseInt($(td).html());
+                    });
+                    $.each($(this).find("td[class='xx']"), function (i, td) {
+                        sumXX += parseInt($(td).html());
+                    });
+
+                    $.each($(this).find("td[class='w']"), function (i, td) {
+                        sumW += parseInt($(td).html());
+                    });
+                    var xslc = parseInt(sumX) + parseInt(sumXX);
+                    var zls = parseInt(sumX) + parseInt(sumXX) + parseInt(sumW);
+                    var ycx = (zls == 0 ? 0 : parseFloat(xslc / zls) * 100);
+                    $(this).find("td[class='xslc']").html(xslc);
+                    $(this).find("td[class='zls']").html(zls);
+                    $(this).find("td[class='ycx']").html(ycx.toFixed(2) + "%");
+                     
+                });
+
+                //获取操作名为：总数的行
+                $("#tb_HandHygiAnalysis").find("tr[trmark='total']").each(function () {
+                    var sumX = 0;  //每个操作类别 消 数字总和
+                    var sumXX = 0; //每个操作类别 洗 数字总和
+                    var sumW = 0;  //每个操作类别 未 数字总和
+                    var td_x = $(this).find("td[class='x']");
+                    var td_xx = $(this).find("td[class='xx']");
+                    var td_w = $(this).find("td[class='w']");
+
+                    //debugger
+                    var ys_x = $(this).find("td[class='x'][tdmark='ys']").html(); //医生消 
+                    var ys_xx = $(this).find("td[class='xx'][tdmark='ys']").html(); //医生洗
+                    var ys_w = $(this).find("td[class='w'][tdmark='ys']").html();; //医生未 
+                    var xslc_ys = parseInt(ys_x) + parseInt(ys_xx);
+                    var zls_ys = parseInt(ys_x) + parseInt(ys_xx) + parseInt(ys_w);
+                    $("#xslc_ys").html(xslc_ys);
+                    $("#zlc_ys").html(zls_ys);
+                    $("#xsycx_ys").html(zls_ys == 0 ? "0.00%" : parseFloat((xslc_ys / zls_ys) * 100).toFixed(2) + "%");
+
+
+                    var hs_x = $(this).find("td[class='x'][tdmark='hs']").html(); //护士消 
+                    var hs_xx = $(this).find("td[class='xx'][tdmark='hs']").html(); //护士洗
+                    var hs_w = $(this).find("td[class='w'][tdmark='hs']").html();; //护士未 
+                    var xslc_hs = parseInt(hs_x) + parseInt(hs_xx);
+                    var zls_hs = parseInt(hs_x) + parseInt(hs_xx) + parseInt(hs_w);
+                    $("#xslc_hs").html(xslc_hs);
+                    $("#zlc_hs").html(zls_hs);
+                    $("#xsycx_hs").html(zls_hs == 0 ? "0.00%" : parseFloat((xslc_hs / zls_hs) * 100).toFixed(2) + "%");
+
+
+                    var yj_x = $(this).find("td[class='x'][tdmark='yj']").html(); //医技消 
+                    var yj_xx = $(this).find("td[class='xx'][tdmark='yj']").html(); //医技洗
+                    var yj_w = $(this).find("td[class='w'][tdmark='yj']").html();; //医技未 
+                    var xslc_yj = parseInt(yj_x) + parseInt(yj_xx);
+                    var zls_yj = parseInt(yj_x) + parseInt(yj_xx) + parseInt(yj_w);
+                    $("#xslc_yj").html(xslc_yj);
+                    $("#zlc_yj").html(zls_yj);
+                    $("#xsycx_yj").html(zls_yj == 0 ? "0.00%" : parseFloat((xslc_yj / zls_yj) * 100).toFixed(2) + "%");
+
+                    var gr_x = $(this).find("td[class='x'][tdmark='gr']").html();    //工人消 
+                    var gr_xx = $(this).find("td[class='xx'][tdmark='gr']").html();  //工人洗
+                    var gr_w = $(this).find("td[class='w'][tdmark='gr']").html();;   //工人未 
+                    var xslc_gr = parseInt(gr_x) + parseInt(gr_xx);
+                    var zls_gr = parseInt(gr_x) + parseInt(gr_xx) + parseInt(gr_w);
+                    $("#xslc_gr").html(xslc_gr);
+                    $("#zlc_gr").html(zls_gr);
+                    $("#xsycx_gr").html(zls_gr == 0 ? "0.00%" : parseFloat((xslc_gr / zls_gr) * 100).toFixed(2) + "%");
+
+                    $("#xslc_z").html(parseInt($("#xslc_ys").html()) + parseInt($("#xslc_hs").html()) + parseInt($("#xslc_yj").html()) + parseInt($("#xslc_gr").html()));
+                    $("#zlc_z").html(parseInt($("#zlc_ys").html()) + parseInt($("#zlc_hs").html()) + parseInt($("#zlc_yj").html()) + parseInt($("#zlc_gr").html()));
+                    $("#xsycx_z").html($("#zlc_z").html() == "0" ? "0" : (parseFloat(parseInt($("#xslc_z").html()) / parseInt($("#zlc_z").html())) * 100).toFixed(2) + "%");
+                });
+
+
+                //<tr>
+                //    <td>接触病人前</td>
+                //    <td>医生数量</td>
+                //    <td>护士数量</td>
+                //    <td>医技数量</td>
+                //    <td>工人数量</td>
+
+                //    <td>ys消</td>
+                //    <td>ys洗</td>
+                //    <td>ys未</td>
+                //    <td>hs消</td>
+                //    <td>hs洗</td>
+                //    <td>hs未</td>
+                //    <td>yj消</td>
+                //    <td>yj洗</td>
+                //    <td>yj未</td>
+                //    <td>gr消</td>
+                //    <td>gr洗</td>
+                //    <td>gr未</td>
+                //    <td>洗手例次</td>
+                //    <td>总例次</td>
+                //    <td>依从性</td>
+                //    <td>&nbsp;</td>
+                //    <td>&nbsp;</td>
+                //</tr>
+                 
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+
+    layui.use(['tree', 'table', 'form', 'layer', 'vip_table','laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            , table = layui.table
+            , layer = layui.layer
+            , vipTable = layui.vip_table
+            , $ = layui.jquery
+            , laydate = layui.laydate;
+
+        
+        form.render();
+    });
+
+</script>
+
+

@@ -1,0 +1,311 @@
+﻿
+
+@{
+    ViewBag.Title = "TemperatureChartEdit";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/template.css">
+}
+
+<div class="temperature">
+    <div class="temperUp clearfix">
+        <div class="tempFir fl">
+            <span>测量：</span><span id="MeasureDay" name="MeasureDay"></span>
+        </div>
+        @*<div class="tempSec fl">
+                <span>过敏史：</span>
+                <input type="text" class="tempSecInput">
+                <a class="layui-btn">保存</a>
+            </div>*@
+    </div>
+
+    <div class="tempCenter">
+        <from class="layui-form" action="" id="form1">
+            <p class="listCo">体温、脉搏、呼吸、血压等</p>
+            <table id="temperature"></table>
+            <table class="mainTable">
+                <tr>
+                    <td class="layui-form">测量时间：<input type="checkbox" name="customizeTime" id="customizeTime" title="自定义" lay-skin="primary" lay-filter="customizeTime" /></td>
+                    <td>
+                        <select name="MeasureHour" id="MeasureHour">
+                            <option value="">2:00</option>
+                            <option value="">6:00</option>
+                            <option value="">10:00</option>
+                            <option value="">14:00</option>
+                            <option value="">18:00</option>
+                            <option value="">22:00</option>
+                        </select>
+                        <input type="text" class="tableInp" id="MeasureTime" name="MeasureTime" data-id="MeasureTime" style="display:none;">
+                    </td>
+                    <td>降温后</td>
+                    <td class="layui-form">
+                        <input type="radio" name="TestType" title="半小时" value="1">半小时
+                        <input type="radio" name="TestType" title="一小时" value="0">一小时
+                    </td>
+                    <td>补充描述：</td>
+                    <td>
+                        <select name="EventCode" id="EventCode" lay-verify="required" placeholder="补充描述" lay-filter="aihao"></select>
+                        <input type="text" class="tableInp" id="Event" name="Event" data-id="Event" style="width:100px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>体温</td>
+                    <td>
+                        <select name="TypeCode" id="TypeCode" lay-verify="required" placeholder="体温" ></select>
+                        <input type="text" class="tableInp" id="Degree" name="Degree" data-id="Degree" />℃
+                    </td>
+                    <td>脉搏</td>
+                    <td>
+                        <select name="mblx" id="mblx">
+                            <option value="">脉搏</option>
+                            <option value="">心率</option>
+                        </select>
+                        <input type="text" class="tableInp" id="txtmblx">次/分钟
+                    </td>
+                    <td>呼吸</td>
+                    <td><input type="text" class="tableInp" id="Breath" name="Breath" data-id="Breath">次/分钟</td>
+                </tr>
+                <tr>
+                    <td>血压</td>
+                    <td>
+                        <input type="text" class="tableInp" id="SystolicPressure" name="SystolicPressure" data-id="SystolicPressure">/
+                        <input type="text" class="tableInp" id="DiastolicPressure" name="DiastolicPressure" data-id="DiastolicPressure">mm/Hg
+                    </td>
+                    <td>Spo2</td>
+                    <td><input type="text" class="tableInp" id="Spo" name="Spo" data-id="Spo"></td>
+                    <td>箱(床)温</td>
+                    <td><input type="text" class="tableInp" id="BoxTemp" name="BoxTemp" data-id="BoxTemp">℃</td>
+                </tr>
+                <tr>
+                    <td>大便</td>
+                    <td>
+                        <select name="StoolType" id="StoolType" lay-verify="required" placeholder="排便"></select>
+                        <input type="text" class="tableInp" id="StoolTreq" name="StoolTreq" data-id="StoolTreq">次
+                        灌肠<input type="text" class="tableInp" id="StoolFreqAfter" name="StoolFreqAfter" data-id="StoolFreqAfter">/E
+                    </td>
+                    <td>腹围</td>
+                    <td><input type="text" class="tableInp" id="Abdomen" data-id="Abdomen" name="Abdomen">cm</td>
+                    <td>体重</td>
+                    <td>
+                        <input type="text" class="tableInp" id="Weight" name="Weight" data-id="Weight">Kg
+                    </td>
+                </tr>
+                <tr>
+                    <td>入量</td>
+                    <td>
+                        <select name="Inflow" id="Inflow" lay-verify="required" placeholder="入量"></select>
+                        <input type="text" class="tableInp" id="IntakeHour" name="IntakeHour" data-id="IntakeHour">小时
+                        <input type="text" class="tableInp" id="Intake" name="Intake" data-id="Intake">ml
+                    </td>
+                    <td>出量</td>
+                    <td>
+                        <select name="Out" id="Out" lay-verify="required" placeholder="出量"></select>
+                        <input type="text" class="tableInp" id="OutputHour" name="OutputHour" data-id="OutputHour">小时
+                        <input type="text" class="tableInp" id="Output" name="Output" data-id="Output">ml
+                    </td>
+                    <td>尿量</td>
+                    <td><input type="text" class="tableInp" id="UPD" name="UPD" data-id="UPD">ml</td>
+                </tr>
+                <tr>
+                    <td>疼痛强度：</td>
+                    <td colspan="1"><input type="text" id="PainScoreId" name="PainScoreId" data-id="PainScoreId"></td>
+                    <td>真疼通后</td>
+                    <td class="layui-form" colspan="3">
+                        <input type="radio" name="demo" title="用药后15分钟">用药后15分钟
+                        <input type="radio" name="demo" title="用药后30分钟">用药后30分钟
+                        <input type="radio" name="demo" title="用药后60分钟">用药后60分钟
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right">
+                        <button class="layui-btn" lay-submit="" lay-filter="sub" ><i class="iconfont save">&#xe63b;</i>保存</button>
+                    </td>
+                </tr>
+            </table>
+        </from>
+    </div>
+
+    <div class="tempLast">
+        <p class="listCo">出入量、补充项等</p>
+        <table class="mainTable">
+            <tr>
+                <td colspan="2">补充项目一</td>
+                <td colspan="2" style="text-align: center;">补充项目二</td>
+                <td colspan="2">补充项目三</td>
+            </tr>
+            <tr>
+                <td style="width:17%">
+                    名称<input type="text" class="tableInp">
+                </td>
+                <td style="width:17%">内容<input type="text" class="tableInp"></td>
+                <td style="width:17%">
+                    名称<input type="text" class="tableInp">
+                </td>
+                <td style="width:17%">内容<input type="text" class="tableInp"></td>
+                <td style="width:17%">
+                    名称<input type="text" class="tableInp">
+                </td>
+                <td style="width:17%">内容<input type="text" class="tableInp"></td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align: right"><a class="layui-btn">保存</a></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+    var InpatientId = NewGetQueryString("InpatientId");//病人id
+    var day = NewGetQueryString("day");//日期
+    //给下拉框配置select2
+    $("select").select2();
+    $("select").siblings(".select2").css("cssText", "width:40%!important");
+    //初始化补充描述
+    CreateSelectOptionFromCodeDict($("#EventCode"), "PatientEvent");
+    //初始化体温类型
+    CreateSelectOptionFromCodeDict($("#TypeCode"), "TemperatureType");
+    //初始化排便类型
+    CreateSelectOptionFromCodeDict($("#StoolType"), "StoolType");
+    //初始化入量类型
+    CreateSelectOptionFromCodeDict($("#Inflow"), "InOutTime");
+    //初始化出量类型
+    CreateSelectOptionFromCodeDict($("#Out"), "InOutTime");
+    
+    
+
+    if (InpatientId != "" && day != "") {
+        //绑定体温单数据
+        EWinsBase.json("api/Nurse/TemperatureChart/GetInfoByInpatientId", {
+            data: { "InpatientId": NewGetQueryString("InpatientId"), "day": day },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.count > 0) {
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data[0]);
+
+                    //补充描述
+                    if (data.data["EventCode"] != null) {
+                        //绑定职务初始值
+                        $("#EventCode").append("<option value=" + data.data["EventCode"] + ">" + data.data["EVENT"] + "</option>");
+                        $("#EventCode").val(data.data["EventCode"]).trigger('change');
+                    }
+                    //体温类型
+                    if (data.data["TypeCode"] != null) {
+                        //绑定职务初始值
+                        $("#TypeCode").append("<option value=" + data.data["TypeCode"] + ">" + data.data["TYPE"] + "</option>");
+                        $("#TypeCode").val(data.data["TypeCode"]).trigger('change');
+                    }
+
+                } else {
+                    $("#MeasureDay").html(day);
+                }
+            }
+        });
+        //绑定体温单额外数据
+        EWinsBase.json("api/Nurse/TemperatureChartExtra/GetInfoByInpatientId", {
+            data: { "InpatientId": NewGetQueryString("InpatientId"), "day": day },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.count > 0) {
+                    EWinsBase.setDataModel($("#divData [data-id]"), data.data[0]);
+
+                    //排便类型
+                    if (data.data["StoolType"] != null) {
+                        //绑定职务初始值
+                        $("#StoolType").append("<option value=" + data.data["StoolType"] + ">" + data.data["StoolType"] + "</option>");
+                        $("#StoolType").val(data.data["StoolTypeCode"]).trigger('change');
+                    }
+
+
+                } else {
+                    $("#MeasureDay").html(day);
+                }
+            }
+        });
+
+
+    }
+
+
+    layui.use(['table', 'element', 'form'], function () {
+        var table = layui.table;
+        var element = layui.element;
+        var form = layui.form;
+
+
+        //绑定脉搏
+        table.render({
+            elem: '#temperature'
+            // ,url:'/demo/table/user/'
+            // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [[
+                { field: 'username', title: '时间' }
+                , { field: 'sex', title: '体温' }
+                , { field: 'city', title: '脉搏' }
+                , { field: 'sign', title: '呼吸' } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , { field: 'experience', title: '血压' }
+                , { field: 'score', title: 'Spo2' }
+                , { field: 'classify', title: '降温后' }
+                , { field: 'wealth', title: '补充' }
+                , { field: 'wealth', title: '编辑' }
+                , { field: 'wealth', title: '删除' }
+                , { field: 'wealth', title: '导入' }
+            ]]
+        });
+        //监听测量时间自定义
+        form.on('checkbox(customizeTime)', function (data) {
+            console.log(this.checked);
+            if (this.checked) {
+                $("#MeasureTime").show();
+            } else {
+                $("#MeasureTime").hide();
+            }
+        });
+
+        //保存体温信息
+        form.on('submit(sub)', function (data) {
+            data.field["InpatientId"] = NewGetQueryString("InpatientId");//病人id
+            data.field["Updater"] = NewGetQueryString("EMRIDSIGN");//申请护士id
+            //测量时间
+            if ($("#customizeTime").prop("checked")) {
+                data.field["MeasureTime"] = $("#MeasureTime").val();
+            } else {
+                data.field["MeasureTime"] = day + $("#MeasureHour").val();
+            }
+
+
+            EWinsBase.json("api/Nurse/TemperatureChart/Save", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            layer.confirm('是否跳到下一步操作？', function (index) {
+                                //获取lay-id对应的值
+                                var layid = $(".layui-this").next("li").attr("lay-id");
+                                if (layid != undefined) {
+                                    element.tabChange('tabs', layid); //切换到下一节
+                                }
+                                layer.close(index);
+                            });
+                        }
+                    );
+                },
+                error: function (error) {
+
+                }
+            })
+            return false;
+
+        });
+    });
+</script>

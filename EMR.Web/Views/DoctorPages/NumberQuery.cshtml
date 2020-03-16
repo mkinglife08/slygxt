@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+			<div class="layui-container" >
+				<div class="layui-row">
+				    <div class="layui-col-xs2">
+				      <div class="grid-demo">
+				      	<span>出院科室</span>
+						<select name="" id="">
+							<option value="">全部</option>
+							<option value="">血液</option>
+							<option value="">外科</option>
+						</select>
+				      </div>
+				    </div>
+				   
+				    <div class="layui-col-xs2">
+				      <div class="grid-demo">
+				      	<span>住院号：</span>
+						<input type="text">
+				      </div>
+				    </div>
+				    <div class="layui-col-xs2">
+					    <div class="grid-demo">
+					      	<span>姓名：</span>
+							<input type="text">
+					    </div>
+				    </div>
+					
+				 </div>
+				 <div class="rigBtn">
+	             	<a class="layui-btn">查询</a>
+	        	</div>
+			</div>
+			
+		</div>
+		<div id="table"></div>
+	</div>
+</body>
+
+<script>
+layui.use(['laydate','table'],function () {
+	var laydate = layui.laydate;
+	var table = layui.table;
+	laydate.render({
+	  	elem:'#start',
+	});
+	laydate.render({
+	  	elem:'#stop'
+	});
+	table.render({ //table 表格
+	    elem: '#table'
+	    ,cols: [[
+		     {field:'username', title: '科室',align:'center'}
+		    ,{field:'sex', title: '住院号',align:'center'}
+		    ,{field:'city', title: "患者姓名",align:'center'}
+		    ,{field:'sign', title: '入院记录',align:'center'}
+		    ,{field:'sign', title: '首次病程记录',align:'center'}
+		    ,{field:'sign', title: '疗诊知情同意记录',align:'center'}
+		    ,{field:'sign', title: '病案首页',align:'center'}
+		    ,{field:'sign', title: '出院记录',align:'center'}
+	  	]]
+	  });
+})
+
+</script>
+</html>

@@ -1,0 +1,120 @@
+.fl{
+	float:left;
+}
+.fr{ float:right; }
+.clearfix:after{
+	content:'';
+	height:0;
+	display: block;
+	clear:both;
+	visibility: hidden;
+}
+
+.layui-form-select .layui-edge{
+    background: transparent!important;
+    border-style: none;
+}
+.layui-btn{
+	height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+}
+.layui-btn-xs {
+    height: 22px;
+    line-height: 22px;
+    padding: 0 5px;
+    font-size: 12px;
+}
+.layui-input{
+    height:28px;
+    line-height: 28px;
+}
+.layui-form-label{
+   width:80px;
+}
+.layui-form-item{ margin-bottom:0; }
+.layui-nav-item .addActive {
+    background: #3388E1;
+    color: #fff!important;
+}
+.layui-form-radio {
+    line-height: 28px;
+    margin: 6px -12px 0 0;
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 0;
+}
+.layui-select-title .layui-unselect{
+    display:none;
+    /*border:1px solid red;*/
+}
+
+.layui-form-checked[lay-skin=primary] i {
+    border-color: #337ab7;
+    background-color: #337ab7;
+    color: #fff;
+}
+.layui-form-checkbox[lay-skin=primary] span {
+    color: #141313;
+}
+
+.layui-form-radio i:hover, .layui-form-radioed i {
+    color: #337ab7;
+}
+
+.spWord{
+    display: block;
+    width: 83px;
+    float: left;
+    margin-left: 24px;
+}
+.medrecord{
+    height:40px;
+    line-height:40px;
+    background:#e6e6e6;
+    position:relative;
+    padding:0 2%;
+    background: url(../../Content/images/logs.png) repeat;
+}
+.medrecord .word{
+    font-size:16px;
+}
+.medrecord .rigBtn{
+    position:absolute;
+    right:15px;
+    top:0;
+}
+.medInfor .text,.patient .text{
+    font-size:16px;
+    color:#0A64A4;
+    width:98%;
+    padding-bottom:5px;
+    padding-left: 15px;
+    border-bottom:1px solid #0A64A4;
+    margin-bottom:6px;
+}
+[disabled]{
+	background:#f2f2f2;
+}
+#divData{ background:#fff;}
+.colorAdd{ color:#FFFFCC;margin-right: 2px;}
+.imports{color: #99CCFF;margin-right: 2px;}
+.allHidden{color: #66FFFF;margin-right: 2px;}
+.save{color: #FFCC00;margin-right: 2px;}
+.staging{color:#CCFF00;margin-right: 2px;}
+.edit{ color:#54FF9F;margin-right: 2px;}
+.delete{ color:#A52A2A;margin-right: 2px;}
+
+.table{
+    width: 100%;
+    border:1px solid #ccc;
+}
+.table tr,td{
+    border:1px solid #ccc;
+    border-top:none;
+    border-left: none;
+    text-align:center;
+}
+.table td{
+    padding:3px 0;
+}

@@ -1,0 +1,329 @@
+﻿@{
+    ViewBag.Title = "EMR 2.0 管理系统";
+    Layout = "~/Views/Shared/_Common_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header my-header">
+        <a href="index.html">
+            <!--<img class="my-header-logo" src="" alt="logo">-->
+            <div class="my-header-logo">EMR 2.0 管理系统</div>
+        </a>
+        <div class="my-header-btn">
+            <button class="layui-btn layui-btn-small btn-nav"><i class="iconfont icon-gongneng" style="font-size:25px !important;"></i></button>
+            @*<a href="javascript:;" onclick="onsaa()">某个病人点击效果</a>*@
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="" style="padding:0;">
+            <li class="layui-nav-item" style="color:#fff;">
+                <a class="name" style="color:#fff;" href="javascript:;" id="cursysapp">切换工作站</a>
+                <dl class="layui-nav-child" id="sysappinfo"></dl>
+            </li>
+        </ul>
+        <!-- 顶部左侧添加选项卡监听 -->
+        <ul class="layui-nav" lay-filter="side-top-left"></ul>
+
+        <!-- 顶部右侧添加选项卡监听 -->
+        <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right" style="height:100%;">
+            <li class="layui-nav-item" id="bingqu">
+                <a href="javascript:;" style="color:#fff; ">五病区</a>
+                <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                    <dd>
+                        <a class="name" href="javascript:;" style="color:#000; padding: 0 10px;">一病区</a>
+                    </dd>
+                </dl>
+            </li>
+           
+            <li class="layui-nav-item" style="color:#fff;">
+
+            </li>
+            <li class="layui-nav-item" >
+                <a class="name" style="color:#fff;padding: 0 20px;" href="javascript:;" id="curUserName"></a>
+
+                <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                    <!-- 二级菜单 -->
+                    <dd>
+                        <a class="name" href="javascript:openuserinfo();" style="color:#000; padding: 0 10px;">
+                            <i class="iconfont icon-bussinesscard"></i>
+                            个人信息
+                        </a>
+                    </dd>
+                    <dd>
+                        <a class="name" href="javascript:openpasswordedit();" style="color:#000; padding: 0 10px;">
+                            <i class="iconfont icon-survey1"></i>
+                            修改密码
+                        </a>
+                    </dd>
+                    <dd>
+                        <a class="name" href="javascript:loginout();" style="color:#000; padding: 0 10px;">
+                            <i class="iconfont">&#xe618;</i>
+                            退出
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+         
+            <li class="layui-nav-item" style="color:#fff;">
+                <a class="name" style="color:#fff;    padding: 0 ;" href="javascript:;"></a>
+            </li>
+        </ul>
+        <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right" style="padding:0;">
+            <li class="layui-nav-item" style="color:#fff;  cursor:pointer;padding: 0 0 0 10px;" id="msgs" onclick="openMsgPop()">
+                <i class="iconfont icon-xiaoxi1" style="font-size:21px; position: relative; top:1px; "></i>
+                <span id="msg_count" style="height: 15px;line-height: 15px;display:block;color:#FFF;text-align:center;background-color: #F00;border-radius: 17px;position: relative;top:-44px;left:12px;width: 18px;font-size: 13px;">0</span>
+            </li>
+        </ul>
+    </div>
+    <!-- side -->
+    <div class="layui-side my-side">
+        <div class="layui-side-scroll">
+            <!-- 左侧主菜单添加选项卡监听 -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="side-main" id="funinfo" style="border:1px solid #e6e6e6"></ul>
+        </div>
+    </div>
+    <!-- body -->
+    <div class="layui-body my-body">
+        <div class="layui-tab layui-tab-card my-tab" lay-filter="card" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="1"><span id="DefaultTitle"><i class="layui-icon">&#xe638;</i>欢迎页</span></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe id="iframe" src="~/page/SystemSupportPages/welcome"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer" style="background-color:#0A64A4;height:30px;line-height:30px;left:0px;width:100%;position:absolute;bottom:0;display:none;"><p class="company">Copyrights@杭州华卓科技有限公司</p></div>
+</div>
+
+
+<!-- 右键菜单 -->
+<div class="my-dblclick-box none">
+    <table class="layui-tab dblclick-tab">
+        <tr class="card-refresh">
+            <td><i class="layui-icon">&#x1002;</i>刷新当前标签</td>
+        </tr>
+        <tr class="card-close">
+            <td><i class="layui-icon">&#x1006;</i>关闭当前标签</td>
+        </tr>
+        <tr class="card-close-all">
+            <td><i class="layui-icon">&#x1006;</i>关闭所有标签</td>
+        </tr>
+    </table>
+</div>
+<input type="hidden" id="hdnDefaultSys" />
+<!-- js -->
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script type="text/javascript" src="~/Scripts/vip_comm.js"></script>
+<script type="text/javascript" src="~/Scripts/vip_nav.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script type="text/javascript" src="~/Scripts/EMRBase.js"></script>
+<script type="text/javascript" src="~/Scripts/EWins.Base.js"></script>
+<script type="text/javascript" src="~/Scripts/msgHub.js"></script>
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".layui-tab-content").height($(window).height())
+
+    })
+    function InpatientClick(HealthCard, InpatientId) {
+        //$(".layui-tab-title").css("display", "none");
+        //$("#iframe").attr("src", "page/DoctorPages/index?EMRIDSIGN=" + GetQueryString("EMRIDSIGN") + "&SYSID=" + GetQueryString("SYSID") + "&HealthCard=" + HealthCard + "&InpatientId=" + InpatientId);
+        //element.tabChange('card', 1);
+        //HideNav();
+        window.open(__curHostAddress + "page/DoctorPages/index?EMRIDSIGN=" + GetQueryString("EMRIDSIGN") + "&SYSID=" + GetQueryString("SYSID") + "&BQID=" + GetQueryString("BQID") + "&HealthCard=" + HealthCard + "&InpatientId=" + InpatientId);
+    }
+    $("#curUserName").html("<img  style=\"height:40px;padding-right: 5px;\" src=\"" + cookie.GetEMRUserCookie("api_token", "UserPhoto") + "\" />" + cookie.GetEMRUserCookie("api_token", "USERNAME"));
+    var redirectUrl = "?EMRIDSIGN=" + GetQueryString("EMRIDSIGN");
+    //工作站
+    EWinsBase.json("api/SystemSupport/user/GetUserSysAppList", {
+        type: "POST",
+        data: { page: 1, limit: 100, userid: GetQueryString("EMRIDSIGN") },
+        dataType: "json",
+        async: false,
+        success: function (config, data) {
+            if (data.code == 0) {
+                var data = data.data;
+                var outhtml = "";
+                var defaultSysApp = "";
+
+                if (data) {
+                    data.forEach(function (item, i) {
+                        //debugger;
+                        outhtml += '<dd><a href="?EMRIDSIGN=' + GetQueryString("EMRIDSIGN") + '&SYSID=' + item.sysid + '&BQID=' + GetQueryString("BQID") + '"><i class="layui-icon"><img src="' + (EWinsBase.isNullOrEmpty(item.sysicon) ? __curHostAddress + "content/icon/computer.png" : item.sysicon) + '" style="max-width:25px;max-height:25px;" /></i>' + item.sysname + '</a></dd>';
+                        if (GetQueryString("SYSID") == item.sysid) {
+                            $("#cursysapp").html('<i class="layui-icon" style="margin-right: 1px;"><img src="' + (EWinsBase.isNullOrEmpty(item.sysicon) ? __curHostAddress + "content/icon/computer.png" : item.sysicon) + '" style="max-width:25px;max-height:25px;" /></i>' + item.sysname);
+                            if (!EWinsBase.isNullOrEmpty(item.defaulttitle)) $("#DefaultTitle").html('<i class="layui-icon">&#xe638;</i>' + item.defaulttitle + '</span>');
+                            if (!EWinsBase.isNullOrEmpty(item.defaultpage)) $("#iframe").attr('src', item.defaultpage);
+                            if (item.isdefault != "1") {
+                                EWinsBase.simplifySyncJsonGet("api/SystemSupport/user/UpdateDefaultUserSysApp", { SYSID: GetQueryString("SYSID"), USERID: cookie.GetEMRUserCookie("api_token", "UserId"), ISDEFAULT: 1 });
+                            }
+                        }
+
+                        if (GetQueryString("SYSID") == "" && item.isdefault == "1" && item.sysid != GetQueryString("SYSID")) {
+                            redirectUrl += "&SYSID=" + item.sysid;
+                        }
+                    });
+
+                }
+                $("#sysappinfo").html(outhtml);
+            }
+        }
+    });
+    //左侧菜单
+    EWinsBase.json("api/SystemSupport/user/GetUserFunInfo", {
+        type: "POST",
+        data: { userid: GetQueryString("EMRIDSIGN"), SYSID: GetQueryString("SYSID"), FUNLEVEL: 1 },
+        dataType: "json",
+        success: function (config, data) {
+            if (data.code == 0) {
+                var data = data.data;
+                var outhtml = "";
+                //无法多级，多级样式不一样
+                var iIndex = 0;
+                if (data) {
+                    data.forEach(function (item, i) {
+                        if (item.parentid == "0") {
+                            outhtml += '<li class="layui-nav-item ' + (iIndex == 0 ? "layui-nav-itemed " : "") + '" onclick="navClick(this);"><a href="javascript:" style="border-bottom:1px solid #e6e6e6;" class="otherOne ' + (iIndex == 0 ? "addActive" : "") + '"><i class="layui-icon">&#xe620;</i>' + item.funname + '</a><dl class="layui-nav-child">';
+                            data.forEach(function (item2, i) {
+                                if (item2.parentid == item.funid) {
+                                    outhtml += '<dd  class="addColor"><a href="javascript:;" style="border-bottom: 1px solid #fbfbfb;" href-url="' + item2.funpage + '"><i class="layui-icon">&#xe621;</i>' + item2.funname + '</a></dd>'
+                                }
+                            })
+                            outhtml += '</dl></li>';
+                            iIndex++;
+                        }
+                    });
+                }
+                $("#funinfo").html(outhtml);
+                if (layui.element)
+                    layui.element.init();
+                $('#funinfo').on('click', '.layui-nav-item', function () {
+                    $(this).children(".otherOne").addClass("addActive")
+                    $(this).siblings().children(".otherOne").removeClass("addActive")
+                    $(this).siblings().removeClass('layui-nav-itemed')
+                    if ($(this).hasClass('layui-nav-itemed')) {
+                        $(this).removeClass('layui-nav-itemed')
+                    } else {
+                        $(this).addClass('layui-nav-itemed')
+                    }
+                });
+                navClick();
+            }
+        }
+    });
+
+    //病区
+    EWinsBase.json("api/Public/UserInfo/Get", {
+        type: "POST",
+        data: { page: 1, limit: 100, userid: GetQueryString("EMRIDSIGN") },
+        dataType: "json",
+        async: false,
+        success: function (config, data) {
+            if (data.code == 0) {
+                var data = data.data;
+                var outhtml = '<dl class="layui-nav-child layui-anim layui-anim-upbit">', defaultBQ = "";
+                var redirectBQID = "";
+
+                if (data) {
+                    redirectBQID = cookie.GetEMRUserCookie("api_token", "InpatientID");
+                    data.InpatientList.forEach(function (item, i) {
+                        outhtml += '    <dd>';
+                        outhtml += '        <a class="name" href="?EMRIDSIGN=' + GetQueryString("EMRIDSIGN") + '&SYSID=' + GetQueryString("SYSID") + '&BQID=' + item.DeptID + '" style="color:#000; padding: 0 10px;">' + item.DeptName + '</a>';
+                        outhtml += '    </dd>';
+                        if (GetQueryString("BQID") == item.DeptID) {
+                            defaultBQ = '<a href="javascript:;" style="color:#fff;">' + item.DeptName + '</a>';
+                            EWinsBase.simplifySyncJsonGet("api/SystemSupport/user/UpdateDefaultBQ", { InpatientID: GetQueryString("BQID"), USERID: cookie.GetEMRUserCookie("api_token", "UserId"), ISDEFAULT: 1 });
+                        }
+                        if (GetQueryString("BQID") == "" && i == 0 && cookie.GetEMRUserCookie("api_token", "InpatientID") == "") {
+                            redirectBQID = item.DeptID;
+                        }
+
+                    });
+                    if (redirectBQID != "" && GetQueryString("BQID")=="")
+                        redirectUrl += "&BQID=" + redirectBQID;
+                }
+                $("#bingqu").html(defaultBQ + outhtml + '</dl>');
+            }
+        }
+    });
+    if (redirectUrl != "?EMRIDSIGN=" + GetQueryString("EMRIDSIGN")) {
+        location.href = redirectUrl;
+    }
+    if (GetQueryString("SYSID") == "3")
+        HideNav();
+    $('#funinfo').on('click', '.layui-nav-item', function () {
+        $(this).children(".otherOne").addClass("addActive")
+        $(this).siblings().children(".otherOne").removeClass("addActive")
+        $(this).siblings().removeClass('layui-nav-itemed')
+        if ($(this).hasClass('layui-nav-itemed')) {
+            $(this).removeClass('layui-nav-itemed')
+        } else {
+            $(this).addClass('layui-nav-itemed')
+        }
+    });
+    function navClick(obj) {
+        $(".layui-tab-item ").height($(window).height() - 100);
+        $(".layui-side-scroll .layui-nav-item").each(function (i, item) {
+            $(this).children("dl").css({
+                'height': ($(window).height() - ($("#funinfo").find("li").length * 45) - 70) + 'px',
+                'overflow': 'auto'
+            })
+        });
+        $(".layui-tab-title").css("display", "block");
+      
+    }
+
+    //退出
+    function loginout() {
+        layer.confirm('是否确定要退出系统？', function (index, layero) {
+            location.href = __curHostAddress + 'login';
+            cookie.delete("api_token");
+        });
+    }
+    //打开用户个人信息
+    function openuserinfo() {
+        ShowWin('修改个人信息', 'page/PublicPages/UserInfoEdit?UserID=' + GetQueryString("EMRIDSIGN"), 800, 500)
+    }
+    //修改密码
+    function openpasswordedit() {
+        ShowWin('修改密码', 'page/PublicPages/UserPassWordEdit?UserID=' + GetQueryString("EMRIDSIGN"), 480, 300)
+    }
+    function onsaa() {
+        var cur_tab_index = $(document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+        var childWindow = $('#tab_iframe_' + cur_tab_index)[0].contentWindow;
+        var role_funinfo_check = "";
+
+        //$('input[name="role_funinfo_check"]:checked').each(function (i, item) {
+        //    role_funinfo_check += item.value + ",";
+        //});
+        //childWindow.right_save(role_funinfo_check);
+    }
+
+    $(document).on('click', '#funinfo .layui-nav-item', function () {
+        $(this).siblings().children(".otherOne").removeClass("addActive")
+        $(this).children(".otherOne").addClass("addActive")
+
+    })
+
+    function HideNav() {
+        localStorage.log = 0;
+        $('.my-side').animate({ 'left': -200 }, 50);
+        $('.my-body').animate({ 'left': 0 }, 50);
+        $('.my-footer').animate({ 'left': 0 }, 50);
+    }
+    layui.use(['layer', 'element', 'vip_nav'], function () {
+        // 操作对象
+        var layer = layui.layer
+            , vipNav = layui.vip_nav
+        , element = layui.element;
+        if (GetQueryString("SYSID") == "3") {
+            getNewMsgCnt();
+        } else {
+            $("#msgs").hide();
+        }
+        
+    });
+</script>

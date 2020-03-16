@@ -1,0 +1,402 @@
+﻿@{
+    ViewBag.Title = "病案首页打印";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/reset.css">
+<link rel="stylesheet" href="~/Content/medrecord.css">
+<style>
+.medrecordPrin span{
+    padding:0 30px;
+
+}
+</style>
+	<div class="medrecord">
+        <p class="word">病案首页打印</p>
+        <div class="rigBtn">
+             <a class="layui-btn" href="~/page/DoctorPages/Medrecord">编辑</a>
+             <a class="layui-btn" onclick="printFace()"><i class="iconfont print">&#xe61b;</i>打印正面</a>
+             <a class="layui-btn" onclick="printBack()"><i class="iconfont print">&#xe61b;</i>打印反面</a>
+        </div>
+ 	</div>
+ 	<div class="medrecordPrin" id="divData" style="padding-bottom:31%;">
+ 		<div class="print_all" id="idFace">
+			<div class="print_title">
+				<p class="zheHost"><span data-id="OrganName"></span>：<span data-id="OrganID"></span></p>
+				<h3>住院病案首页</h3>
+				<div class="print_list clearfix">
+					<p>医疗付费方式：<span data-id="PaymentMethod"></span></p>
+					<p>健康卡号：<span data-id="HealthCard"></span></p>
+					<p>第<span data-id="HISInpatientCount"></span>次住院</p>
+					<p>病案号：<span data-id="HomePageId"></span></p>
+				</div>
+			</div>
+			<div class="print_patientInfor">
+				<div class="print_fir clearfix">
+					<p>姓名：<span data-id="Name"></span></p>
+					<p>性别：<span data-id="Gender"></span></p>
+					<p>出生日期：<span id="BirthDate-year"></span>年<span id="BirthDate-month"></span>月<span id="BirthDate-day"></span>日</p>
+					<p>年龄：<span data-id="Age"></span>岁</p>
+					<p>国籍：<span data-id="Nationality"></span></p>
+				</div>
+				<div class="print_sec clearfix">
+					<p>(年龄不足一周的岁的)</p>
+					<p>年龄-：<span data-id="NBAgeMonth"></span>个月</p>
+					<p>新生儿出生体重-：<span data-id="NBAgeWeight"></span>克</p>
+					<p>新生儿入院体重-：<span data-id="NBHospitalWeight"></span>克</p>
+				</div>
+				<div class="print_thir clearfix">
+					<p>出生地：<span id="BirthPlace-province"></span>省（区、市）<span id="BirthPlace-city"></span>市<span id="BirthPlace-area"></span>县</p>
+					<p>籍贯-：<span id="NativePlace-province"></span>省（区、市）<span id="NativePlace-city"></span>市</p>
+					<p>民族-：<span data-id="Ethnic"></span></p>
+				</div>
+				<div class="print_thir clearfix">
+					<p>身份证号：<span data-id="IdCard"></span></p>
+					<p>职业-：<span data-id="Job"></span></p>
+					<p>婚姻-：<span data-id="Marital"></span></p>
+				</div>
+				<div class="print_thir clearfix">
+					<p>现住址：<span data-id="AddressDetail"></span></p>
+					<p>电话：<span data-id="Phone"></span></p>
+					<p>邮编-：<span data-id="AddressPostcode"></span></p>
+				</div>
+				<div class="print_for clearfix">
+					<p>户口住址：<span data-id="HouseholdDetailed"></span></p>
+					<p>邮编-：<span data-id="HouseholdPostCode"></span></p>
+				</div>
+				<div class="print_thir clearfix">
+					<p>工作单位及地址：<span data-id="Company"></span></p>
+					<p>单位电话：<span data-id="CompanyPhone"></span></p>
+					<p>邮编-：<span data-id="CompanyPostcode"></span></p>
+				</div>
+				<div class="print_sec clearfix">
+					<p>联系人姓名：<span data-id="ContactName"></span></p>
+					<p>关系：<span data-id="ContactRelation"></span></p>
+					<p>地址-：<span data-id="ContactPlace"></span></p>
+					<p>电话-：<span data-id="ContactPhone"></span></p>
+				</div>
+				<div class="print_fif clearfix">
+					<p>入院途径：<span data-id="InpatientWay"></span></p>
+				</div>
+				<div class="print_sec clearfix">
+					<p>入院时间：
+						<span data-id="EntryTime-year"></span>年<span data-id="EntryTime-month"></span>月<span data-id="EntryTime-day"></span>日<span data-id="EntryTime-hour"></span>时 
+					</p>
+					<p>入院科别：<span data-id=""></span></p>
+					<p>病房：<span data-id=""></span></p>
+					<p>转科科别：<span data-id=""></span></p>
+				</div>
+				<div class="print_fif clearfix">
+					<p>门(急)诊诊断：<span data-id="ClinicDiagnosis"></span></p>
+					<p>疾病编码：<span data-id="ClinicDiagnosisCode"></span></p>
+				</div>
+			</div>
+			<table id="PatientDiagnosisTable" lay-filter="PatientDiagnosisTable"></table>
+
+			<div class="condition clearfix">
+				<p>入院病情：<span data-id="AdmissionIllness" style="display:inline-block;width:40%">头疼 胸闷 气短</span></p>
+			</div>
+			<div class="condition clearfix">
+				<p class="fl">损伤、中毒的外部原因：<span data-id="ExternalityDesc"></span></p>
+				<p class="fl">疾病编码：<span data-id="ExternalityCode"></span></p>
+			</div>
+			<div class="condition clearfix">
+				<p class="fl">病历诊断：<span data-id="PathologicDiagnosis"></span><span style="margin-left:10px;" data-id=""></span></p>
+				<p class="fl">疾病编码：<span data-id="PathologicDiagnosisCode"></span></p>
+			</div>
+			<div class="condition clearfix">
+				@*<p class="fl"><span data-id=""></span></p>*@
+				<p>病理号：<span data-id="PathologyNo"></span></p>
+			</div>
+			<div class="condition clearfix">
+				<p class="fl">药物过敏：<span data-id="DrugAllergy" data-type="bool"></span>,过敏药物:<span data-id="DrugAllergyDesc"></span></p>
+				<p class="fl">死亡患者尸检：<span data-id="Autopsy"></span></p>
+			</div>
+			<div class="condition clearfix">
+				<p class="fl">血型<span data-id="BloodTypeName">A B</span></p>
+				<p class="fl">Rh<span data-id="RHName">是、否</span></p>
+			</div>
+			<div class="print_signature">
+				<p>
+					科主任<span data-id="DeptDirectorName"></span>
+					主任(副主任)医师<span data-id="DirectorName"></span>
+					主治医师<span data-id="VisitingName"></span>
+					住院医师<span data-id="ResidentName"></span>
+				</p>
+				<p>
+					责任护士<span data-id="ResponsibleNurseName"></span>
+					进修医师<span data-id="RefresherDoctorName"></span>
+					实习医师<span data-id="InternDoctorName"></span>
+					编码员<span data-id="CoderUserName"></span>
+				</p>
+				<p>
+					病案质量<span data-id="MedicalRecordMass"></span>
+					质控医师<span data-id="QcDoctorName"></span>
+					质控护士<span data-id="QcNurseName"></span>
+					质控日期<span data-id="QcTime"></span>年<span data-id=""></span>月<span data-id=""></span>日
+				</p>
+			</div>
+		</div>
+		<div class="print_others" id="idBack">
+			<h3 class="print_word">手术及操作医师 </h3>
+			<table id="OperationTable" lay-filter="OperationTable"></table>
+			<div class="print_out clearfix">
+				<p class="fl">离院方式<span data-id="LeaveHospitalWay"></span>,
+					拟接收医疗机名称：<span data-id="ToHospital"></span></p>
+				<p class="fl">
+					3.医嘱转社区卫生服务机构/乡镇卫生院，拟接收医疗机构名称：
+					<span data-id="HomePageId"></span>
+				</p>
+			</div>
+			<p class="print_sis">4.非医嘱离院 5.死亡 9.其他<span data-id="HomePageId"></span></p>
+			<p class="print_sis">是否有出院31天内再住院计划 <span data-id="ReadmPlan"></span>   目的：<span data-id="ReadmPlan"></span></p>	
+			<p class="print_sis">颅脑损伤患者昏迷时间入院前
+				<span data-id="HomePageId">1</span>天<span data-id="HomePageId">2</span> 小时<span data-id="HomePageId">3</span> 分钟    入院后<span data-id="HomePageId">3 </span>天<span data-id="HomePageId">2</span> 小时<span data-id="HomePageId">1</span>分钟
+			 </p>
+			<div class="prin_pay">
+				<div class="prinUp b_bottom">
+					<p><b>住院费用（元： 总费用（元）</b>-<span data-id="HomePageId">1300</span>(自付金额- <span data-id="HomePageId">1200</span>)</p>
+					<p>
+						<b>1.综合医疗服务类：</b>
+						(1)一般医疗服务费：－<span data-id="HomePageId">2000</span>
+						(2)一般治疗操作费：－<span data-id="HomePageId">2000</span>
+						(3)护理费：<span data-id="HomePageId">2000</span>
+						(4)其他费用：<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>2.诊断类：</b>
+						(5)病理诊断费：－<span data-id="HomePageId">2000</span>
+						(6)实验室诊断费：－<span data-id="HomePageId">2000</span>
+						(7)影像学诊断费：－<span data-id="HomePageId">2000</span>
+						(8)临床诊断项目费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>3.治疗类：</b>
+						(9)非手术治疗项目费：－<span data-id="HomePageId">2000</span>（临床物理治疗费：- <span data-id="HomePageId"></span>）
+						(10)手术治疗费：－<span data-id="HomePageId">2000</span>（麻醉费：－ <span data-id="HomePageId"></span> 手术费：－ <span data-id="HomePageId"></span>）
+					</p>
+					<p>
+						<b>4.康复类：</b>
+						(11)康复费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>5.中医类：</b>
+						(12)中医治疗费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>6.西药类：</b>
+						(13)西药费：－<span data-id="HomePageId">2000</span>（抗菌药物费用：- <span data-id="HomePageId"></span>）
+					</p>
+					<p>
+						<b>7.中药类：</b>
+						(14)中成药费：－<span data-id="HomePageId">2000</span>（医疗机构中药制剂费：- <span data-id="HomePageId"></span>）
+						(15)中草药费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>8.血液制品类：</b>
+						(16)血费：－<span data-id="HomePageId">2000</span>
+						(17)白蛋白类制品费：－<span data-id="HomePageId">2000</span>
+						(18)球蛋白类制品费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						(19)凝血因子类制品费：－<span data-id="HomePageId">2000</span>
+						(20)细胞因子类制品费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>9.耗材类：</b>
+						(21)检查用一次性医用材料费：－<span data-id="HomePageId">2000</span>
+						(22)治疗用一次性医用材料费：－<span data-id="HomePageId">2000</span>
+						(23)手术用一次性医用材料费：－<span data-id="HomePageId">2000</span>
+					</p>
+					<p>
+						<b>10.其他类：</b>
+						(24)其他费：－<span data-id="HomePageId">2000</span>
+					</p>
+				</div>
+				<div class="prinDow b_bottom">
+					<p>
+						<b>单病种管理：</b><span data-id="HomePageId">有 无</span>
+						<b> 医院感染情况：</b><span data-id="HomePageId">有 无</span>
+					</p>
+					<p>
+						<b>输血反应：</b><span data-id="HomePageId">1 有输血无反应 2 有输血有反应</span>
+					</p>
+					<p>
+						<b>临床路径管理：</b>
+						<span data-id="HomePageId">4 1.完成   2.变异   3.退出   4.未入 </span>
+					</p>
+					<p>
+						<b>诊断符合情况：</b>
+						<span data-id="HomePageId">1.门诊与出院 2 2.入院与出院 1 3.术前与术后 0 4.临床与病理 2 5.放射与病理 0 (0.未做 1.符合 2.不符合 3.不确定)  </span>
+					</p>
+					<p>
+						<b>抢救情况：</b>
+						抢救<span class="rescue"></span>次，成功<span class="rescue"></span>次
+					</p>
+					<p>
+						<b>住院期间是否出现危重：</b> <span data-id="HomePageId">是 否</span>
+						<b>急症：</b><span >是 否</span> 
+						<b>疑难情况：</b><span data-id="HomePageId">是 否</span>
+					</p>
+					<p>
+						<b>转归情况：</b>
+						<span data-id="HomePageId">3 1.治愈 2.好转 3.未愈 4.死亡 5.其他 </span>
+					</p>
+					<p>
+						<b>病例分型：</b>
+						<span data-id="HomePageId">0 0.无 1.单纯普通病历 2.单纯急症病例 3.复杂疑难病例 4.复杂危重病例  </span>
+					</p>
+					<p>
+						<b>手术相关院内感染：</b><span data-id="HomePageId">无 </span>
+						<b>入院后确诊日期：</b><span class="rescue">2018-06-03 </span>
+					</p>
+					<p>
+						<b>非预期重返手术：</b><span data-id="HomePageId">是</span>
+					</p>
+				</div>
+			</div>
+			<div class="prin_last">
+				<p>说明 （一）医疗付费方式 1.城镇职工基本医疗保险 2.城镇居民基本医疗保险 3.新型农村合作医疗 4.贫困救助  5.商业医疗保险 6.全公费 7.全自费 8.其他社会保险 9.其他</p>
+				<p>（二）凡可由医院信息系统提供住院费用清单的，住院病案首页中可不填写“住院费用”。</p>
+
+			</div>
+		</div>
+
+ 	</div>
+<!-- js -->
+<script language="javascript" src="~/Scripts/LodopFuncs.js"></script>
+<script>
+
+    //如果OnlyView为true,将编辑按钮隐藏
+    if (GetQueryString("OnlyView") == "true") {
+        $(".medrecord .rigBtn").hide();
+        $(".medrecord .word").html("病案首页");
+    }
+
+
+    if (GetQueryString("print") == "back") {
+        $('#idFace').css("display", "none");
+        $('#idBack').css("display", "block");
+    }
+    if (GetQueryString("print") == "face") {
+        $('#idFace').css("display", "block");
+        $('#idBack').css("display", "none");
+    }
+    function printBack() {
+        //$('#idFace').css("display", "none");
+        //$('#idBack').css("display", "block");
+        var LODOP = getLodop();
+        if (LODOP.VERSION) {
+            LODOP.PRINT_INIT("病案首页打印");
+            var css = '<link href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css" rel="stylesheet"/><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/reset.css"><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/medrecord.css">'
+            var aheadDiv = '<div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">' +
+                            '<div class="medrecordPrin">' +
+                            '<div class="print_others">';
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", css + document.getElementById("idBack").innerHTML + "</div></div>");
+            LODOP.PREVIEW();
+        }
+    }
+    function printFace() {
+        var LODOP = getLodop();
+        if (LODOP.VERSION) {
+            LODOP.PRINT_INIT("病案首页打印");
+            var css = '<link href="' + EWinsBase.__curHostAddress + 'Scripts/layui/css/layui.css" rel="stylesheet"/><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/reset.css"><link rel="stylesheet" href="' + EWinsBase.__curHostAddress + 'Content/medrecord.css">'
+            var aheadDiv =  '<div class="x-body layui-anim layui-anim-up" id="divData" style="margin-top:5px;">' +
+                            '<div class="medrecordPrin">' +
+                            '<div class="print_all">';
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", css + aheadDiv + document.getElementById("idFace").innerHTML + "</div></div></div>");
+            //LODOP.ADD_PRINT_URL(30, 20, 746, "95%", location.href + "?print=face");
+            //LODOP.SET_PRINT_STYLEA(0, "HOrient", 3);
+            //LODOP.SET_PRINT_STYLEA(0, "VOrient", 3);
+            //		LODOP.SET_SHOW_MODE("MESSAGE_GETING_URL",""); //该语句隐藏进度条或修改提示信息
+            //		LODOP.SET_SHOW_MODE("MESSAGE_PARSING_URL","");//该语句隐藏进度条或修改提示信息
+            LODOP.PREVIEW();
+        }
+    }
+
+	layui.use('table', function(){
+  		var table = layui.table;
+	  	table.render({ //table 表格
+	  	    elem: '#PatientDiagnosisTable'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/PatientDiagnosis/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId") + "&DiagnosisType=3"
+		     , cols: [[
+                { field: 'DiagnosisId', title: '序号', align: 'center' }
+                , { field: 'DiagnosisName', title: '诊断', align: 'center' }
+                , { field: 'ICDCode', title: '疾病编码', align: 'center' }
+                , { field: 'AdmissionIllness', title: '入院情况', align: 'center' }
+		     ]]
+		  });
+	  	
+	  	table.render({ //table 表格
+	  	    elem: '#OperationTable'
+            , url: EWinsBase.__curHostAddress + 'api/Doctor/OperationRecord/GetAll?token=' + EWinsBase.Token + "&InpatientId=" + NewGetQueryString("InpatientId")
+		    , cols: [[
+                { field: 'OperationId', title: '手术、操作编码', align: 'center' }
+                , { field: 'StartTime', title: '手术、操作日期', align: 'center', templet: "#StartTime" }
+                , { field: 'OperationLevelName', title: '手术级别', align: 'center' }
+                , { field: 'OperationName', title: '手术、操作名称', align: 'center' }
+                , { field: 'SurgeonName', title: '术者', align: 'center' }
+                , { field: 'FirstAssistantName', title: 'I助', align: 'center' }
+                , { field: 'SecondAssistantName', title: 'Ⅱ助', align: 'center' }
+                , { field: 'AnesthesiaWayName', title: '麻醉方式', align: 'center' }
+                , { field: 'HealingLevelName', title: '切口愈合等级', align: 'center' }
+                , { field: 'Anesthesia1Name', title: '麻醉医师', align: 'center' }
+		    ]]
+		  });
+	});
+
+    //组织机构代码
+    EWinsBase.json("api/SystemSupport/OrganInfo/GetInfoById", {
+        data: { "ORGANID": EWinsBase.ORGANID },
+        type: "POST",
+        async: false,
+        usedCache: false,
+        success: function (config, data) {
+            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+        }
+    });
+
+	EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetInpatientInfoById", {
+	    data: { "InpatientId": NewGetQueryString("InpatientId") },
+	    type: "POST",
+	    async: false,
+	    usedCache: false,
+	    success: function (config, data) {
+	        EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+	    }
+	})
+	EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetBasicInpatientInfoById", {
+	    data: { "HealthCard": NewGetQueryString("HealthCard") },
+	    type: "POST",
+	    async: false,
+	    usedCache: false,
+	    success: function (config, data) {
+	        if (data.data != null) {
+	            EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+	            var BirthPlace = data.data["BirthPlace"].split(',');
+	            var NativePlace = data.data["NativePlace"].split(',');
+	            var BirthDate = data.data["BirthDate"];
+	            $("#BirthPlace-province").html(BirthPlace[0]);
+	            $("#BirthPlace-city").html(BirthPlace[1]);
+	            $("#BirthPlace-area").html(BirthPlace[2]);
+	            $("#NativePlace-province").html(NativePlace[0]);
+	            $("#NativePlace-city").html(NativePlace[1]);
+	            $("#BirthDate-year").html(BirthDate.ToString("yyyy"));
+	            $("#BirthDate-month").html(BirthDate.ToString("MM"));
+	            $("#BirthDate-day").html(BirthDate.ToString("dd"));
+	        }
+	    }
+	})
+	EWinsBase.json("api/Doctor/MedicalRecordHomePage/GetMedicalRecordHomePageInfoById", {
+	    data: { "InpatientId": NewGetQueryString("InpatientId") },
+	    type: "POST",
+	    async: false,
+	    usedCache: false,
+	    success: function (config, data) {
+	        EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+	    }
+	})
+
+</script>
+<script type="text/html" id="StartTime">
+    {{ d.StartTime.ToString("yyyy-MM-dd") }}
+</script>

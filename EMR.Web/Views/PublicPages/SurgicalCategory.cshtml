@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+    <div class="qualityControl">
+        <div class="medrecord">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-xs2">
+                        <div class="grid-demo">
+                            <span>科室</span>
+                            <select name="" id="">
+                                <option value="">全部</option>
+                                <option value="">血液</option>
+                                <option value="">外科</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo grid-demo-bg1">
+                            <span>手术日期：</span>
+                            <input type="text" id="start1">-<input type='text' id="stop1">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4">
+                        <div class="grid-demo">
+                            <div class="layui-form">
+                                <input type="radio" name="demo" title="按科室汇总">按科室汇总<input type="radio" name="demo" title="按主刀医生汇总">按主刀医生汇总
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rigBtn">
+                        <a class="layui-btn search">查询</a>
+                        <a class="layui-btn search">导出到Excel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="qualityTable">
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>特类</td>
+                    <td>合计</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>合计</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start1'
+		});
+		laydate.render({
+	  		elem:'#stop1'
+		});
+	});
+	$('.search').click(function(){
+		$('.qualityTable').show();
+	})
+</script>
+</html>
+	

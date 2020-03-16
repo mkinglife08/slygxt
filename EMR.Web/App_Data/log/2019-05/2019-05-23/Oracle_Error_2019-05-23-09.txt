@@ -1,0 +1,50 @@
+[2019-05-23 09:46:16.941]方法：DataContext,出错详情：Oracle.ManagedDataAccess.Client.OracleException (0x80004005): 连接请求超时
+   在 OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   在 Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   在 FastData.Context.DataContext..ctor(String key)
+
+[2019-05-23 09:46:16.988]方法：GetList<T>,对象：GI_USERINFO,SQL：sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where a.USERCODE=:USERCODE0  and rownum <=1,param:USERCODE0=admin,,出错详情：System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 FastData.Context.DataContext.GetList[T](DataQuery item)
+
+[2019-05-23 09:47:20.266]方法：DataContext,出错详情：Oracle.ManagedDataAccess.Client.OracleException (0x80004005): 连接请求超时
+   在 OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   在 Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   在 FastData.Context.DataContext..ctor(String key)
+
+[2019-05-23 09:47:20.291]方法：GetList<T>,对象：GI_USERINFO,SQL：sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where a.USERCODE=:USERCODE0  and rownum <=1,param:USERCODE0=admin,,出错详情：System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 FastData.Context.DataContext.GetList[T](DataQuery item)
+
+[2019-05-23 09:48:17.516]方法：DataContext,出错详情：Oracle.ManagedDataAccess.Client.OracleException (0x80004005): 连接请求超时
+   在 OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   在 Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   在 FastData.Context.DataContext..ctor(String key)
+
+[2019-05-23 09:48:17.518]方法：GetList<T>,对象：GI_USERINFO,SQL：sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where a.USERCODE=:USERCODE0  and rownum <=1,param:USERCODE0=admin,,出错详情：System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 FastData.Context.DataContext.GetList[T](DataQuery item)
+
+[2019-05-23 09:48:52.806]方法：DataContext,出错详情：Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-01017: 用户名/口令无效; 登录被拒绝
+   在 OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   在 Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   在 FastData.Context.DataContext..ctor(String key)
+
+[2019-05-23 09:48:52.808]方法：GetList<T>,对象：GI_USERINFO,SQL：sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where a.USERCODE=:USERCODE0  and rownum <=1,param:USERCODE0=admin,,出错详情：System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 FastData.Context.DataContext.GetList[T](DataQuery item)
+
+[2019-05-23 09:49:51.743]方法：DataContext,出错详情：Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-01017: 用户名/口令无效; 登录被拒绝
+   在 OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPwd, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassword, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch)
+   在 OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, SecureString securedPassword, SecureString securedProxyPassword, OracleConnection connRefForCriteria)
+   在 Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   在 FastData.Context.DataContext..ctor(String key)
+
+[2019-05-23 09:49:51.744]方法：GetList<T>,对象：GI_USERINFO,SQL：sql:select a.USERID,a.ORGANID,a.USERCODE,a.USERNAME,a.USERPHOTO,a.PASSWORD,a.USERPOSITION,a.USERSEX,a.USERBIRTHDAY,a.USERTEL,a.USERNOTE,a.ISSUPER,a.LOGINTIME,a.ISONLINE,a.ISCANCE,a.SPELLCODE,a.CUSTOMCODE,a.MODIFYUSERID,a.MODIFYTIME,a.HISCODE,a.DPETID,a.INPATIENTID,a.MEDICALID,a.ESIGN,a.JOB,a.JOBLEVEL,a.CHECKSTATE,a.USERTYPE,a.SUPERIORUSER from GI_USERINFO a where a.USERCODE=:USERCODE0  and rownum <=1,param:USERCODE0=admin,,出错详情：System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 FastData.Context.DataContext.GetList[T](DataQuery item)
+

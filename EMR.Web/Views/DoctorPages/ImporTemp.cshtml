@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导入模板   </title>
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/newOption.css">
+</head>
+<body>
+	<div class="layuiMak">
+		<div class="icon_wrong">
+			<img src="images/wrong.png" alt="">
+		</div>
+		<div class="layuiAll clearfix">
+			<div class="allLeft fl">
+				<div class="leftUp">
+					<table class="upTable">
+						<tr>
+							<td>模板类型</td>
+							<td class="layui-form">
+								<input type="radio" name="nor" title="整体模板">整体模板
+								<input type="radio" name="nor" title="单文本模板">单文本模板
+							</td>
+						</tr>
+						<tr>
+							<td>使用范围</td>
+							<td class="layui-form">
+								<input type="radio" name="nor" title="个人">个人
+								<input type="radio" name="nor" title="科室">科室
+								<input type="radio" name="nor" title="全院">全院
+							</td>
+						</tr>
+						<tr>
+							<td>一级分类</td>
+							<td>
+								<select name="" id="">
+									<option value="">中医首次病程记录</option>
+									<option value="">西医首次病程记录</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>二级分类</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>模板名称</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td colspan="3" class="lastTd"><a class="layui-btn">查询</a></td>
+						</tr>
+					</table>
+				</div>
+				
+			</div>
+			<div class="allRight fl">
+				<div class="medrecord">
+			        <p class="word">导入模板</p>
+			        <div class="rigBtn">
+			            <a class="layui-btn" id="AddNewOperate"><i class="layui-icon colorAdd">&#xe61f;</i>导入</a>
+			            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont staging">&#xe689;</i>合并导入</a>
+			            <a class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont save">&#xe63b;</i>保存</a>
+			            <a class="layui-btn" id="ViewAndPrint"><i class="iconfont print">&#xe61b;</i>删除</a>
+			            <a class="layui-btn" id="ViewAndPrint"><i class="iconfont print">&#xe61b;</i>关闭</a>
+			        </div>
+    			</div>
+    			<table class="rightTable layui-form">
+    				<tr>
+    					<td><i style="color:red">*</i>二级分类</td>
+    					<td><input type="text"></td>
+    					<td><i style="color:red">*</i>模板名称</td>
+    					<td><input type="text"></td>
+    				</tr>
+    				<tr>
+    					<td><input type="checkbox" name="num" lay-skin="primary"></td>
+    					<td>病例特点</td>
+    					<td colspan="3"><textarea style="resize:none" ></textarea></td>
+    				</tr>
+    				<tr>
+    					<td><input type="checkbox" name="num" lay-skin="primary"></td>
+    					<td>诊断依据</td>
+    					<td colspan="3"><textarea style="resize:none" ></textarea></td>
+    				</tr>
+					<tr>
+    					<td><input type="checkbox" name="num" lay-skin="primary"></td>
+    					<td>疼痛评估</td>
+    					<td colspan="3"><textarea style="resize:none" ></textarea></td>
+    				</tr>
+    				<tr>
+    					<td><input type="checkbox" name="num" lay-skin="primary"></td>
+    					<td>鉴别诊断</td>
+    					<td colspan="3"><textarea style="resize:none" ></textarea></td>
+    				</tr>
+    				<tr>
+    					<td><input type="checkbox" name="num" lay-skin="primary"></td>
+    					<td>诊疗计划</td>
+    					<td colspan="3"><textarea style="resize:none" ></textarea></td>
+    				</tr>
+    			</table>
+			</div>
+
+		</div>
+	</div>
+</body>
+<script>
+	layui.use(['layer','form'], function(){ //独立版的layer无需执行这一句
+		  var layer = layui.layer;
+		  var form = layui.form;
+
+	 })
+	
+
+
+</script>
+
+</html>

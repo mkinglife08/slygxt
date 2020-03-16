@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+	<link rel="stylesheet" href="~/Content/reset.css">
+	<link rel="stylesheet" href="~/Content/PerinataPaper.css">
+</head>
+<body>
+	<div class="medrecord">
+        <p class="word">计划生育病历出院小结</p>
+        <div class="rigBtn">
+             <a class="layui-btn">暂存</a>
+             <a class="layui-btn">保存</a>
+        </div>
+ 	</div>
+ 	<div class="contenter">
+		<table class="table layui-form num double">
+			<tr>
+				<td>入院时间</td>
+				<td>2015-04-07 11:00:10</td>
+				<td>出院时间</td>
+				<td><input type="text" id="test"></td>
+				<td>住院天数</td>
+				<td>1000</td>
+			</tr>
+			<tr>
+				<td>入院诊断</td>
+				<td colspan="5"><table id="demo"></table></td>
+			</tr>
+			<tr>
+				<td>出院诊断</td>
+				<td colspan="5"><table id="outHostpital"></table></td>
+			</tr>
+			<tr>
+				<td><i style="color: red">*</i>手术日期</td>
+				<td colspan="5"><input type="text" id="test1" class="others"></td>
+			</tr>
+			<tr>
+				<td><i style="color: red">*</i>手术名称</td>
+				<td colspan="5"><input type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="6" class="left">出院评估</td>
+			</tr>
+			<tr>
+				<td><i style="color: red">*</i>体温</td>
+				<td><input type="text" class="others">℃</td>
+				<td><i style="color: red">*</i>腹痛</td>
+				<td><input type="text"></td>
+				<td><i style="color: red">*</i>阴道出血</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>切口愈合</td>
+				<td><input type="text"></td>
+				<td>其他</td>
+				<td colspan="3"><input type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="6" class="left">出院时医嘱</td>
+			</tr>
+			<tr>
+				<td><i style="color: red">*</i>休息</td>
+				<td><input type="text" class="others">天</td>
+				<td><i style="color: red">*</i>禁性生活及盆浴</td>
+				<td><input type="text" class="others">天</td>
+				<td><i style="color: red">*</i>出院后复诊</td>
+				<td><input type="text" class="others">天</td>
+			</tr>
+			<tr>
+				<td>出院后治疗</td>
+				<td colspan="5"><textarea name="" id="info" style="display:none"></textarea></td>
+			</tr>
+			<tr>
+				<td>医生签名</td>
+				<td><input type="text" class="others"></td>
+				<td>日期</td>
+				<td colspan="4"><input type="text" class="others" id="test2"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script src="~/Scripts/layui/layui.js"></script>
+<script>
+layui.use(['form','laydate','layedit','table'],function(){
+	var form = layui.form;
+	var laydate = layui.laydate;
+	var layedit = layui.layedit;
+	var table = layui.table;
+	laydate.render({
+	  elem: '#test',
+	  type:'datetime' 
+	});
+	laydate.render({
+	  elem: '#test1',
+	  type:'datetime' 
+	});
+	laydate.render({
+	  elem: '#test2',
+	  type:'datetime' 
+	});
+	layedit.build('FamilyPlan',{height:197});
+	layedit.build('sec',{height:197});
+	layedit.build('info',{height:197});
+	
+	table.render({
+	    elem: '#demo'
+	    // ,url: '/demo/table/user/' //数据接口
+	    //开启分页
+	    ,cols: [[ //表头
+	      {type:'checkbox',title: '序号'}
+	      ,{field: 'username', title: '主'}
+	      ,{field: 'sex', title: '诊断名称 复制诊断'}
+	      ,{field: 'city', title: '诊断时间'} 
+	      ,{field: 'sign', title: '书写医生'}
+	      ,{field: 'experience', title: '操作'}
+	    ]]
+	  });
+	table.render({
+	    elem: '#outHostpital'
+	    // ,url: '/demo/table/user/' //数据接口
+	    //开启分页
+	    ,cols: [[ //表头
+	      {field: 'username', title: '序号'},
+	      {type:'checkbox',title: '主'}
+	      ,{field: 'sex', title: '诊断名称 复制诊断'}
+	      ,{field: 'city', title: '诊断时间'} 
+	      ,{field: 'city', title: '转归情况'} 
+	      ,{field: 'city', title: '入院病情'} 
+	      ,{field: 'sign', title: '书写医生'}
+	      ,{field: 'experience', title: '操作'}
+	    ]]
+	  });
+  
+})
+</script>
+</html>

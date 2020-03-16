@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="newAdd">
+		<div class="medrecord">
+			<span>上报科室</span>
+			<select name="" id="">
+				<option value="">全部</option>
+				<option value="">一病区</option>
+			</select>
+			 <div class="rigBtn">
+	         	<a class="layui-btn">删除</a>
+	         	<a class="layui-btn">保存</a>
+	         	<a class="layui-btn">打印</a>
+	         	<a class="layui-btn">关闭</a>
+	    	</div>
+		</div>	
+		<table class="qualityTable">
+			<tr>
+				<td>姓名</td>
+				<td><input type="text"></td>
+				<td>性别</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>年龄</td>
+				<td><input type="text"></td>
+				<td>职业</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>住院号</td>
+				<td><input type="text"></td>
+				<td>住址</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>讨论主持人</td>
+				<td><input type="text"></td>
+				<td>工作单位</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>参加讨论着</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>入院诊断</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>病情摘要</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>讨论目的</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>讨论摘要：(参加讨论着发言及总结)</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>下一步诊疗意见</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>备注</td>
+				<td colspan="3"><textarea name="" id="" cols="30" rows="2"></textarea></td>
+			</tr>
+			<tr>
+				<td>记录者</td>
+				<td colspan="3">管理者</td>
+			</tr>
+			<tr>
+				<td>日期</td>
+				<td colspan="3"><input type="text" id="test"></td>
+			</tr>
+			<tr>
+				<td colspan="3">评分标准：各项填写完整，详细10分；缺一项扣一分；记录过于简单扣2分</td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script src="layui/layui.js"></script>
+<script>
+layui.use('laydate',function () {
+	var laydate = layui.laydate;
+	laydate.render({
+	  	elem:'#test',
+	});
+})
+
+</script>
+</html>

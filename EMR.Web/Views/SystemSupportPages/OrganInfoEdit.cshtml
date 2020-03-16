@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "系统功能定义编辑";
+    Layout = "~/Views/Shared/_Edit_Layout.cshtml";
+}
+<link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+<form class="layui-form" action="">
+    <div id="action_subm">
+        <div class="submEdit">
+            <div class="layui-form-item">
+                <label class="layui-form-label">组织机构编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OrganID" data-id="OrganID" id="OrganID" lay-verify="required" placeholder="请输入组织机构编号" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">组织机构名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OrganName" data-id="OrganName" onblur='$("#SPELLCODE").val(pinyin.getCamelChars(this.value).substr(0, 6))' lay-verify="required" placeholder="请输入组织机构名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">组织机构简称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ShortName" data-id="ShortName" lay-verify="required" placeholder="请输入组织机构简称" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">机构联系人员</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OrganUser" data-id="OrganUser" placeholder="请输入机构联系人员" autocomplete="off"
+                           class="layui-input">
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">组织机构电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="OrganTel" data-id="OrganTel" lay-verify="required" placeholder="请输入组织机构电话" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">机构启用日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="StartDate" data-id="StartDate" id="StartDate" lay-verify="date" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">机构终止日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="StopDate" data-id="StopDate" id="StopDate" lay-verify="date" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">拼音码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="SpellCode" id="SpellCode" data-id="SpellCode" lay-maxlength="6" placeholder="请输入拼音码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">自定义码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="CustomCode" data-id="CustomCode" placeholder="请输入自定义码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织机构地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="Address" style="width:520px;" data-id="Address" lay-verify="required" placeholder="请输入" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">组织机构图标</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload uploadPictures">
+                        <img id="image" src="~/Content/images/upload_img.png"
+                             width="100px" style="cursor: pointer;" />
+                        <input id="picture_upload" name="file" type="file" onchange="upload_cover(this)"
+                               style="position: absolute; left: 0px; top: 0px; width: 100px; height: 100px; opacity: 0; cursor: pointer;" />
+                        <input type="hidden" value="" name="OrganIcon" id="OrganIcon" data-id="OrganIcon" />
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">组织机构介绍</label>
+                <div class="layui-input-inline">
+                    <textarea name="OrganNote" data-id="OrganNote" placeholder="请输入组织机构介绍" style="width:520px;height:120px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="lastBtn">
+            <button class="layui-btn" lay-submit="" lay-filter="sub"><i class="iconfont" style="margin-right:2px;font-size:15px;">&#xe688;</i>保存</button>
+            <button class="layui-btn" onclick="ShowWinClose();"><i class="iconfont" style="margin-right:2px;">&#xe63e;</i>关闭</button>
+        </div>
+    </div>
+</form>
+
+<!--JS-->
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script src="~/Scripts/hanzitocode.js"></script>
+<script>
+    //弹出框页面初始化（长宽高等）
+    PopupPageInit();
+    var ORGANID = GetQueryString("ORGANID");
+    function upload_cover(obj) {
+        ajax_upload(obj, "OrganInfo", ORGANID, function (data) { //function(data)是上传图片的成功后的回调方法
+            $('#image').attr('src', __curHostAddress + data.data); //给<input>的src赋值去显示图片
+            $('#OrganIcon').val(data.data);
+        });
+    }
+    
+    if (ORGANID != "") {
+        EWinsBase.json("api/SystemSupport/OrganInfo/GetInfoById", {
+            data: { "ORGANID": ORGANID },
+            type: "POST",
+            async: false,
+            usedCache: false,
+            success: function (config, data) {
+                if (data.data["OrganIcon"] != "" && data.data["OrganIcon"] != null) {
+                    $("#image").attr("src", __curHostAddress + data.data["OrganIcon"]);
+                }
+                EWinsBase.setDataModel($("#divData [data-id]"), data.data);
+            },
+            error: function (error) {
+                //window.location.reload();
+                //
+            }
+        })
+    }
+    else {
+        $("#OrganID").val(EWinsBase.simplifySyncJsonGet("api/SystemSupport/OrganInfo/GetOrganID", { PARENTID: GetQueryString("PARENTID") }).data);
+    }
+    layui.use(['form', 'upload', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        laydate.render({
+            elem: '#StopDate'
+        });
+        laydate.render({
+            elem: '#StartDate'
+        });
+        form.on('submit(sub)', function (data) {
+            data.field["OrganID"] = GetQueryString("ORGANID") + "";
+            data.field["ParentID"] = GetQueryString("PARENTID") + "";
+            EWinsBase.json("api/SystemSupport/OrganInfo/SaveInfo", {
+                data: data.field,
+                type: "POST",
+                async: false,
+                usedCache: false,
+                success: function (config, data) {
+                    layer.msg(data.msg, { time: 1000 },
+                        function () {
+                            var cur_tab_index = $(parent.document).find('body .my-body .layui-tab-card > .layui-tab-title .layui-this').attr('lay-id')
+                            var wind = $("#tab_iframe_" + cur_tab_index, parent.document)[0].contentWindow;
+                            wind.refreshTable();
+                            wind.refreshNode();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    );
+                },
+                error: function (error) {
+                    //window.location.reload();
+                    //
+                }
+            })
+            return false;
+        });
+    })
+</script>

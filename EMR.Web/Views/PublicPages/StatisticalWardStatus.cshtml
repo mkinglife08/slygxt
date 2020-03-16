@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/qualityControl.css">
+    <script src="~/Scripts/layui/layui.js"></script>
+</head>
+<body>
+	<div class="qualityControl">
+		<div class="medrecord">
+            <span>统计日期：</span>
+            <input type="text" id="start2" style="width:10%">-<input type="text" id="stop2" style="width:10%">
+	        <div class="rigBtn">
+	             <a class="layui-btn">查询</a>
+	             <a class="layui-btn">打印</a>
+	        </div>
+	 	</div>
+	 	<div class="tableList clearfix">
+	 		<div class="left fl">
+	 			<table class="qualityTable">
+	 				<tr>
+	 					<td colspan="6">住院</td>
+	 				</tr>
+	 				<tr>
+	 					<td>病区（科别）</td>
+	 					<td>入院</td>
+	 					<td>出院</td>
+	 					<td>转出</td>
+	 					<td>转入</td>
+	 					<td>留院</td>
+	 				</tr>
+	 				<tr>
+	 					<td>总计</td>
+	 					<td>0</td>
+	 					<td>0</td>
+	 					<td>0</td>
+	 					<td>0</td>
+	 					<td>0</td>
+	 				</tr>
+	 			</table>
+	 		</div>
+	 		<div class="right fr">
+	 			<table class="qualityTable">
+	 				<tr>
+	 					<td colspan="6">病区</td>
+	 				</tr>
+	 				<tr>
+	 					<td>病区</td>
+	 					<td>实际床位数</td>
+	 					<td>留院人数</td>
+	 					<td>他科借入</td>
+	 					<td>本科借出</td>
+	 				</tr>
+					<tr>
+	 					<td>总计</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 				</tr>
+	 			</table>
+	 			<table class="qualityTable marginTop">
+	 				<tr>
+	 					<td colspan="6">科室</td>
+	 				</tr>
+	 				<tr>
+	 					<td>病区</td>
+	 					<td>实际床位数</td>
+	 					<td>留院人数</td>
+	 					<td>他科借入</td>
+	 					<td>本科借出</td>
+	 				</tr>
+					<tr>
+	 					<td>总计</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 				</tr>
+	 				<tr>
+	 					<td>总计</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 					<td>20</td>
+	 				</tr>
+	 			</table>
+	 			<table class="qualityTable">
+	 				<tr>
+	 					<td rowspan="2">合计：</td>
+	 					<td>入院人数：<span>0</span></td>
+	 					<td>出院人数：<span>0</span></td>
+	 					<td>留院人数：<span>0</span></td>
+	 					<td>出院者平均住院日：<span></span></td>
+	 				</tr>
+	 				<tr>
+	 					<td>抢救人数：<span>0</span></td>
+	 					<td>死亡人数：<span>0</span></td>
+	 					<td>手术人数：<span>0</span></td>
+	 					<td>病床利用率：<span>0</span></td>
+	 				</tr>
+	 			</table>
+	 		</div>
+	 	</div>
+	</div>
+</body>
+<script>
+	layui.use(['laydate','table'],function () {
+		var laydate = layui.laydate;
+		var table = layui.table;
+		laydate.render({
+	  		elem:'#start2'
+		});
+		laydate.render({
+	  		elem:'#stop2'
+		});
+
+	})
+</script>
+</html>

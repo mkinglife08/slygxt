@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "aaaView";
+   
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Content/doctorIndex.css">
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
+    <link href="~/Content/iconfont/iconfont.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="layui-body my-body">
+        <div class="coRecord">
+            <p class="coWord">病程记录</p>
+            <div class="coSearch clearfix">
+                <p class="seaInput fl">
+                    <span class="word">记录类型</span>
+                    <input type="text" class="text" placeholder="请选择记录类型">
+                </p>
+                <div class="coBtn fl">
+                    <a class="layui-btn"><i class="iconfont">&#xe624;</i>添加</a>
+                    <a class="layui-btn"><i class="iconfont">&#xe6a1;</i>全部隐藏</a>
+                    <a class="layui-btn"><i class="iconfont">&#xe6c9;</i>打印</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="clearfix">
+            <ul class="layui-timeline fl" style="width:200px;border: 1px solid #e6e6e6">
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2018-05-10</h4>
+                        <p>
+                            首次病人记录
+                        </p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-05-12 12：56</h4>
+                        <p>卜医生 主治医师查房</p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-05-15 13：08</h4>
+                        <p>单医生 主治医师查房</p>
+                    </div>
+                </li>
+
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-05-16 11：09</h4>
+                        <p>章医生 主治医师查房</p>
+                    </div>
+                </li>
+
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-08-23 11：00</h4>
+                        <p>日常病程记录</p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-11-21 11：00</h4>
+                        <p>董医生 副主任中医师代主治医师查房</p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">2016-12-15 11：00</h4>
+                        <p>转出记录</p>
+                    </div>
+                </li>
+            </ul>
+            <table class="layui-hide fl" id="test"></table>
+        </div>
+        </div>
+</body>
+
+
+
+</html>
